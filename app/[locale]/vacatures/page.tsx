@@ -180,7 +180,14 @@ export default async function VacanciesPage({ params, searchParams }: PageProps<
 
         <div className="mt-10 lg:grid lg:grid-cols-12 lg:gap-10 xl:gap-12">
           <aside className="hidden lg:col-span-4 lg:block xl:col-span-3">
-            <div className="sticky top-24 -mx-2 max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain px-2 pb-4">
+            {/* Scrollbaar vlak: focusbaar, zodat het ook met het toetsenbord scrolt als alle
+                filters uitgeschakeld zijn (axe scrollable-region-focusable). */}
+            <div
+              tabIndex={0}
+              role="region"
+              aria-label={filterLabels.heading}
+              className="sticky top-24 -mx-2 max-h-[calc(100dvh-7rem)] overflow-y-auto overscroll-contain px-2 pb-4"
+            >
 
               <VacancyFilters action={action} groups={groups} hidden={filterHidden} idPrefix="zijbalk" labels={filterLabels} headingLevel="h2" />
             </div>

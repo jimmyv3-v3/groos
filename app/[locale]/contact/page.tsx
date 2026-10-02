@@ -25,14 +25,15 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/contact"
 
 function Detail({ icon: Icon, label, children }: { icon: typeof Phone; label: string; children: React.ReactNode }) {
   return (
-    <div className="flex gap-4">
-      <span className="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-lg bg-brand-tint text-brand-strong">
-        <Icon className="size-5" aria-hidden="true" />
-      </span>
-      <div className="grid gap-0.5">
-        <dt className="text-sm font-medium text-muted-foreground">{label}</dt>
-        <dd className="text-base text-foreground">{children}</dd>
-      </div>
+    // dt en dd staan direct in de groep (axe definition-list); het icoon hangt in de dt.
+    <div className="relative grid min-h-11 gap-0.5 pl-14">
+      <dt className="text-sm font-medium text-muted-foreground">
+        <span className="absolute top-0.5 left-0 flex size-10 items-center justify-center rounded-lg bg-brand-tint text-brand-strong">
+          <Icon className="size-5" aria-hidden="true" />
+        </span>
+        {label}
+      </dt>
+      <dd className="text-base text-foreground">{children}</dd>
     </div>
   );
 }

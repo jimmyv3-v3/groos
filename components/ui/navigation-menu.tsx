@@ -36,6 +36,12 @@ function NavigationMenuList({
         "group flex flex-1 list-none items-center justify-center gap-1",
         className,
       )}
+      // Base UI zet aria-orientation op de <ul>; dat attribuut hoort niet bij de rol list (axe aria-allowed-attr).
+      render={(listProps) => {
+        const rest = { ...listProps };
+        delete rest["aria-orientation"];
+        return <ul {...rest} />;
+      }}
       {...props}
     />
   );
