@@ -1,8 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 import { DEFAULT_LOCALE_COUNTRIES, routing } from "./i18n/routing";
-import { hasSupabaseEnv } from "./lib/supabase/env";
-import { updateSession } from "./lib/supabase/proxy";
+import { beheerProxy } from "./app/beheer/_lib/proxy";
 
 // Next.js 16 noemt middleware "proxy" (proxy.ts, draait op Node.js). Twee
 // taken: taalrouting voor de publieke site (spec 01 §4.12) en sessieverversing
@@ -28,21 +27,10 @@ function toSecondary(request: NextRequest, locale: string) {
   return url;
 }
 
-/**
- * /beheer: ververs de Supabase-sessie (Server Components kunnen geen cookies
- * schrijven). De toegangsregels (inloggen, MFA) voegt spec 08 toe in
- * app/beheer/_lib/proxy.ts; tot dan alleen verversen en noindex.
- */
-async function beheer(request: NextRequest): Promise<NextResponse> {
-  const response = hasSupabaseEnv() ? (await updateSession(request)).response : NextResponse.next({ request });
-  response.headers.set("X-Robots-Tag", "noindex, nofollow");
-  response.headers.set("Cache-Control", "private, no-store");
-  return response;
-}
-
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  if (pathname === "/beheer" || pathname.startsWith("/beheer/")) return beheer(request);
+  // /beheer: sessieverversing, noindex en optimistische toegangsregels (spec 08 §4.13).
+  if (pathname === "/beheer" || pathname.startsWith("/beheer/")) return beheerProxy(request);
 
   if (!SECONDARY) return intlMiddleware(request);
 
