@@ -4,6 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import { contact } from "@/lib/site";
 import { resolveLocale } from "@/i18n/locale";
 import { pageMetadata } from "@/lib/seo";
+import { getLegalDoc } from "@/lib/legal";
 import { LegalPage, pickLegal, type LegalContent } from "@/components/legal/legal-page";
 
 // Tekst uit spec 09 §6.4; ankers zijn gelijk in nl en en, zodat formulieren
@@ -21,13 +22,13 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
     metaDescription:
       "Lees welke gegevens Groos Personeelsdiensten verwerkt als u solliciteert, personeel aanvraagt of contact opneemt. U leest ook hoe lang wij ze bewaren.",
     intro:
-      "In deze privacyverklaring leggen wij uit welke persoonsgegevens Groos Personeelsdiensten gebruikt en waarom. U leest ook hoe lang wij die gegevens bewaren en welke rechten u heeft.",
+      "Groos Personeelsdiensten gebruikt gegevens van werkzoekenden, uitzendkrachten en opdrachtgevers. Hier staat welke gegevens dat zijn, waarvoor wij ze gebruiken, hoe lang wij ze bewaren en welke rechten u heeft.",
     sections: [
       {
         id: "wie-wij-zijn",
         heading: "Wie wij zijn",
         blocks: [
-          "Groos Personeelsdiensten B.V. is verantwoordelijk voor het gebruik van de persoonsgegevens in deze verklaring. Wij zijn een uitzendbureau in Den Haag en werken met werkzoekenden, uitzendkrachten en opdrachtgevers.",
+          "Groos Personeelsdiensten B.V. bepaalt waarvoor en hoe de persoonsgegevens in deze verklaring worden gebruikt. Wij zijn een uitzendbureau in Den Haag en werken met werkzoekenden, uitzendkrachten en opdrachtgevers.",
           {
             list: [
               `${contact.name}, ${contact.street}, ${contact.postalCode} ${contact.city}`,
@@ -76,9 +77,9 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         id: "inschrijven",
         heading: "Als je je inschrijft zonder vacature",
         blocks: [
-          "Schrijf je je in via de pagina [Inschrijven](/inschrijven), dan vragen wij dezelfde gegevens als bij een sollicitatie. Je vertelt ons ook welk werk je zoekt.",
+          "Schrijf je je in via de pagina [Inschrijven](/inschrijven), dan vragen wij dezelfde gegevens als bij een sollicitatie. Je kunt ons ook vertellen welk werk je zoekt.",
           "Wij gebruiken die gegevens om passend werk voor je te zoeken en je daarvoor te benaderen. Dat doen wij alleen met jouw toestemming, die je geeft met het vakje in het formulier (artikel 6 lid 1 onder a AVG).",
-          "Wij bewaren je inschrijving zolang je via ons werk zoekt, en nooit langer dan een jaar. Hebben wij acht weken geen contact gehad, dan vragen wij of je nog werk zoekt.",
+          "Wij bewaren je inschrijving zolang je via ons werk zoekt, en nooit langer dan een jaar.",
           "Is er twaalf weken geen contact geweest, dan sluiten wij je inschrijving af. Vier weken later verwijderen wij je gegevens automatisch.",
           `Wil je niet meer ingeschreven staan? Stuur dan een mail naar ${MAIL} of bel ons, dan verwijderen wij je gegevens.`,
           "Ben je jonger dan zestien jaar? Dan heb je toestemming van je ouder of voogd nodig om je in te schrijven.",
@@ -261,13 +262,13 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
     metaDescription:
       "Read which personal data Groos Personeelsdiensten processes when you apply, request staff or contact us, and how long we keep it.",
     intro:
-      "In this privacy statement we explain which personal data Groos Personeelsdiensten uses and why. You can also read how long we keep that data and which rights you have. This is a translation of the Dutch text. If the two versions differ, the Dutch version applies.",
+      "Groos Personeelsdiensten uses data of job seekers, temporary workers and clients. Here you can read which data that is, what we use it for, how long we keep it and which rights you have. This is a translation of the Dutch text. If the two versions differ, the Dutch version applies.",
     sections: [
       {
         id: "wie-wij-zijn",
         heading: "Who we are",
         blocks: [
-          "Groos Personeelsdiensten B.V. is the controller for the use of the personal data described in this statement. We are an employment agency in The Hague and work with job seekers, temporary workers and clients.",
+          "Groos Personeelsdiensten B.V. is the controller: we determine why and how the personal data in this statement is used. We are an employment agency in The Hague and work with job seekers, temporary workers and clients.",
           {
             list: [
               `${contact.name}, ${contact.street}, ${contact.postalCode} ${contact.city}`,
@@ -316,9 +317,9 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         id: "inschrijven",
         heading: "When you register without a vacancy",
         blocks: [
-          "If you register through the [Register](/inschrijven) page, we ask for the same data as for an application. You also tell us what kind of work you are looking for.",
+          "If you register through the [Register](/inschrijven) page, we ask for the same data as for an application. You can also tell us what kind of work you are looking for.",
           "We use that data to find suitable work for you and to contact you about it. We only do this with your consent, which you give with the box in the form (Article 6(1)(a) GDPR).",
-          "We keep your registration for as long as you are looking for work through us, and never longer than one year. If we have had no contact for eight weeks, we ask whether you are still looking for work.",
+          "We keep your registration for as long as you are looking for work through us, and never longer than one year.",
           "If there has been no contact for twelve weeks, we close your registration. Four weeks later we delete your data automatically.",
           `No longer want to be registered? Send an email to ${MAIL} or call us, and we will delete your data.`,
           "Are you under sixteen? Then you need permission from your parent or guardian to register.",
@@ -502,7 +503,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/privacyv
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   const c = pickLegal(CONTENT, locale);
-  return pageMetadata({ locale, path: "/privacyverklaring", title: c.title, description: c.metaDescription });
+  return pageMetadata({ locale, path: getLegalDoc("privacy").path, title: c.title, description: c.metaDescription });
 }
 
 export default async function Page({ params }: PageProps<"/[locale]/privacyverklaring">) {

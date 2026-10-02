@@ -2,7 +2,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { resolveLocale } from "@/i18n/locale";
-import { ROUTES } from "@/lib/routes";
 import { pageMetadata } from "@/lib/seo";
 import { getLegalDoc } from "@/lib/legal";
 import { LegalPage, pickLegal, type LegalContent } from "@/components/legal/legal-page";
@@ -34,7 +33,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/algemene
   const c = pickLegal(CONTENT, locale);
   return pageMetadata({
     locale,
-    path: ROUTES.algemeneVoorwaarden,
+    path: getLegalDoc("terms").path,
     title: c.title,
     description: c.metaDescription,
     // Niet indexeren zolang de tekst er niet is (B-11).
