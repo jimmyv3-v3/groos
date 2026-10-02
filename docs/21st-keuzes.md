@@ -40,3 +40,28 @@ Previewbasis: `https://cdn.21st.dev/` plus het pad.
 | Toast | 24297 Toast (cnippet-dev, Base UI) `user_36Tbt0v8JdD4jEycmBFhR8tojnR/toast/default/preview.1786656804488.webp`; 27363 Sonner Toast (isaiahbjork); 19941 Sonner Toast (bundui) | eigen op base-ui `Toast` | nee | geen sonner; wit kaartje, statusicoon, 5 s |
 | Skeleton | geen zoektocht nodig | shadcn `skeleton` | nee | `rounded-lg bg-muted` |
 | Alert | 11329 Alert (coss.com) `coss.com/alert/success/preview.1774275779058.png`; 3587 Alert (sean0205); 29300 Icon Alert (sean0205); 334 Alert (serafimcloud) | eigen, naar shadcn | nee | vijf tonen op tokens; de aanroeper zet de rol |
+
+## Spec 04
+
+Bouwstap 4, homepage en `/over-ons`. Eén scout-sub-agent deed voor alle acht
+plekken van §9.2 tot en met §9.9 de zoekopdrachten (`search`, type component,
+limit 10) en `get_inspiration`. `get_inspiration` gaf alleen ongerelateerde
+bladwijzers. Geen enkele kandidaat was zonder uitgesloten onderdelen (foto's,
+eyebrows, framer-motion, clientstate, gloed), dus alle plekken zijn gebouwd op
+`Card`, `IconTile`, `CtaButton`, `Accordion`, `SectionHeading` en het recept
+van de blauwe afsluiter. Er is in deze stap **geen** `get_component` gedaan
+(0 van 2): ook voor de hero en het vragenblok was de code vooral beeld- en
+clientlogica die eruit zou moeten.
+
+Previewbasis: `https://cdn.21st.dev/` plus het pad.
+
+| Plek | Kandidaten (id, naam, auteur, preview) | Keuze | get_component | Aanpassing |
+|---|---|---|---|---|
+| SA-04-A Hero (`HomeHero`) | **19078** Split Hero With Image Cards (felipemenezes098) `felipemenezes098/hero-08/default/preview.1783679118535.png`; 1122 Hero with text and two button (tommyjepsen) `user_tommyjepsen/hero-with-text-and-two-button/default/preview.png`; 612 Hero 45 (shadcnblockscom); 18890 Feature Hero (uilayout.contact) `uilayout.contact/feature-hero/default/preview.1783645224682.png` | 19078 als opzet (kop, twee gelijke kaarten), belknop naar 1122 | nee | geen foto's, avatars of cijferclaim; deuren als `bg-brand-tint pattern-oo`, beroepen als `CtaButton secondary sm`, belknop secundair met `Phone`; op 390 px compacter (pt-4, mt-5) en een rij zonder schuifbalk om binnen 844 px te blijven |
+| SA-04-B Vacatures (`HomeVacancies`) | 8862 Cards Grid (kavikatiyar) `kavikatiyar/cards-grid/default/preview.1760425786559.png`; 8725 Job Listing (educalvolpz) `larsen66/job-listing/default/preview.1760167097573.png`; 8461 Card Grid (ravikatiyar162) | 8862 alleen als referentie voor de kaartdichtheid | nee | de kaart is van spec 06; omlijsting op `bg-ice` met kop links en link naar alles eronder |
+| SA-04-C Beroepen (`HomeBeroepen`) | **28163** Features Grid (shadcnui-blocks) `shadcnui-blocks/features-01/...`; 18890 Feature Hero (3 + 2 indeling); 2070 Grid Feature Cards (efferd) `user_2tWTE0rCrloVAVylFPYfp10xU92/grid-feature-cards/default/preview.1789739376715.png`; 28299 Icon Feature Grid (felipemenezes098) | 28163 voor de kaart, 3 + 2 via `lg:grid-cols-6` | nee | twee tekstlinks per kaart met `ArrowRight`, `min-h-11`; geen patroon in de kaart |
+| SA-04-D Stappen (`HowItWorks`) | **26891** How It Works Steps (ln-dev7) `ln-dev7/how-it-works-09/...`; 19863 How It Works Timeline (olewandowski1); 26902 Vertical How It Works Timeline (ln-dev7); 28381 Process Timeline (shadcnui-blocks) | typografie van 26891 in de verticale opbouw van 19863 | nee | geen kicker en geen verbindingslijn; cijfer `text-h1 text-brand-subtle aria-hidden`, `<ol>` voor de nummering, één secundaire knop per spoor |
+| SA-04-E Personen (`HomePeople`, `AboutPeople`) | **28542** Team Section (efferd) `user_2tWTE0rCrloVAVylFPYfp10xU92/team-2/default/preview.1789986437032.png`; 17430 Reshaped Avatar (reshaped) `larsen66/reshaped-avatar/initials/preview.1783346696619.png`; 34164 Avatar (appica-dev); 28619 Team Member Cards (olewandowski1) | rustige opzet van 28542 met de initiaal van 17430 | nee | de kaart is `ContactPersonCard` van spec 07 (hier als stub); raster `sm:grid-cols-2 lg:max-w-4xl` |
+| SA-04-F Vragen (`HomeFaq`) | **26656** FAQ Two Column (mohammadshehadeh) `user_registry_hirael_1783483345472/faq-05/default/preview.1788855440271.webp`; 29953 FAQ Tabs Card (arihantcodes_1f7b8c4d) `arihantcodes_1f7b8c4d/faq-tabs-card/...`; 24859 Categorized FAQ (educalvolpz); 28210 Categorized FAQ (diarmuradi); 27097 afgevallen (kolom per categorie) | opzet van 26656 (kop links, vragen rechts) met de wissel van 29953 | nee | wissel als twee native keuzerondjes op `bg-muted`, gekozen label `bg-background shadow-xs`; zichtbaarheid met `group-has-[#faq-tab-werkgever:checked]/faq`; `Accordion` op `<details>` |
+| SA-04-G Afsluiter (`CtaBand`) | **1414** Call to action (tommyjepsen) `user_tommyjepsen/call-to-action/default/preview.1786552329192.png`; 28155 CTA Section (shadcndesign); 18475 Call to Action (felipemenezes098) `felipemenezes098/cta-01/default/preview.1783582022910.png` | opbouw van 1414 met het blauwe vlak van 28155 | nee | `.surface-brand pattern-oo rounded-2xl`, nummer als onderstreepte link in de zin, geen badge |
+| SA-04-H Over ons (`AboutStory`, `AboutArea`, `AboutApproach`) | 28310 Split Content Section (felipemenezes098); 6289 About Section (uilayout.contact); 2202 About 3 (shadcnblockscom); 6906 About (prebuiltui); aanvullend 5689 Contact Card (efferd) | 28310 voor kop en tekst naast elkaar, 5689 voor het adresblok, 28163 voor de vier kaarten | nee | geen beelden, logo's of cijfers; adres als `Card variant="tint"` met `<address>` uit `lib/site.ts` |
