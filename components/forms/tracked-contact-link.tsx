@@ -9,7 +9,7 @@ import type { FormId } from "@/lib/validation/shared";
 type TrackedContactLinkProps = {
   href: string;
   label: string;
-  ariaLabel: string;
+  ariaLabel?: string;
   kind: "call" | "whatsapp";
   form: FormId;
   beroep?: OccupationSlug;

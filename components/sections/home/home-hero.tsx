@@ -69,7 +69,7 @@ export async function HomeHero() {
                 className="px-3 text-center max-sm:text-sm max-sm:leading-tight max-sm:whitespace-normal sm:px-5 md:max-lg:px-3 md:max-lg:text-sm md:max-lg:leading-tight md:max-lg:whitespace-normal"
               >
                 <Phone aria-hidden />
-                {tCommon("cta.callDirect")}
+                {tCommon("cta.call")}
               </CtaButton>
             </div>
             <p className="mt-3 text-sm text-muted-foreground md:mt-auto md:pt-3">

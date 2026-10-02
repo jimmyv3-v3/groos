@@ -1,5 +1,6 @@
 import { findBeroepBySlug, getBeroep, type BeroepId, type Perspectief } from "@/content/beroepen";
 import { getLegalDoc } from "@/lib/legal";
+import { parseVacancySlug } from "@/lib/data/vacancy-search-params"; // client-veilig, geen databasequery (B-55)
 import type { NavKey } from "@/lib/site"; // alleen een type, dus geen kringafhankelijkheid tijdens runtime
 
 /**
@@ -173,9 +174,11 @@ export const NOT_FOUND_PATH = "/pagina-niet-gevonden";
 const IMAGE_ROUTE = /^(opengraph-image|twitter-image)(-[\w-]+)?$/;
 
 /**
- * Of een pad (met of zonder taalprefix) bij een bestaande pagina hoort. Houd
- * gelijk aan de mappen onder app/[locale]. Vacatureslugs komen uit de database;
- * die pagina geeft zelf notFound().
+ * Of een pad (met of zonder taalprefix) bij een bestaande pagina hoort (B-55).
+ * Houd gelijk aan de mappen onder app/[locale]: elke nieuwe publieke route
+ * voegt zichzelf hier toe. Een vacatureslug telt alleen met een geldig
+ * vacaturenummer (parseVacancySlug); of die vacature bestaat, weet alleen de
+ * database, dus die pagina geeft zelf notFound().
  */
 export function isKnownPath(pathname: string): boolean {
   let p = normalize(pathname);
@@ -190,7 +193,7 @@ export function isKnownPath(pathname: string): boolean {
   const [section, slug] = parts;
   switch (section) {
     case "vacatures":
-      return true;
+      return parseVacancySlug(slug) !== null;
     case "werken-als":
       return findBeroepBySlug("werkzoekende", slug) !== undefined;
     case "werkgevers":

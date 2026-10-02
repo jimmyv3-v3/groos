@@ -40,7 +40,7 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers">
   const ctas: CtaLink[] = [
     { label: t("common.cta.requestStaff"), href: ROUTES.personeelAanvragen, variant: "primary" },
     {
-      label: t("common.cta.callDirect"),
+      label: t("common.cta.call"),
       href: contact.phoneHref,
       variant: "secondary",
       icon: <Phone aria-hidden="true" />,

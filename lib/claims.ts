@@ -7,7 +7,8 @@
  */
 const flags = {
   afterHoursUrgent: false, // TODO bevestigen (CL-06, B-22): buiten kantoortijden bereikbaar voor spoed, en via welk nummer
-  responseTime: false, // TODO bevestigen (CL-05, CL-09): reactie binnen één werkdag op sollicitaties en aanvragen
+  responseTime: false, // TODO bevestigen (CL-05): reactie binnen één werkdag op sollicitaties en aanvragen; noemt nooit een levertermijn (B-49)
+  deliverySpeed: false, // TODO bevestigen (CL-09, B-49): hoe snel Groos iemand kan laten beginnen, met termijn
   personalIntake: false, // TODO bevestigen (werkwijze): elke kandidaat wordt vóór plaatsing persoonlijk gesproken
   weeklyPay: false, // TODO bevestigen (CL-10): uitbetaling per week
   replacement: false, // TODO bevestigen (werkwijze): vervanging bij uitval, met termijn

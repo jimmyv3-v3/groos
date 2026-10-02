@@ -3,14 +3,15 @@ import { cache, createElement, type ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import { MessageCircle, Phone, Send, ClipboardList } from "lucide-react";
 import { beroepen, type Perspectief } from "@/content/beroepen";
-import { contact, footerColumns, legalLinks, nav, whatsappLink, type FooterColumnKey, type NavKey } from "@/lib/site";
-import { ROUTES, paths, routeMeta, type AppPath, type HeaderCtaKey, type StaticPath } from "@/lib/routes";
+import { contact, footerColumns, nav, whatsappLink, type FooterColumnKey, type NavKey } from "@/lib/site";
+import { ROUTES, paths, type AppPath, type HeaderCtaKey, type StaticPath } from "@/lib/routes";
 
 /**
- * Navigatiemodel (spec 01 §5.4): lost nav, footerColumns en legalLinks uit
- * lib/site.ts op voor de huidige taal. Server components geven het resultaat
- * als props aan de clienteilanden, zodat de namespaces header en footer niet
- * naar de browser gaan.
+ * Navigatiemodel (spec 01 §5.4): lost nav, headerCtas, actions en
+ * footerColumns uit lib/site.ts op voor de huidige taal. Server components
+ * geven het resultaat als props aan de clienteilanden, zodat de namespaces
+ * header en footer niet naar de browser gaan. Juridische links haalt de
+ * footer via FooterLegal (spec 09).
  */
 
 export type ResolvedLink = { href: AppPath; label: string; icon?: ReactNode; emphasis?: boolean };
@@ -33,19 +34,16 @@ export type NavModel = {
   headerCtas: Record<HeaderCtaKey, ResolvedLink>;
   actions: Record<ActionKey, ResolvedAction>;
   footerColumns: { key: FooterColumnKey; title: string; links: ResolvedLink[] }[];
-  /** Alleen gepubliceerde routes. */
-  legalLinks: ResolvedLink[];
 };
 
 const icon = (Icon: typeof Phone) => createElement(Icon, { "aria-hidden": true });
 
 export const getNavModel = cache(async (): Promise<NavModel> => {
-  const [t, tb, tc, tf, tl] = await Promise.all([
+  const [t, tb, tc, tf] = await Promise.all([
     getTranslations("header"),
     getTranslations("beroepen"),
     getTranslations("common"),
     getTranslations("footer"),
-    getTranslations("legal"),
   ]);
 
   const beroepLinks = (perspectief: Perspectief): ResolvedLink[] =>
@@ -81,11 +79,12 @@ export const getNavModel = cache(async (): Promise<NavModel> => {
     return resolved;
   });
 
+  // Knoplabels uit common.cta (spec 01 §4.4); header.nav.* blijft voor de menulinks.
   const headerCtas: Record<HeaderCtaKey, ResolvedLink> = {
-    inschrijven: { href: ROUTES.inschrijven, label: t("nav.inschrijven") },
+    inschrijven: { href: ROUTES.inschrijven, label: tc("cta.register") },
     vacatures: { href: ROUTES.vacatures, label: tc("cta.viewJobs") },
     personeelAanvragen: { href: ROUTES.personeelAanvragen, label: tc("cta.requestStaff") },
-    contact: { href: ROUTES.contact, label: t("nav.contact") },
+    contact: { href: ROUTES.contact, label: tc("cta.contact") },
   };
 
   const whatsapp = (text: string): ResolvedAction => ({
@@ -120,9 +119,5 @@ export const getNavModel = cache(async (): Promise<NavModel> => {
     ),
   }));
 
-  const resolvedLegal = legalLinks
-    .filter((link) => routeMeta(link.href).published)
-    .map((link) => ({ href: link.href, label: tl(`nav.${link.key}`) }));
-
-  return { items, headerCtas, actions, footerColumns: resolvedFooter, legalLinks: resolvedLegal };
+  return { items, headerCtas, actions, footerColumns: resolvedFooter };
 });
