@@ -1,0 +1,14 @@
+{
+  "register": {
+    "meta": {
+      "title": "Inschrijven of open solliciteren",
+      "description": "Schrijf je in bij Groos en vertel welk werk je zoekt en wanneer je kunt beginnen. Inschrijven kost niets en een cv is niet nodig."
+    }
+  },
+  "staffRequest": {
+    "meta": {
+      "title": "Personeel aanvragen",
+      "description": "Vertel ons welke mensen u zoekt, vanaf wanneer en voor hoe lang. Wij nemen daarna contact met u op om uw aanvraag te bespreken."
+    }
+  }
+}

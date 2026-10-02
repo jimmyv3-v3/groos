@@ -1,0 +1,82 @@
+{
+  "cta": {
+    "viewJobs": "Bekijk vacatures",
+    "viewJob": "Bekijk vacature",
+    "viewAllJobs": "Bekijk alle vacatures",
+    "apply": "Solliciteer direct",
+    "register": "Schrijf je in",
+    "requestStaff": "Personeel aanvragen",
+    "call": "Bel ons",
+    "callDirect": "Bel direct",
+    "callPerson": "Bel {name}",
+    "whatsapp": "App ons",
+    "whatsappPerson": "App {name}",
+    "email": "Mail ons",
+    "contact": "Neem contact op",
+    "readMoreLink": "Lees meer over {subject}"
+  },
+  "whatsapp": {
+    "algemeen": "Hallo Groos, ik heb een vraag.",
+    "werkzoekende": "Hallo Groos, ik zoek werk en wil graag meer weten.",
+    "werkzoekendeBeroep": "Hallo Groos, ik zoek werk als {occupation}.",
+    "werkgever": "Hallo Groos, ik zoek personeel en wil graag een aanvraag bespreken.",
+    "werkgeverBeroep": "Hallo Groos, ik zoek {occupationPlural} en wil graag een aanvraag bespreken.",
+    "vacatureSolliciteren": "Hallo Groos, ik wil graag solliciteren op de vacature {title} (nummer {number}).",
+    "vacatureVraag": "Hallo Groos, ik heb een vraag over de vacature {title} (nummer {number})."
+  },
+  "opensInNewTab": "(opent in een nieuw venster)",
+  "languageSwitcher": {
+    "label": "Taal kiezen",
+    "nl": "Nederlands",
+    "en": "English"
+  },
+  "breadcrumbs": {
+    "label": "Kruimelpad",
+    "home": "Home"
+  },
+  "address": {
+    "byAppointment": "Langskomen kan alleen op afspraak."
+  },
+  "people": {
+    "jimmy": {
+      "role": "Contactpersoon"
+    },
+    "lorenzo": {
+      "role": "Contactpersoon"
+    }
+  },
+  "loading": "Bezig met laden",
+  "a11y": {
+    "callPerson": "Bel {name} op {phone}",
+    "whatsappPerson": "Stuur {name} een WhatsApp-bericht",
+    "emailAddress": "Mail naar {email}"
+  },
+  "contact": {
+    "phone": "Telefoon",
+    "whatsapp": "WhatsApp",
+    "email": "E-mail",
+    "address": "Adres",
+    "contactPersons": "Contactpersonen",
+    "officeHours": "Kantoortijden",
+    "afterHours": "Buiten kantoortijden zijn wij bereikbaar voor spoed."
+  },
+  "notes": {
+    "freeJobseeker": "Solliciteren en inschrijven kost je niets.",
+    "cvOptionalJobseeker": "Je kunt ook zonder cv solliciteren.",
+    "responseJobseeker": "Wij reageren binnen één werkdag op je sollicitatie.",
+    "noObligationEmployer": "Een aanvraag doen is vrijblijvend.",
+    "responseEmployer": "Wij reageren binnen één werkdag op uw aanvraag.",
+    "urgentEmployer": "Heeft u vandaag of morgen mensen nodig? Bel ons dan direct."
+  },
+  "labels": {
+    "faq": "Veelgestelde vragen"
+  },
+  "format": {
+    "wagePerHour": "{amount} bruto per uur",
+    "wageRange": "{min} tot {max} bruto per uur",
+    "hoursPerWeek": "{hours} uur per week",
+    "hoursRange": "{min} tot {max} uur per week",
+    "time": "{time} uur",
+    "timeRange": "{start} tot {end} uur"
+  }
+}

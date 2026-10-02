@@ -9,17 +9,17 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
  * tegels zonder foto tonen een placeholder.
  */
 export function Projects() {
-  const t = useTranslations("home.projects");
+  const t = useTranslations("home");
   return (
     <section id="projecten" className="relative scroll-mt-24 py-24 sm:py-32">
       <div className="container relative">
         <Reveal className="max-w-2xl">
           <h2 className="text-h2">
-            {t("titleLead")}{" "}
-            <span className="accent-text">{t("titleAccent")}</span>
+            {t("projects.titleLead")}{" "}
+            <span className="accent-text">{t("projects.titleAccent")}</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            {t("intro")}
+            {t("projects.intro")}
           </p>
         </Reveal>
 
@@ -35,14 +35,14 @@ export function Projects() {
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={photo.src}
-                    alt={t(photo.altKey)}
+                    alt={t(`projects.${photo.altKey}`)}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-muted">
                     <ImageIcon className="h-6 w-6 text-brand-subtle" aria-hidden />
-                    <span className="sr-only">{t(photo.altKey)}</span>
+                    <span className="sr-only">{t(`projects.${photo.altKey}`)}</span>
                   </div>
                 )}
                 <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

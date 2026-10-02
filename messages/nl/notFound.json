@@ -1,0 +1,12 @@
+{
+  "metaTitle": "Pagina niet gevonden",
+  "title": "Deze pagina bestaat niet of niet meer",
+  "body": "Misschien is de link verouderd of is de vacature al vervuld. Hieronder staan de pagina's die bezoekers het vaakst zoeken.",
+  "linksLabel": "Veelgezochte pagina's",
+  "links": {
+    "vacatures": "Bekijk vacatures",
+    "personeel": "Personeel aanvragen",
+    "contact": "Neem contact op"
+  },
+  "home": "Ga naar de homepage"
+}

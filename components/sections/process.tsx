@@ -4,8 +4,8 @@ import { SectionHeading } from "./section-heading";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 
 export function Process() {
-  const t = useTranslations("home.process");
-  const stepText = t.raw("steps") as { title: string; body: string }[];
+  const t = useTranslations("home");
+  const stepText = t.raw("process.steps") as { title: string; body: string }[];
   return (
     <section
       id="werkwijze"
@@ -13,9 +13,9 @@ export function Process() {
     >
       <div className="container">
         <SectionHeading
-          title={t("title")}
-          accent={t("accent")}
-          intro={t("intro")}
+          title={t("process.title")}
+          accent={t("process.accent")}
+          intro={t("process.intro")}
         />
 
         <RevealGroup className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">

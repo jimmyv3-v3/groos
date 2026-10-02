@@ -1,0 +1,14 @@
+{
+  "register": {
+    "meta": {
+      "title": "Register or apply openly",
+      "description": "Register with Groos and tell us what work you are looking for and when you can start. Registering is free and you do not need a CV."
+    }
+  },
+  "staffRequest": {
+    "meta": {
+      "title": "Request staff",
+      "description": "Tell us which people you need, from when and for how long. We will then contact you to discuss your request."
+    }
+  }
+}

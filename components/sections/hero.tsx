@@ -24,7 +24,7 @@ export function Hero() {
       id="top"
       className="relative flex items-start overflow-hidden lg:min-h-[72svh]"
     >
-      <div className="container relative z-10 pt-24 pb-10 sm:pt-28 lg:pb-0">
+      <div className="container relative z-10 pt-10 pb-10 sm:pt-14 lg:pb-0">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div className="max-w-2xl">
           <motion.h1
@@ -49,8 +49,8 @@ export function Hero() {
             {...rise(0.4)}
             className="mt-8 flex flex-wrap items-center gap-3"
           >
-            <CtaButton href="#contact" size="default">
-              {t("common.cta.requestQuote")}
+            <CtaButton href="/werkgevers/personeel-aanvragen" size="default">
+              {t("common.cta.requestStaff")}
               <ArrowRight className="h-4 w-4" />
             </CtaButton>
             <CtaButton href={contact.phoneHref} variant="secondary" size="default">

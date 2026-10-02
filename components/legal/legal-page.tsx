@@ -1,11 +1,10 @@
 import { useTranslations } from "next-intl";
-import { SiteHeader } from "@/components/sections/site-header";
-import { SiteFooter } from "@/components/sections/site-footer";
 import { CtaButton } from "@/components/ui/cta-button";
 
 /**
- * Shared layout for long-form legal pages (privacybeleid, algemene voorwaarden).
- * Renders the site chrome, a header band and a readable single-column document.
+ * Long-form juridische pagina (privacyverklaring, algemene voorwaarden). De
+ * layout rendert header, main en footer; dit is een <article> met kopband en
+ * document. Spec 09 herschrijft dit component in bouwstap 8.
  * Content is passed as structured data so each page stays easy to edit.
  *
  * A block is either a paragraph (string) or a bullet list ({ list: [] }).
@@ -28,11 +27,9 @@ export function LegalPage({
 }) {
   const t = useTranslations("legal");
   return (
-    <>
-      <SiteHeader />
-      <main>
+    <article>
         {/* Header band */}
-        <section className="relative overflow-hidden pb-14 pt-36 sm:pb-16 sm:pt-44">
+        <section className="relative overflow-hidden pb-14 pt-12 sm:pb-16 sm:pt-16">
           <div className="container relative max-w-3xl">
             <h1 className="text-h1">
               {title}
@@ -88,15 +85,13 @@ export function LegalPage({
                 {t("contactQuestion")}
               </p>
               <div className="mt-6 flex justify-center">
-                <CtaButton href="/#contact" size="lg">
+                <CtaButton href="/contact" size="lg">
                   {t("contactCta")}
                 </CtaButton>
               </div>
             </div>
           </div>
         </section>
-      </main>
-      <SiteFooter />
-    </>
+    </article>
   );
 }

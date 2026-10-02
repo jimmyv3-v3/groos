@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
+import { resolveLocale } from "@/i18n/locale";
 import {
   ArrowRight,
   Briefcase,
@@ -120,8 +121,8 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 
 export default async function Stijlgids({ params }: { params: Promise<{ locale: string }> }) {
   if (process.env.NODE_ENV === "production") notFound();
-  const { locale } = await params;
-  setRequestLocale(locale);
+  const { locale: raw } = await params;
+  setRequestLocale(resolveLocale(raw));
 
   return (
     <main className="container pb-24">

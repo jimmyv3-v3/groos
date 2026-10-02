@@ -1,0 +1,18 @@
+{
+  "application": {
+    "metaTitle": "Bedankt voor je sollicitatie",
+    "title": "Bedankt voor je sollicitatie"
+  },
+  "registration": {
+    "metaTitle": "Bedankt voor je inschrijving",
+    "title": "Bedankt voor je inschrijving"
+  },
+  "staffRequest": {
+    "metaTitle": "Bedankt voor uw aanvraag",
+    "title": "Bedankt voor uw aanvraag"
+  },
+  "contact": {
+    "metaTitle": "Bedankt voor uw bericht",
+    "title": "Bedankt voor uw bericht"
+  }
+}

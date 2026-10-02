@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "title": "Jobs in The Hague and surroundings",
+    "description": "See the open jobs at Groos in The Hague and the surrounding area, with hourly pay and working hours. You can apply in a few minutes, even without a CV.",
+    "pagedTitle": "Jobs in The Hague and surroundings, page {page}",
+    "pagedDescription": "Page {page} of the open jobs at Groos in The Hague and the surrounding area, with hourly pay and working hours. You can apply in a few minutes, even without a CV.",
+    "detailTitle": "{title} in {city}",
+    "detailDescription": "{title} in {city} for {hours}, {wage}. {start} Apply at Groos, even without a CV.",
+    "detailDescriptionShort": "{title} in {city} for {hours}, {wage}. Apply at Groos, even without a CV.",
+    "startAsap": "You can start right away.",
+    "startDate": "You start on {date}.",
+    "closedTitleFilled": "{title} in {city} (filled)",
+    "closedTitleOther": "{title} in {city} (closed)",
+    "closedDescriptionFilled": "This job has been filled. See similar work as a {occupation} in {city} or register with Groos and we will help you look.",
+    "closedDescriptionOther": "This job is closed. See similar work as a {occupation} in {city} or register with Groos and we will help you look.",
+    "ogAlt": "Job {title} in {city} at Groos Personeelsdiensten, with hours and gross hourly pay"
+  },
+  "og": {
+    "label": "Job",
+    "closed": "This job is closed"
+  }
+}

@@ -3,8 +3,8 @@ import { useTranslations } from "next-intl";
 import { Reveal } from "@/components/motion/reveal";
 
 export default function Faq() {
-  const t = useTranslations("home.faq");
-  const items = t.raw("items") as { q: string; a: string }[];
+  const t = useTranslations("home");
+  const items = t.raw("faq.items") as { q: string; a: string }[];
   return (
     <section
       aria-labelledby="faq-heading"
@@ -17,9 +17,9 @@ export default function Faq() {
               id="faq-heading"
               className="mb-12 text-h2"
             >
-              {t("heading")}{" "}
+              {t("faq.heading")}{" "}
               <span className="accent-text">
-                {t("headingAccent")}
+                {t("faq.headingAccent")}
               </span>
             </h2>
           </Reveal>

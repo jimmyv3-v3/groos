@@ -1,0 +1,29 @@
+{
+  "glazenwasser": {
+    "enkelvoud": "Window cleaner",
+    "meervoud": "Window cleaners"
+  },
+  "schoonmaker": {
+    "enkelvoud": "Cleaner",
+    "meervoud": "Cleaners"
+  },
+  "logistiek-medewerker": {
+    "enkelvoud": "Logistics worker",
+    "meervoud": "Logistics workers"
+  },
+  "verhuizer": {
+    "enkelvoud": "Mover",
+    "meervoud": "Movers"
+  },
+  "hulpkracht-bouw-en-sloop": {
+    "enkelvoud": "Construction and demolition labourer",
+    "meervoud": "Construction and demolition labourers"
+  },
+  "og": {
+    "werkzoekende": "Work as a {beroep} in The Hague",
+    "werkgever": "{beroepen} for your business in The Hague"
+  },
+  "placeholder": {
+    "description": "TODO description per occupation (spec 05)"
+  }
+}

@@ -30,7 +30,7 @@ export function ServiceCta({
           )}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <CtaButton href="#offerte" size="default">
-              {t("common.cta.requestQuote")}
+              {t("common.cta.requestStaff")}
               <ArrowRight className="h-4 w-4" />
             </CtaButton>
             <CtaButton href={contact.phoneHref} variant="secondary" size="default">
@@ -39,7 +39,7 @@ export function ServiceCta({
             </CtaButton>
           </div>
           <p className="mt-5 text-xs text-muted-foreground">
-            {t("service.ctaNote")}
+            {t("common.notes.noObligationEmployer")}
           </p>
         </Reveal>
       </div>

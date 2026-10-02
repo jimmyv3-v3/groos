@@ -3,11 +3,11 @@ import { usps } from "@/lib/site";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 
 export function TrustBar() {
-  const t = useTranslations("home.trustBar");
-  const items = t.raw("items") as { title: string; body: string }[];
+  const t = useTranslations("home");
+  const items = t.raw("trustBar.items") as { title: string; body: string }[];
   return (
     <section
-      aria-label={t("ariaLabel")}
+      aria-label={t("trustBar.ariaLabel")}
       className="relative border-y border-border/60 bg-card/30"
     >
       <div className="container py-16 sm:py-20">

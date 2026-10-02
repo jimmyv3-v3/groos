@@ -1,0 +1,29 @@
+{
+  "glazenwasser": {
+    "enkelvoud": "Glazenwasser",
+    "meervoud": "Glazenwassers"
+  },
+  "schoonmaker": {
+    "enkelvoud": "Schoonmaker",
+    "meervoud": "Schoonmakers"
+  },
+  "logistiek-medewerker": {
+    "enkelvoud": "Logistiek medewerker",
+    "meervoud": "Logistiek medewerkers"
+  },
+  "verhuizer": {
+    "enkelvoud": "Verhuizer",
+    "meervoud": "Verhuizers"
+  },
+  "hulpkracht-bouw-en-sloop": {
+    "enkelvoud": "Hulpkracht bouw en sloop",
+    "meervoud": "Hulpkrachten bouw en sloop"
+  },
+  "og": {
+    "werkzoekende": "Werken als {beroep} in Den Haag",
+    "werkgever": "{beroepen} voor uw bedrijf in Den Haag"
+  },
+  "placeholder": {
+    "description": "TODO beschrijving per beroep (spec 05)"
+  }
+}

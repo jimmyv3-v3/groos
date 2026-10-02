@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { Monogram } from "@/components/brand/monogram";
 
 export function About() {
-  const t = useTranslations("home.about");
+  const t = useTranslations("home");
   return (
     <section
       id="over-ons"
@@ -19,7 +19,7 @@ export function About() {
         <div className="max-w-2xl">
           <Reveal>
             <h2 className="text-h2">
-              {t.rich("title", {
+              {t.rich("about.title", {
                 accent: (chunks) => (
                   <span className="accent-text">{chunks}</span>
                 ),
@@ -29,14 +29,14 @@ export function About() {
 
           <Reveal delay={0.12}>
             <div className="mt-7 space-y-5 text-base leading-relaxed text-muted-foreground">
-              <p>{t("p1")}</p>
-              <p>{t("p2")}</p>
+              <p>{t("about.p1")}</p>
+              <p>{t("about.p2")}</p>
             </div>
           </Reveal>
 
           <Reveal delay={0.2}>
             <p className="mt-8 text-sm text-muted-foreground">
-              {t("location", { city: contact.city })}
+              {t("about.location", { city: contact.city })}
             </p>
           </Reveal>
         </div>

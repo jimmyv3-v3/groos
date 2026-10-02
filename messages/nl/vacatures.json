@@ -1,0 +1,22 @@
+{
+  "meta": {
+    "title": "Vacatures in Den Haag en omgeving",
+    "description": "Bekijk de open vacatures van Groos in Den Haag en omgeving, met uurloon en werktijden. Je solliciteert in een paar minuten, ook zonder cv.",
+    "pagedTitle": "Vacatures in Den Haag en omgeving, pagina {page}",
+    "pagedDescription": "Pagina {page} van de open vacatures van Groos in Den Haag en omgeving, met uurloon en werktijden. Je solliciteert in een paar minuten, ook zonder cv.",
+    "detailTitle": "{title} in {city}",
+    "detailDescription": "{title} in {city} voor {hours}, {wage}. {start} Solliciteer bij Groos, ook zonder cv.",
+    "detailDescriptionShort": "{title} in {city} voor {hours}, {wage}. Solliciteer bij Groos, ook zonder cv.",
+    "startAsap": "Je kunt direct beginnen.",
+    "startDate": "Je begint op {date}.",
+    "closedTitleFilled": "{title} in {city} (vervuld)",
+    "closedTitleOther": "{title} in {city} (gesloten)",
+    "closedDescriptionFilled": "Deze vacature is vervuld. Bekijk vergelijkbaar werk als {occupation} in {city} of schrijf je in bij Groos, dan zoeken wij met je mee.",
+    "closedDescriptionOther": "Deze vacature is gesloten. Bekijk vergelijkbaar werk als {occupation} in {city} of schrijf je in bij Groos, dan zoeken wij met je mee.",
+    "ogAlt": "Vacature {title} in {city} bij Groos Personeelsdiensten, met uren en bruto uurloon"
+  },
+  "og": {
+    "label": "Vacature",
+    "closed": "Deze vacature is gesloten"
+  }
+}

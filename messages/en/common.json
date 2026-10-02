@@ -1,0 +1,82 @@
+{
+  "cta": {
+    "viewJobs": "View jobs",
+    "viewJob": "View job",
+    "viewAllJobs": "View all jobs",
+    "apply": "Apply now",
+    "register": "Register",
+    "requestStaff": "Request staff",
+    "call": "Call us",
+    "callDirect": "Call now",
+    "callPerson": "Call {name}",
+    "whatsapp": "WhatsApp us",
+    "whatsappPerson": "WhatsApp {name}",
+    "email": "Email us",
+    "contact": "Contact us",
+    "readMoreLink": "Read more about {subject}"
+  },
+  "whatsapp": {
+    "algemeen": "Hello Groos, I have a question.",
+    "werkzoekende": "Hello Groos, I am looking for work and would like to know more.",
+    "werkzoekendeBeroep": "Hello Groos, I am looking for work as a {occupation}.",
+    "werkgever": "Hello Groos, I am looking for staff and would like to discuss a request.",
+    "werkgeverBeroep": "Hello Groos, I am looking for {occupationPlural} and would like to discuss a request.",
+    "vacatureSolliciteren": "Hello Groos, I would like to apply for the job {title} (number {number}).",
+    "vacatureVraag": "Hello Groos, I have a question about the job {title} (number {number})."
+  },
+  "opensInNewTab": "(opens in a new window)",
+  "languageSwitcher": {
+    "label": "Choose language",
+    "nl": "Nederlands",
+    "en": "English"
+  },
+  "breadcrumbs": {
+    "label": "Breadcrumb",
+    "home": "Home"
+  },
+  "address": {
+    "byAppointment": "Visits are by appointment only."
+  },
+  "people": {
+    "jimmy": {
+      "role": "Contact person"
+    },
+    "lorenzo": {
+      "role": "Contact person"
+    }
+  },
+  "loading": "Loading",
+  "a11y": {
+    "callPerson": "Call {name} on {phone}",
+    "whatsappPerson": "Send {name} a WhatsApp message",
+    "emailAddress": "Email {email}"
+  },
+  "contact": {
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "address": "Address",
+    "contactPersons": "Contacts",
+    "officeHours": "Office hours",
+    "afterHours": "Outside office hours we can be reached for urgent requests."
+  },
+  "notes": {
+    "freeJobseeker": "Applying and registering with us is free of charge.",
+    "cvOptionalJobseeker": "You can also apply without a CV.",
+    "responseJobseeker": "We respond to your application within one working day.",
+    "noObligationEmployer": "Submitting a request places you under no obligation.",
+    "responseEmployer": "We respond to your request within one working day.",
+    "urgentEmployer": "Do you need people today or tomorrow? Then call us directly."
+  },
+  "labels": {
+    "faq": "Frequently asked questions"
+  },
+  "format": {
+    "wagePerHour": "{amount} gross per hour",
+    "wageRange": "{min} to {max} gross per hour",
+    "hoursPerWeek": "{hours} hours per week",
+    "hoursRange": "{min} to {max} hours per week",
+    "time": "{time}",
+    "timeRange": "{start} to {end}"
+  }
+}

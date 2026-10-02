@@ -47,16 +47,23 @@
 | Wat                                             | Waar                                    |
 | ----------------------------------------------- | --------------------------------------- |
 | Route / pagina                                   | `app/[locale]/<route>/page.tsx`          |
+| Vaste paden, padhelpers, doelgroep per pad       | `lib/routes.ts`                          |
+| Beroepenregister (id's, slugs, iconen, volgorde) | `content/beroepen/index.ts`              |
+| Header, footer, actiebalk, kruimelpad            | `components/sections/` (+ `header/*`)    |
 | Paginasectie (hero, raster, FAQ…)                | `components/sections/`                   |
-| Bouwstenen van detailpagina's                    | `components/service/`                    |
+| Bouwstenen van beroepspagina's                   | `components/service/`, `components/beroep/` |
+| Formulieren                                      | `components/forms/`, `app/actions/`      |
 | Primitive (knop, input…)                         | `components/ui/`                         |
-| Merk-CTA (alle offerte- en belknoppen)           | `components/ui/cta-button.tsx`           |
+| Merk-CTA (alle aanvraag- en belknoppen)          | `components/ui/cta-button.tsx`           |
 | Logo (`Logo`, `LogoMark`, paden in JSON)         | `components/brand/`                      |
-| Bedrijfsgegevens, navigatie, iconen, cijfers     | `lib/site.ts`                            |
+| Bedrijfsgegevens, personen, navigatie, footer    | `lib/site.ts`                            |
+| Opgelost navigatiemodel (server)                 | `lib/navigation.ts`                      |
 | Merk-hexwaarden (OG, favicon, themakleur)        | `lib/brand.ts`                           |
 | SEO-helpers en JSON-LD-builders                  | `lib/seo.ts`, `components/seo/json-ld.tsx` |
-| Korte UI-tekst en kaarttekst (NL/EN)             | `messages/nl.json`, `messages/en.json`   |
-| Lange paginatekst per dienst/stad (NL/EN)        | `content/services/`, `content/werkgebied/` |
+| Korte UI-tekst en kaarttekst (NL/EN)             | `messages/<taal>/<namespace>.json`       |
+| Lange paginatekst per beroep of vaste pagina     | `content/beroepen/<id>.ts`, `content/pages/` |
+| Datalaag, Supabase                               | `lib/data/`, `lib/supabase/`, `supabase/` |
+| Beheeromgeving                                   | `app/beheer/` (eigen root-layout)        |
 | Design tokens (kleur, radius, fonts)             | `app/globals.css`                        |
 | Afbeeldingen, logo-bestanden                     | `public/`                                |
 | Bedrijfscontext en research                      | `context/`                               |
@@ -81,17 +88,33 @@ Signature-klassen: `.accent-text`, `.surface-brand`, `.pattern-oo`,
 controleert contrast en gelijkheid. Primitives en knoppen: `components/ui/*`
 en `CtaButton`/`ctaButtonVariants`; overzicht op `/stijlgids` (alleen dev).
 
-## Tekst en vertaling: drie mechanismen
+## Tekst en vertaling
 
-1. **UI- en kaarttekst** → `messages/<locale>.json` met gespiegelde sleutels
-   (`npm run check` bewaakt dat). Lezen met `useTranslations`/`getTranslations`.
+1. **UI- en kaarttekst** → `messages/<taal>/<namespace>.json`, één bestand per
+   namespace per taal (`common`, `meta`, `header`, `footer`, `notFound`,
+   `error`, `home`, `about`, `werkzoekenden`, `werkgevers`, `beroepen`,
+   `vacatures`, `forms`, `contact`, `bedankt`, `legal`). Elke spec werkt alleen
+   in zijn eigen namespaces (eigenaarschap in `docs/specs/00-overzicht.md`
+   §4.4a), zodat specs parallel kunnen werken. `messages/<taal>/index.ts` voegt
+   de bestanden samen met statische imports; `i18n/request.ts` laadt de juiste
+   taal. Een nieuwe namespace: JSON in `nl/` én `en/` plus een import in beide
+   `index.ts`-bestanden. `global.d.ts` typt de sleutels naar `messages/nl`, dus
+   `tsc` faalt bij een ontbrekende sleutel; `npm run check` bewaakt dat nl en
+   en dezelfde bestanden, sleutels en arraylengtes hebben. Lezen met
+   `getTranslations` (server) of `useTranslations` (client). Clientcomponenten
+   krijgen alleen de namespaces uit `CLIENT_NAMESPACES` in
+   `i18n/client-messages.ts`; geef tekst bij voorkeur als props door.
    Accentwoorden in koppen: `t.rich("key", { accent: (c) => <span className="accent-text">…</span> })`.
-2. **Lange paginatekst** → één bestand per dienst of stad in `content/` met een
-   `nl`- en `en`-blok. Alleen server-side importeren (houdt de client-bundle klein).
-3. **Structurele data** (iconen, cijfers, afbeeldingen) → `lib/site.ts`, op index
-   gekoppeld aan de tekst in messages. Arrays in nl en en houden dezelfde lengte.
+2. **Lange paginatekst** → `content/beroepen/<id>.ts` en `content/pages/*.ts`
+   met een `nl`- en `en`-blok. Alleen server-side importeren.
+3. **Structurele data** (NAW, personen, navigatie, iconen) → `lib/site.ts`,
+   paden → `lib/routes.ts`, beroepen → `content/beroepen/index.ts`. Geen tekst
+   in deze registers; labels komen uit messages.
+4. **Beheerteksten** → `app/beheer/_strings.ts` (alleen Nederlands, buiten de
+   spiegelcontrole).
 
-Juridische pagina's houden hun tekst in de page zelf (`CONTENT = { nl, en }`).
+Juridische pagina's houden hun tekst in de page zelf (`CONTENT = { nl, en }`),
+net als de inline teksten van `app/global-error.tsx` en `app/global-not-found.tsx`.
 
 ## SEO-afspraken
 
@@ -101,9 +124,11 @@ Juridische pagina's houden hun tekst in de page zelf (`CONTENT = { nl, en }`).
 - Structured data via `<JsonLd data={…} />` en de builders in `lib/seo.ts`.
 - `app/sitemap.ts` en `app/llms.txt/route.ts` worden afgeleid uit de registers;
   nieuwe routes die niet uit een register komen voeg je daar toe.
-- `proxy.ts` sluit API-routes, bestanden en metadata-routes uit. Nieuwe
-  niet-publieke paden (zoals `/beheer`, `/feeds`) moeten ook in de
-  uitsluiting. Crawlers krijgen nooit een geo-redirect.
+- `proxy.ts` sluit `api`, `beheer`, `feeds`, `monitoring`, bestanden en
+  metadata-routes uit de taalrouting. `/beheer` heeft een eigen matcher die
+  alleen de Supabase-sessie ververst. Crawlers krijgen nooit een geo-redirect.
+- Indexering: `pageMetadata({ noindex: true })` voor bedankpagina's en
+  ongepubliceerde routes (`published` in `lib/routes.ts`).
 
 ## Hoe je hier een goede pagina bouwt
 

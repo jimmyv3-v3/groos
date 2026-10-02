@@ -1,0 +1,18 @@
+{
+  "application": {
+    "metaTitle": "Thank you for your application",
+    "title": "Thank you for your application"
+  },
+  "registration": {
+    "metaTitle": "Thank you for registering",
+    "title": "Thank you for registering"
+  },
+  "staffRequest": {
+    "metaTitle": "Thank you for your request",
+    "title": "Thank you for your request"
+  },
+  "contact": {
+    "metaTitle": "Thank you for your message",
+    "title": "Thank you for your message"
+  }
+}

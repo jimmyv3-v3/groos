@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { contact } from "@/lib/site";
+import { resolveLocale } from "@/i18n/locale";
 import { pageMetadata } from "@/lib/seo";
+import { routeMeta } from "@/lib/routes";
 import { LegalPage, type LegalSection } from "@/components/legal/legal-page";
 
 // TODO (juridisch): algemene voorwaarden verschillen per bedrijf en branche en
@@ -54,7 +56,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
   nl: {
     title: "Algemene voorwaarden",
     metaDescription: `De algemene voorwaarden van ${contact.name} voor offertes, opdrachten en de uitvoering van onze diensten.`,
-    intro: `Deze algemene voorwaarden zijn van toepassing op alle offertes en overeenkomsten van ${contact.name}, ingeschreven bij de Kamer van Koophandel onder nummer ${contact.kvk}.`,
+    intro: `Deze algemene voorwaarden zijn van toepassing op alle offertes en overeenkomsten van ${contact.name}, ingeschreven bij de Kamer van Koophandel onder nummer ${contact.kvk ?? "TODO KvK-nummer"}.`,
     updatedAt: "TODO datum van publicatie",
     sections: NL_HEADINGS.map((heading) => ({
       heading,
@@ -64,7 +66,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
   en: {
     title: "Terms and conditions",
     metaDescription: `The terms and conditions of ${contact.name} for quotes, assignments and the performance of our services.`,
-    intro: `These terms and conditions apply to all quotes and agreements of ${contact.name}, registered with the Dutch Chamber of Commerce under number ${contact.kvk}. In case of any discrepancy, the Dutch version prevails.`,
+    intro: `These terms and conditions apply to all quotes and agreements of ${contact.name}, registered with the Dutch Chamber of Commerce under number ${contact.kvk ?? "TODO KvK-nummer"}. In case of any discrepancy, the Dutch version prevails.`,
     updatedAt: "TODO publication date",
     sections: EN_HEADINGS.map((heading) => ({
       heading,
@@ -82,11 +84,14 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
   const c = pick(locale);
   return pageMetadata({
     locale,
     path: "/algemene-voorwaarden",
+    // Niet indexeren en niet linken zolang de tekst er niet is (B-11).
+    noindex: !routeMeta("/algemene-voorwaarden").published,
     title: c.title,
     description: c.metaDescription,
   });
@@ -97,7 +102,8 @@ export default async function Page({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
   setRequestLocale(locale);
   const c = pick(locale);
   return (

@@ -1,0 +1,12 @@
+{
+  "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work. We bring job seekers and clients together in five occupations.",
+  "navLabel": "Site overview",
+  "columns": {
+    "werkzoekenden": "Job seekers",
+    "werkgevers": "Employers",
+    "groos": "Groos",
+    "contact": "Contact"
+  },
+  "openingHours": "Monday to Friday from {opens} to {closes}",
+  "rights": "© {year} {name}"
+}

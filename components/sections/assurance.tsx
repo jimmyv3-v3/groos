@@ -10,8 +10,8 @@ import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
  * icoon. Toon alleen keurmerken en claims die echt kloppen.
  */
 export function Assurance() {
-  const t = useTranslations("home.assurance");
-  const items = t.raw("items") as { title: string; body: string }[];
+  const t = useTranslations("home");
+  const items = t.raw("assurance.items") as { title: string; body: string }[];
   return (
     <section
       id="kwaliteit"
@@ -27,7 +27,7 @@ export function Assurance() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={certification.src}
-                  alt={t("certAlt")}
+                  alt={t("assurance.certAlt")}
                   className="h-full w-full object-contain"
                 />
               ) : (
@@ -35,10 +35,10 @@ export function Assurance() {
               )}
             </div>
             <p className="relative mt-6 font-display text-xl font-medium text-brand-strong">
-              {t("certTitle")}
+              {t("assurance.certTitle")}
             </p>
             <p className="relative mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              {t("certBody")}
+              {t("assurance.certBody")}
             </p>
           </div>
         </Reveal>
@@ -50,11 +50,11 @@ export function Assurance() {
               id="kwaliteit-heading"
               className="text-h2"
             >
-              {t("heading")}{" "}
-              <span className="accent-text">{t("headingAccent")}</span>
+              {t("assurance.heading")}{" "}
+              <span className="accent-text">{t("assurance.headingAccent")}</span>
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
-              {t("intro")}
+              {t("assurance.intro")}
             </p>
           </Reveal>
 

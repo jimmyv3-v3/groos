@@ -16,8 +16,8 @@ export function ServiceFaq({
   items: FaqItem[];
   heading?: string;
 }) {
-  const t = useTranslations("service");
-  const resolvedHeading = heading ?? t("faqHeading");
+  const t = useTranslations("common.labels");
+  const resolvedHeading = heading ?? t("faq");
   const [open, setOpen] = useState<number | null>(0);
 
   return (

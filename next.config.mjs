@@ -64,6 +64,8 @@ const nextConfig = {
   },
   experimental: {
     optimizePackageImports: ["lucide-react"],
+    // app/global-not-found.tsx: 404 voor URL's buiten de taalproxy (spec 01 §4.13).
+    globalNotFound: true,
   },
   async headers() {
     return [

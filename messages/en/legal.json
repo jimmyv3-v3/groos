@@ -1,0 +1,19 @@
+{
+  "updatedAt": "Last updated on {date}.",
+  "contactQuestion": "Do you have a question about this document? We are happy to help.",
+  "contactCta": "Get in touch",
+  "nav": {
+    "privacy": "Privacy statement",
+    "cookies": "Cookie statement",
+    "complaints": "Complaints procedure",
+    "terms": "Terms and conditions"
+  },
+  "footer": {
+    "ariaLabel": "Legal information",
+    "kvk": "Chamber of Commerce {number}",
+    "vat": "VAT {number}"
+  },
+  "placeholder": {
+    "description": "TODO description of this document (spec 09)"
+  }
+}

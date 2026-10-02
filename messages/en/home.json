@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "title": "TODO The core promise in one sentence with an <accent>accent word</accent>.",
+    "intro": "TODO Two sentences about what the company does, for whom and in which region."
+  },
+  "values": [
+    "TODO Core value 1",
+    "TODO Core value 2",
+    "TODO Core value 3",
+    "TODO Core value 4"
+  ],
+  "metricLabels": [
+    "TODO label for figure 1",
+    "TODO label for figure 2",
+    "TODO label for figure 3"
+  ],
+  "trustBar": {
+    "ariaLabel": "Core values",
+    "items": [
+      {
+        "title": "TODO First promise",
+        "body": "TODO One sentence that makes this promise concrete."
+      },
+      {
+        "title": "TODO Second promise",
+        "body": "TODO One sentence that makes this promise concrete."
+      },
+      {
+        "title": "TODO Third promise",
+        "body": "TODO One sentence that makes this promise concrete."
+      },
+      {
+        "title": "TODO Fourth promise",
+        "body": "TODO One sentence that makes this promise concrete."
+      }
+    ]
+  },
+  "segments": {
+    "ariaLabel": "Who we work for",
+    "doelgroep-1": {
+      "title": "TODO Audience 1",
+      "blurb": "TODO Short description in one line."
+    },
+    "doelgroep-2": {
+      "title": "TODO Audience 2",
+      "blurb": "TODO Short description in one line."
+    },
+    "doelgroep-3": {
+      "title": "TODO Audience 3",
+      "blurb": "TODO Short description in one line."
+    },
+    "doelgroep-4": {
+      "title": "TODO Audience 4",
+      "blurb": "TODO Short description in one line."
+    }
+  },
+  "metricsAriaLabel": "In figures",
+  "clientsAriaLabel": "Clients",
+  "ticker": {
+    "ariaLabel": "Our services",
+    "lead": "TODO Company name for all your",
+    "srSentence": "TODO Company name for all your {words}.",
+    "words": [
+      "TODO service a",
+      "TODO service b",
+      "TODO service c",
+      "TODO service d",
+      "TODO service e"
+    ],
+    "viewAll": "View all services"
+  },
+  "process": {
+    "title": "TODO An approach that",
+    "accent": "TODO accent words",
+    "intro": "TODO One or two sentences about how an assignment runs.",
+    "steps": [
+      {
+        "title": "TODO Step 1",
+        "body": "TODO One sentence about this step."
+      },
+      {
+        "title": "TODO Step 2",
+        "body": "TODO One sentence about this step."
+      },
+      {
+        "title": "TODO Step 3",
+        "body": "TODO One sentence about this step."
+      },
+      {
+        "title": "TODO Step 4",
+        "body": "TODO One sentence about this step."
+      }
+    ]
+  },
+  "projects": {
+    "titleLead": "TODO Heading of the project gallery with",
+    "titleAccent": "TODO accent words",
+    "intro": "TODO One or two sentences about the kind of projects.",
+    "altDefault": "TODO Project carried out by TODO Company name"
+  },
+  "proof": {
+    "quote": "TODO A real statement from a client, with permission.",
+    "author": "TODO Name or organisation",
+    "role": "TODO Place and relationship, for example long-standing client"
+  },
+  "assurance": {
+    "certTitle": "TODO Certification or guarantee",
+    "certBody": "TODO One sentence about what this certification or guarantee means.",
+    "certAlt": "TODO Name of the certification",
+    "heading": "TODO Quality and certainty,",
+    "headingAccent": "TODO accent words",
+    "intro": "TODO Two sentences about insurance, safety or guarantees.",
+    "items": [
+      {
+        "title": "TODO Assurance 1",
+        "body": "TODO One sentence."
+      },
+      {
+        "title": "TODO Assurance 2",
+        "body": "TODO One sentence."
+      },
+      {
+        "title": "TODO Assurance 3",
+        "body": "TODO One sentence."
+      },
+      {
+        "title": "TODO Assurance 4",
+        "body": "TODO One sentence."
+      }
+    ]
+  },
+  "about": {
+    "title": "TODO Heading about the company with an <accent>accent word</accent>.",
+    "p1": "TODO First paragraph: origin, history and who is behind the company.",
+    "p2": "TODO Second paragraph: approach, people and ambition.",
+    "location": "Based in {city}, TODO active in the region."
+  },
+  "faq": {
+    "heading": "Frequently asked",
+    "headingAccent": "questions",
+    "items": [
+      {
+        "q": "TODO Which regions do you work in?",
+        "a": "TODO Answer in one to three full sentences."
+      },
+      {
+        "q": "TODO Who do you work for?",
+        "a": "TODO Answer in one to three full sentences."
+      },
+      {
+        "q": "TODO Question about the main service?",
+        "a": "TODO Answer in one to three full sentences."
+      },
+      {
+        "q": "TODO Question about planning or availability?",
+        "a": "TODO Answer in one to three full sentences."
+      },
+      {
+        "q": "TODO Question about insurance or guarantees?",
+        "a": "TODO Answer in one to three full sentences."
+      },
+      {
+        "q": "TODO How quickly will I hear back about my request?",
+        "a": "TODO Answer with the real response time."
+      }
+    ]
+  }
+}

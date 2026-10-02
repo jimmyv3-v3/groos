@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { Monogram } from "@/components/brand/monogram";
 
 export function Proof() {
-  const t = useTranslations("home.proof");
+  const t = useTranslations("home");
   return (
     <section
       id="ervaring"
@@ -21,17 +21,17 @@ export function Proof() {
               />
               <blockquote id="proof-quote">
                 <p className="font-display text-h2 font-semibold text-foreground">
-                  &ldquo;{t("quote")}&rdquo;
+                  &ldquo;{t("proof.quote")}&rdquo;
                 </p>
               </blockquote>
               <figcaption className="mt-10 flex flex-col items-center gap-4">
                 <Monogram className="h-8 w-auto opacity-80" />
                 <div className="flex flex-col items-center gap-0.5">
                   <span className="font-display text-sm font-medium text-foreground">
-                    {t("author")}
+                    {t("proof.author")}
                   </span>
                   <span className="text-sm text-muted-foreground">
-                    {t("role")}
+                    {t("proof.role")}
                   </span>
                 </div>
               </figcaption>

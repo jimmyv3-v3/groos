@@ -1,0 +1,19 @@
+{
+  "updatedAt": "Laatst bijgewerkt op {date}.",
+  "contactQuestion": "Heeft u een vraag over dit document? Wij helpen u graag verder.",
+  "contactCta": "Neem contact op",
+  "nav": {
+    "privacy": "Privacyverklaring",
+    "cookies": "Cookieverklaring",
+    "complaints": "Klachtenregeling",
+    "terms": "Algemene voorwaarden"
+  },
+  "footer": {
+    "ariaLabel": "Juridische informatie",
+    "kvk": "KvK {number}",
+    "vat": "Btw {number}"
+  },
+  "placeholder": {
+    "description": "TODO beschrijving van dit document (spec 09)"
+  }
+}

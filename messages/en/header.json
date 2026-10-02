@@ -1,0 +1,26 @@
+{
+  "skipLink": "Skip to content",
+  "homeAria": "Groos Personeelsdiensten, go to the homepage",
+  "mainMenu": "Main menu",
+  "openMenu": "Open menu",
+  "closeMenu": "Close menu",
+  "mobileMenu": "Menu",
+  "callAria": "Call us on {phone}",
+  "actionBar": "Quick contact",
+  "nav": {
+    "vacatures": "Jobs",
+    "werkzoekenden": "Job seekers",
+    "werkgevers": "Employers",
+    "overOns": "About us",
+    "contact": "Contact",
+    "inschrijven": "Register",
+    "alleWerkzoekenden": "Everything for job seekers",
+    "personeelAanvragen": "Request staff",
+    "wtta": "Hiring and the Wtta",
+    "alleWerkgevers": "Everything for employers"
+  },
+  "menu": {
+    "beroepenWerkzoekenden": "Work as",
+    "beroepenWerkgevers": "Staff by occupation"
+  }
+}

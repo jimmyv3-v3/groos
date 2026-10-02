@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const INTERVAL = 2200;
@@ -17,8 +18,8 @@ const INTERVAL = 2200;
  * readers.
  */
 export function ServiceTicker() {
-  const t = useTranslations("home.ticker");
-  const words = t.raw("words") as string[];
+  const t = useTranslations("home");
+  const words = t.raw("ticker.words") as string[];
   const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [width, setWidth] = useState<number | undefined>(undefined);
@@ -47,20 +48,20 @@ export function ServiceTicker() {
 
   return (
     <section
-      aria-label={t("ariaLabel")}
+      aria-label={t("ticker.ariaLabel")}
       className="relative overflow-hidden border-y border-border/60 bg-card/20 py-20 sm:py-28"
     >
 
       <div className="container relative flex flex-col items-center text-center">
         <p className="sr-only">
-          {t("srSentence", { words: words.join(", ") })}
+          {t("ticker.srSentence", { words: words.join(", ") })}
         </p>
 
         <p
           aria-hidden="true"
           className="flex flex-col items-center justify-center gap-2 font-display text-2xl leading-tight tracking-tight sm:flex-row sm:gap-x-3 sm:text-4xl lg:text-5xl"
         >
-          <span className="text-muted-foreground">{t("lead")}</span>
+          <span className="text-muted-foreground">{t("ticker.lead")}</span>
           <motion.span
             className="relative inline-flex h-[1.3em] items-center justify-center overflow-hidden align-middle"
             animate={{ width }}
@@ -81,16 +82,16 @@ export function ServiceTicker() {
           </motion.span>
         </p>
 
-        <a
-          href="#diensten"
+        <Link
+          href="/werkgevers"
           className="group mt-9 inline-flex items-center gap-2 text-sm tracking-wide text-muted-foreground transition-colors hover:text-brand-strong"
         >
-          {t("viewAll")}
+          {t("ticker.viewAll")}
           <ArrowRight
             className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
             aria-hidden="true"
           />
-        </a>
+        </Link>
       </div>
 
       {/* Hidden measurer: same typography as the visible word */}

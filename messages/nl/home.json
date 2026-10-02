@@ -1,0 +1,168 @@
+{
+  "hero": {
+    "title": "TODO De kernbelofte in één zin met een <accent>accentwoord</accent>.",
+    "intro": "TODO Twee zinnen over wat het bedrijf doet, voor wie en in welke regio, in de u-vorm."
+  },
+  "values": [
+    "TODO Kernwaarde 1",
+    "TODO Kernwaarde 2",
+    "TODO Kernwaarde 3",
+    "TODO Kernwaarde 4"
+  ],
+  "metricLabels": [
+    "TODO label bij cijfer 1",
+    "TODO label bij cijfer 2",
+    "TODO label bij cijfer 3"
+  ],
+  "trustBar": {
+    "ariaLabel": "Kernwaarden",
+    "items": [
+      {
+        "title": "TODO Eerste belofte",
+        "body": "TODO Eén zin die deze belofte concreet maakt."
+      },
+      {
+        "title": "TODO Tweede belofte",
+        "body": "TODO Eén zin die deze belofte concreet maakt."
+      },
+      {
+        "title": "TODO Derde belofte",
+        "body": "TODO Eén zin die deze belofte concreet maakt."
+      },
+      {
+        "title": "TODO Vierde belofte",
+        "body": "TODO Eén zin die deze belofte concreet maakt."
+      }
+    ]
+  },
+  "segments": {
+    "ariaLabel": "Voor wie wij werken",
+    "doelgroep-1": {
+      "title": "TODO Doelgroep 1",
+      "blurb": "TODO Korte omschrijving in één regel."
+    },
+    "doelgroep-2": {
+      "title": "TODO Doelgroep 2",
+      "blurb": "TODO Korte omschrijving in één regel."
+    },
+    "doelgroep-3": {
+      "title": "TODO Doelgroep 3",
+      "blurb": "TODO Korte omschrijving in één regel."
+    },
+    "doelgroep-4": {
+      "title": "TODO Doelgroep 4",
+      "blurb": "TODO Korte omschrijving in één regel."
+    }
+  },
+  "metricsAriaLabel": "In cijfers",
+  "clientsAriaLabel": "Opdrachtgevers",
+  "ticker": {
+    "ariaLabel": "Onze diensten",
+    "lead": "TODO Bedrijfsnaam voor al uw",
+    "srSentence": "TODO Bedrijfsnaam voor al uw {words}.",
+    "words": [
+      "TODO dienst a",
+      "TODO dienst b",
+      "TODO dienst c",
+      "TODO dienst d",
+      "TODO dienst e"
+    ],
+    "viewAll": "Bekijk alle diensten"
+  },
+  "process": {
+    "title": "TODO Een werkwijze die",
+    "accent": "TODO accentwoorden",
+    "intro": "TODO Eén of twee zinnen over hoe een opdracht verloopt.",
+    "steps": [
+      {
+        "title": "TODO Stap 1",
+        "body": "TODO Eén zin over deze stap."
+      },
+      {
+        "title": "TODO Stap 2",
+        "body": "TODO Eén zin over deze stap."
+      },
+      {
+        "title": "TODO Stap 3",
+        "body": "TODO Eén zin over deze stap."
+      },
+      {
+        "title": "TODO Stap 4",
+        "body": "TODO Eén zin over deze stap."
+      }
+    ]
+  },
+  "projects": {
+    "titleLead": "TODO Kop van de projectgalerij met",
+    "titleAccent": "TODO accentwoorden",
+    "intro": "TODO Eén of twee zinnen over het soort projecten.",
+    "altDefault": "TODO Project uitgevoerd door TODO Bedrijfsnaam"
+  },
+  "proof": {
+    "quote": "TODO Een echte uitspraak van een klant, met toestemming.",
+    "author": "TODO Naam of organisatie",
+    "role": "TODO Plaats en relatie, bijvoorbeeld vaste opdrachtgever"
+  },
+  "assurance": {
+    "certTitle": "TODO Keurmerk of garantie",
+    "certBody": "TODO Eén zin over wat dit keurmerk of deze garantie betekent.",
+    "certAlt": "TODO Naam van het keurmerk",
+    "heading": "TODO Kwaliteit en zekerheid,",
+    "headingAccent": "TODO accentwoorden",
+    "intro": "TODO Twee zinnen over verzekering, veiligheid of garanties.",
+    "items": [
+      {
+        "title": "TODO Zekerheid 1",
+        "body": "TODO Eén zin."
+      },
+      {
+        "title": "TODO Zekerheid 2",
+        "body": "TODO Eén zin."
+      },
+      {
+        "title": "TODO Zekerheid 3",
+        "body": "TODO Eén zin."
+      },
+      {
+        "title": "TODO Zekerheid 4",
+        "body": "TODO Eén zin."
+      }
+    ]
+  },
+  "about": {
+    "title": "TODO Kop over het bedrijf met een <accent>accentwoord</accent>.",
+    "p1": "TODO Eerste alinea: herkomst, geschiedenis en wie er achter het bedrijf staan.",
+    "p2": "TODO Tweede alinea: werkwijze, mensen en ambitie.",
+    "location": "Gevestigd in {city}, TODO actief in de regio."
+  },
+  "faq": {
+    "heading": "Veelgestelde",
+    "headingAccent": "vragen",
+    "items": [
+      {
+        "q": "TODO In welke regio's zijn jullie actief?",
+        "a": "TODO Antwoord in één tot drie volledige zinnen."
+      },
+      {
+        "q": "TODO Voor wie werken jullie?",
+        "a": "TODO Antwoord in één tot drie volledige zinnen."
+      },
+      {
+        "q": "TODO Vraag over de belangrijkste dienst?",
+        "a": "TODO Antwoord in één tot drie volledige zinnen."
+      },
+      {
+        "q": "TODO Vraag over planning of beschikbaarheid?",
+        "a": "TODO Antwoord in één tot drie volledige zinnen."
+      },
+      {
+        "q": "TODO Vraag over verzekering of garantie?",
+        "a": "TODO Antwoord in één tot drie volledige zinnen."
+      },
+      {
+        "q": "TODO Hoe snel krijg ik antwoord op mijn aanvraag?",
+        "a": "TODO Antwoord met de echte reactietijd."
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "metaTitle": "Something went wrong",
+  "title": "Something went wrong while loading this page",
+  "body": "Please try again in a few seconds. If it still does not work, call us on {phone}.",
+  "retry": "Try again",
+  "home": "Go to the homepage",
+  "code": "Error code {digest}"
+}

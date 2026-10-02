@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import nl from "@/messages/nl.json";
+import meta from "@/messages/nl/meta.json";
 import { brand } from "@/lib/brand";
 import { contact } from "@/lib/site";
 import { markDataUri, wordmarkDataUri, wordmarkRatio } from "@/components/brand/logo-svg";
@@ -58,7 +58,7 @@ export default function OpengraphImage() {
                 lineClamp: 3,
               }}
             >
-              {nl.meta.ogHeadline}
+              {meta.ogHeadline}
             </div>
             <div
               style={{
@@ -71,7 +71,7 @@ export default function OpengraphImage() {
                 color: brand.colors.muted,
               }}
             >
-              {nl.meta.ogSubline}
+              {meta.ogSubline}
             </div>
           </div>
           <div style={{ fontFamily: "Onest", fontWeight: 500, fontSize: 24, color: brand.colors.brand }}>

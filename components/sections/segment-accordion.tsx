@@ -14,7 +14,7 @@ import { segments } from "@/lib/site";
  * Valt terug op een kleurverloop als een foto ontbreekt of niet laadt.
  */
 export function SegmentAccordion() {
-  const t = useTranslations("home.segments");
+  const t = useTranslations("home");
   const [active, setActive] = useState(0);
   const [broken, setBroken] = useState<Record<string, boolean>>({});
   const onErr = (id: string) => setBroken((p) => ({ ...p, [id]: true }));
@@ -25,8 +25,8 @@ export function SegmentAccordion() {
       <div className="flex flex-col gap-3 lg:hidden">
         {segments.map((s) => {
           const Icon = s.icon;
-          const title = t(`${s.id}.title`);
-          const blurb = t(`${s.id}.blurb`);
+          const title = t(`segments.${s.id}.title`);
+          const blurb = t(`segments.${s.id}.blurb`);
           return (
             <div
               key={s.id}
@@ -67,8 +67,8 @@ export function SegmentAccordion() {
         {segments.map((s, i) => {
           const isActive = i === active;
           const Icon = s.icon;
-          const title = t(`${s.id}.title`);
-          const blurb = t(`${s.id}.blurb`);
+          const title = t(`segments.${s.id}.title`);
+          const blurb = t(`segments.${s.id}.blurb`);
           return (
             <button
               key={s.id}
