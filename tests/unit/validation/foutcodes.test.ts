@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, it } from "vitest";
 import { JOBSEEKER_ERROR_CODES, type JobseekerErrorCode } from "@/lib/validation/application";
 import { CONTACT_ERROR_CODES, type ContactErrorCode } from "@/lib/validation/contact";
 import { STAFF_REQUEST_ERROR_CODES, type StaffRequestErrorCode } from "@/lib/validation/staff-request";

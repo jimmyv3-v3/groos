@@ -1,7 +1,5 @@
-// Draait met: npx tsx --conditions=react-server --test tests/unit/**/*.test.ts
-// (node:test; spec 14 zet de testopzet later om naar Vitest)
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, it } from "vitest";
 import { formatPhoneDisplay, normalizePhone } from "@/lib/validation/phone";
 
 describe("normalizePhone", () => {

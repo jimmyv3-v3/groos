@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { afterEach, describe, it } from "node:test";
+import { afterEach, describe, it } from "vitest";
 import { createElement } from "react";
 import ContactConfirmation from "@/emails/contact-confirmation";
 import { previewProps } from "@/emails/previews";

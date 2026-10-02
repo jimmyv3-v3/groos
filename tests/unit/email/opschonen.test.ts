@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, it } from "vitest";
 import { cleanError, hashRecipients } from "@/lib/email/log";
 import { cleanSubject, safeEcho } from "@/lib/email/sanitize";
 

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, it } from "vitest";
 import { contactSchema } from "@/lib/validation/contact";
 import { countLinks, toFieldErrors } from "@/lib/validation/shared";
 

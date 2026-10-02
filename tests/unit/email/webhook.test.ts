@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHmac } from "node:crypto";
-import { describe, it } from "node:test";
+import { describe, it } from "vitest";
 import { verifyResendWebhook } from "@/lib/email/webhook";
 import { POST } from "@/app/api/webhooks/resend/route";
 

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
+import { describe, it } from "vitest";
 import { addDays, toFieldErrors, todayAmsterdam } from "@/lib/validation/shared";
 import { staffRequestSchema } from "@/lib/validation/staff-request";
 
