@@ -3,7 +3,12 @@ import { S } from "../_strings";
 
 export const dynamic = "force-static";
 
-/** Webmanifest zodat Groos Beheer als app op het beginscherm kan (spec 08 §4.12). */
+/**
+ * Webmanifest zodat Groos Beheer als app op het beginscherm kan (spec 08 §4.12).
+ * scope is "/beheer" zonder slash: een scope wordt als padvoorvoegsel vergeleken,
+ * en met "/beheer/" vielen start_url en het overzicht op /beheer erbuiten (Next
+ * stuurt /beheer/ met een 308 door naar /beheer, dus start_url "/beheer/" helpt niet).
+ */
 export function GET() {
   const manifest = {
     id: "/beheer",
@@ -11,7 +16,7 @@ export function GET() {
     short_name: S.app.name,
     lang: "nl",
     start_url: "/beheer",
-    scope: "/beheer/",
+    scope: "/beheer",
     display: "standalone",
     background_color: brand.colors.background,
     theme_color: brand.colors.background,
