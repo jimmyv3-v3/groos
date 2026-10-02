@@ -9,12 +9,12 @@ import { formatTime } from "@/lib/format";
 import { Wordmark } from "@/components/brand/wordmark";
 import { ctaButtonVariants } from "@/components/ui/cta-button";
 import { LanguageToggle } from "@/components/ui/language-toggle";
-import { FooterNotices } from "@/components/legal/footer-notices";
+import { FooterLegal } from "@/components/legal/footer-legal";
 
 /**
  * Footer (structuur spec 01 §4.8, uiterlijk spec 02 §4.13). Merkblok, drie
- * linkkolommen, contactblok met <address> en een onderbalk met juridische
- * links en taalknop. Dezelfde NAW op elke pagina (NAP-consistentie, spec 12).
+ * linkkolommen, contactblok met <address> en een onderbalk met de wettelijke
+ * vermeldingen van spec 09 (FooterLegal), de rechtenregel en de taalknop. Dezelfde NAW op elke pagina (NAP-consistentie, spec 12).
  */
 
 const SOCIAL_ICONS: Record<Social["platform"], { icon: LucideIcon; label: string }> = {
@@ -30,13 +30,12 @@ const CONTACT_LINK =
   "inline-flex min-h-11 items-center gap-2 transition-colors duration-150 hover:text-brand-strong lg:min-h-0 lg:py-1 [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-brand";
 
 export async function SiteFooter() {
-  const [model, locale, t, th, tc, tl] = await Promise.all([
+  const [model, locale, t, th, tc] = await Promise.all([
     getNavModel(),
     getLocale(),
     getTranslations("footer"),
     getTranslations("header"),
     getTranslations("common"),
-    getTranslations("legal"),
   ]);
   const hours = contact.openingHours;
 
@@ -119,8 +118,6 @@ export async function SiteFooter() {
                 <Mail aria-hidden />
                 {contact.email}
               </a>
-              {contact.kvk && <p className="mt-2">{tl("footer.kvk", { number: contact.kvk })}</p>}
-              {contact.btw && <p>{tl("footer.vat", { number: contact.btw })}</p>}
               {hours && (
                 <p className="mt-2">
                   {t("openingHours", {
@@ -133,28 +130,11 @@ export async function SiteFooter() {
           </div>
         </div>
 
-        <FooterNotices />
-
-        {/* Onderbalk */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 pb-8 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
-          <p>{t("rights", { year: String(new Date().getFullYear()), name: contact.name })}</p>
-          <div className="flex flex-col gap-1 md:flex-row md:items-center md:gap-6">
-            {model.legalLinks.length > 0 && (
-              <nav aria-label={tl("footer.ariaLabel")}>
-                <ul className="flex flex-wrap gap-x-6">
-                  {model.legalLinks.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="inline-flex min-h-11 items-center transition-colors duration-150 hover:text-brand-strong lg:min-h-0"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            )}
+        {/* Onderbalk: wettelijke vermeldingen (spec 09 §4.5), rechtenregel en taalknop */}
+        <div className="mt-12 border-t border-border pt-6 pb-8">
+          <FooterLegal />
+          <div className="mt-4 flex flex-col gap-1 text-xs text-muted-foreground md:flex-row md:items-center md:justify-between">
+            <p>{t("rights", { year: String(new Date().getFullYear()), name: contact.name })}</p>
             <LanguageToggle className="-ml-3 self-start md:ml-0" />
           </div>
         </div>
