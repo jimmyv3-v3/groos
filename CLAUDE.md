@@ -2,6 +2,9 @@
 
 ## Start hier
 
+0. **Schrijf je de definitieve specs (master-agent)?** Begin met
+   **[docs/HANDOVER.md](docs/HANDOVER.md)**: stand van zaken, feiten,
+   modulelijst en werkwijze.
 1. **[docs/BOUWINSTRUCTIE.md](docs/BOUWINSTRUCTIE.md)**: wat er gebouwd moet
    worden, in welke volgorde en hoe je de specs opstelt. Lees dit eerst.
 2. **[context/](context/)**: bedrijfscontext van Groos (beroepen, doelgroepen,
