@@ -565,6 +565,7 @@ export type Database = {
           training_offered: Database["public"]["Enums"]["qualification"][]
           updated_at: string
           updated_by: string | null
+          workplace_language: Database["public"]["Enums"]["workplace_language"] | null
         }
         Insert: {
           allow_whatsapp_apply?: boolean
@@ -610,6 +611,7 @@ export type Database = {
           training_offered?: Database["public"]["Enums"]["qualification"][]
           updated_at?: string
           updated_by?: string | null
+          workplace_language?: Database["public"]["Enums"]["workplace_language"] | null
         }
         Update: {
           allow_whatsapp_apply?: boolean
@@ -655,6 +657,7 @@ export type Database = {
           training_offered?: Database["public"]["Enums"]["qualification"][]
           updated_at?: string
           updated_by?: string | null
+          workplace_language?: Database["public"]["Enums"]["workplace_language"] | null
         }
         Relationships: [
           {
@@ -804,6 +807,7 @@ export type Database = {
           title: string | null
           training_offered: Database["public"]["Enums"]["qualification"][] | null
           updated_at: string | null
+          workplace_language: Database["public"]["Enums"]["workplace_language"] | null
         }
         Relationships: []
       }
@@ -1031,7 +1035,6 @@ export type Database = {
         | "rijbewijs_c"
         | "code_95"
         | "ras"
-        | "dav"
       request_duration:
         | "one_day"
         | "days"
@@ -1063,6 +1066,7 @@ export type Database = {
         | "published"
         | "closed"
         | "archived"
+      workplace_language: "nl" | "en" | "nl_or_en"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1108,12 +1112,13 @@ export const Constants = {
       experience_level: ["none", "nice_to_have", "required"],
       message_status: ["new", "answered", "archived", "spam"],
       min_age_reason: ["work_at_height", "construction_demolition", "forklift", "night_work", "hazardous_substances"],
-      qualification: ["vca_basis", "vca_vol", "heftruck", "reachtruck", "ept", "ipaf", "vog", "rijbewijs_b", "rijbewijs_be", "rijbewijs_c", "code_95", "ras", "dav"],
+      qualification: ["vca_basis", "vca_vol", "heftruck", "reachtruck", "ept", "ipaf", "vog", "rijbewijs_b", "rijbewijs_be", "rijbewijs_c", "code_95", "ras"],
       request_duration: ["one_day", "days", "weeks", "months", "indefinite", "unknown"],
       shift: ["early", "day", "evening", "night", "weekend"],
       staff_request_status: ["new", "in_progress", "quote_sent", "started", "completed", "cancelled"],
       vacancy_close_reason: ["filled", "expired", "withdrawn", "other"],
       vacancy_status: ["draft", "scheduled", "published", "closed", "archived"],
+      workplace_language: ["nl", "en", "nl_or_en"],
     },
   },
 } as const
