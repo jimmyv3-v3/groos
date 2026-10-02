@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { routing, type Locale } from "@/i18n/routing";
-import { findBeroepBySlug } from "@/content/beroepen";
+import { beroepen, findBeroepBySlug } from "@/content/beroepen";
 import { contact } from "@/lib/site";
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgCard } from "@/lib/og";
 import nlMeta from "@/messages/nl/meta.json";
@@ -15,6 +15,11 @@ import SiteOgImage from "@/app/opengraph-image";
 export const alt = `${contact.shortName}: ${nlMeta.ogSubline}`;
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
+
+/** Statisch per beroep, net als de pagina (spec 12 §4.6). */
+export function generateStaticParams() {
+  return beroepen.map((b) => ({ beroep: b.slugWerkzoekende }));
+}
 
 export default async function BeroepOgImage({ params }: { params: Promise<{ locale: string; beroep: string }> }) {
   const { locale: raw, beroep } = await params;
