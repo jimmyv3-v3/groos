@@ -1,4 +1,5 @@
 import { findBeroepBySlug, getBeroep, type BeroepId, type Perspectief } from "@/content/beroepen";
+import { getLegalDoc } from "@/lib/legal";
 import type { NavKey } from "@/lib/site"; // alleen een type, dus geen kringafhankelijkheid tijdens runtime
 
 /**
@@ -69,11 +70,11 @@ export const STATIC_ROUTES: readonly RouteMeta[] = [
   { path: "/werkgevers/wtta", audience: "werkgever", owner: "05", published: true, sitemap: { priority: 0.6, changeFrequency: "monthly" }, llms: "kern" },
   { path: "/over-ons", audience: "algemeen", owner: "04", published: true, sitemap: { priority: 0.5, changeFrequency: "yearly" }, llms: "kern" },
   { path: "/contact", audience: "algemeen", owner: "07", published: true, sitemap: { priority: 0.5, changeFrequency: "yearly" }, llms: "kern" },
-  { path: "/privacyverklaring", audience: "algemeen", owner: "09", published: true, sitemap: { priority: 0.3, changeFrequency: "yearly" }, llms: "optioneel" },
-  { path: "/cookieverklaring", audience: "algemeen", owner: "09", published: true, sitemap: { priority: 0.3, changeFrequency: "yearly" }, llms: "optioneel" },
-  { path: "/klachtenregeling", audience: "algemeen", owner: "09", published: true, sitemap: { priority: 0.3, changeFrequency: "yearly" }, llms: "optioneel" },
-  // TODO publiceren zodra Jimmy de tekst levert (B-11)
-  { path: "/algemene-voorwaarden", audience: "werkgever", owner: "09", published: false, sitemap: { priority: 0.3, changeFrequency: "yearly" }, llms: "optioneel" },
+  { path: "/privacyverklaring", audience: "algemeen", owner: "09", published: getLegalDoc("privacy").published, sitemap: { priority: 0.3, changeFrequency: "yearly" }, llms: "optioneel" },
+  { path: "/cookieverklaring", audience: "algemeen", owner: "09", published: getLegalDoc("cookies").published, sitemap: { priority: 0.3, changeFrequency: "yearly" }, llms: "optioneel" },
+  { path: "/klachtenregeling", audience: "algemeen", owner: "09", published: getLegalDoc("complaints").published, sitemap: { priority: 0.3, changeFrequency: "yearly" }, llms: "optioneel" },
+  // Publicatiestatus van de juridische pagina's komt uit lib/legal.ts (B-40, spec 09).
+  { path: "/algemene-voorwaarden", audience: "werkgever", owner: "09", published: getLegalDoc("terms").published, sitemap: { priority: 0.3, changeFrequency: "yearly" }, llms: "optioneel" },
 ];
 
 /** Sitemapwaarden voor de beroepspagina's (afgeleid uit content/beroepen). */

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
@@ -14,6 +13,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { SiteHeader } from "@/components/sections/site-header";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteActionBar } from "@/components/sections/site-action-bar";
+import { PrivacyAnalytics } from "@/components/legal/privacy-analytics";
 import "../globals.css";
 
 // Root-layout van de publieke site (spec 01 §4.22). /beheer krijgt een eigen
@@ -80,7 +80,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
           <div aria-hidden className="h-[calc(4.5rem+env(safe-area-inset-bottom))] lg:hidden" />
           <SiteActionBar />
         </NextIntlClientProvider>
-        <Analytics />
+        <PrivacyAnalytics />
       </body>
     </html>
   );
