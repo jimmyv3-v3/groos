@@ -1,168 +1,175 @@
 {
   "hero": {
-    "title": "TODO The core promise in one sentence with an <accent>accent word</accent>.",
-    "intro": "TODO Two sentences about what the company does, for whom and in which region."
-  },
-  "values": [
-    "TODO Core value 1",
-    "TODO Core value 2",
-    "TODO Core value 3",
-    "TODO Core value 4"
-  ],
-  "metricLabels": [
-    "TODO label for figure 1",
-    "TODO label for figure 2",
-    "TODO label for figure 3"
-  ],
-  "trustBar": {
-    "ariaLabel": "Core values",
-    "items": [
-      {
-        "title": "TODO First promise",
-        "body": "TODO One sentence that makes this promise concrete."
-      },
-      {
-        "title": "TODO Second promise",
-        "body": "TODO One sentence that makes this promise concrete."
-      },
-      {
-        "title": "TODO Third promise",
-        "body": "TODO One sentence that makes this promise concrete."
-      },
-      {
-        "title": "TODO Fourth promise",
-        "body": "TODO One sentence that makes this promise concrete."
-      }
-    ]
-  },
-  "segments": {
-    "ariaLabel": "Who we work for",
-    "doelgroep-1": {
-      "title": "TODO Audience 1",
-      "blurb": "TODO Short description in one line."
+    "title": "Employment agency in The Hague for <accent>hands-on work</accent>",
+    "intro": "We find people for window cleaning, cleaning, logistics, removals and construction and demolition in The Hague and the surrounding area. Job seekers and clients always speak to Jimmy or Lorenzo.",
+    "jobseeker": {
+      "title": "I am looking for work",
+      "body": "View the open jobs or choose your occupation below.",
+      "beroepenLabel": "Choose your occupation"
     },
-    "doelgroep-2": {
-      "title": "TODO Audience 2",
-      "blurb": "TODO Short description in one line."
-    },
-    "doelgroep-3": {
-      "title": "TODO Audience 3",
-      "blurb": "TODO Short description in one line."
-    },
-    "doelgroep-4": {
-      "title": "TODO Audience 4",
-      "blurb": "TODO Short description in one line."
+    "employer": {
+      "title": "I am looking for staff",
+      "body": "Request people for a day, a few weeks or longer."
     }
   },
-  "metricsAriaLabel": "In figures",
-  "clientsAriaLabel": "Clients",
-  "ticker": {
-    "ariaLabel": "Our services",
-    "lead": "TODO Company name for all your",
-    "srSentence": "TODO Company name for all your {words}.",
-    "words": [
-      "TODO service a",
-      "TODO service b",
-      "TODO service c",
-      "TODO service d",
-      "TODO service e"
-    ],
-    "viewAll": "View all services"
+  "vacatures": {
+    "title": "The latest jobs",
+    "accent": "in The Hague and the surrounding area",
+    "intro": "Every job shows the gross hourly wage, the hours and the location. Applying takes a few minutes, even without a CV.",
+    "emptyJobseeker": "There are no jobs online right now. Register with us and we will call you as soon as there is work that suits you."
   },
-  "process": {
-    "title": "TODO An approach that",
-    "accent": "TODO accent words",
-    "intro": "TODO One or two sentences about how an assignment runs.",
-    "steps": [
-      {
-        "title": "TODO Step 1",
-        "body": "TODO One sentence about this step."
+  "beroepen": {
+    "title": "Work and staff in",
+    "accent": "five hands-on occupations",
+    "intro": "Choose an occupation and read what the work involves. Job seekers will find jobs and hourly wages, clients can read how to request people.",
+    "jobseekerLink": "Work as a {occupation}",
+    "employerLink": "Hire {occupationPlural}",
+    "items": {
+      "glazenwasser": {
+        "body": "Window cleaners clean windows, facades and solar panels, often at height from an aerial platform."
       },
-      {
-        "title": "TODO Step 2",
-        "body": "TODO One sentence about this step."
+      "schoonmaker": {
+        "body": "Cleaners keep offices, schools, hotels and new homes clean, often early in the morning or in the evening."
       },
-      {
-        "title": "TODO Step 3",
-        "body": "TODO One sentence about this step."
+      "logistiek-medewerker": {
+        "body": "Logistics workers pick orders, load and unload lorries and keep the warehouse in order."
       },
-      {
-        "title": "TODO Step 4",
-        "body": "TODO One sentence about this step."
+      "verhuizer": {
+        "body": "Movers pack, carry furniture and set everything up again at the new address, for homes and offices."
+      },
+      "hulpkracht-bouw-en-sloop": {
+        "body": "Construction and demolition labourers help skilled workers on site with carrying, clearing up and demolition work."
       }
-    ]
+    }
   },
-  "projects": {
-    "titleLead": "TODO Heading of the project gallery with",
-    "titleAccent": "TODO accent words",
-    "intro": "TODO One or two sentences about the kind of projects.",
-    "altDefault": "TODO Project carried out by TODO Company name"
+  "steps": {
+    "title": "From first contact to",
+    "accent": "the first working day",
+    "intro": "Finding work and requesting staff at Groos takes three steps. That way everyone knows in advance what will happen.",
+    "jobseeker": {
+      "title": "For job seekers",
+      "steps": [
+        {
+          "title": "Apply or register",
+          "body": "Choose a job or register without one, you do not need a CV."
+        },
+        {
+          "title": "We call you",
+          "body": "Jimmy or Lorenzo calls you to hear what work you are looking for and when you can work."
+        },
+        {
+          "title": "You start",
+          "body": "If the work suits you, we agree your first working day, your hours and your hourly wage together."
+        }
+      ]
+    },
+    "employer": {
+      "title": "For employers",
+      "steps": [
+        {
+          "title": "Request staff",
+          "body": "You tell us which people you need, from when and for how long."
+        },
+        {
+          "title": "We propose people",
+          "body": "We discuss the work and the working hours with you and then propose people who fit."
+        },
+        {
+          "title": "The work starts",
+          "body": "We stay in touch with you and the worker for as long as the assignment runs."
+        }
+      ]
+    }
   },
-  "proof": {
-    "quote": "TODO A real statement from a client, with permission.",
-    "author": "TODO Name or organisation",
-    "role": "TODO Place and relationship, for example long-standing client"
-  },
-  "assurance": {
-    "certTitle": "TODO Certification or guarantee",
-    "certBody": "TODO One sentence about what this certification or guarantee means.",
-    "certAlt": "TODO Name of the certification",
-    "heading": "TODO Quality and certainty,",
-    "headingAccent": "TODO accent words",
-    "intro": "TODO Two sentences about insurance, safety or guarantees.",
-    "items": [
-      {
-        "title": "TODO Assurance 1",
-        "body": "TODO One sentence."
+  "why": {
+    "title": "What you can",
+    "accent": "expect from Groos",
+    "intro": "We only promise what we can deliver. These are the fixed arrangements for everyone who works with Groos.",
+    "items": {
+      "contactpersonen": {
+        "title": "Two dedicated contacts",
+        "body": "You always speak to Jimmy or Lorenzo. Their mobile numbers are on this site and with every job."
       },
-      {
-        "title": "TODO Assurance 2",
-        "body": "TODO One sentence."
+      "beroepen": {
+        "title": "Five hands-on occupations",
+        "body": "Groos focuses on window cleaning, cleaning, logistics, removals and construction and demolition. For each occupation this site explains what the work involves."
       },
-      {
-        "title": "TODO Assurance 3",
-        "body": "TODO One sentence."
+      "loon": {
+        "title": "Honest about pay",
+        "body": "Every job shows the gross hourly wage. By law a temporary worker receives the same pay as permanent colleagues in the same role."
       },
-      {
-        "title": "TODO Assurance 4",
-        "body": "TODO One sentence."
+      "solliciteren": {
+        "title": "Three ways to apply",
+        "body": "Job seekers apply through the form, with a WhatsApp message or with a phone call. A CV is not needed."
       }
-    ]
+    }
   },
-  "about": {
-    "title": "TODO Heading about the company with an <accent>accent word</accent>.",
-    "p1": "TODO First paragraph: origin, history and who is behind the company.",
-    "p2": "TODO Second paragraph: approach, people and ambition.",
-    "location": "Based in {city}, TODO active in the region."
+  "people": {
+    "title": "At Groos you speak to",
+    "accent": "Jimmy or Lorenzo",
+    "intro": "They post the jobs, talk to job seekers and discuss requests with clients. Feel free to call or message them with a question about work or staff.",
+    "aboutLink": "Read more about Groos"
   },
   "faq": {
-    "heading": "Frequently asked",
-    "headingAccent": "questions",
-    "items": [
-      {
-        "q": "TODO Which regions do you work in?",
-        "a": "TODO Answer in one to three full sentences."
-      },
-      {
-        "q": "TODO Who do you work for?",
-        "a": "TODO Answer in one to three full sentences."
-      },
-      {
-        "q": "TODO Question about the main service?",
-        "a": "TODO Answer in one to three full sentences."
-      },
-      {
-        "q": "TODO Question about planning or availability?",
-        "a": "TODO Answer in one to three full sentences."
-      },
-      {
-        "q": "TODO Question about insurance or guarantees?",
-        "a": "TODO Answer in one to three full sentences."
-      },
-      {
-        "q": "TODO How quickly will I hear back about my request?",
-        "a": "TODO Answer with the real response time."
-      }
-    ]
+    "title": "Frequently asked questions about",
+    "accent": "work and staff",
+    "switchLabel": "Questions for",
+    "jobseeker": {
+      "tab": "Job seekers",
+      "moreLink": "More about working through Groos",
+      "items": [
+        {
+          "q": "Does applying or registering cost money?",
+          "a": "No, applying and registering are always free. Groos never asks for money for work, a contract or an application. If someone asks for it in our name, please report it to us."
+        },
+        {
+          "q": "Do I need a CV to apply?",
+          "a": "No, you do not need a CV. You fill in a few details, such as your name and your phone number, and we discuss your experience on the phone."
+        },
+        {
+          "q": "Do I need to speak Dutch?",
+          "a": "That depends on the job. Every job states whether you need Dutch for the work. You can also read this site in English."
+        },
+        {
+          "q": "What will I earn?",
+          "a": "Every job shows the gross hourly wage. By law you receive the same pay as permanent colleagues who do the same work. On top of that you build up holiday pay."
+        },
+        {
+          "q": "Will I get safety shoes and other protective equipment?",
+          "a": "Yes, protective equipment such as safety shoes, gloves or a helmet is free if the work requires it. We tell you in advance what you need on your first working day."
+        }
+      ]
+    },
+    "employer": {
+      "tab": "Employers",
+      "moreLink": "More about hiring staff",
+      "items": [
+        {
+          "q": "What does a temporary worker cost?",
+          "a": "The rate depends on the occupation, the number of hours, the working times and the length of the assignment. After your request we send you a proposal with an hourly rate."
+        },
+        {
+          "q": "For how long can I hire staff?",
+          "a": "You decide, even if it is for a single day. We match the number of people and the hours to your planning."
+        },
+        {
+          "q": "Who is my dedicated contact?",
+          "a": "You deal with Jimmy or Lorenzo, who handle your request themselves. Their numbers are on this site, so you can call them directly."
+        },
+        {
+          "q": "Do your people receive the same pay as my permanent staff?",
+          "a": "Yes, the law requires equivalent pay. A temporary worker receives the same pay and the same allowances as your permanent staff in the same role. That is why we ask about pay at your company when you submit a request."
+        },
+        {
+          "q": "Who is responsible for safety at the workplace?",
+          "a": "As the client you are responsible under the Working Conditions Act for a safe workplace and for explaining the work. We agree with you in advance which certificates and protective equipment are needed."
+        }
+      ]
+    }
+  },
+  "cta": {
+    "title": "One phone call is enough",
+    "accent": "to get started",
+    "body": "Call or message us on <link>{phone}</link>. If you would rather look around first, choose the route that suits you below."
   }
 }

@@ -1,168 +1,175 @@
 {
   "hero": {
-    "title": "TODO De kernbelofte in één zin met een <accent>accentwoord</accent>.",
-    "intro": "TODO Twee zinnen over wat het bedrijf doet, voor wie en in welke regio, in de u-vorm."
-  },
-  "values": [
-    "TODO Kernwaarde 1",
-    "TODO Kernwaarde 2",
-    "TODO Kernwaarde 3",
-    "TODO Kernwaarde 4"
-  ],
-  "metricLabels": [
-    "TODO label bij cijfer 1",
-    "TODO label bij cijfer 2",
-    "TODO label bij cijfer 3"
-  ],
-  "trustBar": {
-    "ariaLabel": "Kernwaarden",
-    "items": [
-      {
-        "title": "TODO Eerste belofte",
-        "body": "TODO Eén zin die deze belofte concreet maakt."
-      },
-      {
-        "title": "TODO Tweede belofte",
-        "body": "TODO Eén zin die deze belofte concreet maakt."
-      },
-      {
-        "title": "TODO Derde belofte",
-        "body": "TODO Eén zin die deze belofte concreet maakt."
-      },
-      {
-        "title": "TODO Vierde belofte",
-        "body": "TODO Eén zin die deze belofte concreet maakt."
-      }
-    ]
-  },
-  "segments": {
-    "ariaLabel": "Voor wie wij werken",
-    "doelgroep-1": {
-      "title": "TODO Doelgroep 1",
-      "blurb": "TODO Korte omschrijving in één regel."
+    "title": "Uitzendbureau in Den Haag voor <accent>praktisch werk</accent>",
+    "intro": "Wij zoeken mensen voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop in Den Haag en omgeving. Werkzoekenden en opdrachtgevers spreken bij ons steeds met Jimmy of Lorenzo.",
+    "jobseeker": {
+      "title": "Ik zoek werk",
+      "body": "Bekijk de open vacatures of kies hieronder je beroep.",
+      "beroepenLabel": "Kies je beroep"
     },
-    "doelgroep-2": {
-      "title": "TODO Doelgroep 2",
-      "blurb": "TODO Korte omschrijving in één regel."
-    },
-    "doelgroep-3": {
-      "title": "TODO Doelgroep 3",
-      "blurb": "TODO Korte omschrijving in één regel."
-    },
-    "doelgroep-4": {
-      "title": "TODO Doelgroep 4",
-      "blurb": "TODO Korte omschrijving in één regel."
+    "employer": {
+      "title": "Ik zoek personeel",
+      "body": "Vraag mensen aan voor een dag, een paar weken of langer."
     }
   },
-  "metricsAriaLabel": "In cijfers",
-  "clientsAriaLabel": "Opdrachtgevers",
-  "ticker": {
-    "ariaLabel": "Onze diensten",
-    "lead": "TODO Bedrijfsnaam voor al uw",
-    "srSentence": "TODO Bedrijfsnaam voor al uw {words}.",
-    "words": [
-      "TODO dienst a",
-      "TODO dienst b",
-      "TODO dienst c",
-      "TODO dienst d",
-      "TODO dienst e"
-    ],
-    "viewAll": "Bekijk alle diensten"
+  "vacatures": {
+    "title": "De nieuwste vacatures",
+    "accent": "in Den Haag en omgeving",
+    "intro": "Bij elke vacature staan het bruto uurloon, de uren en de plaats. Solliciteren kan in een paar minuten, ook zonder cv.",
+    "emptyJobseeker": "Er staan nu geen vacatures online. Schrijf je in, dan bellen wij je zodra er werk is dat bij je past."
   },
-  "process": {
-    "title": "TODO Een werkwijze die",
-    "accent": "TODO accentwoorden",
-    "intro": "TODO Eén of twee zinnen over hoe een opdracht verloopt.",
-    "steps": [
-      {
-        "title": "TODO Stap 1",
-        "body": "TODO Eén zin over deze stap."
+  "beroepen": {
+    "title": "Werk en personeel in",
+    "accent": "vijf praktische beroepen",
+    "intro": "Kies een beroep en lees wat het werk inhoudt. Werkzoekenden vinden er vacatures en uurlonen, opdrachtgevers lezen hoe zij mensen aanvragen.",
+    "jobseekerLink": "Werken als {occupation}",
+    "employerLink": "Huur {occupationPlural} in",
+    "items": {
+      "glazenwasser": {
+        "body": "Glazenwassers maken ramen, gevels en zonnepanelen schoon, vaak op hoogte met een hoogwerker."
       },
-      {
-        "title": "TODO Stap 2",
-        "body": "TODO Eén zin over deze stap."
+      "schoonmaker": {
+        "body": "Schoonmakers houden kantoren, scholen, hotels en nieuwe woningen schoon, vaak vroeg in de ochtend of in de avond."
       },
-      {
-        "title": "TODO Stap 3",
-        "body": "TODO Eén zin over deze stap."
+      "logistiek-medewerker": {
+        "body": "Logistiek medewerkers pakken orders, laden en lossen vrachtwagens en houden het magazijn op orde."
       },
-      {
-        "title": "TODO Stap 4",
-        "body": "TODO Eén zin over deze stap."
+      "verhuizer": {
+        "body": "Verhuizers pakken in, dragen meubels en zetten alles op de nieuwe plek weer neer, bij huizen en kantoren."
+      },
+      "hulpkracht-bouw-en-sloop": {
+        "body": "Hulpkrachten bouw en sloop helpen vakmensen op de bouwplaats met sjouwen, opruimen en sloopwerk."
       }
-    ]
+    }
   },
-  "projects": {
-    "titleLead": "TODO Kop van de projectgalerij met",
-    "titleAccent": "TODO accentwoorden",
-    "intro": "TODO Eén of twee zinnen over het soort projecten.",
-    "altDefault": "TODO Project uitgevoerd door TODO Bedrijfsnaam"
+  "steps": {
+    "title": "Van eerste contact tot",
+    "accent": "de eerste werkdag",
+    "intro": "Werk zoeken en personeel aanvragen gaat bij Groos in drie stappen. Zo weet iedereen vooraf wat er gebeurt.",
+    "jobseeker": {
+      "title": "Voor werkzoekenden",
+      "steps": [
+        {
+          "title": "Solliciteer of schrijf je in",
+          "body": "Kies een vacature of schrijf je in zonder vacature, een cv is niet nodig."
+        },
+        {
+          "title": "Wij bellen je",
+          "body": "Jimmy of Lorenzo belt je om te horen welk werk je zoekt en wanneer je kunt werken."
+        },
+        {
+          "title": "Je begint",
+          "body": "Past het werk, dan spreken wij samen je eerste werkdag, je uren en je uurloon af."
+        }
+      ]
+    },
+    "employer": {
+      "title": "Voor werkgevers",
+      "steps": [
+        {
+          "title": "Vraag personeel aan",
+          "body": "U vertelt ons welke mensen u zoekt, vanaf wanneer en voor hoe lang."
+        },
+        {
+          "title": "Wij stellen mensen voor",
+          "body": "Wij bespreken het werk en de werktijden met u en stellen daarna mensen voor die passen."
+        },
+        {
+          "title": "Het werk begint",
+          "body": "Wij houden contact met u en de medewerker zolang de inzet loopt."
+        }
+      ]
+    }
   },
-  "proof": {
-    "quote": "TODO Een echte uitspraak van een klant, met toestemming.",
-    "author": "TODO Naam of organisatie",
-    "role": "TODO Plaats en relatie, bijvoorbeeld vaste opdrachtgever"
-  },
-  "assurance": {
-    "certTitle": "TODO Keurmerk of garantie",
-    "certBody": "TODO Eén zin over wat dit keurmerk of deze garantie betekent.",
-    "certAlt": "TODO Naam van het keurmerk",
-    "heading": "TODO Kwaliteit en zekerheid,",
-    "headingAccent": "TODO accentwoorden",
-    "intro": "TODO Twee zinnen over verzekering, veiligheid of garanties.",
-    "items": [
-      {
-        "title": "TODO Zekerheid 1",
-        "body": "TODO Eén zin."
+  "why": {
+    "title": "Wat u van Groos",
+    "accent": "kunt verwachten",
+    "intro": "Wij beloven alleen wat wij kunnen waarmaken. Dit zijn de vaste afspraken voor iedereen die met Groos werkt.",
+    "items": {
+      "contactpersonen": {
+        "title": "Twee vaste contactpersonen",
+        "body": "U spreekt steeds met Jimmy of Lorenzo. Hun 06-nummers staan op deze site en bij elke vacature."
       },
-      {
-        "title": "TODO Zekerheid 2",
-        "body": "TODO Eén zin."
+      "beroepen": {
+        "title": "Vijf praktische beroepen",
+        "body": "Groos richt zich op glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Per beroep staat op deze site wat het werk inhoudt."
       },
-      {
-        "title": "TODO Zekerheid 3",
-        "body": "TODO Eén zin."
+      "loon": {
+        "title": "Eerlijk over loon",
+        "body": "Bij elke vacature staat het bruto uurloon. Volgens de wet krijgt een uitzendkracht hetzelfde loon als vaste collega's in dezelfde functie."
       },
-      {
-        "title": "TODO Zekerheid 4",
-        "body": "TODO Eén zin."
+      "solliciteren": {
+        "title": "Solliciteren op drie manieren",
+        "body": "Werkzoekenden solliciteren via het formulier, met een WhatsApp-bericht of met een telefoontje. Een cv is daarbij niet nodig."
       }
-    ]
+    }
   },
-  "about": {
-    "title": "TODO Kop over het bedrijf met een <accent>accentwoord</accent>.",
-    "p1": "TODO Eerste alinea: herkomst, geschiedenis en wie er achter het bedrijf staan.",
-    "p2": "TODO Tweede alinea: werkwijze, mensen en ambitie.",
-    "location": "Gevestigd in {city}, TODO actief in de regio."
+  "people": {
+    "title": "Bij Groos spreekt u",
+    "accent": "Jimmy of Lorenzo",
+    "intro": "Zij plaatsen de vacatures, spreken werkzoekenden en bespreken aanvragen met opdrachtgevers. Bel of app hen gerust met een vraag over werk of personeel.",
+    "aboutLink": "Lees meer over Groos"
   },
   "faq": {
-    "heading": "Veelgestelde",
-    "headingAccent": "vragen",
-    "items": [
-      {
-        "q": "TODO In welke regio's zijn jullie actief?",
-        "a": "TODO Antwoord in één tot drie volledige zinnen."
-      },
-      {
-        "q": "TODO Voor wie werken jullie?",
-        "a": "TODO Antwoord in één tot drie volledige zinnen."
-      },
-      {
-        "q": "TODO Vraag over de belangrijkste dienst?",
-        "a": "TODO Antwoord in één tot drie volledige zinnen."
-      },
-      {
-        "q": "TODO Vraag over planning of beschikbaarheid?",
-        "a": "TODO Antwoord in één tot drie volledige zinnen."
-      },
-      {
-        "q": "TODO Vraag over verzekering of garantie?",
-        "a": "TODO Antwoord in één tot drie volledige zinnen."
-      },
-      {
-        "q": "TODO Hoe snel krijg ik antwoord op mijn aanvraag?",
-        "a": "TODO Antwoord met de echte reactietijd."
-      }
-    ]
+    "title": "Veelgestelde vragen over",
+    "accent": "werk en personeel",
+    "switchLabel": "Vragen voor",
+    "jobseeker": {
+      "tab": "Werkzoekenden",
+      "moreLink": "Meer over werken via Groos",
+      "items": [
+        {
+          "q": "Kost solliciteren of inschrijven geld?",
+          "a": "Nee, solliciteren en inschrijven zijn altijd gratis. Groos vraagt nooit geld voor werk, een contract of een sollicitatie. Vraagt iemand dat toch uit onze naam, meld het ons dan."
+        },
+        {
+          "q": "Heb ik een cv nodig om te solliciteren?",
+          "a": "Nee, een cv is niet nodig. Je vult een paar gegevens in, zoals je naam en je telefoonnummer, en wij bespreken je ervaring aan de telefoon."
+        },
+        {
+          "q": "Moet ik Nederlands spreken?",
+          "a": "Dat verschilt per vacature. Bij elke vacature staat of je Nederlands nodig hebt voor het werk. Deze site is ook in het Engels te lezen."
+        },
+        {
+          "q": "Wat verdien ik?",
+          "a": "Het bruto uurloon staat bij elke vacature. Volgens de wet krijg je hetzelfde loon als vaste collega's die hetzelfde werk doen. Daarnaast bouw je vakantiegeld op."
+        },
+        {
+          "q": "Krijg ik veiligheidsschoenen en andere beschermingsmiddelen?",
+          "a": "Ja, beschermingsmiddelen zoals veiligheidsschoenen, handschoenen of een helm krijg je gratis als het werk daarom vraagt. Wij vertellen je vooraf wat je op je eerste werkdag nodig hebt."
+        }
+      ]
+    },
+    "employer": {
+      "tab": "Werkgevers",
+      "moreLink": "Meer over personeel inhuren",
+      "items": [
+        {
+          "q": "Wat kost een uitzendkracht?",
+          "a": "Het tarief hangt af van het beroep, het aantal uren, de werktijden en de duur van de inzet. Na uw aanvraag sturen wij u een voorstel met een uurtarief."
+        },
+        {
+          "q": "Voor hoe lang kan ik personeel inhuren?",
+          "a": "Dat bepaalt u zelf, ook als het om één dag gaat. Wij stemmen het aantal mensen en de uren af op uw planning."
+        },
+        {
+          "q": "Wie is mijn vaste contactpersoon?",
+          "a": "U heeft contact met Jimmy of Lorenzo, die uw aanvraag zelf afhandelen. Hun nummers staan op deze site, zodat u hen direct kunt bellen."
+        },
+        {
+          "q": "Krijgen jullie mensen hetzelfde loon als mijn vaste medewerkers?",
+          "a": "Ja, dat schrijft de wet voor met de gelijkwaardige beloning. Een uitzendkracht krijgt hetzelfde loon en dezelfde vergoedingen als uw vaste medewerkers in dezelfde functie. Daarom vragen wij bij uw aanvraag naar de beloning in uw bedrijf."
+        },
+        {
+          "q": "Wie zorgt voor veiligheid op de werkplek?",
+          "a": "Als opdrachtgever zorgt u volgens de Arbowet voor een veilige werkplek en voor uitleg over het werk. Wij spreken vooraf met u af welke certificaten en beschermingsmiddelen nodig zijn."
+        }
+      ]
+    }
+  },
+  "cta": {
+    "title": "Eén telefoontje is genoeg",
+    "accent": "om te beginnen",
+    "body": "Bel of app ons op <link>{phone}</link>. Wie liever eerst rondkijkt, kiest hieronder de route die past."
   }
 }

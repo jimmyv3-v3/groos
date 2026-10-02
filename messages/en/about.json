@@ -2,5 +2,71 @@
   "meta": {
     "title": "About us",
     "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work in five occupations. Read who Jimmy and Lorenzo are and how we work."
+  },
+  "hero": {
+    "title": "Groos is an old Dutch word for <accent>pride</accent>",
+    "intro": "We are an employment agency in The Hague for window cleaning, cleaning, logistics, removals and construction and demolition. Jimmy and Lorenzo run Groos together and are the dedicated contacts."
+  },
+  "story": {
+    "title": "What pride means",
+    "accent": "in our work",
+    "paragraphs": [
+      "Groos is an old Dutch word for pride that is still used in Zeeland and Rotterdam. We chose the name because the work our people do often goes unseen, while everyone relies on it every day.",
+      "Clean windows, a tidy warehouse and a move that finishes on time only stand out when they are missing. We believe this work deserves respect, in the pay, in the planning and in how we treat people.",
+      "For clients, pride means that we propose people who want to do their work well. For job seekers, it means that we are honest about the pay, the hours and the work itself."
+    ]
+  },
+  "people": {
+    "title": "The people behind",
+    "accent": "Groos",
+    "intro": "At Groos you always deal with the same two people. Feel free to call or message them with a question about work or staff."
+  },
+  "area": {
+    "title": "An agency from The Hague for",
+    "accent": "The Hague and the surrounding area",
+    "paragraphs": [
+      "Groos is based on Hugo Coenraadspad in The Hague. Visits are by appointment only, so please call or message us beforehand.",
+      "We look for work and staff in The Hague and the surrounding municipalities. Every job states exactly where the work is."
+    ],
+    "placesIntro": "We work in places including:",
+    "places": [
+      "The Hague",
+      "Delft",
+      "Leidschendam-Voorburg",
+      "Midden-Delfland",
+      "Pijnacker-Nootdorp",
+      "Rijswijk",
+      "Wassenaar",
+      "Westland",
+      "Zoetermeer"
+    ]
+  },
+  "approach": {
+    "title": "This is how we work with",
+    "accent": "job seekers and clients",
+    "intro": "A small agency works differently from a large chain. These are the four habits that always apply at Groos.",
+    "items": {
+      "kennismaken": {
+        "title": "Getting to know each other first",
+        "body": "We call job seekers to get to know them and discuss every request with the client. That way we know what someone is looking for and what the work requires."
+      },
+      "afspraken": {
+        "title": "Agreements in advance",
+        "body": "Hourly wage, hours and working times are known before anyone starts. Every job already states the gross hourly wage."
+      },
+      "contact": {
+        "title": "Contact during the work",
+        "body": "We stay in touch with the worker and the client for as long as the work runs. If something goes wrong, we look for a solution together."
+      },
+      "kosten": {
+        "title": "Never money for work",
+        "body": "Groos never asks for money for work, a contract or an application. Anyone who receives such a request in our name can report it to us straight away."
+      }
+    }
+  },
+  "cta": {
+    "title": "A question about",
+    "accent": "work or staff?",
+    "body": "Call or message us on <link>{phone}</link>, or email {email}. You can also send a message through the contact page."
   }
 }
