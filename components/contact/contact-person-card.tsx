@@ -1,14 +1,13 @@
-// STUB: wordt vervangen door spec 07
-import { MessageCircle, Phone } from "lucide-react";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { TrackedContactLink } from "@/components/forms/tracked-contact-link";
 import type { Locale } from "@/i18n/routing";
 import { whatsappLink, type Person } from "@/lib/site";
-import { CtaButton } from "@/components/ui/cta-button";
 
 /**
- * Tijdelijke personenkaart met de props van spec 07 (`{ person, locale, headingLevel }`):
- * initiaal in een cirkel, voornaam als kop, nummer als tel:-link, belknop en
- * alleen bij person.whatsapp een WhatsApp-knop. Spec 07 voegt TrackedContactLink toe.
+ * Kaart van een vaste contactpersoon (spec 07 §4.9). Zonder foto een cirkel
+ * met de eerste letter (B-25); geen rol of achternaam zolang die niet
+ * bevestigd zijn. Opbouw naar 21st.dev 5689 en 28619, zonder sociale knoppen.
  */
 export async function ContactPersonCard({
   person,
@@ -19,52 +18,62 @@ export async function ContactPersonCard({
   locale: Locale;
   headingLevel?: "h3";
 }) {
-  const t = await getTranslations({ locale, namespace: "common" });
+  const [t, tc] = await Promise.all([
+    getTranslations({ locale, namespace: "contact.people" }),
+    getTranslations({ locale, namespace: "common" }),
+  ]);
   const Heading = headingLevel;
-  const tel = `tel:${person.phone.e164}`;
-
   return (
-    <div
-      data-slot="contact-person-card"
-      className="flex h-full flex-col gap-5 rounded-2xl border border-border bg-card p-6 md:p-7"
-    >
+    <article className="flex h-full flex-col gap-5 rounded-xl border border-border bg-background p-6">
       <div className="flex items-center gap-4">
-        <span
-          aria-hidden
-          className="grid size-14 shrink-0 place-items-center rounded-full bg-brand-tint font-display text-h3 font-semibold text-brand"
-        >
-          {person.firstName.charAt(0)}
-        </span>
-        <div className="min-w-0">
-          <Heading className="font-display text-h3 font-semibold">{person.firstName}</Heading>
-          <a href={tel} className="link tabular-nums">
+        {person.photo ? (
+          <Image
+            src={person.photo}
+            alt={t("photoAlt", { name: person.firstName })}
+            width={64}
+            height={64}
+            className="size-16 rounded-full object-cover"
+          />
+        ) : (
+          <span
+            aria-hidden="true"
+            className="flex size-16 shrink-0 items-center justify-center rounded-full bg-brand-tint font-display text-2xl font-semibold text-brand-strong"
+          >
+            {person.firstName.charAt(0)}
+          </span>
+        )}
+        <div className="grid gap-0.5">
+          <Heading className="font-display text-h3 font-semibold text-foreground">{person.firstName}</Heading>
+          <a
+            href={`tel:${person.phone.e164}`}
+            className="text-base tabular-nums text-muted-foreground underline-offset-4 hover:text-brand-strong hover:underline"
+          >
             {person.phone.display}
           </a>
         </div>
       </div>
-      <div className="mt-auto flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <CtaButton
-          href={tel}
-          variant="secondary"
-          size="sm"
-          ariaLabel={t("a11y.callPerson", { name: person.firstName, phone: person.phone.display })}
-        >
-          <Phone aria-hidden />
-          {t("cta.callPerson", { name: person.firstName })}
-        </CtaButton>
+      <div className="mt-auto grid gap-2 sm:grid-cols-2">
+        <TrackedContactLink
+          kind="call"
+          form="contact"
+          href={`tel:${person.phone.e164}`}
+          label={tc("cta.callPerson", { name: person.firstName })}
+          ariaLabel={tc("a11y.callPerson", { name: person.firstName, phone: person.phone.display })}
+          className="w-full"
+        />
         {person.whatsapp && (
-          <CtaButton
-            href={whatsappLink(t("whatsapp.algemeen"), person.phone)}
-            variant="secondary"
-            size="sm"
+          <TrackedContactLink
+            kind="whatsapp"
+            form="contact"
+            href={whatsappLink(tc("whatsapp.algemeen"), person.phone)}
+            label={tc("cta.whatsappPerson", { name: person.firstName })}
+            ariaLabel={tc("a11y.whatsappPerson", { name: person.firstName })}
             external
-            ariaLabel={`${t("a11y.whatsappPerson", { name: person.firstName })} ${t("opensInNewTab")}`}
-          >
-            <MessageCircle aria-hidden />
-            {t("cta.whatsappPerson", { name: person.firstName })}
-          </CtaButton>
+            newTabLabel={tc("opensInNewTab")}
+            className="w-full"
+          />
         )}
       </div>
-    </div>
+    </article>
   );
 }

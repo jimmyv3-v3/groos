@@ -2,5 +2,41 @@
   "meta": {
     "title": "Contact",
     "description": "Call, message or email Jimmy and Lorenzo of Groos Personeelsdiensten in The Hague. Send a message using the form or make an appointment to visit."
+  },
+  "breadcrumb": "Contact",
+  "title": "Contact Groos Personeelsdiensten",
+  "intro": "At Groos you always speak to Jimmy or Lorenzo. Call or message one of them, or send a message using the form.",
+  "people": {
+    "title": "Call or message",
+    "accent": "{name}",
+    "intro": "Both can be reached on their own number.",
+    "photoAlt": "Portrait of {name}"
+  },
+  "details": {
+    "title": "Details of",
+    "accent": "Groos Personeelsdiensten",
+    "phone": "Main number",
+    "kvk": "Chamber of Commerce (KvK) number",
+    "officeHoursValue": "Monday to Friday, {opens} to {closes}"
+  },
+  "choice": {
+    "title": "How can we",
+    "accent": "help you?",
+    "jobseeker": {
+      "title": "I am looking for work",
+      "body": "View the jobs or register with us, even without a CV.",
+      "jobsLink": "View jobs",
+      "registerLink": "Register"
+    },
+    "employer": {
+      "title": "I am looking for staff",
+      "body": "Tell us who you need and from when. Submitting a request places you under no obligation.",
+      "requestLink": "Request staff"
+    }
+  },
+  "form": {
+    "title": "Send us",
+    "accent": "a message",
+    "intro": "Choose what your question is about. We reply by email or call you back."
   }
 }

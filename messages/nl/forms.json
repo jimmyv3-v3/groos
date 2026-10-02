@@ -1,14 +1,254 @@
 {
+  "common": {
+    "optionalMark": "niet verplicht",
+    "errorSummary": "{count, plural, =0 {Alle velden zijn goed ingevuld.} one {Eén veld klopt nog niet. Bij het veld staat wat er mis is.} other {# velden kloppen nog niet. Bij elk veld staat wat er mis is.}}",
+    "submittingStatus": "Het formulier wordt verstuurd.",
+    "networkError": "Het versturen is niet gelukt door een verbindingsprobleem. Probeer het opnieuw of neem telefonisch contact op.",
+    "retry": "Probeer opnieuw",
+    "honeypotLabel": "Laat dit veld leeg",
+    "alternativesLabel": "Andere manieren om contact op te nemen",
+    "selectPlaceholder": "Maak een keuze"
+  },
+  "privacy": {
+    "applyNotice": "Wij gebruiken je gegevens voor deze sollicitatie. In onze <link>privacyverklaring</link> lees je hoe lang wij ze bewaren en wat je rechten zijn.",
+    "registerNotice": "Wij gebruiken je gegevens om passend werk voor je te zoeken. In onze <link>privacyverklaring</link> lees je hoe lang wij ze bewaren en wat je rechten zijn.",
+    "staffRequestNotice": "Wij gebruiken uw gegevens alleen om uw aanvraag te behandelen. In onze <link>privacyverklaring</link> leest u hoe wij daarmee omgaan.",
+    "contactNotice": "Wij gebruiken uw gegevens alleen om uw bericht te beantwoorden. In onze <link>privacyverklaring</link> leest u hoe wij daarmee omgaan.",
+    "talentPool": {
+      "label": "Bewaar mijn gegevens een jaar, zodat Groos mij kan benaderen voor ander passend werk.",
+      "hint": "Dit is niet verplicht. Je kunt deze toestemming altijd intrekken met een mail naar {email}."
+    },
+    "registerConsent": {
+      "label": "Ik geef Groos toestemming om mijn gegevens een jaar te bewaren en mij te benaderen voor passend werk.",
+      "hint": "Zonder deze toestemming kunnen wij je inschrijving niet bewaren. Je kunt hem altijd intrekken via {email}.",
+      "error": "Vink dit vakje aan om je in te schrijven."
+    }
+  },
+  "jobseeker": {
+    "fields": {
+      "firstName": { "label": "Voornaam" },
+      "lastName": { "label": "Achternaam", "hint": "Met tussenvoegsel, bijvoorbeeld van Dijk." },
+      "phone": { "label": "Telefoonnummer", "hint": "Hierop bellen of appen wij je. Een buitenlands nummer kan ook." },
+      "email": { "label": "E-mailadres", "hint": "Hierop sturen wij je een bevestiging." },
+      "city": { "label": "Woonplaats", "hint": "Zo zoeken wij werk dat goed te bereiken is." },
+      "mayWorkInNl": {
+        "legend": "Mag je in Nederland werken?",
+        "yes": "Ja",
+        "no": "Nee",
+        "noHint": "Solliciteer gerust. Wij bekijken samen met je wat er mogelijk is."
+      },
+      "hasDrivingLicenseB": { "legend": "Heb je rijbewijs B?", "yes": "Ja", "no": "Nee" },
+      "availableFrom": { "label": "Beschikbaar vanaf", "hint": "Laat dit leeg als je direct kunt beginnen." },
+      "message": { "label": "Wil je nog iets vertellen?", "hint": "Bijvoorbeeld welk werk je eerder hebt gedaan of op welke dagen je kunt werken." }
+    },
+    "cv": {
+      "label": "Cv toevoegen",
+      "hint": "Een pdf of Word-bestand van hoogstens 10 MB.",
+      "choose": "Kies bestand",
+      "change": "Kies een ander bestand",
+      "remove": "Verwijder",
+      "removeAria": "Verwijder {name}",
+      "uploading": "{name} wordt geüpload, {percent} procent klaar.",
+      "uploaded": "{name} is toegevoegd.",
+      "noCv": "Heb je geen cv? Dat is geen probleem. Vertel dan kort welk werk je eerder hebt gedaan.",
+      "noJs": "Een cv toevoegen lukt alleen als JavaScript aan staat. Je kunt je cv ook later aan ons geven."
+    },
+    "errors": {
+      "firstNameRequired": "Vul je voornaam in.",
+      "firstNameTooLong": "Je voornaam mag hoogstens 80 tekens hebben.",
+      "lastNameRequired": "Vul je achternaam in.",
+      "lastNameTooLong": "Je achternaam mag hoogstens 120 tekens hebben.",
+      "phoneRequired": "Vul je telefoonnummer in, dan kunnen wij je bellen.",
+      "phoneInvalid": "Dit telefoonnummer klopt niet. Schrijf het zoals 06 12345678 of met een landcode zoals +48.",
+      "emailRequired": "Vul je e-mailadres in, dan sturen wij je een bevestiging.",
+      "emailInvalid": "Dit e-mailadres klopt niet. Schrijf het zoals naam@voorbeeld.nl.",
+      "cityRequired": "Vul je woonplaats in.",
+      "cityInvalid": "Een woonplaats heeft 2 tot 80 tekens.",
+      "mayWorkInNlRequired": "Kies ja of nee.",
+      "drivingLicenseInvalid": "Kies ja of nee.",
+      "availableFromInvalid": "Deze datum klopt niet. Kies een datum of laat het veld leeg.",
+      "availableFromPast": "Kies een datum vanaf vandaag.",
+      "availableFromTooFar": "Kies een datum binnen een jaar.",
+      "messageTooLong": "Je bericht is te lang. Gebruik hoogstens 2.000 tekens.",
+      "occupationsInvalid": "Kies een beroep uit de lijst.",
+      "cvType": "Dit bestand kunnen wij niet openen. Kies een pdf of een Word-bestand.",
+      "cvTooLarge": "Dit bestand is groter dan 10 MB. Kies een kleiner bestand.",
+      "cvUploadFailed": "Het uploaden is niet gelukt. Controleer je internet en probeer het opnieuw.",
+      "cvUploadExpired": "Je cv is niet goed aangekomen. Kies het bestand opnieuw.",
+      "cvUploading": "Je cv wordt nog geüpload. Wacht even en verstuur dan opnieuw.",
+      "vacancyClosed": "Deze vacature is net gesloten. Bekijk de andere vacatures of schrijf je in.",
+      "blocked": "Wij konden het formulier niet versturen. Probeer het over een minuut opnieuw, of bel of app ons.",
+      "generic": "Er ging iets mis bij het versturen. Probeer het opnieuw, of bel of app ons."
+    }
+  },
+  "apply": {
+    "title": "Solliciteer op",
+    "accent": "deze vacature",
+    "intro": "Je bent in een paar minuten klaar en een cv is niet nodig. {name} belt of appt je om kennis te maken.",
+    "vacancyLine": "Je solliciteert op {title}, vacature {number}.",
+    "submit": "Verstuur sollicitatie",
+    "submitting": "Bezig met versturen",
+    "alternatives": {
+      "title": "Liever bellen of appen?",
+      "body": "Dat kan ook. Noem dan vacature {number}, zodat wij weten waar het over gaat."
+    }
+  },
   "register": {
     "meta": {
       "title": "Inschrijven of open solliciteren",
       "description": "Schrijf je in bij Groos en vertel welk werk je zoekt en wanneer je kunt beginnen. Inschrijven kost niets en een cv is niet nodig."
+    },
+    "breadcrumbParent": "Werkzoekenden",
+    "breadcrumb": "Inschrijven",
+    "title": "Schrijf je in voor werk",
+    "intro": "Staat er geen vacature tussen die bij je past? Schrijf je dan één keer in, dan bellen wij je zodra er passend werk is.",
+    "benefits": [
+      "Inschrijven kost je niets",
+      "Een cv is niet nodig",
+      "Je hebt één vaste contactpersoon"
+    ],
+    "formTitle": "Vertel ons",
+    "formAccent": "welk werk je zoekt",
+    "fields": {
+      "occupations": {
+        "legend": "In welk werk heb je interesse?",
+        "hint": "Kies één of meer beroepen, of sla dit over als je het nog niet weet."
+      }
+    },
+    "submit": "Schrijf je in",
+    "submitting": "Bezig met versturen",
+    "alternatives": {
+      "title": "Liever bellen of appen?",
+      "body": "Vertel aan de telefoon of via WhatsApp welk werk je zoekt. Dat werkt net zo goed."
+    },
+    "jobsLink": "Bekijk eerst de vacatures",
+    "steps": {
+      "title": "Zo gaat het",
+      "accent": "na je inschrijving",
+      "items": [
+        { "title": "Wij bellen je", "body": "Wij bellen of appen je om te horen welk werk je zoekt." },
+        { "title": "Wij zoeken passend werk", "body": "Wij kijken welk werk past bij je ervaring, je uren en waar je woont." },
+        { "title": "Je begint met werken", "body": "Wij spreken je eerste werkdag af en vertellen wat je meeneemt." }
+      ]
     }
   },
   "staffRequest": {
     "meta": {
       "title": "Personeel aanvragen",
       "description": "Vertel ons welke mensen u zoekt, vanaf wanneer en voor hoe lang. Wij nemen daarna contact met u op om uw aanvraag te bespreken."
+    },
+    "breadcrumbParent": "Werkgevers",
+    "breadcrumb": "Personeel aanvragen",
+    "title": "Personeel aanvragen",
+    "intro": "Vertel ons welke mensen u zoekt, vanaf wanneer en voor hoe lang. Wij nemen daarna contact met u op om de aanvraag door te nemen.",
+    "formTitle": "Vertel ons",
+    "formAccent": "wie u zoekt",
+    "groups": { "company": "Uw gegevens", "request": "Uw aanvraag" },
+    "fields": {
+      "companyName": { "label": "Bedrijfsnaam" },
+      "contactName": { "label": "Uw naam" },
+      "phone": { "label": "Telefoonnummer", "hint": "Op dit nummer bellen wij u over de aanvraag." },
+      "email": { "label": "E-mailadres", "hint": "Hierop sturen wij u een bevestiging." },
+      "kvkNumber": { "label": "KvK-nummer", "hint": "Acht cijfers, alleen als u het bij de hand heeft." },
+      "occupations": { "legend": "Welk personeel zoekt u?", "hint": "U kunt meer dan één beroep kiezen." },
+      "occupationOther": { "label": "Ander werk", "hint": "Zoekt u iemand voor ander werk? Beschrijf het hier kort." },
+      "headcount": { "label": "Aantal mensen" },
+      "start": { "legend": "Vanaf wanneer?", "asap": "Zo snel mogelijk", "date": "Vanaf een datum" },
+      "startDate": { "label": "Startdatum" },
+      "duration": {
+        "label": "Voor hoe lang ongeveer?",
+        "options": {
+          "one_day": "Eén dag",
+          "days": "Enkele dagen",
+          "weeks": "Enkele weken",
+          "months": "Enkele maanden",
+          "indefinite": "Langdurig",
+          "unknown": "Weet ik nog niet"
+        }
+      },
+      "hoursPerWeek": { "label": "Uren per week per persoon", "hint": "Een schatting is genoeg." },
+      "workCity": { "label": "Plaats van het werk" },
+      "description": { "label": "Toelichting", "hint": "Bijvoorbeeld de werktijden, de taken of eisen zoals VCA of een rijbewijs." }
+    },
+    "errors": {
+      "companyNameRequired": "Vul de naam van uw bedrijf in.",
+      "companyNameInvalid": "Een bedrijfsnaam heeft 2 tot 120 tekens.",
+      "contactNameRequired": "Vul uw naam in.",
+      "contactNameInvalid": "Een naam heeft 2 tot 120 tekens.",
+      "phoneRequired": "Vul uw telefoonnummer in, dan kunnen wij u bellen.",
+      "phoneInvalid": "Dit telefoonnummer klopt niet. Schrijf het zoals 070 1234567 of 06 12345678.",
+      "emailRequired": "Vul uw e-mailadres in, dan sturen wij u een bevestiging.",
+      "emailInvalid": "Dit e-mailadres klopt niet. Schrijf het zoals naam@bedrijf.nl.",
+      "kvkInvalid": "Een KvK-nummer heeft acht cijfers. Laat het veld leeg als u het niet weet.",
+      "occupationsRequired": "Kies minstens één beroep of beschrijf het werk bij ander werk.",
+      "occupationsInvalid": "Kies een beroep uit de lijst.",
+      "occupationOtherInvalid": "Beschrijf het werk in 2 tot 120 tekens.",
+      "headcountRequired": "Vul in hoeveel mensen u nodig heeft.",
+      "headcountInvalid": "Vul een aantal van 1 tot 500 in.",
+      "startRequired": "Kies zo snel mogelijk of vanaf een datum.",
+      "startDateRequired": "Kies een startdatum.",
+      "startDateInvalid": "Deze datum klopt niet. Kies een andere datum.",
+      "startDatePast": "Kies een datum vanaf vandaag.",
+      "durationInvalid": "Kies een duur uit de lijst.",
+      "hoursInvalid": "Vul een aantal uren van 1 tot 60 in.",
+      "workCityRequired": "Vul de plaats in waar het werk is.",
+      "workCityInvalid": "Een plaatsnaam heeft 2 tot 80 tekens.",
+      "descriptionTooLong": "Uw toelichting is te lang. Gebruik hoogstens 2.000 tekens.",
+      "blocked": "Wij konden uw aanvraag niet versturen. Probeer het over een minuut opnieuw of bel ons.",
+      "generic": "Er ging iets mis bij het versturen. Probeer het opnieuw of bel ons."
+    },
+    "submit": "Verstuur aanvraag",
+    "submitting": "Bezig met versturen",
+    "alternatives": {
+      "title": "Liever direct overleggen?",
+      "body": "Bel of app {name}. Wij nemen uw aanvraag dan telefonisch met u door."
+    },
+    "steps": {
+      "title": "Zo gaat het",
+      "accent": "na uw aanvraag",
+      "items": [
+        { "title": "Wij bellen u", "body": "Wij bespreken met u de taken, de werktijden en de startdatum." },
+        { "title": "U krijgt een voorstel", "body": "Wij stellen medewerkers voor en sturen u een voorstel met een helder uurtarief." },
+        { "title": "De medewerker begint", "body": "Op de afgesproken dag begint de medewerker, en wij blijven uw aanspreekpunt." }
+      ]
     }
+  },
+  "contactForm": {
+    "fields": {
+      "name": { "label": "Naam" },
+      "phone": { "label": "Telefoonnummer", "hint": "Vul een telefoonnummer of een e-mailadres in, of allebei." },
+      "email": { "label": "E-mailadres" },
+      "topic": {
+        "legend": "Waar gaat uw vraag over?",
+        "options": {
+          "job_seeker": "Ik zoek werk",
+          "employer": "Ik zoek personeel",
+          "callback": "Bel mij terug",
+          "other": "Iets anders"
+        }
+      },
+      "message": { "label": "Uw bericht", "hintCallback": "Dit veld is niet verplicht. Schrijf erbij wanneer wij u het beste kunnen bellen." }
+    },
+    "topicHints": {
+      "jobseeker": "Zoek je werk? Dan kun je je ook direct <link>inschrijven</link>.",
+      "employer": "Zoekt u personeel? Dan kunt u ook direct <link>personeel aanvragen</link>.",
+      "callback": "Wij bellen u terug op het nummer dat u hierboven invult.",
+      "other": "Schrijf in uw bericht waar wij u mee kunnen helpen."
+    },
+    "errors": {
+      "nameRequired": "Vul uw naam in.",
+      "nameInvalid": "Een naam heeft 2 tot 120 tekens.",
+      "reachRequired": "Vul een telefoonnummer of een e-mailadres in.",
+      "phoneInvalid": "Dit telefoonnummer klopt niet. Schrijf het zoals 06 12345678.",
+      "phoneRequiredForCallback": "Vul uw telefoonnummer in, dan bellen wij u terug.",
+      "emailInvalid": "Dit e-mailadres klopt niet. Schrijf het zoals naam@voorbeeld.nl.",
+      "topicRequired": "Kies waar uw vraag over gaat.",
+      "messageRequired": "Schrijf kort waar uw vraag over gaat.",
+      "messageTooLong": "Uw bericht is te lang. Gebruik hoogstens 2.000 tekens.",
+      "blocked": "Wij konden uw bericht niet versturen. Probeer het over een minuut opnieuw of bel ons.",
+      "generic": "Er ging iets mis bij het versturen. Probeer het opnieuw of bel ons."
+    },
+    "submit": "Verstuur bericht",
+    "submitting": "Bezig met versturen"
   }
 }
