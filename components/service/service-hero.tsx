@@ -1,72 +1,70 @@
-import Image from "next/image";
-import { Phone, ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import Image, { type StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
-import { contact } from "@/lib/site";
-import type { AppPath } from "@/lib/routes";
-import { Breadcrumbs } from "@/components/sections/breadcrumbs";
-import { CtaButton } from "@/components/ui/cta-button";
-
-type Crumb = { label: string; href: AppPath };
+import { Breadcrumbs, type Crumb } from "@/components/sections/breadcrumbs";
+import { CtaLinks } from "./cta-links";
+import type { CtaLink, HeroFact } from "./types";
 
 /**
- * Service-page hero: breadcrumb, title, lead, two CTAs and an optional photo.
- * Server component; de CTA-knoppen komen uit components/ui/cta-button.
+ * Hero van de beroeps- en overzichtspagina's (spec 05 §4.4.1): kruimelpad, h1,
+ * lead van twee zinnen, feitenchips, knoppen en een notitie eronder. Geen beeld
+ * zolang er geen foto's zijn (B-25). Server component; geen animatie boven de vouw.
  */
 export function ServiceHero({
   breadcrumb,
   title,
   lead,
+  facts,
+  factsLabel,
+  ctas,
+  note,
   image,
-  imageAlt,
 }: {
   breadcrumb: Crumb[];
   title: string;
   lead: string;
-  image?: string;
-  imageAlt?: string;
+  facts?: HeroFact[];
+  factsLabel?: string;
+  ctas: CtaLink[];
+  note?: string;
+  image?: { src: StaticImageData | string; alt: string };
 }) {
-  const t = useTranslations();
   return (
-    <section className="relative overflow-hidden pb-16 pt-12 sm:pb-20 sm:pt-16">
-      <div className="container relative">
+    <section className="pt-6 pb-14 sm:pt-8 sm:pb-20">
+      <div className="container">
         <Breadcrumbs items={breadcrumb} />
 
-        <div
-          className={cn(
-            "mt-8 grid items-center gap-12",
-            image && "lg:grid-cols-2",
-          )}
-        >
-          <div className={image ? undefined : "max-w-3xl"}>
-            <h1 className="text-h1">
-              {title}
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              {lead}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <CtaButton href="#offerte" size="default">
-                {t("common.cta.requestStaff")}
-                <ArrowRight className="h-4 w-4" />
-              </CtaButton>
-              <CtaButton href={contact.phoneHref} variant="secondary" size="default">
-                <Phone className="h-4 w-4" />
-                {t("common.cta.callDirect")}
-              </CtaButton>
-            </div>
+        <div className={cn("mt-8 grid items-center gap-12 sm:mt-12", image && "lg:grid-cols-2")}>
+          <div className="max-w-3xl">
+            <h1 className="text-h1">{title}</h1>
+            <p className="mt-5 max-w-[60ch] text-lead text-muted-foreground">{lead}</p>
+
+            {facts && facts.length > 0 && (
+              <ul aria-label={factsLabel} className="mt-7 flex flex-wrap gap-2">
+                {facts.map((fact) => (
+                  <li
+                    key={fact.label}
+                    className="inline-flex flex-wrap items-baseline gap-x-1.5 rounded-full border border-border bg-ice px-4 py-2 text-sm"
+                  >
+                    <span className="text-muted-foreground">{fact.label}</span>{" "}
+                    <strong className="font-semibold text-foreground tabular-nums">{fact.value}</strong>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            <CtaLinks ctas={ctas} className="mt-8" />
+            {note && <p className="mt-4 text-sm text-muted-foreground">{note}</p>}
           </div>
 
           {image && (
-            <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-border/60">
+            <div className="relative aspect-4/3 overflow-hidden rounded-2xl border border-border">
               <Image
-                src={image}
-                alt={imageAlt ?? ""}
+                src={image.src}
+                alt={image.alt}
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-background/70 via-background/10 to-transparent" />
             </div>
           )}
         </div>

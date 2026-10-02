@@ -1,63 +1,40 @@
-"use client";
-
-import { useState } from "react";
-import { Plus, Minus } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/sections/section-heading";
+import { Accordion, AccordionItem } from "@/components/ui/accordion";
+import type { FaqItem } from "./types";
 
-export type FaqItem = { q: string; a: string };
-
-/** Accessible FAQ accordion for a service page. */
+/**
+ * Veelgestelde vragen (spec 05 §4.4.1). Server component op de native
+ * <details>-accordion van spec 02: werkt met Enter en Spatie zonder JavaScript,
+ * met dezelfde name gaat steeds één antwoord open. De pagina zet de FAQPage
+ * JSON-LD met exact dezelfde items.
+ */
 export function ServiceFaq({
-  items,
+  id = "faq",
   heading,
+  accent,
+  intro,
+  items,
+  className,
 }: {
+  id?: string;
+  heading: string;
+  accent?: string;
+  intro?: string;
   items: FaqItem[];
-  heading?: string;
+  className?: string;
 }) {
-  const t = useTranslations("common.labels");
-  const resolvedHeading = heading ?? t("faq");
-  const [open, setOpen] = useState<number | null>(0);
-
   return (
-    <section id="faq" className="relative scroll-mt-24 py-16 sm:py-20">
-      <div className="container max-w-3xl">
-        <SectionHeading title={resolvedHeading} align="center" />
-        <div className="mt-12 border-t border-border/60">
-          {items.map((item, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={item.q} className="border-b border-border/60">
-                <button
-                  type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
-                >
-                  <span className="font-display text-h3 font-semibold text-foreground">
-                    {item.q}
-                  </span>
-                  {isOpen ? (
-                    <Minus className="h-4 w-4 shrink-0 text-brand" />
-                  ) : (
-                    <Plus className="h-4 w-4 shrink-0 text-brand" />
-                  )}
-                </button>
-                <div
-                  className={cn(
-                    "grid transition-all duration-300 ease-out",
-                    isOpen ? "grid-rows-[1fr] pb-5" : "grid-rows-[0fr]",
-                  )}
-                >
-                  <p className="overflow-hidden text-sm leading-relaxed text-muted-foreground">
-                    {item.a}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+    <section id={id} className={cn("section scroll-mt-24", className)}>
+      <div className="container grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+        <SectionHeading title={heading} accent={accent} intro={intro} />
+        <Accordion>
+          {items.map((item, i) => (
+            <AccordionItem key={item.q} name={id} title={item.q} defaultOpen={i === 0}>
+              <p>{item.a}</p>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </section>
   );

@@ -3,10 +3,23 @@
     "title": "Personeel inhuren in Den Haag",
     "description": "Groos levert medewerkers voor glasbewassing, schoonmaak, logistiek, verhuizen, bouw en sloop in Den Haag en omgeving. Vraag vrijblijvend personeel aan."
   },
+  "steps": {
+    "title": "Van uw aanvraag tot",
+    "accent": "de eerste werkdag",
+    "intro": "U heeft bij elke stap contact met dezelfde persoon.",
+    "items": [
+      { "title": "U vertelt wie u zoekt", "body": "U belt ons of vult de aanvraag in met het beroep, het aantal mensen en de startdatum." },
+      { "title": "Wij bespreken het werk", "body": "Wij nemen contact met u op over de taken, de werktijden en de eisen aan de mensen." },
+      { "title": "Wij stellen kandidaten voor", "body": "U krijgt kandidaten die passen bij het werk, met hun ervaring en hun certificaten." },
+      { "title": "De medewerker begint", "body": "Groos regelt het contract en het loon, en wij houden contact met u zolang de inzet loopt." }
+    ]
+  },
   "wtta": {
     "meta": {
       "title": "Inlenen en de Wtta",
       "description": "Vanaf 2028 mag u alleen inlenen bij een toegelaten uitlener. Lees wat de Wtta voor uw bedrijf betekent en hoe u de status van een uitzendbureau controleert."
-    }
+    },
+    "reviewed": "Deze pagina is bijgewerkt op {date}.",
+    "pastLabel": "Deze datum is voorbij."
   }
 }
