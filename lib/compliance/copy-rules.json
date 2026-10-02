@@ -1,0 +1,40 @@
+{
+  "scan": ["messages", "content", "app", "components", "emails", "lib", "supabase/seed.sql"],
+  "ignore": ["lib/compliance/copy-rules.json", "app/beheer", "components/beheer"],
+  "rules": [
+    { "id": "CL-01", "level": "review", "pattern": "keurmerk|\\bSNA\\b|NEN ?4400|\\bVCU\\b|gecertificeerd", "flags": "i", "note": "Keurmerk alleen met bevestiging en registerlink." },
+    { "id": "CL-02", "level": "review", "pattern": "\\b(ABU|NBBU)\\b|lid van|aangesloten bij", "flags": "i", "note": "Brancheorganisatie alleen met bevestiging." },
+    { "id": "CL-03", "level": "review", "pattern": "\\bcao\\b", "flags": "i", "note": "Geen cao als toepasselijk noemen; gelijkwaardige beloning mag wel (B-24)." },
+    { "id": "CL-04", "level": "review", "pattern": "toelating|toegelaten|registernummer|overgangsregeling", "flags": "i", "note": "Wtta-status alleen via WttaStatus en /werkgevers/wtta." },
+    { "id": "CL-05", "level": "review", "pattern": "binnen (één|1|een) werkdag|binnen \\d+ uur|direct antwoord", "flags": "i", "note": "Reactietermijn alleen als bevestigd (vlag responseTime); klachtenregeling: vijf werkdagen." },
+    { "id": "CL-06", "level": "review", "pattern": "24/7|dag en nacht|altijd bereikbaar", "flags": "i", "note": "Bereikbaarheid alleen met bevestigde kantoortijden (B-22)." },
+    { "id": "CL-07", "level": "review", "pattern": "\\d+\\+? (kandidaten|opdrachtgevers|plaatsingen|jaar ervaring)", "flags": "i", "note": "Geen cijfers over kandidaten, plaatsingen, opdrachtgevers of jaren ervaring (B-26)." },
+    { "id": "CL-09", "level": "review", "pattern": "vandaag nog", "flags": "i", "note": "Snelheid van levering alleen met vlag deliverySpeed (B-49)." },
+    { "id": "CL-10", "level": "review", "pattern": "wekelijks uitbetaald", "flags": "i", "note": "Uitbetaling alleen als bevestigd." },
+    { "id": "CL-11", "level": "review", "pattern": "gratis (VCA|heftruck|cursus)", "flags": "i", "note": "Opleidingen die Groos regelt of betaalt alleen als bevestigd." },
+    { "id": "CL-14", "level": "review", "pattern": "heel Nederland|landelijk", "flags": "i", "note": "Werkgebied: Den Haag en omgeving." },
+    { "id": "CL-15", "level": "block", "pattern": "Versseput", "flags": "i", "note": "Geen vermelding van J. Versseput (B-26)." },
+    { "id": "CL-16", "level": "review", "pattern": "\\bbeste\\b|nummer 1|goedkoopste|grootste", "flags": "i", "note": "Geen superlatieven." },
+    { "id": "CL-18", "level": "review", "pattern": "detacher|werving en selectie|payroll", "flags": "i", "note": "Dienstvorm is uitzenden; andere vormen pas na claim serviceForms." },
+    { "id": "CL-19", "level": "review", "pattern": "huisvesting|woonruimte", "flags": "i", "note": "Huisvesting en vervoer alleen als bevestigd." },
+    { "id": "CL-22", "level": "review", "pattern": "g-rekening|volledig verzekerd", "flags": "i", "note": "G-rekening en verzekeringen alleen als bevestigd." },
+    { "id": "VR-01", "level": "review", "pattern": "\\bdame\\b|sterke? man|fit en gezond", "flags": "i", "note": "Geen eisen naar geslacht of gezondheid (VR-01, VR-04)." },
+    { "id": "VR-02", "level": "review", "pattern": "\\bjonge?\\b|\\bstarters?\\b(?!\\??\\s*:)|\\bstudent(en)?\\b|max(imaal)?\\.? ?\\d{2} jaar", "flags": "i", "note": "Leeftijd alleen als minimumleeftijd 18 met arbo-reden (B-32)." },
+    { "id": "VR-03", "level": "review", "pattern": "native|moedertaal", "flags": "i", "note": "Taaleis als taal op het werk, niet als moedertaal." },
+    { "id": "VR-07", "level": "review", "pattern": "all-in|contant|netto per uur", "flags": "i", "note": "Loon altijd bruto per uur." },
+    { "id": "VR-08", "level": "review", "pattern": "nuluren|0-uren|vaste baan|vast contract", "flags": "i", "note": "Contractvorm alleen zoals die echt is." },
+    { "id": "VR-10", "level": "review", "pattern": "inschrijfgeld|kosten voor (kleding|werkkleding|cursus)", "flags": "i", "note": "Inschrijven en solliciteren is gratis (art. 9 Waadi)." },
+    { "id": "VR-11a", "level": "block", "pattern": "(stuur|upload|mail|voeg|vul).{0,40}(\\bBSN\\b|burgerservicenummer|kopie (van je )?(ID|identiteitsbewijs|paspoort)|geboortedatum|nationaliteit|pasfoto)", "flags": "i", "note": "Nooit om BSN, identiteitsbewijs, geboortedatum, nationaliteit of foto vragen." },
+    { "id": "VR-11b", "level": "review", "pattern": "\\bBSN\\b|burgerservicenummer|kopie (van je )?(ID|identiteitsbewijs|paspoort)|geboortedatum|nationaliteit|pasfoto", "flags": "i", "note": "Gevoelige gegevens alleen noemen om te zeggen dat Groos ze niet vraagt." },
+    { "id": "VR-13", "level": "review", "pattern": "asbest", "flags": "i", "note": "Asbestwerk alleen met DAV en bevestiging." }
+  ],
+  "allow": [
+    { "rule": "VR-11a", "files": ["app/[locale]/privacyverklaring/page.tsx"] },
+    { "rule": "VR-11b", "files": ["app/[locale]/privacyverklaring/page.tsx"] },
+    { "rule": "CL-04", "files": ["lib/legal.ts", "components/legal/wtta-status.tsx", "content/pages/wtta.ts", "messages/nl/legal.json", "messages/en/legal.json"] },
+    { "rule": "VR-13", "files": ["content/beroepen/hulpkracht-bouw-en-sloop.ts", "supabase/seed.sql"] },
+    { "rule": "CL-22", "files": ["content/pages/wtta.ts"] },
+    { "rule": "CL-03", "files": ["content/beroepen/glazenwasser.ts", "content/beroepen/schoonmaker.ts", "content/beroepen/logistiek-medewerker.ts", "content/beroepen/verhuizer.ts", "content/beroepen/hulpkracht-bouw-en-sloop.ts"] },
+    { "rule": "VR-11b", "files": ["content/pages/werkzoekenden.ts"] }
+  ]
+}

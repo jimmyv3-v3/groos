@@ -12,6 +12,8 @@
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
     "check": "node scripts/check-launch.mjs",
+    "check:copy": "node scripts/check-copy.mjs",
+    "check:claims": "node scripts/check-claims.mjs",
     "verify": "npm run typecheck && npm run lint && npm run test && npm run build",
     "db:status": "supabase migration list --linked",
     "db:push": "supabase db push --linked",
