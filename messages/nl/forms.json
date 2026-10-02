@@ -78,7 +78,7 @@
       "cvUploading": "Je cv wordt nog geüpload. Wacht even en verstuur dan opnieuw.",
       "vacancyClosed": "Deze vacature is net gesloten. Bekijk de andere vacatures of schrijf je in.",
       "blocked": "Wij konden het formulier niet versturen. Probeer het over een minuut opnieuw, of bel of app ons.",
-      "generic": "Er ging iets mis bij het versturen. Probeer het opnieuw, of bel of app ons."
+      "generic": "Het versturen is niet gelukt. Probeer het opnieuw, of bel of app ons."
     }
   },
   "apply": {
@@ -98,8 +98,6 @@
       "title": "Inschrijven of open solliciteren",
       "description": "Schrijf je in bij Groos en vertel welk werk je zoekt en wanneer je kunt beginnen. Inschrijven kost niets en een cv is niet nodig."
     },
-    "breadcrumbParent": "Werkzoekenden",
-    "breadcrumb": "Inschrijven",
     "title": "Schrijf je in voor werk",
     "intro": "Staat er geen vacature tussen die bij je past? Schrijf je dan één keer in, dan bellen wij je zodra er passend werk is.",
     "benefits": [
@@ -137,8 +135,6 @@
       "title": "Personeel aanvragen",
       "description": "Vertel ons welke mensen u zoekt, vanaf wanneer en voor hoe lang. Wij nemen daarna contact met u op om uw aanvraag te bespreken."
     },
-    "breadcrumbParent": "Werkgevers",
-    "breadcrumb": "Personeel aanvragen",
     "title": "Personeel aanvragen",
     "intro": "Vertel ons welke mensen u zoekt, vanaf wanneer en voor hoe lang. Wij nemen daarna contact met u op om de aanvraag door te nemen.",
     "formTitle": "Vertel ons",
@@ -195,7 +191,7 @@
       "workCityInvalid": "Een plaatsnaam heeft 2 tot 80 tekens.",
       "descriptionTooLong": "Uw toelichting is te lang. Gebruik hoogstens 2.000 tekens.",
       "blocked": "Wij konden uw aanvraag niet versturen. Probeer het over een minuut opnieuw of bel ons.",
-      "generic": "Er ging iets mis bij het versturen. Probeer het opnieuw of bel ons."
+      "generic": "Het versturen is niet gelukt. Probeer het opnieuw of bel ons."
     },
     "submit": "Verstuur aanvraag",
     "submitting": "Bezig met versturen",
@@ -246,7 +242,7 @@
       "messageRequired": "Schrijf kort waar uw vraag over gaat.",
       "messageTooLong": "Uw bericht is te lang. Gebruik hoogstens 2.000 tekens.",
       "blocked": "Wij konden uw bericht niet versturen. Probeer het over een minuut opnieuw of bel ons.",
-      "generic": "Er ging iets mis bij het versturen. Probeer het opnieuw of bel ons."
+      "generic": "Het versturen is niet gelukt. Probeer het opnieuw of bel ons."
     },
     "submit": "Verstuur bericht",
     "submitting": "Bezig met versturen"

@@ -67,7 +67,6 @@ export async function ContactPersonCard({
             form="contact"
             href={whatsappLink(tc("whatsapp.algemeen"), person.phone)}
             label={tc("cta.whatsappPerson", { name: person.firstName })}
-            ariaLabel={tc("a11y.whatsappPerson", { name: person.firstName })}
             external
             newTabLabel={tc("opensInNewTab")}
             className="w-full"

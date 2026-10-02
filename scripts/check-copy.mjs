@@ -50,6 +50,16 @@ const ZONES = {
   "bedankt.registration": "je",
   "bedankt.staffRequest": "u",
   "bedankt.contact": "u",
+  "forms.contactForm": "u",
+  "forms.privacy.contactNotice": "u",
+  "contact.meta": "u",
+  "contact.intro": "u",
+  "contact.people": "u",
+  "contact.details": "u",
+  "contact.choice.title": "u",
+  "contact.choice.accent": "u",
+  "contact.choice.employer": "u",
+  "contact.form": "u",
   "home.vacatures": "je",
 };
 const JE_NAMESPACES = new Set(["werkzoekenden", "vacatures"]);

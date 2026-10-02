@@ -44,10 +44,11 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   setRequestLocale(locale);
-  const [t, tc, tMeta] = await Promise.all([
+  const [t, tc, tMeta, th] = await Promise.all([
     getTranslations({ locale, namespace: "contact" }),
     getTranslations({ locale, namespace: "common" }),
     getTranslations({ locale, namespace: "meta" }),
+    getTranslations({ locale, namespace: "header" }),
   ]);
   const either = new Intl.ListFormat(locale, { type: "disjunction" }).format(people.map((p) => p.firstName));
   const hours = contact.openingHours;
@@ -58,7 +59,7 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
 
       <section className="pt-8 pb-4 sm:pt-12">
         <div className="container">
-          <Breadcrumbs items={[{ label: t("breadcrumb"), href: ROUTES.contact }]} className="mb-8" />
+          <Breadcrumbs items={[{ label: th("nav.contact"), href: ROUTES.contact }]} className="mb-8" />
           <div className="max-w-3xl">
             <h1 className="text-h1">{t("title")}</h1>
             <p className="mt-5 max-w-[60ch] text-lead text-muted-foreground">{t("intro")}</p>
@@ -107,7 +108,7 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
               </Detail>
               {hours && (
                 <Detail icon={Clock} label={tc("contact.officeHours")}>
-                  {t("details.officeHoursValue", {
+                  {tc("contact.officeHoursValue", {
                     opens: formatTime(hours.opens, locale),
                     closes: formatTime(hours.closes, locale),
                   })}
@@ -116,15 +117,15 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
                   )}
                 </Detail>
               )}
-              {!hours && isClaimConfirmed("afterHoursUrgent") && (
-                <p className="text-sm text-muted-foreground">{tc("contact.afterHours")}</p>
-              )}
               {contact.kvk && (
                 <Detail icon={Building2} label={t("details.kvk")}>
                   {contact.kvk}
                 </Detail>
               )}
             </dl>
+            {!hours && isClaimConfirmed("afterHoursUrgent") && (
+              <p className="mt-6 text-sm text-muted-foreground">{tc("contact.afterHours")}</p>
+            )}
           </div>
 
           <div>
@@ -140,10 +141,10 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
                 <p className="mt-2 text-base text-muted-foreground">{t("choice.jobseeker.body")}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
                   <CtaButton href={ROUTES.vacatures} size="sm">
-                    {t("choice.jobseeker.jobsLink")}
+                    {tc("cta.viewJobs")}
                   </CtaButton>
                   <CtaButton href={ROUTES.inschrijven} variant="secondary" size="sm">
-                    {t("choice.jobseeker.registerLink")}
+                    {tc("cta.register")}
                   </CtaButton>
                 </div>
               </article>
@@ -155,7 +156,7 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
                 <p className="mt-2 text-base text-muted-foreground">{t("choice.employer.body")}</p>
                 <div className="mt-4">
                   <CtaButton href={ROUTES.personeelAanvragen} size="sm">
-                    {t("choice.employer.requestLink")}
+                    {tc("cta.requestStaff")}
                   </CtaButton>
                 </div>
               </article>

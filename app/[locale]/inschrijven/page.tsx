@@ -3,9 +3,9 @@ import { ArrowRight, Check } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ContactAside } from "@/components/forms/contact-aside";
 import { FormErrorBoundary } from "@/components/forms/form-error-boundary";
-import { FormSteps } from "@/components/forms/page-parts";
 import { RegisterForm } from "@/components/forms/register-form";
 import { Breadcrumbs } from "@/components/sections/breadcrumbs";
+import { ServiceSteps } from "@/components/service/service-steps";
 import { Link } from "@/i18n/navigation";
 import { resolveLocale } from "@/i18n/locale";
 import { OCCUPATION_SLUGS } from "@/lib/data/options";
@@ -32,10 +32,11 @@ export default async function Page({ params }: PageProps<"/[locale]/inschrijven"
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   setRequestLocale(locale);
-  const [t, tc, tb] = await Promise.all([
+  const [t, tc, tb, th] = await Promise.all([
     getTranslations({ locale, namespace: "forms" }),
     getTranslations({ locale, namespace: "common" }),
     getTranslations({ locale, namespace: "beroepen" }),
+    getTranslations({ locale, namespace: "header" }),
   ]);
   const occupationOptions = OCCUPATION_SLUGS.map((id) => ({ value: id, label: tb(`${id}.enkelvoud`) }));
   const aside = {
@@ -55,8 +56,8 @@ export default async function Page({ params }: PageProps<"/[locale]/inschrijven"
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: t("register.breadcrumbParent"), href: ROUTES.werkzoekenden },
-              { label: t("register.breadcrumb"), href: ROUTES.inschrijven },
+              { label: th("nav.werkzoekenden"), href: ROUTES.werkzoekenden },
+              { label: th("nav.inschrijven"), href: ROUTES.inschrijven },
             ]}
             className="mb-8"
           />
@@ -107,7 +108,7 @@ export default async function Page({ params }: PageProps<"/[locale]/inschrijven"
         </div>
       </section>
 
-      <FormSteps heading={t("register.steps.title")} accent={t("register.steps.accent")} items={steps} />
+      <ServiceSteps id="zo-gaat-het" heading={t("register.steps.title")} accent={t("register.steps.accent")} steps={steps} />
     </>
   );
 }

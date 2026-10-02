@@ -58,6 +58,7 @@
     "address": "Adres",
     "contactPersons": "Contactpersonen",
     "officeHours": "Kantoortijden",
+    "officeHoursValue": "Maandag tot en met vrijdag van {opens} tot {closes} uur",
     "afterHours": "Buiten kantoortijden zijn wij bereikbaar voor spoed."
   },
   "notes": {

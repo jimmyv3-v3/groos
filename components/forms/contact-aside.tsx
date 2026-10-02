@@ -62,7 +62,6 @@ export async function ContactAside({
                 form={form}
                 href={whatsappLink(whatsappText, person.phone)}
                 label={tc("cta.whatsappPerson", { name: person.name })}
-                ariaLabel={tc("a11y.whatsappPerson", { name: person.name })}
                 external
                 newTabLabel={tc("opensInNewTab")}
                 beroep={analytics?.beroep}

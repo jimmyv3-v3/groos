@@ -58,6 +58,7 @@
     "address": "Address",
     "contactPersons": "Contacts",
     "officeHours": "Office hours",
+    "officeHoursValue": "Monday to Friday from {opens} to {closes}",
     "afterHours": "Outside office hours we can be reached for urgent requests."
   },
   "notes": {
