@@ -96,8 +96,10 @@ export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult>
         text,
         replyTo: EMAIL_REPLY_TO,
         tags: [{ name: "template", value: template }],
+        ...(input.headers ? { headers: input.headers } : {}),
       };
-      const key = input.idempotencyKey ?? `${template}/${entity.id}`;
+      // Eén keer bepaald, vóór de eerste poging, zodat de nieuwe poging dezelfde sleutel gebruikt.
+      const key = input.idempotencyKey ?? (entity ? `${template}/${entity.id}` : `${template}/${crypto.randomUUID()}`);
       let outcome = await attempt(payload, key);
       if ("error" in outcome && outcome.retry) {
         await wait(RETRY_DELAY_MS);
@@ -120,7 +122,7 @@ export async function sendEmail(input: SendEmailInput): Promise<SendEmailResult>
 
   // 7. Fouten melden, zonder adres.
   if (final.status === "failed") {
-    console.error("[e-mail] verzenden mislukt", { template, entity: entity.type, error: final.error });
+    console.error("[e-mail] verzenden mislukt", { template, entity: entity?.type ?? null, error: final.error });
   }
   return final;
 }

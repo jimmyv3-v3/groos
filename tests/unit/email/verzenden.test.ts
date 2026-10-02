@@ -49,10 +49,10 @@ afterEach(() => {
 });
 
 function mockResend(statuses: number[]) {
-  const calls: { body: Record<string, unknown> }[] = [];
+  const calls: { body: Record<string, unknown>; headers: Headers }[] = [];
   globalThis.fetch = (async (url: string | URL | Request, init?: RequestInit) => {
     if (!String(url).includes("api.resend.com")) return realFetch(url, init);
-    calls.push({ body: JSON.parse(String(init?.body)) });
+    calls.push({ body: JSON.parse(String(init?.body)), headers: new Headers(init?.headers) });
     const status = statuses[Math.min(calls.length - 1, statuses.length - 1)];
     const payload = status === 200 ? { id: "re_123" } : { name: "application_error", message: "fout", statusCode: status };
     return new Response(JSON.stringify(payload), { status, headers: { "content-type": "application/json" } });
@@ -100,5 +100,36 @@ describe("sendEmail", () => {
   it("weigert zonder geldige ontvanger", async () => {
     const result = await sendEmail({ ...input(), to: ["geen-adres"] });
     assert.deepEqual(result, { status: "failed", error: "geen geldige ontvanger" });
+  });
+
+  it("gebruikt template/record-id als idempotentiesleutel, ook bij de nieuwe poging", async () => {
+    process.env.RESEND_API_KEY = "re_test";
+    process.env.EMAIL_DEV_TO = "dev@example.com";
+    const calls = mockResend([500, 200]);
+    await sendEmail(input());
+    const keys = calls.map((c) => c.headers.get("idempotency-key"));
+    assert.deepEqual(keys, [
+      "contact-confirmation/00000000-0000-4000-8000-000000000001",
+      "contact-confirmation/00000000-0000-4000-8000-000000000001",
+    ]);
+    assert.equal("headers" in calls[0].body, false);
+  });
+
+  it("zonder record: een willekeurige sleutel per mail en alleen de meegegeven kopregels (spec 11 §4.3)", async () => {
+    process.env.RESEND_API_KEY = "re_test";
+    process.env.EMAIL_DEV_TO = "dev@example.com";
+    const calls = mockResend([500, 200]);
+    const headers = { "List-Unsubscribe": "<https://example.com/afmelden>", "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" };
+    const result = await sendEmail({ ...input(), entity: null, headers });
+    assert.equal(result.status, "sent");
+    const [first, second] = calls.map((c) => c.headers.get("idempotency-key"));
+    assert.match(String(first), /^contact-confirmation\/[0-9a-f-]{36}$/);
+    assert.equal(second, first);
+    assert.deepEqual(calls[0].body.headers, headers);
+  });
+
+  it("schrijft zonder record ook naar de console zonder te gooien", async () => {
+    const result = await sendEmail({ ...input(), entity: null });
+    assert.deepEqual(result, { status: "console" });
   });
 });

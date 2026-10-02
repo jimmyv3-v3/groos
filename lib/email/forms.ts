@@ -148,7 +148,9 @@ export async function sendApplicationEmails(input: { applicationId: string }): P
     }
     const locale = asLocale(row.locale);
     const entity = { type: "application" as const, id: row.id };
-    const person = row.vacancy?.contact?.is_active ? row.vacancy.contact : null;
+    // Contactpersoon alleen als hij actief is en een telefoonnummer heeft, anders "Jimmy of Lorenzo" met het hoofdnummer.
+    const c = row.vacancy?.contact;
+    const person = c?.is_active && c.phone_e164 ? { name: c.display_name, phoneE164: c.phone_e164 } : null;
     const vacancyTitle = row.vacancy_title_snapshot ?? "";
     const vacancyNumber = row.vacancy_number ?? 0;
 
@@ -161,8 +163,8 @@ export async function sendApplicationEmails(input: { applicationId: string }): P
         vacancyTitle,
         vacancyNumber,
         vacancyCity: row.vacancy?.city ?? null,
-        contactName: person ? person.display_name : jimmyOfLorenzo(locale),
-        contactPhoneDisplay: person?.phone_e164 ? formatPhoneDisplay(person.phone_e164) : contact.phone,
+        contactName: person ? person.name : jimmyOfLorenzo(locale),
+        contactPhoneDisplay: person ? formatPhoneDisplay(person.phoneE164) : contact.phone,
         phoneDisplay: row.phone_e164 ? formatPhoneDisplay(row.phone_e164) : "",
         hasCv: Boolean(row.cv_path),
         retentionConsent: row.retention_consent,
