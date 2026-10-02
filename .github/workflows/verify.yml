@@ -1,0 +1,23 @@
+# Lichte controle op elke pull request en elke push naar main (spec 13 §4.7).
+# De build zelf draait op Vercel, omdat die de database nodig heeft. Geen
+# geheimen nodig.
+name: verify
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx next typegen
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run config:check
+      - run: npm run check -- --warn

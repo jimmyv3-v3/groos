@@ -44,3 +44,9 @@ next-env.d.ts
 
 # lokale screenshots en verificatie-artefacten
 /screenshots/
+
+# ruwe input met persoonsgegevens (WhatsApp-exports, notities)
+context/_input/
+
+# lokale artefacten van de Supabase CLI
+supabase/.temp/
