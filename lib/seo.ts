@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { routing, type Locale } from "@/i18n/routing";
 import { contact, site, socials } from "@/lib/site";
+import type { ContractType, EducationLevel } from "@/lib/data/options";
+import type { VacancyDetail } from "@/lib/data/types";
 
 /**
  * SEO-helpers (spec 12 §4.2 en §4.4). Elke pagina bouwt haar metadata met
@@ -287,5 +289,266 @@ export function faqLd(items: { q: string; a: string }[]): JsonLdObject {
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
+  };
+}
+
+/* Vacatures (spec 12 §4.3, §4.5 en §5.3) ----------------------------------- */
+
+/** Sleutels onder vacatures.meta (eigenaar spec 06 §6.1 en §6.2). */
+export type VacancyMetaKey =
+  | "title"
+  | "description"
+  | "titlePaged"
+  | "descriptionPaged"
+  | "detailTitle"
+  | "detailDescription"
+  | "detailDescriptionShort"
+  | "startAsapSentence"
+  | "startDateSentence"
+  | "closedTitleFilled"
+  | "closedTitleOther"
+  | "closedDescriptionFilled"
+  | "closedDescriptionOther"
+  | "ogAlt";
+export type VacancyMetaTranslator = (key: VacancyMetaKey, values?: Record<string, string | number>) => string;
+
+export const DESCRIPTION_MAX = 160;
+
+/** Afkappen op het laatste hele woord onder `max - 3` tekens plus "..." (spec 06 §7.3, regel 4). */
+export function truncateAtWord(text: string, max: number = DESCRIPTION_MAX): string {
+  const clean = text.trim().replace(/\s+/g, " ");
+  if (clean.length <= max) return clean;
+  const limit = max - 3;
+  const cut = clean.slice(0, limit + 1);
+  const space = cut.lastIndexOf(" ");
+  const base = (space > 0 ? cut.slice(0, space) : clean.slice(0, limit)).replace(/[\s.,;:]+$/, "");
+  return `${base}...`;
+}
+
+/** Metadata voor /vacatures (B-16). */
+export function vacancyListMetadata(input: {
+  locale: Locale;
+  t: VacancyMetaTranslator;
+  page: number;
+  isFiltered: boolean;
+}): Metadata {
+  const { locale, t, page, isFiltered } = input;
+  if (isFiltered) {
+    return pageMetadata({ locale, path: "/vacatures", title: t("title"), description: t("description"), noindex: true });
+  }
+  if (page >= 2) {
+    return pageMetadata({
+      locale,
+      path: `/vacatures?pagina=${page}`,
+      title: t("titlePaged", { page }),
+      description: t("descriptionPaged", { page }),
+    });
+  }
+  return pageMetadata({ locale, path: "/vacatures", title: t("title"), description: t("description") });
+}
+
+/** Beschrijving van een open vacature volgens spec 06 §7.3 (pure functie, testbaar). */
+export function vacancyDescription(input: {
+  t: VacancyMetaTranslator;
+  title: string;
+  city: string;
+  hours: string;
+  wage: string;
+  startDate: string | null;
+  summary: string;
+}): string {
+  const { t, title, city, hours, wage, startDate, summary } = input;
+  const start = startDate ? t("startDateSentence", { date: startDate }) : t("startAsapSentence");
+  const full = t("detailDescription", { title, city, hours, wage, start });
+  if (full.length <= DESCRIPTION_MAX) return full;
+  const short = t("detailDescriptionShort", { title, city, hours, wage });
+  if (short.length <= DESCRIPTION_MAX) return short;
+  return truncateAtWord(summary);
+}
+
+/** Metadata voor /vacatures/[slug] in beide talen, open of gesloten (spec 12 §4.3). */
+export function vacancyMetadata(input: {
+  locale: Locale;
+  vacancy: VacancyDetail;
+  t: VacancyMetaTranslator;
+  /** Plaatsnaam zoals de pagina hem toont: displayCity(vacancy.city, locale) (spec 06). */
+  city: string;
+  hours: string;
+  wage: string;
+  /** Opgemaakte startdatum, of null bij startAsap of een datum in het verleden. */
+  startDate: string | null;
+}): Metadata {
+  const { locale, vacancy, t, city, hours, wage, startDate } = input;
+  const path = vacancy.path;
+  const title = vacancy.title;
+  const shared = {
+    locale,
+    path,
+    languages: false,
+    ...(locale === "en" && { canonical: { locale: routing.defaultLocale, path } }),
+    image: { url: ogImagePath(locale, path), alt: t("ogAlt", { title, city }), ...OG_SIZE },
+  };
+
+  if (vacancy.state === "closed") {
+    const filled = vacancy.closeReason === "filled";
+    const name = locale === "en" ? vacancy.occupation.nameEn : vacancy.occupation.nameNl;
+    const occupation = name ? name.charAt(0).toLocaleLowerCase(locale) + name.slice(1) : name;
+    return pageMetadata({
+      ...shared,
+      title: t(filled ? "closedTitleFilled" : "closedTitleOther", { title, city }),
+      description: t(filled ? "closedDescriptionFilled" : "closedDescriptionOther", { title, city, occupation }),
+      noindex: true,
+    });
+  }
+
+  const useSeo = locale === routing.defaultLocale;
+  return pageMetadata({
+    ...shared,
+    title: (useSeo && vacancy.seoTitle?.trim()) || t("detailTitle", { title, city }),
+    description:
+      (useSeo && vacancy.seoDescription?.trim()) ||
+      vacancyDescription({ t, title, city, hours, wage, startDate, summary: vacancy.summary || vacancy.intro }),
+  });
+}
+
+export type JobPostingLabels = { tasks: string; requirements: string; offer: string; extra: string };
+export type EmploymentType = "FULL_TIME" | "PART_TIME" | "TEMPORARY" | "CONTRACTOR" | "PER_DIEM" | "OTHER";
+
+/** Grens voltijd, gelijk aan de uren-bucket 32-plus van spec 10 (spec 12 §12). */
+export const FULL_TIME_HOURS = 32;
+
+/** employmentType volgens spec 12 §5.3. */
+export function employmentTypesFor(contractType: ContractType, hoursMin: number, hoursMax: number): EmploymentType[] {
+  const types: EmploymentType[] = contractType === "recruitment" ? [] : ["TEMPORARY"];
+  if (hoursMax >= FULL_TIME_HOURS) types.push("FULL_TIME");
+  if (hoursMin < FULL_TIME_HOURS) types.push("PART_TIME");
+  return types;
+}
+
+/** & < > " ' naar entiteiten. */
+export function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function htmlList(items: (string | null | undefined)[]): string {
+  const filled = items.map((i) => i?.trim()).filter((i): i is string => !!i);
+  return filled.length ? `<ul>${filled.map((i) => `<li>${escapeHtml(i)}</li>`).join("")}</ul>` : "";
+}
+
+function htmlParagraphs(text: string | null | undefined): string {
+  return (text ?? "")
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map((p) => `<p>${escapeHtml(p)}</p>`)
+    .join("");
+}
+
+/** description van JobPosting in de volgorde van de pagina (spec 12 §4.5). */
+export function jobDescriptionHtml(
+  vacancy: VacancyDetail,
+  labels: JobPostingLabels,
+  facts: string[],
+  minAgeSentence: string | null,
+): string {
+  const factLine = facts
+    .map((f) => f.trim())
+    .filter(Boolean)
+    .map((f) => (f.endsWith(".") ? f : `${f}.`))
+    .join(" ");
+  const section = (label: string, body: string) => (body ? `<p><strong>${escapeHtml(label)}</strong></p>${body}` : "");
+  return [
+    htmlParagraphs(vacancy.intro),
+    factLine ? `<p>${escapeHtml(factLine)}</p>` : "",
+    section(labels.tasks, htmlList(vacancy.tasks)),
+    section(labels.requirements, htmlList([...vacancy.requirements, minAgeSentence])),
+    section(labels.offer, htmlList([...vacancy.offer, vacancy.salaryNote])),
+    section(labels.extra, htmlParagraphs(vacancy.extra)),
+  ].join("");
+}
+
+const EDUCATION_CATEGORY: Partial<Record<EducationLevel, string>> = {
+  vmbo: "high school",
+  havo_vwo: "high school",
+  mbo1: "professional certificate",
+  mbo2: "professional certificate",
+  mbo3: "professional certificate",
+  mbo4: "professional certificate",
+  hbo: "bachelor degree",
+  wo: "bachelor degree",
+};
+
+/** Alleen op /vacatures/[slug] in het Nederlands; null als de vacature niet open is (spec 12 §4.5 en §5.3). */
+export function jobPostingLd(input: {
+  vacancy: VacancyDetail;
+  /** Dezelfde h2's als op de pagina: vacatures.detail.sections.* (spec 06). */
+  labels: JobPostingLabels;
+  /** Precies [uren, uurloon, startzin]. */
+  facts: string[];
+  /** vacatures.detail.minAge.<reden> als minAge18 waar is, anders null (B-32). */
+  minAgeSentence: string | null;
+}): JsonLdObject | null {
+  const { vacancy: v, labels, facts, minAgeSentence } = input;
+  if (v.state !== "open") return null;
+
+  const category = EDUCATION_CATEGORY[v.educationLevel];
+  const education =
+    v.educationLevel === "none"
+      ? "no requirements"
+      : category
+        ? { "@type": "EducationalOccupationalCredential", credentialCategory: category }
+        : undefined;
+  const experience =
+    v.experienceLevel === "required"
+      ? v.experienceMonths
+        ? { "@type": "OccupationalExperienceRequirements", monthsOfExperience: v.experienceMonths }
+        : undefined
+      : "no requirements";
+
+  return {
+    "@context": "https://schema.org/",
+    "@type": "JobPosting",
+    title: v.title,
+    description: jobDescriptionHtml(v, labels, facts, minAgeSentence),
+    datePosted: v.publishedAt,
+    validThrough: v.closesAt,
+    employmentType: employmentTypesFor(v.contractType, v.hoursMin, v.hoursMax),
+    hiringOrganization: {
+      "@type": "Organization",
+      "@id": ORGANIZATION_ID,
+      name: contact.name,
+      sameAs: SITE_URL,
+      logo: absoluteUrl(site.logo),
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: v.city,
+        ...(v.postalCode?.trim() && { postalCode: v.postalCode.trim() }),
+        ...(v.province && { addressRegion: v.province }),
+        addressCountry: "NL",
+      },
+    },
+    baseSalary: {
+      "@type": "MonetaryAmount",
+      currency: "EUR",
+      value:
+        v.salaryMin === v.salaryMax
+          ? { "@type": "QuantitativeValue", value: v.salaryMin, unitText: "HOUR" }
+          : { "@type": "QuantitativeValue", minValue: v.salaryMin, maxValue: v.salaryMax, unitText: "HOUR" },
+    },
+    directApply: true,
+    identifier: { "@type": "PropertyValue", name: contact.name, value: String(v.number) },
+    ...(education !== undefined && { educationRequirements: education }),
+    ...(experience !== undefined && { experienceRequirements: experience }),
+    ...(v.positionsCount > 1 && { totalJobOpenings: v.positionsCount }),
+    ...(!v.startAsap && v.startDate && { jobStartDate: v.startDate }),
+    url: absoluteUrl(v.path),
   };
 }
