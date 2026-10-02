@@ -18,12 +18,12 @@ export function CtaLinks({ ctas, className }: { ctas: CtaLink[]; className?: str
           href={cta.href}
           variant={cta.variant ?? "primary"}
           external={cta.external}
+          newTabLabel={t("opensInNewTab")}
           ariaLabel={cta.ariaLabel}
           className="w-full sm:w-auto"
         >
           {cta.icon}
           {cta.label}
-          {cta.external && <span className="sr-only"> {t("opensInNewTab")}</span>}
         </CtaButton>
       ))}
     </div>

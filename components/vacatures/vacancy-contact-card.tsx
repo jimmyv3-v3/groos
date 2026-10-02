@@ -64,10 +64,10 @@ export async function VacancyContactCard({ vacancy, locale, contact }: Props) {
               )}
               variant="secondary"
               external
+              newTabLabel={tCommon("opensInNewTab")}
             >
               <MessageCircle aria-hidden="true" />
               {tc("whatsappPerson", { name: contact.name })}
-              <span className="sr-only"> {tCommon("opensInNewTab")}</span>
             </CtaButton>
           )}
         </div>

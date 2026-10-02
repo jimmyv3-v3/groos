@@ -107,7 +107,7 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
                   variant="secondary"
                   href={whatsappLink(tc("whatsapp.werkzoekende"))}
                   external
-                  ariaLabel={`${t(`${key}.cta.whatsapp`)} ${tc("opensInNewTab")}`}
+                  newTabLabel={tc("opensInNewTab")}
                 >
                   <MessageCircle aria-hidden="true" />
                   {t(`${key}.cta.whatsapp`)}
@@ -123,7 +123,7 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
                   variant="secondary"
                   href={whatsappLink(tc("whatsapp.werkgever"))}
                   external
-                  ariaLabel={`${tc("cta.whatsapp")} ${tc("opensInNewTab")}`}
+                  newTabLabel={tc("opensInNewTab")}
                 >
                   <MessageCircle aria-hidden="true" />
                   {tc("cta.whatsapp")}

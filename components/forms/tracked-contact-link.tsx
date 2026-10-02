@@ -38,8 +38,9 @@ export function TrackedContactLink({
     <CtaButton
       variant="secondary"
       href={href}
-      ariaLabel={external && newTabLabel ? `${ariaLabel} ${newTabLabel}` : ariaLabel}
+      ariaLabel={ariaLabel}
       external={external}
+      newTabLabel={newTabLabel}
       className={className}
       onClick={() => {
         try {

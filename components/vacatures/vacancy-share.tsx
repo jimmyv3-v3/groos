@@ -25,10 +25,14 @@ export async function VacancyShare({ vacancy, locale, url }: Props) {
         {tSections("share")}
       </h2>
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-start">
-        <CtaButton href={`https://wa.me/?text=${encodeURIComponent(text)}`} variant="secondary" external>
+        <CtaButton
+          href={`https://wa.me/?text=${encodeURIComponent(text)}`}
+          variant="secondary"
+          external
+          newTabLabel={tCommon("opensInNewTab")}
+        >
           <MessageCircle aria-hidden="true" />
           {t("whatsapp")}
-          <span className="sr-only"> {tCommon("opensInNewTab")}</span>
         </CtaButton>
         <CopyLinkButton
           url={url}

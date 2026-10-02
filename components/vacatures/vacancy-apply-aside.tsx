@@ -53,10 +53,10 @@ export async function VacancyApplyAside({ vacancy, locale, contact }: Props) {
             variant="secondary"
             className="w-full"
             external
+            newTabLabel={tCommon("opensInNewTab")}
           >
             <MessageCircle aria-hidden="true" />
             {tc("whatsappPerson", { name: contact.name })}
-            <span className="sr-only"> {tCommon("opensInNewTab")}</span>
           </CtaButton>
         )}
       </div>

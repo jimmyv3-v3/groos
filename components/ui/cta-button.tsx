@@ -51,6 +51,12 @@ export interface CtaButtonProps {
   ariaLabel?: string;
   /** target="_blank" rel="noopener noreferrer" (WhatsApp, externe links). */
   external?: boolean;
+  /**
+   * Met external: verborgen tekst na het label voor schermlezers, zoals
+   * common.opensInNewTab (spec 02 §4.7). Staat er ook een ariaLabel, dan komt
+   * de tekst ook achter die naam, want aria-label overschrijft de inhoud.
+   */
+  newTabLabel?: string;
   /** Toont een draaiende LoaderCircle, zet aria-busy en blokkeert de knop. */
   pending?: boolean;
   /** Toegankelijke naam van de spinner (common.a11y.loading). */
@@ -68,11 +74,13 @@ export function CtaButton({
   disabled = false,
   ariaLabel,
   external = false,
+  newTabLabel,
   pending = false,
   pendingLabel,
 }: CtaButtonProps) {
   const classes = ctaButtonVariants({ variant, size, className });
   const blocked = disabled || pending;
+  const newTab = external && newTabLabel ? newTabLabel : undefined;
   const content = (
     <>
       {pending && (
@@ -84,6 +92,7 @@ export function CtaButton({
         />
       )}
       {children}
+      {newTab && <span className="sr-only"> {newTab}</span>}
     </>
   );
 
@@ -91,7 +100,7 @@ export function CtaButton({
     const linkProps = {
       className: classes,
       onClick,
-      "aria-label": ariaLabel,
+      "aria-label": ariaLabel && newTab ? `${ariaLabel} ${newTab}` : ariaLabel,
       "aria-disabled": blocked || undefined,
       "aria-busy": pending || undefined,
       tabIndex: blocked ? -1 : undefined,
