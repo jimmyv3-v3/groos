@@ -1,14 +1,254 @@
 {
+  "common": {
+    "optionalMark": "optional",
+    "errorSummary": "{count, plural, =0 {All fields are filled in correctly.} one {One field is not correct yet. The field shows what is wrong.} other {# fields are not correct yet. Each field shows what is wrong.}}",
+    "submittingStatus": "The form is being sent.",
+    "networkError": "Sending failed because of a connection problem. Please try again or contact us by phone.",
+    "retry": "Try again",
+    "honeypotLabel": "Leave this field empty",
+    "alternativesLabel": "Other ways to get in touch",
+    "selectPlaceholder": "Make a choice"
+  },
+  "privacy": {
+    "applyNotice": "We use your details for this application. Read in our <link>privacy statement</link> how long we keep them and what your rights are.",
+    "registerNotice": "We use your details to find suitable work for you. Read in our <link>privacy statement</link> how long we keep them and what your rights are.",
+    "staffRequestNotice": "We only use your details to handle your request. Read in our <link>privacy statement</link> how we handle them.",
+    "contactNotice": "We only use your details to answer your message. Read in our <link>privacy statement</link> how we handle them.",
+    "talentPool": {
+      "label": "Keep my details for one year so Groos can contact me about other suitable work.",
+      "hint": "This is optional. You can withdraw your consent at any time by emailing {email}."
+    },
+    "registerConsent": {
+      "label": "I give Groos permission to keep my details for one year and to contact me about suitable work.",
+      "hint": "Without this permission we cannot keep your registration. You can withdraw it at any time via {email}.",
+      "error": "Tick this box to register."
+    }
+  },
+  "jobseeker": {
+    "fields": {
+      "firstName": { "label": "First name" },
+      "lastName": { "label": "Last name", "hint": "Including any prefix, for example van Dijk." },
+      "phone": { "label": "Phone number", "hint": "We call or message you on this number. A foreign number is fine." },
+      "email": { "label": "Email address", "hint": "We send your confirmation to this address." },
+      "city": { "label": "Town or city", "hint": "This helps us find work that is easy to reach." },
+      "mayWorkInNl": {
+        "legend": "Are you allowed to work in the Netherlands?",
+        "yes": "Yes",
+        "no": "No",
+        "noHint": "Please apply anyway. We will look at the options together with you."
+      },
+      "hasDrivingLicenseB": { "legend": "Do you have a category B driving licence?", "yes": "Yes", "no": "No" },
+      "availableFrom": { "label": "Available from", "hint": "Leave this empty if you can start straight away." },
+      "message": { "label": "Anything else you would like to tell us?", "hint": "For example what work you have done before or which days you can work." }
+    },
+    "cv": {
+      "label": "Add your CV",
+      "hint": "A PDF or Word file of up to 10 MB.",
+      "choose": "Choose file",
+      "change": "Choose another file",
+      "remove": "Remove",
+      "removeAria": "Remove {name}",
+      "uploading": "{name} is uploading, {percent} percent done.",
+      "uploaded": "{name} has been added.",
+      "noCv": "No CV? That is fine. Just tell us briefly what work you have done before.",
+      "noJs": "Adding a CV only works with JavaScript switched on. You can also give us your CV later."
+    },
+    "errors": {
+      "firstNameRequired": "Please enter your first name.",
+      "firstNameTooLong": "Your first name can be at most 80 characters.",
+      "lastNameRequired": "Please enter your last name.",
+      "lastNameTooLong": "Your last name can be at most 120 characters.",
+      "phoneRequired": "Please enter your phone number so we can call you.",
+      "phoneInvalid": "This phone number is not correct. Write it like 06 12345678 or with a country code such as +48.",
+      "emailRequired": "Please enter your email address so we can send you a confirmation.",
+      "emailInvalid": "This email address is not correct. Write it like name@example.com.",
+      "cityRequired": "Please enter your town or city.",
+      "cityInvalid": "A town or city has 2 to 80 characters.",
+      "mayWorkInNlRequired": "Please choose yes or no.",
+      "drivingLicenseInvalid": "Please choose yes or no.",
+      "availableFromInvalid": "This date is not correct. Choose a date or leave the field empty.",
+      "availableFromPast": "Choose a date from today onwards.",
+      "availableFromTooFar": "Choose a date within one year.",
+      "messageTooLong": "Your message is too long. Use at most 2,000 characters.",
+      "occupationsInvalid": "Choose an occupation from the list.",
+      "cvType": "We cannot open this file. Choose a PDF or a Word file.",
+      "cvTooLarge": "This file is larger than 10 MB. Choose a smaller file.",
+      "cvUploadFailed": "The upload did not work. Check your internet connection and try again.",
+      "cvUploadExpired": "Your CV did not arrive properly. Please choose the file again.",
+      "cvUploading": "Your CV is still uploading. Wait a moment and then send again.",
+      "vacancyClosed": "This job has just closed. Look at our other jobs or register with us.",
+      "blocked": "We could not send the form. Try again in a minute, or call or message us.",
+      "generic": "Something went wrong while sending. Please try again, or call or message us."
+    }
+  },
+  "apply": {
+    "title": "Apply for",
+    "accent": "this job",
+    "intro": "It only takes a few minutes and you do not need a CV. {name} will call or message you to get to know you.",
+    "vacancyLine": "You are applying for {title}, job {number}.",
+    "submit": "Send application",
+    "submitting": "Sending",
+    "alternatives": {
+      "title": "Prefer to call or message?",
+      "body": "That works too. Mention job {number} so we know what it is about."
+    }
+  },
   "register": {
     "meta": {
       "title": "Register or apply openly",
       "description": "Register with Groos and tell us what work you are looking for and when you can start. Registering is free and you do not need a CV."
+    },
+    "breadcrumbParent": "Job seekers",
+    "breadcrumb": "Register",
+    "title": "Register for work",
+    "intro": "Can you not find a job that suits you? Register once and we will call you as soon as there is suitable work.",
+    "benefits": [
+      "Registering is free",
+      "You do not need a CV",
+      "You have one dedicated contact"
+    ],
+    "formTitle": "Tell us",
+    "formAccent": "what work you are looking for",
+    "fields": {
+      "occupations": {
+        "legend": "What work are you interested in?",
+        "hint": "Choose one or more occupations, or skip this if you are not sure yet."
+      }
+    },
+    "submit": "Register",
+    "submitting": "Sending",
+    "alternatives": {
+      "title": "Prefer to call or message?",
+      "body": "Tell us by phone or WhatsApp what work you are looking for. That works just as well."
+    },
+    "jobsLink": "View the jobs first",
+    "steps": {
+      "title": "What happens",
+      "accent": "after you register",
+      "items": [
+        { "title": "We call you", "body": "We call or message you to hear what work you are looking for." },
+        { "title": "We look for suitable work", "body": "We look at which work fits your experience, your hours and where you live." },
+        { "title": "You start working", "body": "We agree on your first working day and tell you what to bring." }
+      ]
     }
   },
   "staffRequest": {
     "meta": {
       "title": "Request staff",
       "description": "Tell us which people you need, from when and for how long. We will then contact you to discuss your request."
+    },
+    "breadcrumbParent": "Employers",
+    "breadcrumb": "Request staff",
+    "title": "Request staff",
+    "intro": "Tell us which people you need, from when and for how long. We will then contact you to go through the request.",
+    "formTitle": "Tell us",
+    "formAccent": "who you need",
+    "groups": { "company": "Your details", "request": "Your request" },
+    "fields": {
+      "companyName": { "label": "Company name" },
+      "contactName": { "label": "Your name" },
+      "phone": { "label": "Phone number", "hint": "We call you on this number about the request." },
+      "email": { "label": "Email address", "hint": "We send your confirmation to this address." },
+      "kvkNumber": { "label": "Chamber of Commerce (KvK) number", "hint": "Eight digits, only if you have it to hand." },
+      "occupations": { "legend": "What staff do you need?", "hint": "You can choose more than one occupation." },
+      "occupationOther": { "label": "Other work", "hint": "Do you need someone for other work? Describe it briefly here." },
+      "headcount": { "label": "Number of people" },
+      "start": { "legend": "From when?", "asap": "As soon as possible", "date": "From a date" },
+      "startDate": { "label": "Start date" },
+      "duration": {
+        "label": "For roughly how long?",
+        "options": {
+          "one_day": "One day",
+          "days": "A few days",
+          "weeks": "A few weeks",
+          "months": "A few months",
+          "indefinite": "Long term",
+          "unknown": "Not sure yet"
+        }
+      },
+      "hoursPerWeek": { "label": "Hours per week per person", "hint": "An estimate is fine." },
+      "workCity": { "label": "Place of work" },
+      "description": { "label": "Further details", "hint": "For example working hours, tasks or requirements such as VCA or a driving licence." }
+    },
+    "errors": {
+      "companyNameRequired": "Please enter the name of your company.",
+      "companyNameInvalid": "A company name has 2 to 120 characters.",
+      "contactNameRequired": "Please enter your name.",
+      "contactNameInvalid": "A name has 2 to 120 characters.",
+      "phoneRequired": "Please enter your phone number so we can call you.",
+      "phoneInvalid": "This phone number is not correct. Write it like 070 1234567 or 06 12345678.",
+      "emailRequired": "Please enter your email address so we can send you a confirmation.",
+      "emailInvalid": "This email address is not correct. Write it like name@company.com.",
+      "kvkInvalid": "A KvK number has eight digits. Leave the field empty if you do not know it.",
+      "occupationsRequired": "Choose at least one occupation or describe the work under other work.",
+      "occupationsInvalid": "Choose an occupation from the list.",
+      "occupationOtherInvalid": "Describe the work in 2 to 120 characters.",
+      "headcountRequired": "Please enter how many people you need.",
+      "headcountInvalid": "Enter a number from 1 to 500.",
+      "startRequired": "Choose as soon as possible or from a date.",
+      "startDateRequired": "Choose a start date.",
+      "startDateInvalid": "This date is not correct. Choose another date.",
+      "startDatePast": "Choose a date from today onwards.",
+      "durationInvalid": "Choose a duration from the list.",
+      "hoursInvalid": "Enter a number of hours from 1 to 60.",
+      "workCityRequired": "Please enter the place where the work is.",
+      "workCityInvalid": "A place name has 2 to 80 characters.",
+      "descriptionTooLong": "Your details are too long. Use at most 2,000 characters.",
+      "blocked": "We could not send your request. Try again in a minute or call us.",
+      "generic": "Something went wrong while sending. Please try again or call us."
+    },
+    "submit": "Send request",
+    "submitting": "Sending",
+    "alternatives": {
+      "title": "Prefer to talk directly?",
+      "body": "Call or message {name}. We will then go through your request with you by phone."
+    },
+    "steps": {
+      "title": "What happens",
+      "accent": "after your request",
+      "items": [
+        { "title": "We call you", "body": "We discuss the tasks, the working hours and the start date with you." },
+        { "title": "You receive a proposal", "body": "We put forward workers and send you a proposal with a clear hourly rate." },
+        { "title": "The worker starts", "body": "On the agreed day the worker starts, and we remain your contact." }
+      ]
     }
+  },
+  "contactForm": {
+    "fields": {
+      "name": { "label": "Name" },
+      "phone": { "label": "Phone number", "hint": "Enter a phone number or an email address, or both." },
+      "email": { "label": "Email address" },
+      "topic": {
+        "legend": "What is your question about?",
+        "options": {
+          "job_seeker": "I am looking for work",
+          "employer": "I am looking for staff",
+          "callback": "Call me back",
+          "other": "Something else"
+        }
+      },
+      "message": { "label": "Your message", "hintCallback": "This field is optional. Let us know when it is best to call you." }
+    },
+    "topicHints": {
+      "jobseeker": "Looking for work? You can also <link>register</link> straight away.",
+      "employer": "Looking for staff? You can also <link>request staff</link> straight away.",
+      "callback": "We will call you back on the number you enter above.",
+      "other": "Tell us in your message how we can help you."
+    },
+    "errors": {
+      "nameRequired": "Please enter your name.",
+      "nameInvalid": "A name has 2 to 120 characters.",
+      "reachRequired": "Please enter a phone number or an email address.",
+      "phoneInvalid": "This phone number is not correct. Write it like 06 12345678.",
+      "phoneRequiredForCallback": "Please enter your phone number so we can call you back.",
+      "emailInvalid": "This email address is not correct. Write it like name@example.com.",
+      "topicRequired": "Choose what your question is about.",
+      "messageRequired": "Briefly describe what your question is about.",
+      "messageTooLong": "Your message is too long. Use at most 2,000 characters.",
+      "blocked": "We could not send your message. Try again in a minute or call us.",
+      "generic": "Something went wrong while sending. Please try again or call us."
+    },
+    "submit": "Send message",
+    "submitting": "Sending"
   }
 }

@@ -2,5 +2,41 @@
   "meta": {
     "title": "Contact",
     "description": "Bel, app of mail Jimmy en Lorenzo van Groos Personeelsdiensten in Den Haag. Stuur een bericht via het formulier of maak een afspraak om langs te komen."
+  },
+  "breadcrumb": "Contact",
+  "title": "Contact met Groos Personeelsdiensten",
+  "intro": "Bij Groos spreekt u altijd Jimmy of Lorenzo. Bel of app een van hen, of stuur een bericht via het formulier.",
+  "people": {
+    "title": "Bel of app",
+    "accent": "{name}",
+    "intro": "Allebei zijn ze op hun eigen nummer bereikbaar.",
+    "photoAlt": "Portret van {name}"
+  },
+  "details": {
+    "title": "Gegevens van",
+    "accent": "Groos Personeelsdiensten",
+    "phone": "Algemeen nummer",
+    "kvk": "KvK-nummer",
+    "officeHoursValue": "Maandag tot en met vrijdag van {opens} tot {closes} uur"
+  },
+  "choice": {
+    "title": "Waar kunnen wij",
+    "accent": "u mee helpen?",
+    "jobseeker": {
+      "title": "Ik zoek werk",
+      "body": "Bekijk de vacatures of schrijf je in, ook zonder cv.",
+      "jobsLink": "Bekijk vacatures",
+      "registerLink": "Schrijf je in"
+    },
+    "employer": {
+      "title": "Ik zoek personeel",
+      "body": "Vertel ons wie u zoekt en vanaf wanneer. Een aanvraag doen is vrijblijvend.",
+      "requestLink": "Personeel aanvragen"
+    }
+  },
+  "form": {
+    "title": "Stuur ons",
+    "accent": "een bericht",
+    "intro": "Kies waar uw vraag over gaat. Wij antwoorden per e-mail of bellen u terug."
   }
 }
