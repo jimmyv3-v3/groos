@@ -1,4 +1,4 @@
-import { getBeroep, type BeroepId, type Perspectief } from "@/content/beroepen";
+import { findBeroepBySlug, getBeroep, type BeroepId, type Perspectief } from "@/content/beroepen";
 import type { NavKey } from "@/lib/site"; // alleen een type, dus geen kringafhankelijkheid tijdens runtime
 
 /**
@@ -156,5 +156,47 @@ export function isActive(pathname: string, item: NavKey): "page" | "section" | f
       return p === ROUTES.overOns ? "page" : false;
     case "contact":
       return p === ROUTES.contact ? "page" : false;
+  }
+}
+
+/**
+ * 404 op de server (spec 01 §4.13, AC-01-03). notFound() levert in Next 16.3
+ * alleen een lege HTML-schil op; proxy.ts herschrijft onbekende paden daarom
+ * met status 404 naar het vangnet app/[locale]/[...rest] en zet deze kopregel.
+ */
+export const NOT_FOUND_HEADER = "x-groos-not-found";
+/** Pad zonder route waarop de proxy onbekende paden laat landen (valt in [...rest]). */
+export const NOT_FOUND_PATH = "/pagina-niet-gevonden";
+
+/** Laatste padsegment van metadata-afbeeldingen naast een pagina (spec 12). */
+const IMAGE_ROUTE = /^(opengraph-image|twitter-image)(-[\w-]+)?$/;
+
+/**
+ * Of een pad (met of zonder taalprefix) bij een bestaande pagina hoort. Houd
+ * gelijk aan de mappen onder app/[locale]. Vacatureslugs komen uit de database;
+ * die pagina geeft zelf notFound().
+ */
+export function isKnownPath(pathname: string): boolean {
+  let p = normalize(pathname);
+  const parts = p.split("/").filter(Boolean);
+  if (parts.length > 0 && IMAGE_ROUTE.test(parts[parts.length - 1])) {
+    parts.pop();
+    p = `/${parts.join("/")}`;
+  }
+  if ((Object.values(ROUTES) as string[]).includes(p)) return true;
+  if (p === "/stijlgids") return process.env.NODE_ENV !== "production";
+  if (parts.length !== 2) return false;
+  const [section, slug] = parts;
+  switch (section) {
+    case "vacatures":
+      return true;
+    case "werken-als":
+      return findBeroepBySlug("werkzoekende", slug) !== undefined;
+    case "werkgevers":
+      return findBeroepBySlug("werkgever", slug) !== undefined;
+    case "bedankt":
+      return isBedanktSoort(slug);
+    default:
+      return false;
   }
 }

@@ -2,6 +2,7 @@ import createMiddleware from "next-intl/middleware";
 import { type NextRequest, NextResponse } from "next/server";
 import { DEFAULT_LOCALE_COUNTRIES, routing } from "./i18n/routing";
 import { beheerProxy } from "./app/beheer/_lib/proxy";
+import { NOT_FOUND_HEADER, NOT_FOUND_PATH, isKnownPath } from "./lib/routes";
 
 // Next.js 16 noemt middleware "proxy" (proxy.ts, draait op Node.js). Twee
 // taken: taalrouting voor de publieke site (spec 01 §4.12) en sessieverversing
@@ -27,12 +28,34 @@ function toSecondary(request: NextRequest, locale: string) {
   return url;
 }
 
+/**
+ * Onbekend pad: herschrijf met status 404 naar het vangnet [...rest], dat de
+ * gelokaliseerde 404 op de server rendert (spec 01 §4.13). notFound() zou in
+ * Next 16.3 alleen een lege HTML-schil geven. Omleidingen van next-intl
+ * (bijvoorbeeld /nl/x naar /x) gaan voor.
+ */
+function withNotFound(request: NextRequest, response: NextResponse): NextResponse {
+  const { pathname } = request.nextUrl;
+  if ((response.status >= 300 && response.status < 400) || isKnownPath(pathname)) return response;
+
+  const locale = SECONDARY && (pathname === `/${SECONDARY}` || pathname.startsWith(`/${SECONDARY}/`))
+    ? SECONDARY
+    : routing.defaultLocale;
+  const url = request.nextUrl.clone();
+  url.pathname = `/${locale}${NOT_FOUND_PATH}`;
+  const headers = new Headers(request.headers);
+  headers.set(NOT_FOUND_HEADER, "1");
+  const rewrite = NextResponse.rewrite(url, { status: 404, request: { headers } });
+  for (const cookie of response.headers.getSetCookie()) rewrite.headers.append("set-cookie", cookie);
+  return rewrite;
+}
+
 export default async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   // /beheer: sessieverversing, noindex en optimistische toegangsregels (spec 08 §4.13).
   if (pathname === "/beheer" || pathname.startsWith("/beheer/")) return beheerProxy(request);
 
-  if (!SECONDARY) return intlMiddleware(request);
+  if (!SECONDARY) return withNotFound(request, intlMiddleware(request));
 
   const isSecondaryPath = pathname === `/${SECONDARY}` || pathname.startsWith(`/${SECONDARY}/`);
   const cookie = request.cookies.get(COOKIE)?.value;
@@ -54,7 +77,7 @@ export default async function proxy(request: NextRequest) {
     }
   }
 
-  return intlMiddleware(request);
+  return withNotFound(request, intlMiddleware(request));
 }
 
 export const config = {
