@@ -15,43 +15,26 @@ import {
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import type { Qualification } from "@/lib/data/options";
+import { QUALIFICATIONS, type Qualification } from "@/lib/data/options";
 import type { VacancyDetail } from "@/lib/data/types";
 import { Card } from "@/components/ui/card";
-import type { WorkplaceLanguage } from "./types";
 import { getVacancyFormatters } from "./vacancy-format";
 
 type Props = {
   vacancy: VacancyDetail;
   locale: Locale;
   variant?: "full" | "compact";
-  workplaceLanguage?: WorkplaceLanguage | null;
   headingId?: string;
 };
 
-/** Kwalificaties met een naam in messages; "dav" vervalt in spec 10 (VR-13). */
-const NAMED = [
-  "vca_basis",
-  "vca_vol",
-  "heftruck",
-  "reachtruck",
-  "ept",
-  "ipaf",
-  "vog",
-  "rijbewijs_b",
-  "rijbewijs_be",
-  "rijbewijs_c",
-  "code_95",
-  "ras",
-] as const;
-type NamedQualification = (typeof NAMED)[number];
-const isNamed = (q: Qualification): q is NamedQualification => (NAMED as readonly string[]).includes(q);
+/** Alleen bekende kwalificaties (QUALIFICATIONS, zonder "dav" sinds spec 10 VR-13) hebben een naam in messages. */
+const isNamed = (q: string): q is Qualification => (QUALIFICATIONS as readonly string[]).includes(q);
 
 /**
  * Kenmerkenblok (spec 06 §4.9): een <dl> in vaste volgorde; een rij zonder
  * waarde vervalt. Telefoon: één kolom, label links; vanaf sm twee kolommen.
  */
-export async function VacancyFacts({ vacancy: v, locale, variant = "full", workplaceLanguage, headingId = "kenmerken" }: Props) {
+export async function VacancyFacts({ vacancy: v, locale, variant = "full", headingId = "kenmerken" }: Props) {
   const [f, t] = await Promise.all([
     getVacancyFormatters(locale),
     getTranslations({ locale, namespace: "vacatures.facts" }),
@@ -103,8 +86,8 @@ export async function VacancyFacts({ vacancy: v, locale, variant = "full", workp
         t("qualifications.none")
       ),
   });
-  if (workplaceLanguage) {
-    rows.push({ key: "language", icon: Languages, label: t("labels.language"), value: t(`languageOptions.${workplaceLanguage}`) });
+  if (v.workplaceLanguage) {
+    rows.push({ key: "language", icon: Languages, label: t("labels.language"), value: t(`languageOptions.${v.workplaceLanguage}`) });
   }
   if (full) {
     rows.push({

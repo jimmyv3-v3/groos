@@ -328,6 +328,7 @@ export function fixtureVacancies(now: Date = new Date()): VacancyDetail[] {
     experienceMonths: null,
     startAsap: true,
     startDate: null,
+    workplaceLanguage: null,
     allowWhatsappApply: true,
     asksDrivingLicenseB:
       row.requiredQualifications.includes("rijbewijs_b") || row.preferredQualifications.includes("rijbewijs_b"),

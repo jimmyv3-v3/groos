@@ -6,7 +6,6 @@ import { formatDate, formatEuro } from "@/lib/format";
 import { contact, people, type Phone } from "@/lib/site";
 import { SHIFTS, type ShiftId } from "@/lib/data/options";
 import type { VacancyDetail } from "@/lib/data/types";
-import type { WorkplaceLanguage } from "./types";
 import { displayCity, displayPhone, upcomingStartDate } from "./vacancy-helpers";
 
 export { displayCity, displayPhone, isNewVacancy, lowerFirst, todayInAmsterdam, upcomingStartDate } from "./vacancy-helpers";
@@ -93,13 +92,4 @@ export function resolveVacancyContact(vacancy: VacancyDetail): ResolvedVacancyCo
 /** Phone-object voor whatsappLink() uit lib/site.ts. */
 export function asPhone(e164: string): Phone {
   return { display: displayPhone(e164), e164: e164 as Phone["e164"] };
-}
-
-/**
- * Taal op de werkvloer. Spec 10 voegt `workplaceLanguage` toe aan
- * VacancyDetail; tot dan geeft dit null en vervalt de rij (spec 06 §5.2).
- */
-export function workplaceLanguageOf(vacancy: VacancyDetail): WorkplaceLanguage | null {
-  const value = (vacancy as VacancyDetail & { workplaceLanguage?: WorkplaceLanguage | null }).workplaceLanguage;
-  return value === "nl" || value === "en" || value === "nl_or_en" ? value : null;
 }

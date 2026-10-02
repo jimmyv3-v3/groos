@@ -237,7 +237,7 @@ export const S = {
         training_offered: { label: "Opleiding die Groos regelt", hint: "Vink alleen aan wat Groos voor deze vacature echt regelt." },
         min_age_18: { label: "Minimumleeftijd 18 jaar", hint: "Alleen bij een reden voor veiligheid: werken op hoogte, bouw en sloop, heftruck of reachtruck, nachtwerk of gevaarlijke stoffen." },
         min_age_reason: { label: "Reden voor de minimumleeftijd", hint: "Deze reden staat bij de vacature." },
-        workplace_language: { label: "Taal op het werk", hint: "Optioneel. De taal die je op de werkplek nodig hebt." },
+        workplace_language: { label: "Taal op het werk", hint: "Dit veld is niet verplicht. Kies de taal die je op de werkplek nodig hebt." },
         contact_admin_id: { label: "Contactpersoon", hint: "Naam, telefoonnummer en WhatsApp van deze persoon staan bij de vacature." },
         closes_at: { label: "Sluitdatum", hint: "Bij een concept mag je dit leeg laten; de vacature sluit dan 45 dagen na het publiceren. Na deze datum gaat de vacature automatisch offline." },
         publish_at: { label: "Online vanaf", hint: "" },

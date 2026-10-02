@@ -9,7 +9,9 @@ import {
   PROVINCES,
   QUALIFICATIONS,
   SHIFTS,
+  WORKPLACE_LANGUAGES,
   type VacancyStatus,
+  type WorkplaceLanguage,
 } from "@/lib/data/options";
 import { formatEuro } from "@/lib/format";
 import { S, fill } from "../../_strings";
@@ -52,6 +54,7 @@ export type VacancyFormValues = {
   training_offered: string[];
   min_age_18: boolean;
   min_age_reason: string;
+  workplace_language: string;
   contact_admin_id: string;
   closes_at: string;
   is_featured: boolean;
@@ -103,6 +106,7 @@ export function emptyVacancyValues(contactAdminId: string): VacancyFormValues {
     training_offered: [],
     min_age_18: false,
     min_age_reason: "",
+    workplace_language: "",
     contact_admin_id: contactAdminId,
     closes_at: "",
     is_featured: false,
@@ -174,6 +178,7 @@ export type VacancyDbInput = {
     min_age_reason: string | null;
     start_asap: boolean;
     start_date: string | null;
+    workplace_language: WorkplaceLanguage | null;
     closes_at: string | null;
     is_featured: boolean;
     is_urgent: boolean;
@@ -252,6 +257,8 @@ export function vacancyDraftSchema(ctx: { status: VacancyStatus | null; adminIds
       training_offered: z.array(z.string()).transform((v) => v.filter((q) => quals.includes(q))),
       min_age_18: z.boolean(),
       min_age_reason: z.string(),
+      // Mag leeg blijven; niet nodig om te publiceren (spec 10 kruiscontrole_1).
+      workplace_language: z.union([z.literal(""), z.enum(WORKPLACE_LANGUAGES)]).catch(""),
       contact_admin_id: z.string().trim(),
       closes_at: z.string().trim(),
       is_featured: z.boolean(),
@@ -322,6 +329,7 @@ export function vacancyDraftSchema(ctx: { status: VacancyStatus | null; adminIds
           min_age_reason: v.min_age_18 ? v.min_age_reason : null,
           start_asap: v.start_asap,
           start_date: v.start_asap ? null : v.start_date || null,
+          workplace_language: v.workplace_language || null,
           closes_at: v.closes_at ? amsterdamDateEndToIso(v.closes_at) : null,
           is_featured: v.is_featured,
           is_urgent: v.is_urgent,

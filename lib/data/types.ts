@@ -14,6 +14,7 @@ import type {
   Qualification,
   ShiftId,
   ShiftSlug,
+  WorkplaceLanguage,
 } from "./options";
 
 export type VacancyState = "open" | "closed";
@@ -48,6 +49,9 @@ export type VacancyListItem = {
   salaryMax: number;
   isFeatured: boolean;
   isUrgent: boolean;
+  startAsap: boolean;
+  /** "YYYY-MM-DD" */
+  startDate: string | null;
   publishedAt: string;
   closesAt: string;
   state: VacancyState;
@@ -80,9 +84,7 @@ export type VacancyDetail = VacancyListItem & {
   trainingOffered: Qualification[];
   minAge18: boolean;
   minAgeReason: MinAgeReason | null;
-  startAsap: boolean;
-  /** "YYYY-MM-DD" */
-  startDate: string | null;
+  workplaceLanguage: WorkplaceLanguage | null;
   allowWhatsappApply: boolean;
   /** rijbewijs_b in vereist of pré (B-17). */
   asksDrivingLicenseB: boolean;

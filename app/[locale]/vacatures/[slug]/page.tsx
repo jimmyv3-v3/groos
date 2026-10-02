@@ -25,7 +25,6 @@ import {
   getVacancyMetaValues,
   lowerFirst,
   resolveVacancyContact,
-  workplaceLanguageOf,
 } from "@/components/vacatures/vacancy-format";
 import { VacancyHeader } from "@/components/vacatures/vacancy-header";
 import { VacancyHowTo } from "@/components/vacatures/vacancy-how-to";
@@ -85,7 +84,6 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
     { label: tn("vacatures"), href: ROUTES.vacatures },
     { label: vacancy.title, href: vacancy.path },
   ];
-  const workplaceLanguage = workplaceLanguageOf(vacancy);
   const similar = (
     <Suspense fallback={<VacancyListSkeleton count={SIMILAR_LIMIT} variant="compact" />}>
       <SimilarVacancies number={vacancy.number} locale={locale} headingId="vergelijkbare-vacatures" />
@@ -102,7 +100,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
         <article aria-labelledby="vacature-titel" className="mt-6 grid max-w-4xl gap-6 sm:mt-8">
           <VacancyHeader vacancy={vacancy} locale={locale} closed />
           <VacancyClosedNotice vacancy={vacancy} locale={locale} />
-          <VacancyFacts vacancy={vacancy} locale={locale} variant="compact" workplaceLanguage={workplaceLanguage} />
+          <VacancyFacts vacancy={vacancy} locale={locale} variant="compact" />
         </article>
         <div id="solliciteren" className="mt-14 grid scroll-mt-24 gap-12">
           {similar}
@@ -149,7 +147,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
       <article aria-labelledby="vacature-titel" className="mt-6 sm:mt-8">
         <div className="grid max-w-4xl gap-6">
           <VacancyHeader vacancy={vacancy} locale={locale} />
-          <VacancyFacts vacancy={vacancy} locale={locale} variant="full" workplaceLanguage={workplaceLanguage} />
+          <VacancyFacts vacancy={vacancy} locale={locale} variant="full" />
           <VacancyActions vacancy={vacancy} locale={locale} contact={contact} />
         </div>
         <div className="mt-10 lg:grid lg:grid-cols-12 lg:gap-10">

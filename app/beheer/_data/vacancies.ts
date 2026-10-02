@@ -196,6 +196,8 @@ function formValuesOf(v: LoadedVacancy): VacancyFormValues {
     training_offered: v.training_offered,
     min_age_18: v.min_age_18,
     min_age_reason: v.min_age_reason ?? "",
+    // Zonder migratie kruiscontrole_1 ontbreekt de kolom; dan leeg.
+    workplace_language: v.workplace_language ?? "",
     contact_admin_id: v.contact_admin_id ?? "",
     closes_at: v.closes_at ? isoToAmsterdamLocal(v.closes_at).slice(0, 10) : "",
     is_featured: v.is_featured,
@@ -298,6 +300,7 @@ export async function getVacancyPreview(ctx: AdminContext, number: number): Prom
     trainingOffered: v.training_offered as VacancyDetail["trainingOffered"],
     minAge18: v.min_age_18,
     minAgeReason: v.min_age_reason,
+    workplaceLanguage: v.workplace_language ?? null,
     startAsap: v.start_asap,
     startDate: v.start_date,
     allowWhatsappApply: v.allow_whatsapp_apply,

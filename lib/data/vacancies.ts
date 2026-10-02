@@ -65,6 +65,8 @@ const LIST_COLUMNS = [
   "salary_max",
   "is_featured",
   "is_urgent",
+  "start_asap",
+  "start_date",
   "published_at",
   "closes_at",
   "updated_at",
@@ -162,6 +164,8 @@ function toListItem(row: PublicVacancyRow): VacancyListItem | null {
     salaryMax: Number(row.salary_max),
     isFeatured: Boolean(row.is_featured),
     isUrgent: Boolean(row.is_urgent),
+    startAsap: row.start_asap ?? true,
+    startDate: row.start_date,
     // Een open vacature heeft altijd een publicatiemoment; publish_at valt terug op closes_at.
     publishedAt: row.published_at ?? row.closes_at,
     closesAt: row.closes_at,
@@ -216,8 +220,8 @@ function toDetail(row: PublicVacancyRow): VacancyDetail | null {
     trainingOffered: row.training_offered ?? [],
     minAge18: Boolean(row.min_age_18),
     minAgeReason: row.min_age_reason,
-    startAsap: row.start_asap ?? true,
-    startDate: row.start_date,
+    // Zonder de kolom (migratie kruiscontrole_1 nog niet toegepast) is de waarde undefined.
+    workplaceLanguage: row.workplace_language ?? null,
     allowWhatsappApply: row.allow_whatsapp_apply ?? true,
     asksDrivingLicenseB: required.includes("rijbewijs_b") || preferred.includes("rijbewijs_b"),
     imageUrl: publicMediaUrl(row.image_path),

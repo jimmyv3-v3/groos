@@ -33,9 +33,7 @@ export async function VacancyCard({ vacancy, locale, variant = "default", headin
   const wage = f.wage(vacancy.salaryMin, vacancy.salaryMax);
   const hours = f.hours(vacancy.hoursMin, vacancy.hoursMax);
   const shifts = f.shifts(vacancy.shifts);
-  // VacancyListItem heeft (nog) geen startmoment; spec 10 levert startAsap en startDate.
-  const item = vacancy as VacancyListItem & { startAsap?: boolean; startDate?: string | null };
-  const start = f.start(item.startAsap ?? true, item.startDate ?? null);
+  const start = f.start(vacancy.startAsap, vacancy.startDate);
 
   const badges: { key: string; label: string; tone: "warning" | "brand" }[] = [];
   if (vacancy.state === "open") {

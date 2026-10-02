@@ -15,6 +15,7 @@ import {
   EDUCATION_LEVELS,
   EXPERIENCE_LEVELS,
   MIN_AGE_REASONS,
+  WORKPLACE_LANGUAGES,
   PROVINCES,
   SHIFTS,
   type OccupationSlug,
@@ -65,6 +66,7 @@ const FIELD_ORDER = [
   "experience_months",
   "preferred_qualifications",
   "min_age_reason",
+  "workplace_language",
   "contact_admin_id",
   "closes_at",
   "seo_title",
@@ -337,6 +339,16 @@ export function VacancyForm({
               </NativeSelect>
             </BeheerField>
           )}
+          <BeheerField id="workplace_language" label={F.workplace_language.label} hint={F.workplace_language.hint} error={e("workplace_language")}>
+            <NativeSelect name="workplace_language" defaultValue={initial.workplace_language}>
+              <NativeSelectOption value="">{S.common.notFilled}</NativeSelectOption>
+              {WORKPLACE_LANGUAGES.map((l) => (
+                <NativeSelectOption key={l} value={l}>
+                  {S.options.workplaceLanguage[l]}
+                </NativeSelectOption>
+              ))}
+            </NativeSelect>
+          </BeheerField>
         </FormBlock>
 
         <FormBlock id="publicatie" title={B.publicatie.title} description={B.publicatie.description}>

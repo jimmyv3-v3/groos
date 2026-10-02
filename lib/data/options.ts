@@ -54,9 +54,12 @@ export const QUALIFICATIONS = [
   "rijbewijs_c",
   "code_95",
   "ras",
-  "dav",
-] as const;
+] as const; // zonder "dav" sinds 20261003090000_kruiscontrole_1.sql (VR-13)
 export type Qualification = (typeof QUALIFICATIONS)[number];
+
+/** Taal op het werk (enum workplace_language, kruiscontrole_1). */
+export const WORKPLACE_LANGUAGES = ["nl", "en", "nl_or_en"] as const;
+export type WorkplaceLanguage = (typeof WORKPLACE_LANGUAGES)[number];
 
 export const MIN_AGE_REASONS = [
   "work_at_height",
