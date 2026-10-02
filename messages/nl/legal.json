@@ -1,7 +1,13 @@
 {
-  "updatedAt": "Laatst bijgewerkt op {date}.",
-  "contactQuestion": "Heeft u een vraag over dit document? Wij helpen u graag verder.",
+  "versionLine": "Versie {version}, bijgewerkt op {date}.",
+  "draftNotice": "Dit is een concepttekst. Een jurist controleert hem voordat deze website live gaat.",
+  "contactQuestion": "Heeft u een vraag over deze tekst? Wij helpen u graag verder.",
   "contactCta": "Neem contact op",
+  "download": "Download de pdf",
+  "toc": {
+    "title": "Inhoud",
+    "ariaLabel": "Inhoud van deze pagina"
+  },
   "nav": {
     "privacy": "Privacyverklaring",
     "cookies": "Cookieverklaring",
@@ -13,7 +19,20 @@
     "kvk": "KvK {number}",
     "vat": "Btw {number}"
   },
-  "placeholder": {
-    "description": "TODO beschrijving van dit document (spec 09)"
+  "wtta": {
+    "footer": {
+      "preparing": "Wij bereiden onze toelating onder de Wtta voor.",
+      "transition": "Wij zijn aangemeld voor de overgangsregeling van de Wtta.",
+      "provisional": "Wij hebben een voorlopige toelating van de Nederlandse Autoriteit Uitleenmarkt.",
+      "admitted": "Wij zijn toegelaten door de Nederlandse Autoriteit Uitleenmarkt onder registernummer {number}."
+    },
+    "block": {
+      "preparing": "Groos Personeelsdiensten bereidt de toelating onder de Wet toelating terbeschikkingstelling van arbeidskrachten voor. Zodra wij zijn aangemeld of toegelaten, ziet u dat hier met een link naar het openbare register.",
+      "transition": "Groos Personeelsdiensten is aangemeld voor de overgangsregeling van de Wet toelating terbeschikkingstelling van arbeidskrachten. Vanaf 1 juli 2027 kunt u onze status controleren in het openbare register van de Nederlandse Autoriteit Uitleenmarkt.",
+      "provisional": "Groos Personeelsdiensten heeft een voorlopige toelating van de Nederlandse Autoriteit Uitleenmarkt. U kunt dit zelf controleren in het openbare register.",
+      "admitted": "Groos Personeelsdiensten is toegelaten tot de uitleenmarkt onder registernummer {number}. In het openbare register van de Nederlandse Autoriteit Uitleenmarkt ziet u of de toelating geldig is."
+    },
+    "infoLink": "Lees wat de Wtta voor inleners betekent",
+    "registerLink": "Bekijk onze registratie in het openbare register"
   }
 }
