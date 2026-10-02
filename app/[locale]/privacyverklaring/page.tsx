@@ -44,7 +44,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         heading: "Voor wie deze verklaring geldt",
         blocks: [
           "Deze verklaring geldt voor iedereen van wie wij gegevens gebruiken, via de website of via e-mail, telefoon en WhatsApp. Dat zijn werkzoekenden, uitzendkrachten, contactpersonen bij opdrachtgevers en andere mensen die contact met ons opnemen.",
-          "In de artikelen voor werkzoekenden spreken wij je aan met je. In de andere artikelen spreken wij u aan met u.",
+          "De artikelen voor werkzoekenden zijn informeel geschreven. In de andere artikelen spreken wij u aan met u.",
         ],
       },
       {

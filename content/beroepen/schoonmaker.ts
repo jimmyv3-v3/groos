@@ -325,7 +325,7 @@ export const schoonmaker = {
           },
           {
             q: "Kunt u vervanging leveren bij ziekte?",
-            a: "Ja. Valt een schoonmaker op uw object uit door ziekte of vakantie, dan zoeken wij een vervanger en houden wij u op de hoogte.",
+            a: "Ja, valt een schoonmaker op uw object uit door ziekte of vakantie, dan zoeken wij een vervanger en houden wij u op de hoogte.",
             specific: true,
             claim: "replacement",
           },
@@ -671,7 +671,7 @@ export const schoonmaker = {
           },
           {
             q: "Can you provide a replacement in case of illness?",
-            a: "Yes. If a cleaner at your site drops out because of illness or holiday, we look for a replacement and keep you informed.",
+            a: "Yes, if a cleaner at your site drops out because of illness or holiday, we look for a replacement and keep you informed.",
             specific: true,
             claim: "replacement",
           },

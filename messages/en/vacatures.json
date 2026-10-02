@@ -217,7 +217,7 @@
     "postedOn": "Posted on {date}",
     "imageAlt": "{title} in {city}",
     "actionsLabel": "Apply or get in touch",
-    "onlyDutch": "This vacancy is only available in Dutch. Questions? Call or message us, we are happy to help in English.",
+    "onlyDutch": "This vacancy is only available in Dutch. If you have questions, call or message us and we will help you in English.",
     "sections": {
       "tasks": "Your working day",
       "requirements": "What you bring",
@@ -280,6 +280,6 @@
     "similar": {
       "title": "Similar jobs"
     },
-    "occupationPageLink": "Read more about working as a {occupation}"
+    "occupationPageLink": "More about working as a {occupation}"
   }
 }

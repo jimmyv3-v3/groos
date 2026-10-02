@@ -135,7 +135,7 @@
   "staffRequest": {
     "meta": {
       "title": "Request staff",
-      "description": "Tell us which people you need, from when and for how long. We will then contact you to discuss your request."
+      "description": "Tell Groos in The Hague which people you need, from when and for how long. We will then contact you to discuss your request."
     },
     "breadcrumbParent": "Employers",
     "breadcrumb": "Request staff",
@@ -227,7 +227,7 @@
           "other": "Something else"
         }
       },
-      "message": { "label": "Your message", "hintCallback": "This field is optional. Let us know when it is best to call you." }
+      "message": { "label": "Your message", "hintCallback": "This field is optional. Let us know a good time to call you." }
     },
     "topicHints": {
       "jobseeker": "Looking for work? You can also <link>register</link> straight away.",
