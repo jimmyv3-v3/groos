@@ -82,11 +82,11 @@ export default async function proxy(request: NextRequest) {
 
 export const config = {
   // Eerste regel: publieke site. Overslaan: API-routes, beheer, feeds,
-  // monitoring, Next-interne paden, gegenereerde metadata-routes en alles met
+  // monitoring, Next-interne paden, het BotID-voorvoegsel (B-38), gegenereerde metadata-routes en alles met
   // een punt (bestanden, sitemap.xml, robots.txt, llms.txt, .well-known).
   // Tweede regel: /beheer, alleen voor sessieverversing (geen taalrouting).
   matcher: [
-    "/((?!api|beheer|feeds|monitoring|_next|_vercel|opengraph-image|twitter-image|icon|apple-icon|.*\\..*).*)",
+    "/((?!api|beheer|feeds|monitoring|_next|_vercel|149e9513-01fa-4fb0-aad4-566afd725d1b|opengraph-image|twitter-image|icon|apple-icon|.*\\..*).*)",
     "/beheer/:path*",
   ],
 };
