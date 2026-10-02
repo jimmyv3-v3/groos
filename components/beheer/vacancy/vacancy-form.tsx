@@ -1,14 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Eye } from "lucide-react";
+import { CalendarClock, Eye, Send } from "lucide-react";
 import { saveVacancy } from "@/app/beheer/_actions/vacancies";
+import { formatDateTimeNl } from "@/app/beheer/_lib/format";
 import { beheerPaths } from "@/app/beheer/_lib/paths";
 import { FORM_QUALIFICATIONS } from "@/app/beheer/_lib/status";
-import type { PublishErrorCode } from "@/app/beheer/_lib/types";
-import { vacancyWarnings, type VacancyFormValues } from "@/app/beheer/_lib/validation/vacancy";
+import type { PublishErrorCode, VacancyActionTarget } from "@/app/beheer/_lib/types";
+import {
+  vacancyValuesFromFormData,
+  vacancyWarnings,
+  type VacancyFormValues,
+} from "@/app/beheer/_lib/validation/vacancy";
 import { S } from "@/app/beheer/_strings";
 import {
   CONTRACT_TYPES,
@@ -38,6 +43,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/toast";
 import { FormBlock } from "./form-block";
 import { ListField } from "./list-field";
+import { VacancyDialogs, type VacancyDialogKey } from "./vacancy-dialogs";
 
 const F = S.vacancies.form.fields;
 const B = S.vacancies.form.blocks;
@@ -87,16 +93,19 @@ export function VacancyForm({
   status,
   publishErrors,
   updatedAt,
+  target,
 }: {
   mode: "create" | "edit";
   id: string | null;
   number: number | null;
   initial: VacancyFormValues;
   occupations: { slug: OccupationSlug; nameNl: string }[];
-  admins: { id: string; displayName: string }[];
+  admins: { id: string; displayName: string; hasPhone: boolean }[];
   status: VacancyStatus | null;
   publishErrors: PublishErrorCode[];
   updatedAt: string | null;
+  /** Bij bewerken: de vacature voor de dialogen Nu publiceren en Inplanning wijzigen. */
+  target?: VacancyActionTarget;
 }) {
   const router = useRouter();
   const toast = useToast();
@@ -116,12 +125,18 @@ export function VacancyForm({
   const [startAsap, setStartAsap] = useState(initial.start_asap);
   const [minAge, setMinAge] = useState(initial.min_age_18);
   const [experience, setExperience] = useState(initial.experience_level);
-  const [salaryMin, setSalaryMin] = useState(initial.salary_min);
+  const [warnings, setWarnings] = useState(() => vacancyWarnings(initial));
+  const [dialog, setDialog] = useState<VacancyDialogKey | null>(null);
 
   const errors = state && !state.ok ? (state.fieldErrors ?? {}) : {};
   const e = (field: string) => errors[field];
-  const warnings = useMemo(() => vacancyWarnings({ salary_min: salaryMin }), [salaryMin]);
+  const wageWarnings = warnings.filter((w) => w !== S.validation.noExperienceAtHeight);
+  const heightWarning = warnings.includes(S.validation.noExperienceAtHeight);
   const contractTypes = isClaimConfirmed("serviceForms") ? CONTRACT_TYPES : (["temp_agency"] as const);
+  // "Opleiding die Groos regelt" pas na bevestiging van de claim (spec 09 CL-11); anders stuurt het formulier een lege lijst.
+  const showTraining = isClaimConfirmed("certificateSupport");
+  // Contactpersoon: alleen beheerders met een telefoonnummer (B-48).
+  const contacts = admins.filter((a) => a.hasPhone);
 
   // Niet-opgeslagen wijzigingen: bevestiging bij sluiten en bij links binnen het beheer.
   useEffect(() => {
@@ -184,16 +199,22 @@ export function VacancyForm({
 
   const qualificationOptions = FORM_QUALIFICATIONS.map((q) => ({ value: q, label: S.options.qualification[q] }));
   const isDraft = !status || status === "draft";
+  const isClosed = status === "closed";
+  const isArchived = status === "archived";
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_13rem] lg:items-start">
       <form
         action={formAction}
         onSubmit={onSubmit}
-        onChange={() => setDirty(true)}
+        onChange={(ev) => {
+          setDirty(true);
+          setWarnings(vacancyWarnings(vacancyValuesFromFormData(new FormData(ev.currentTarget))));
+        }}
         noValidate
         className="grid min-w-0 gap-6 pb-36 lg:pb-0"
       >
+        <fieldset disabled={isArchived} className="contents">
         <input type="hidden" name="id" value={id ?? ""} />
         <input type="hidden" name="updated_at" value={updatedAt ?? ""} />
         <ErrorSummary errors={summary} />
@@ -273,15 +294,15 @@ export function VacancyForm({
           {checkboxGroup("shifts", F.shifts.label, F.shifts.hint, SHIFTS.map((s) => ({ value: s.id, label: S.options.shift[s.id] })), initial.shifts)}
           <div className="grid gap-5 sm:grid-cols-2">
             <BeheerField id="salary_min" label={F.salary_min.label} hint={F.salary_min.hint} error={e("salary_min")} required="publish">
-              <Input name="salary_min" inputMode="decimal" defaultValue={initial.salary_min} onChange={(ev) => setSalaryMin(ev.target.value)} />
+              <Input name="salary_min" inputMode="decimal" defaultValue={initial.salary_min} />
             </BeheerField>
             <BeheerField id="salary_max" label={F.salary_max.label} hint={F.salary_max.hint} error={e("salary_max")} required="publish">
               <Input name="salary_max" inputMode="decimal" defaultValue={initial.salary_max} />
             </BeheerField>
           </div>
-          {warnings.length > 0 && (
+          {wageWarnings.length > 0 && (
             <Alert tone="warning" role="status">
-              {warnings[0]}
+              {wageWarnings[0]}
             </Alert>
           )}
           <BeheerField id="salary_note" label={F.salary_note.label} hint={F.salary_note.hint} error={e("salary_note")}>
@@ -307,7 +328,7 @@ export function VacancyForm({
                 ))}
               </NativeSelect>
             </BeheerField>
-            <BeheerField id="experience_level" label={F.experience_level.label} error={e("experience_level")} required="always">
+            <BeheerField id="experience_level" label={F.experience_level.label} hint={F.experience_level.hint} error={e("experience_level")} required="always">
               <NativeSelect name="experience_level" defaultValue={initial.experience_level} onChange={(ev) => setExperience(ev.target.value)}>
                 {EXPERIENCE_LEVELS.map((l) => (
                   <NativeSelectOption key={l} value={l}>
@@ -324,7 +345,8 @@ export function VacancyForm({
           )}
           {checkboxGroup("required_qualifications", F.required_qualifications.label, F.required_qualifications.hint, qualificationOptions, initial.required_qualifications)}
           {checkboxGroup("preferred_qualifications", F.preferred_qualifications.label, F.preferred_qualifications.hint, qualificationOptions, initial.preferred_qualifications)}
-          {checkboxGroup("training_offered", F.training_offered.label, F.training_offered.hint, qualificationOptions, initial.training_offered)}
+          {showTraining &&
+            checkboxGroup("training_offered", F.training_offered.label, F.training_offered.hint, qualificationOptions, initial.training_offered)}
           <MinAgeWatcher onChange={setMinAge} />
           <CheckboxField id="min_age_18" name="min_age_18" label={F.min_age_18.label} description={F.min_age_18.hint} defaultChecked={initial.min_age_18} />
           {minAge && (
@@ -338,6 +360,11 @@ export function VacancyForm({
                 ))}
               </NativeSelect>
             </BeheerField>
+          )}
+          {heightWarning && (
+            <Alert tone="warning" role="status">
+              {S.validation.noExperienceAtHeight}
+            </Alert>
           )}
           <BeheerField id="workplace_language" label={F.workplace_language.label} hint={F.workplace_language.hint} error={e("workplace_language")}>
             <NativeSelect name="workplace_language" defaultValue={initial.workplace_language}>
@@ -355,7 +382,7 @@ export function VacancyForm({
           <BeheerField id="contact_admin_id" label={F.contact_admin_id.label} hint={F.contact_admin_id.hint} error={e("contact_admin_id")} required="publish">
             <NativeSelect name="contact_admin_id" defaultValue={initial.contact_admin_id}>
               <NativeSelectOption value="">{S.common.nobody}</NativeSelectOption>
-              {admins.map((a) => (
+              {contacts.map((a) => (
                 <NativeSelectOption key={a.id} value={a.id}>
                   {a.displayName}
                 </NativeSelectOption>
@@ -369,8 +396,25 @@ export function VacancyForm({
             error={e("closes_at")}
             required={isDraft ? undefined : "always"}
           >
-            <Input name="closes_at" type="date" defaultValue={initial.closes_at} className="max-w-56" />
+            {/* Bij closed alleen-lezen: opslaan houdt de sluitdatum uit de database, heropenen gaat via Heropenen. */}
+            <Input name="closes_at" type="date" defaultValue={initial.closes_at} readOnly={isClosed} className="max-w-56" />
           </BeheerField>
+          {status === "scheduled" && target?.publishAt && (
+            <div id="veld-publish_at" className="grid gap-2">
+              <p className="text-sm font-medium">{F.publish_at.label}</p>
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="text-base">{formatDateTimeNl(target.publishAt)}</p>
+                <button
+                  type="button"
+                  onClick={() => setDialog("schedule")}
+                  className={ctaButtonVariants({ variant: "secondary", size: "sm" })}
+                >
+                  <CalendarClock aria-hidden="true" />
+                  {S.vacancies.actions.reschedule}
+                </button>
+              </div>
+            </div>
+          )}
           <div className="grid gap-1">
             <CheckboxField id="is_featured" name="is_featured" label={F.is_featured.label} description={F.is_featured.hint} defaultChecked={initial.is_featured} />
             <CheckboxField id="is_urgent" name="is_urgent" label={F.is_urgent.label} description={F.is_urgent.hint} defaultChecked={initial.is_urgent} />
@@ -397,6 +441,7 @@ export function VacancyForm({
             </BeheerField>
           </div>
         </details>
+        </fieldset>
 
         <div
           data-actiebalk
@@ -417,19 +462,23 @@ export function VacancyForm({
               <IntentButton intent="save" variant="secondary" disabled={pending} className="flex-1 sm:flex-none">
                 {S.vacancies.form.save}
               </IntentButton>
-              <IntentButton intent="publish" disabled={pending} className="flex-1 sm:flex-none">
-                {S.vacancies.form.publishNow}
-              </IntentButton>
+              {/* Nu publiceren is de actie publishVacancy (met dialoog), geen intent publish (§4.7). */}
+              {target && (
+                <button
+                  type="button"
+                  onClick={() => setDialog("publish")}
+                  disabled={pending}
+                  className={ctaButtonVariants({ className: "flex-1 sm:flex-none" })}
+                >
+                  <Send aria-hidden="true" />
+                  {S.vacancies.form.publishNow}
+                </button>
+              )}
             </>
           )}
           {(status === "published" || status === "closed") && (
             <IntentButton intent="save" disabled={pending} className="flex-1 sm:flex-none">
               {S.vacancies.form.publishChanges}
-            </IntentButton>
-          )}
-          {status === "archived" && (
-            <IntentButton intent="save" disabled={pending} className="flex-1 sm:flex-none">
-              {S.vacancies.form.save}
             </IntentButton>
           )}
           {mode === "edit" && number !== null && (
@@ -457,6 +506,7 @@ export function VacancyForm({
         )}
       </nav>
 
+      {target && <VacancyDialogs vacancy={target} open={dialog} onOpenChange={setDialog} />}
       <ConfirmDialog
         open={leaveTo !== null}
         onOpenChange={(o) => !o && setLeaveTo(null)}

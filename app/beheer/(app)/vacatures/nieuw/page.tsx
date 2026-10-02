@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { OCCUPATION_SLUGS } from "@/lib/data/options";
 import { PageHeader } from "@/components/beheer/page-header";
 import { VacancyForm } from "@/components/beheer/vacancy/vacancy-form";
-import { listAdminOptions, listOccupationOptions } from "../../../_data/vacancies";
+import { defaultContactId, listAdminOptions, listOccupationOptions } from "../../../_data/vacancies";
 import { requireAdmin } from "../../../_lib/auth";
 import { oneOf } from "../../../_lib/url";
 import { firstParam } from "../../../_lib/validation/common";
@@ -20,7 +20,7 @@ export default async function NewVacancyPage({ searchParams }: PageProps<"/behee
   const params = await searchParams;
   const [occupations, admins] = await Promise.all([listOccupationOptions(ctx), listAdminOptions(ctx)]);
 
-  const initial = emptyVacancyValues(admins.some((a) => a.id === ctx.userId) ? ctx.userId : "");
+  const initial = emptyVacancyValues(defaultContactId(admins, ctx.userId));
   const beroep = oneOf(params.beroep, OCCUPATION_SLUGS);
   if (beroep) initial.occupation_slug = beroep;
   const plaats = firstParam(params.plaats)?.trim().slice(0, 80);

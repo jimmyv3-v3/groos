@@ -13,6 +13,7 @@ import { getVacancyForEdit, listAdminOptions, listOccupationOptions } from "../.
 import { requireAdmin } from "../../../_lib/auth";
 import { beheerPaths } from "../../../_lib/paths";
 import { vacancyDisplayStatus } from "../../../_lib/status";
+import type { VacancyActionTarget } from "../../../_lib/types";
 import { vacancyWarnings } from "../../../_lib/validation/vacancy";
 import { S, fill } from "../../../_strings";
 
@@ -42,6 +43,21 @@ export default async function EditVacancyPage({ params }: PageProps<"/beheer/vac
   const display = vacancyDisplayStatus({ status: vacancy.status, closesAt: vacancy.closesAt, closeReason: vacancy.closeReason });
   const showChecklist = vacancy.publishErrors.length > 0 && vacancy.status !== "archived";
   const warnings = vacancyWarnings(vacancy.form);
+  const target: VacancyActionTarget = {
+    id: vacancy.id,
+    number: vacancy.number,
+    title: vacancy.title,
+    city: vacancy.city,
+    slug: vacancy.slug,
+    status: vacancy.status,
+    closesAt: vacancy.closesAt,
+    publishAt: vacancy.publishAt,
+    isFeatured: vacancy.isFeatured,
+    isUrgent: vacancy.isUrgent,
+    applicationCount: vacancy.applicationCount,
+    openApplicationCount: vacancy.openApplicationCount,
+    publicState: vacancy.publicState,
+  };
 
   return (
     <>
@@ -59,21 +75,7 @@ export default async function EditVacancyPage({ params }: PageProps<"/beheer/vac
           <VacancyActions
             variant="buttons"
             isOwner={ctx.profile.role === "owner"}
-            vacancy={{
-              id: vacancy.id,
-              number: vacancy.number,
-              title: vacancy.title,
-              city: vacancy.city,
-              slug: vacancy.slug,
-              status: vacancy.status,
-              closesAt: vacancy.closesAt,
-              publishAt: vacancy.publishAt,
-              isFeatured: vacancy.isFeatured,
-              isUrgent: vacancy.isUrgent,
-              applicationCount: vacancy.applicationCount,
-              openApplicationCount: vacancy.openApplicationCount,
-              publicState: vacancy.publicState,
-            }}
+            vacancy={target}
           />
         }
       />
@@ -92,6 +94,7 @@ export default async function EditVacancyPage({ params }: PageProps<"/beheer/vac
         status={vacancy.status}
         publishErrors={vacancy.publishErrors}
         updatedAt={vacancy.updatedAt}
+        target={target}
       />
       <div className="mt-6 lg:mr-[14.5rem]">
         <SectionCard

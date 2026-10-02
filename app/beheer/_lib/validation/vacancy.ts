@@ -200,10 +200,18 @@ export type VacancyDbInput = {
 
 /**
  * Schema voor opslaan (ook als concept). Alles optioneel behalve beroep en
- * titel. status bepaalt of de sluitdatum leeg mag; adminIds zijn de actieve
- * beheerders.
+ * titel. status bepaalt of de sluitdatum leeg mag; contactIds zijn de actieve
+ * beheerders met een telefoonnummer (B-48); storedClosesOn is de opgeslagen
+ * sluitdatum als datum (Amsterdam), zodat een ongewijzigde sluitdatum van een
+ * geplande of online vacature geen fout geeft (§4.7). Bij status closed is de
+ * sluitdatum alleen-lezen en controleert het schema hem niet.
  */
-export function vacancyDraftSchema(ctx: { status: VacancyStatus | null; adminIds: string[]; now?: Date }) {
+export function vacancyDraftSchema(ctx: {
+  status: VacancyStatus | null;
+  contactIds: string[];
+  storedClosesOn?: string | null;
+  now?: Date;
+}) {
   const today = amsterdamDateKey(ctx.now ?? new Date());
   const shiftIds = SHIFTS.map((s) => s.id) as string[];
   const quals = QUALIFICATIONS as readonly string[];
@@ -296,12 +304,18 @@ export function vacancyDraftSchema(ctx: { status: VacancyStatus | null; adminIds
       }
       if (!v.start_asap && !/^\d{4}-\d{2}-\d{2}$/.test(v.start_date)) add("start_date", S.validation.startDate);
 
-      if (v.closes_at) {
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(v.closes_at) || v.closes_at <= today) add("closes_at", S.validation.closesInPast);
-      } else if (ctx.status && ctx.status !== "draft") {
-        add("closes_at", S.validation.closesRequired);
+      if (ctx.status !== "closed") {
+        const keepsStored =
+          (ctx.status === "scheduled" || ctx.status === "published") && v.closes_at === (ctx.storedClosesOn ?? "");
+        if (v.closes_at) {
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(v.closes_at) || (v.closes_at <= today && !keepsStored)) {
+            add("closes_at", S.validation.closesInPast);
+          }
+        } else if (ctx.status && ctx.status !== "draft") {
+          add("closes_at", S.validation.closesRequired);
+        }
       }
-      if (v.contact_admin_id && !ctx.adminIds.includes(v.contact_admin_id)) add("contact_admin_id", S.validation.contact);
+      if (v.contact_admin_id && !ctx.contactIds.includes(v.contact_admin_id)) add("contact_admin_id", S.validation.contact);
     })
     .transform(
       (v): VacancyDbInput => ({
@@ -351,8 +365,12 @@ export function vacancyDraftSchema(ctx: { status: VacancyStatus | null; adminIds
     );
 }
 
-/** Dezelfde regels als vacancy_publish_errors, voor directe feedback. */
-export function publishErrorsFromValues(v: VacancyFormValues): PublishErrorCode[] {
+/**
+ * Dezelfde regels als vacancy_publish_errors, voor directe feedback. Met
+ * contactIds (actieve beheerders met telefoonnummer) telt een contactpersoon
+ * zonder telefoonnummer ook als ontbrekend (B-48).
+ */
+export function publishErrorsFromValues(v: VacancyFormValues, contactIds?: readonly string[]): PublishErrorCode[] {
   const errors: PublishErrorCode[] = [];
   if (!v.title.trim()) errors.push("title");
   if (!v.city.trim()) errors.push("city");
@@ -363,17 +381,31 @@ export function publishErrorsFromValues(v: VacancyFormValues): PublishErrorCode[
   if (cleanList(v.requirements).length < 1) errors.push("requirements");
   if (cleanList(v.offer).length < 1) errors.push("offer");
   if (!v.start_asap && !v.start_date) errors.push("start");
-  if (!v.contact_admin_id) errors.push("contact");
+  if (!v.contact_admin_id || (contactIds && !contactIds.includes(v.contact_admin_id))) errors.push("contact");
   return errors;
 }
 
-/** Waarschuwingen zonder blokkade: uurloon onder het minimumloon (B-42, VR-07). */
-export function vacancyWarnings(v: Pick<VacancyFormValues, "salary_min">): string[] {
+/**
+ * Waarschuwingen zonder blokkade (§5.5): uurloon onder het minimumloon (B-42,
+ * VR-07) en Geen ervaring nodig bij werken op hoogte zonder training.
+ */
+export function vacancyWarnings(
+  v: Pick<VacancyFormValues, "salary_min" | "experience_level" | "min_age_18" | "min_age_reason" | "training_offered">,
+): string[] {
+  const warnings: string[] = [];
   const min = parseEuro(v.salary_min);
   if (min !== null && !Number.isNaN(min) && min < MINIMUM_WAGE_21_PLUS) {
-    return [fill(S.validation.belowMinimumWage, { bedrag: formatEuro(MINIMUM_WAGE_21_PLUS, "nl") })];
+    warnings.push(fill(S.validation.belowMinimumWage, { bedrag: formatEuro(MINIMUM_WAGE_21_PLUS, "nl") }));
   }
-  return [];
+  if (
+    v.experience_level === "none" &&
+    v.min_age_18 &&
+    v.min_age_reason === "work_at_height" &&
+    v.training_offered.length === 0
+  ) {
+    warnings.push(S.validation.noExperienceAtHeight);
+  }
+  return warnings;
 }
 
 /** Bedrag uit de database als tekst voor het formulier: 15.5 -> "15,50". */
