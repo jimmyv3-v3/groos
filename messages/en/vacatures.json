@@ -1,22 +1,285 @@
 {
   "meta": {
     "title": "Jobs in The Hague and surroundings",
-    "description": "See the open jobs at Groos in The Hague and the surrounding area, with hourly pay and working hours. You can apply in a few minutes, even without a CV.",
-    "pagedTitle": "Jobs in The Hague and surroundings, page {page}",
-    "pagedDescription": "Page {page} of the open jobs at Groos in The Hague and the surrounding area, with hourly pay and working hours. You can apply in a few minutes, even without a CV.",
+    "description": "See the open jobs at Groos in The Hague and the surrounding area, with hourly wage and working hours. You can apply in a few minutes, no CV needed.",
+    "titlePaged": "Jobs in The Hague and surroundings, page {page}",
+    "descriptionPaged": "Page {page} of the open jobs at Groos in The Hague and the surrounding area, with hourly wage and working hours. You can apply in a few minutes, no CV needed.",
     "detailTitle": "{title} in {city}",
-    "detailDescription": "{title} in {city} for {hours}, {wage}. {start} Apply at Groos, even without a CV.",
-    "detailDescriptionShort": "{title} in {city} for {hours}, {wage}. Apply at Groos, even without a CV.",
-    "startAsap": "You can start right away.",
-    "startDate": "You start on {date}.",
+    "detailDescription": "{title} in {city} for {hours}, {wage}. {start} Apply at Groos, no CV needed.",
+    "detailDescriptionShort": "{title} in {city} for {hours}, {wage}. Apply at Groos, no CV needed.",
+    "startAsapSentence": "You can start straight away.",
+    "startDateSentence": "You start from {date}.",
     "closedTitleFilled": "{title} in {city} (filled)",
     "closedTitleOther": "{title} in {city} (closed)",
-    "closedDescriptionFilled": "This job has been filled. See similar work as a {occupation} in {city} or register with Groos and we will help you look.",
-    "closedDescriptionOther": "This job is closed. See similar work as a {occupation} in {city} or register with Groos and we will help you look.",
-    "ogAlt": "Job {title} in {city} at Groos Personeelsdiensten, with hours and gross hourly pay"
+    "closedDescriptionFilled": "This job has been filled. See similar work as a {occupation} or register with Groos.",
+    "closedDescriptionOther": "This job is no longer open. See similar work as a {occupation} or register with Groos.",
+    "ogAlt": "Job {title} in {city} at Groos Personeelsdiensten, with hours and gross hourly wage"
   },
   "og": {
     "label": "Job",
     "closed": "This job is closed"
+  },
+  "overview": {
+    "title": "Jobs in The Hague and surroundings",
+    "intro": "Here you find the work we have right now for window cleaners, cleaners, logistics workers, movers and construction and demolition labourers. Every job shows the gross hourly wage, the hours and the working times straight away.",
+    "resultsHeading": "Jobs found",
+    "resultCount": "{count, plural, =0 {No jobs found} one {# job found} other {# jobs found}}",
+    "resultCountQuery": "{count, plural, =0 {No jobs found for “{query}”} one {# job found for “{query}”} other {# jobs found for “{query}”}}",
+    "pageStatus": "Page {page} of {pageCount}",
+    "updating": "The list is being updated"
+  },
+  "search": {
+    "form": "Search jobs",
+    "label": "Search by job or place",
+    "placeholder": "For example cleaner or Rijswijk",
+    "submit": "Search"
+  },
+  "filters": {
+    "heading": "Filters",
+    "open": "Filters",
+    "openWithCount": "Filters ({count})",
+    "sheetTitle": "Filters",
+    "close": "Close",
+    "showResults": "{count, plural, =0 {No jobs} one {Show # job} other {Show # jobs}}",
+    "apply": "Apply filters",
+    "clearAll": "Clear all filters",
+    "activeList": "Active filters",
+    "removeChip": "Remove filter {label}",
+    "queryChip": "Search term: {query}",
+    "optionCount": "{count, plural, =0 {no jobs} one {# job} other {# jobs}}",
+    "beroep": {
+      "legend": "Occupation"
+    },
+    "plaats": {
+      "legend": "Place",
+      "more": "Show all places"
+    },
+    "uren": {
+      "legend": "Hours per week",
+      "options": {
+        "tot-20": "Up to 20 hours",
+        "20-32": "21 to 31 hours",
+        "32-plus": "32 hours or more"
+      }
+    },
+    "dienst": {
+      "legend": "Working times",
+      "options": {
+        "vroeg": "Early shift",
+        "dag": "Day shift",
+        "avond": "Evening shift",
+        "nacht": "Night shift",
+        "weekend": "Weekend"
+      }
+    }
+  },
+  "sort": {
+    "label": "Sort",
+    "apply": "Sort",
+    "options": {
+      "nieuwste": "Newest first",
+      "salaris": "Highest hourly wage"
+    }
+  },
+  "pagination": {
+    "label": "Pages of jobs",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {page}"
+  },
+  "empty": {
+    "filtered": {
+      "title": "No jobs with these filters",
+      "body": "We have no work right now that matches this search or these filters. Remove a filter or register, and we will call you as soon as something fits."
+    },
+    "none": {
+      "title": "There are no jobs online right now",
+      "body": "At the moment we have no open jobs on the site. Register with us, and we will call you as soon as there is work that suits you."
+    },
+    "occupationLink": "Read about working as a {occupation}",
+    "occupationsLabel": "Work by occupation"
+  },
+  "registerPrompt": {
+    "title": "Register for new work",
+    "body": "You do not have to wait for the right job. Register and tell us what work you are looking for, and we will call you as soon as something fits."
+  },
+  "beroepIntro": {
+    "heading": "Working as a {occupation}",
+    "link": "All about working as a {occupation}",
+    "items": {
+      "glazenwasser": {
+        "paragraphs": [
+          "As a window cleaner you clean windows, frames and facades of offices and shops. You usually work during the day and often start at 07:00.",
+          "If you work at height, the minimum age is 18. Every job shows which driving licence or certificate you need."
+        ]
+      },
+      "schoonmaker": {
+        "paragraphs": [
+          "As a cleaner you keep offices, schools or homes clean and tidy. A lot of the work is early in the morning or in the evening, after office hours.",
+          "There is work for a few hours a week and for almost a full week. Every job shows the hours and working times straight away."
+        ]
+      },
+      "logistiek-medewerker": {
+        "paragraphs": [
+          "As a logistics worker you pick orders, load lorries and keep the warehouse in order. You often work early or late shifts, sometimes on Saturdays too.",
+          "With a certificate for a forklift, reach truck or pallet truck you have more choice. Every job shows whether you need one."
+        ]
+      },
+      "verhuizer": {
+        "paragraphs": [
+          "As a mover you pack belongings, carry furniture and set everything up again at the new address. You work in a team and usually start early.",
+          "Most of the work is at the start and the end of the month. With a category B driving licence you can also drive the removal van."
+        ]
+      },
+      "hulpkracht-bouw-en-sloop": {
+        "paragraphs": [
+          "As a construction and demolition labourer you support skilled workers on site. You clear up, remove waste and make sure materials are ready.",
+          "On a construction or demolition site the minimum age is 18. If the client asks for a VCA safety certificate, the job says so."
+        ]
+      }
+    }
+  },
+  "card": {
+    "ariaLabel": "{title} in {city}. {wage}. {hours}. {start}.",
+    "cityLabel": "Place",
+    "wageLabel": "Hourly wage",
+    "hoursLabel": "Hours",
+    "shiftsLabel": "Working times",
+    "startLabel": "Start",
+    "startAsap": "Immediately",
+    "startFrom": "From {date}",
+    "badges": {
+      "new": "New",
+      "urgent": "Urgent"
+    }
+  },
+  "latest": {
+    "empty": "There are no jobs online right now. Register with us, and we will call you as soon as there is work.",
+    "viewOccupation": "See all jobs as a {occupation}"
+  },
+  "facts": {
+    "heading": "Key facts about this job",
+    "labels": {
+      "city": "Place",
+      "wage": "Hourly wage",
+      "hours": "Hours per week",
+      "contract": "Type of contract",
+      "shifts": "Working times",
+      "start": "Start",
+      "qualifications": "Driving licence and certificates",
+      "language": "Language at work",
+      "experience": "Experience",
+      "positions": "Number of places",
+      "number": "Job number"
+    },
+    "contract": {
+      "temp_agency": "Agency work through Groos",
+      "secondment": "Secondment through Groos",
+      "recruitment": "Employed by the client"
+    },
+    "shiftsNone": "By arrangement",
+    "qualifications": {
+      "required": "{name} required",
+      "preferred": "{name} is a plus",
+      "training": "{name}: we arrange the training",
+      "none": "No driving licence or certificate needed"
+    },
+    "qualificationNames": {
+      "vca_basis": "VCA Basic safety certificate",
+      "vca_vol": "VCA Full safety certificate",
+      "heftruck": "Forklift certificate",
+      "reachtruck": "Reach truck certificate",
+      "ept": "Electric pallet truck certificate",
+      "ipaf": "IPAF (aerial work platform)",
+      "vog": "Certificate of conduct (VOG)",
+      "rijbewijs_b": "Driving licence category B",
+      "rijbewijs_be": "Driving licence category BE",
+      "rijbewijs_c": "Driving licence category C",
+      "code_95": "Code 95",
+      "ras": "RAS vocational training"
+    },
+    "experience": {
+      "none": "No experience needed",
+      "nice_to_have": "Experience is welcome",
+      "required": "Experience required",
+      "requiredMonths": "{months, plural, one {# month of experience required} other {# months of experience required}}"
+    },
+    "languageOptions": {
+      "nl": "Dutch",
+      "en": "English",
+      "nl_or_en": "Dutch or English"
+    },
+    "positions": "{count, plural, one {# place} other {# places}}"
+  },
+  "detail": {
+    "heading": "{title} in {city}",
+    "number": "Job {number}",
+    "postedOn": "Posted on {date}",
+    "imageAlt": "{title} in {city}",
+    "actionsLabel": "Apply or get in touch",
+    "onlyDutch": "This vacancy is only available in Dutch. Questions? Call or message us, we are happy to help in English.",
+    "sections": {
+      "tasks": "Your working day",
+      "requirements": "What you bring",
+      "offer": "What you get from us",
+      "extra": "More about this work",
+      "howTo": "How to apply",
+      "contact": "Questions about this job",
+      "share": "Share this job"
+    },
+    "howTo": {
+      "steps": [
+        {
+          "title": "You apply",
+          "body": "You fill in the form, send a WhatsApp message or call us. You do not need a CV."
+        },
+        {
+          "title": "We call you",
+          "body": "We call you to get to know you and answer your questions. Together we see whether the work suits you."
+        },
+        {
+          "title": "You start",
+          "body": "If the work suits you, we agree your first working day together. We tell you where and what time you start."
+        }
+      ]
+    },
+    "contact": {
+      "body": "{name} is your contact person for this job. Feel free to call or message, also if you are not sure the work suits you."
+    },
+    "share": {
+      "whatsapp": "Share on WhatsApp",
+      "whatsappText": "Take a look at this job at Groos: {title} in {city}. {url}",
+      "copy": "Copy link",
+      "copied": "Link copied",
+      "failed": "Copying did not work. Select the link and copy it yourself.",
+      "linkLabel": "Link to this job",
+      "native": "Share"
+    },
+    "aside": {
+      "heading": "At a glance"
+    },
+    "minAge": {
+      "work_at_height": "Because you work at height, the minimum age is 18.",
+      "construction_demolition": "Because you work on a construction or demolition site, the minimum age is 18.",
+      "forklift": "Because you drive a forklift or reach truck, the minimum age is 18.",
+      "night_work": "Because you also work at night, the minimum age is 18.",
+      "hazardous_substances": "Because you work with hazardous substances, the minimum age is 18."
+    },
+    "closed": {
+      "filled": {
+        "title": "This job has been filled",
+        "body": "We have found someone for this work. Below you find similar work you can still apply for."
+      },
+      "other": {
+        "title": "This job is no longer open",
+        "body": "You can no longer apply for this job. Below you find similar work that is open now."
+      },
+      "closedOn": "Closed on {date}",
+      "occupationLink": "See all work as a {occupation}"
+    },
+    "similar": {
+      "title": "Similar jobs"
+    },
+    "occupationPageLink": "Read more about working as a {occupation}"
   }
 }
