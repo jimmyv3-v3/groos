@@ -22,17 +22,17 @@ export function SectionHeading({
   return (
     <Reveal
       className={cn(
-        "max-w-2xl",
+        "max-w-3xl",
         align === "center" && "mx-auto text-center",
         className,
       )}
     >
-      <h2 className="font-display text-2xl font-light leading-tight tracking-tight text-foreground sm:text-3xl">
+      <h2 className="text-h2">
         {title}{" "}
-        {accent && <span className="accent-text font-normal">{accent}</span>}
+        {accent && <span className="accent-text">{accent}</span>}
       </h2>
       {intro && (
-        <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+        <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">
           {intro}
         </p>
       )}

@@ -15,10 +15,10 @@ export default function Faq() {
           <Reveal>
             <h2
               id="faq-heading"
-              className="font-display text-2xl font-light tracking-tight text-foreground sm:text-3xl mb-12"
+              className="mb-12 text-h2"
             >
               {t("heading")}{" "}
-              <span className="accent-text font-normal">
+              <span className="accent-text">
                 {t("headingAccent")}
               </span>
             </h2>
@@ -31,7 +31,7 @@ export default function Faq() {
                   key={index}
                   className="group border-b border-border/60 py-2"
                 >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-display text-base font-medium text-foreground [&::-webkit-details-marker]:hidden">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 font-display text-h3 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
                     {faq.q}
                     <ChevronDown
                       className="h-5 w-5 shrink-0 text-brand transition-transform duration-300 group-open:rotate-180"

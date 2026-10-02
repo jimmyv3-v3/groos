@@ -4,7 +4,7 @@ import { Marquee } from "@/components/ui/marquee";
 
 /**
  * Logoband met opdrachtgevers, direct onder de hero. Logo's krijgen één
- * uniforme tint via .logo-mono (app/globals.css), zodat merkkleuren het thema
+ * uniforme tint via .(app/globals.css), zodat merkkleuren het thema
  * niet breken. Zonder logo-bestand wordt de naam als tekst getoond.
  */
 export function Clients() {
@@ -25,7 +25,7 @@ export function Clients() {
                 src={client.src}
                 alt={client.name}
                 loading="lazy"
-                className="logo-mono h-7 w-auto transition-opacity duration-500 hover:opacity-100 sm:h-8"
+                className="h-7 w-auto transition-opacity duration-500 hover:opacity-100 sm:h-8"
               />
             ) : (
               <span className="whitespace-nowrap font-display text-lg font-medium tracking-tight text-muted-foreground">

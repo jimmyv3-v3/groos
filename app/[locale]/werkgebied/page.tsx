@@ -55,10 +55,6 @@ function WerkgebiedOverview({ locale }: { locale: string }) {
       <SiteHeader />
       <main>
         <section className="relative overflow-hidden pb-12 pt-32 sm:pt-40">
-          <div
-            aria-hidden="true"
-            className="bg-grid pointer-events-none absolute inset-0 opacity-30"
-          />
           <div className="container relative max-w-3xl">
             <nav
               aria-label={t("service.breadcrumbAria")}
@@ -70,9 +66,9 @@ function WerkgebiedOverview({ locale }: { locale: string }) {
               <ChevronRight className="h-3 w-3 text-brand-subtle/60" aria-hidden="true" />
               <span className="text-foreground/80">{t("werkgebied.navLabel")}</span>
             </nav>
-            <h1 className="mt-8 font-display text-4xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
+            <h1 className="mt-8 text-h1">
               {t("werkgebied.overview.titleLead")}{" "}
-              <span className="accent-text font-normal">
+              <span className="accent-text">
                 {t("werkgebied.overview.titleAccent")}
               </span>
             </h1>
@@ -92,7 +88,7 @@ function WerkgebiedOverview({ locale }: { locale: string }) {
                     className="group relative flex h-full flex-col justify-between rounded-lg border border-border/70 bg-card/40 p-6 transition-all duration-500 hover:border-brand/50 hover:bg-card/70"
                   >
                     <div>
-                      <MapPin className="h-6 w-6 text-brand" strokeWidth={1.4} aria-hidden="true" />
+                      <MapPin className="h-6 w-6 text-brand" aria-hidden="true" />
                       <p className="mt-4 font-display text-xl font-medium text-foreground">
                         {c.name}
                       </p>

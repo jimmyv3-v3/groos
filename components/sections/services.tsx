@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback } from "react";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { services, type ServiceListItem } from "@/content/services";
@@ -10,29 +9,22 @@ import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 
 /**
  * Diensten als een uniform raster. Alle diensten zijn even groot en even
- * belangrijk. Elke kaart heeft een cursor-volgende spotlight (vandaar "use
- * client").
+ * belangrijk. Client component omdat
+ * de kaarten useTranslations gebruiken binnen RevealGroup.
  */
 function ServiceCard({ service }: { service: ServiceListItem }) {
   const t = useTranslations();
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mx", e.clientX - rect.left + "px");
-    e.currentTarget.style.setProperty("--my", e.clientY - rect.top + "px");
-  }, []);
 
   return (
     <Link
       href={`/diensten/${service.slug}`}
-      onMouseMove={handleMouseMove}
-      className="spotlight group relative flex h-full flex-col rounded-lg border border-border/70 bg-card/40 p-4 transition-all duration-500 hover:border-brand/50 hover:bg-card/70 sm:p-6"
+      className="group relative flex h-full flex-col rounded-2xl border border-border bg-card p-5 transition-[border-color,box-shadow] duration-150 ease-brand hover:border-brand/40 hover:shadow-md sm:p-6"
     >
       <service.icon
         className="h-6 w-6 shrink-0 text-brand transition-colors duration-500 group-hover:text-brand-strong sm:h-7 sm:w-7"
-        strokeWidth={1.3}
         aria-hidden
       />
-      <h3 className="mt-4 font-display text-base font-medium tracking-tight text-foreground sm:mt-5 sm:text-lg">
+      <h3 className="mt-4 font-display text-h3 font-semibold text-foreground sm:mt-5">
         {t(`services.${service.slug}.title`)}
       </h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground sm:mt-3">

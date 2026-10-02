@@ -18,10 +18,9 @@ export function Proof() {
               <Quote
                 aria-hidden
                 className="mb-8 h-10 w-10 text-brand-subtle"
-                strokeWidth={1.2}
               />
               <blockquote id="proof-quote">
-                <p className="font-display text-2xl font-light leading-snug tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+                <p className="font-display text-h2 font-semibold text-foreground">
                   &ldquo;{t("quote")}&rdquo;
                 </p>
               </blockquote>

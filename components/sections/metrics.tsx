@@ -13,10 +13,6 @@ export function Metrics() {
       className="relative border-y border-border/60 bg-card/20 py-16 sm:py-20"
     >
       {/* Subtle architectural grid */}
-      <div
-        aria-hidden="true"
-        className="bg-grid pointer-events-none absolute inset-0 opacity-[0.4]"
-      />
 
       <div className="container relative">
         <RevealGroup>
@@ -37,7 +33,7 @@ export function Metrics() {
                   <dt className="mt-2 text-xs uppercase tracking-widest text-muted-foreground">
                     {labels[i]}
                   </dt>
-                  <dd className="font-display text-4xl font-light accent-text sm:text-5xl">
+                  <dd className="font-display text-4xl accent-text sm:text-5xl">
                     <CountUp
                       value={m.value}
                       prefix={m.prefix}

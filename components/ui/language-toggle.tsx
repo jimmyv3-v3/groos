@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
+import { Languages } from "lucide-react";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -37,22 +38,23 @@ export function LanguageToggle({ className }: { className?: string }) {
       role="group"
       aria-label={t("label")}
       className={cn(
-        "inline-flex items-center gap-1 text-xs font-medium",
+        "inline-flex h-11 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-foreground lg:h-10",
         isPending && "opacity-60",
         className,
       )}
     >
+      <Languages className="size-4 shrink-0 text-brand" aria-hidden />
       {routing.locales.map((code, i) => (
         <span key={code} className="flex items-center">
-          {i > 0 && <span className="px-1 text-border" aria-hidden>/</span>}
+          {i > 0 && <span className="px-0.5 text-border-strong" aria-hidden>/</span>}
           <button
             type="button"
             onClick={() => switchTo(code)}
             aria-current={code === locale ? "true" : undefined}
             className={cn(
-              "uppercase tracking-wide transition-colors",
+              "rounded-sm px-1 uppercase transition-colors duration-150 ease-brand",
               code === locale
-                ? "text-brand-strong"
+                ? "text-foreground underline decoration-brand decoration-2 underline-offset-[6px]"
                 : "text-muted-foreground hover:text-brand-strong",
             )}
           >

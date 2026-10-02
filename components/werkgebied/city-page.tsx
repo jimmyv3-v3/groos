@@ -97,8 +97,8 @@ export function CityPage({ city, locale }: { city: CityView; locale: string }) {
                     href={`/diensten/${s.slug}`}
                     className="group relative flex h-full flex-col rounded-lg border border-border/70 bg-card/40 p-6 transition-all duration-500 hover:border-brand/50 hover:bg-card/70"
                   >
-                    <s.icon className="h-6 w-6 text-brand" strokeWidth={1.4} aria-hidden />
-                    <h3 className="mt-4 font-display text-base font-medium text-foreground">
+                    <s.icon className="h-6 w-6 text-brand" aria-hidden />
+                    <h3 className="mt-4 font-display text-h3 font-semibold text-foreground">
                       {t(`services.${s.slug}.title`)}
                     </h3>
                     <span className="mt-3 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors group-hover:text-brand-strong">

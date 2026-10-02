@@ -50,15 +50,6 @@ export function ServiceTicker() {
       aria-label={t("ariaLabel")}
       className="relative overflow-hidden border-y border-border/60 bg-card/20 py-20 sm:py-28"
     >
-      {/* Ambient: faint grid + soft central glow */}
-      <div
-        aria-hidden="true"
-        className="bg-grid pointer-events-none absolute inset-0 opacity-30"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-64 w-[42rem] max-w-[90vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--brand)/0.10),transparent_70%)]"
-      />
 
       <div className="container relative flex flex-col items-center text-center">
         <p className="sr-only">
@@ -67,7 +58,7 @@ export function ServiceTicker() {
 
         <p
           aria-hidden="true"
-          className="flex flex-col items-center justify-center gap-2 font-display text-2xl font-light leading-tight tracking-tight sm:flex-row sm:gap-x-3 sm:text-4xl lg:text-5xl"
+          className="flex flex-col items-center justify-center gap-2 font-display text-2xl leading-tight tracking-tight sm:flex-row sm:gap-x-3 sm:text-4xl lg:text-5xl"
         >
           <span className="text-muted-foreground">{t("lead")}</span>
           <motion.span
@@ -78,7 +69,7 @@ export function ServiceTicker() {
             <AnimatePresence initial={false}>
               <motion.span
                 key={index}
-                className="absolute inset-0 flex items-center justify-center whitespace-nowrap accent-text font-normal"
+                className="absolute inset-0 flex items-center justify-center whitespace-nowrap accent-text"
                 initial={reduce ? { opacity: 0 } : { y: "115%" }}
                 animate={reduce ? { opacity: 1 } : { y: "0%" }}
                 exit={reduce ? { opacity: 0 } : { y: "-115%" }}

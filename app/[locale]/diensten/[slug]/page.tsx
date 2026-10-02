@@ -168,10 +168,9 @@ export default async function Page({
                     <div className="flex h-full flex-col rounded-lg border border-border/70 bg-card/40 p-6">
                       <Icon
                         className="h-7 w-7 text-brand"
-                        strokeWidth={1.4}
                         aria-hidden
                       />
-                      <h3 className="mt-5 font-display text-lg font-medium text-foreground">
+                      <h3 className="mt-5 font-display text-h3 font-semibold text-foreground">
                         {s.title}
                       </h3>
                       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

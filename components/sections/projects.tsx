@@ -14,9 +14,9 @@ export function Projects() {
     <section id="projecten" className="relative scroll-mt-24 py-24 sm:py-32">
       <div className="container relative">
         <Reveal className="max-w-2xl">
-          <h2 className="font-display text-3xl font-light leading-tight tracking-tight text-foreground sm:text-4xl">
+          <h2 className="text-h2">
             {t("titleLead")}{" "}
-            <span className="accent-text font-normal">{t("titleAccent")}</span>
+            <span className="accent-text">{t("titleAccent")}</span>
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
             {t("intro")}
@@ -30,7 +30,7 @@ export function Projects() {
         >
           {projectPhotos.map((photo, i) => (
             <RevealItem key={photo.src ?? `placeholder-${i}`}>
-              <figure className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-border/70 bg-card/40">
+              <figure className="group relative aspect-4/3 overflow-hidden rounded-lg border border-border/70 bg-card/40">
                 {photo.src ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -40,12 +40,12 @@ export function Projects() {
                     className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(160deg,hsl(var(--muted)),hsl(var(--card)))]">
+                  <div className="flex h-full w-full items-center justify-center bg-muted">
                     <ImageIcon className="h-6 w-6 text-brand-subtle" aria-hidden />
                     <span className="sr-only">{t(photo.altKey)}</span>
                   </div>
                 )}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-background/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-inset ring-transparent transition-colors duration-500 group-hover:ring-brand/40" />
               </figure>
             </RevealItem>

@@ -33,16 +33,15 @@ export function TrustBar() {
               {/* Icoontegel met ring en gloed bij hover */}
               <span
                 aria-hidden
-                className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-[0.4rem] border border-border/70 bg-card/40 ring-1 ring-inset ring-foreground/[0.04] transition-all duration-300 group-hover:border-border group-hover:bg-card/70 group-hover:shadow-[0_0_18px_-6px_hsl(var(--brand)/0.45)]"
+                className="mb-6 inline-flex h-11 w-11 items-center justify-center rounded-[0.4rem] border border-border/70 bg-card/40 ring-1 ring-inset ring-foreground/4 transition-all duration-300 group-hover:border-border group-hover:bg-card/70"
               >
                 <usp.icon
                   aria-hidden
                   className="h-[1.1rem] w-[1.1rem] text-brand transition-colors duration-300 group-hover:text-brand-strong"
-                  strokeWidth={1.5}
                 />
               </span>
 
-              <h3 className="font-display text-[0.9rem] font-medium tracking-tight text-foreground">
+              <h3 className="font-display text-h3 font-semibold text-foreground">
                 {items[i].title}
               </h3>
               <p className="mt-2 text-[0.8rem] leading-relaxed text-muted-foreground sm:text-sm">

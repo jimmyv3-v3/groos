@@ -1,32 +1,18 @@
 import { ImageResponse } from "next/og";
-import { brand } from "@/lib/brand";
+import { tileDataUri } from "@/components/brand/logo-svg";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
 /**
- * Tijdelijke apple-touch-icon met de initialen. TODO (design): vervang door
- * app/apple-icon.png (180×180) en verwijder dit bestand.
+ * Apple-touch-icon: volle kobalt vierkant zonder hoekstraal (iOS rondt zelf af)
+ * met de witte "oo" op ongeveer 70 % van de breedte (spec 02 §4.11).
  */
 export default function AppleIcon() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: brand.colors.accent,
-          color: brand.colors.background,
-          fontSize: 80,
-          fontWeight: 700,
-          letterSpacing: -2,
-          fontFamily: "sans-serif",
-        }}
-      >
-        {brand.initials}
+      <div style={{ display: "flex", width: "100%", height: "100%" }}>
+        <img src={tileDataUri({ rounded: false })} width={180} height={180} alt="" />
       </div>
     ),
     { ...size },

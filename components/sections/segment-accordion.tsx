@@ -33,7 +33,7 @@ export function SegmentAccordion() {
               className="relative h-32 overflow-hidden rounded-lg border border-border/60"
             >
               {!s.image || broken[s.id] ? (
-                <div className="absolute inset-0 bg-[linear-gradient(160deg,hsl(var(--muted)),hsl(var(--card)))]" />
+                <div className="absolute inset-0 bg-muted" />
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -44,10 +44,9 @@ export function SegmentAccordion() {
                   className="absolute inset-0 h-full w-full object-cover"
                 />
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/45 to-background/10" />
+              <div className="absolute inset-0 bg-linear-to-t from-background/90 via-background/45 to-background/10" />
               <Icon
                 className="absolute left-4 top-4 h-5 w-5 text-brand-strong"
-                strokeWidth={1.4}
                 aria-hidden
               />
               <div className="absolute bottom-4 left-4 right-4">
@@ -80,14 +79,14 @@ export function SegmentAccordion() {
               aria-label={title}
               aria-pressed={isActive}
               className={cn(
-                "group relative h-full overflow-hidden rounded-lg border border-border/60 outline-none",
+                "group relative h-full overflow-hidden rounded-lg border border-border/60 outline-hidden",
                 "transition-[flex-grow,flex-basis] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                 "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                 isActive ? "flex-[1_1_0%]" : "flex-[0_0_4rem]",
               )}
             >
               {!s.image || broken[s.id] ? (
-                <div className="absolute inset-0 bg-[linear-gradient(160deg,hsl(var(--muted)),hsl(var(--card)))]" />
+                <div className="absolute inset-0 bg-muted" />
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -99,7 +98,7 @@ export function SegmentAccordion() {
                 />
               )}
 
-              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/35 to-background/10" />
+              <div className="absolute inset-0 bg-linear-to-t from-background/90 via-background/35 to-background/10" />
               <div
                 className={cn(
                   "absolute inset-0 rounded-lg ring-1 transition-all duration-500",
@@ -112,7 +111,6 @@ export function SegmentAccordion() {
                   "absolute left-4 top-4 h-5 w-5 transition-colors duration-500",
                   isActive ? "text-brand-strong" : "text-brand/70",
                 )}
-                strokeWidth={1.4}
               />
 
               {/* Active: horizontaal label + blurb linksonder */}

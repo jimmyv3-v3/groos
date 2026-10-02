@@ -9,7 +9,7 @@ export type ServiceStep = {
 };
 
 /**
- * Numbered "werkwijze" steps with a hairline accent, on dark cards.
+ * Numbered "werkwijze" steps with a thin rule, on dark cards.
  * Adapted from the 21st.dev "How It Works" pattern; colours come from the brand tokens.
  */
 export function ServiceSteps({
@@ -37,16 +37,15 @@ export function ServiceSteps({
                   <span className="font-display text-sm font-medium tracking-brand text-brand-subtle">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+                  <div className="h-px flex-1 bg-border" />
                 </div>
                 {s.icon && (
                   <s.icon
                     className="mt-6 h-7 w-7 text-brand"
-                    strokeWidth={1.3}
                     aria-hidden
                   />
                 )}
-                <h3 className="mt-5 font-display text-lg font-medium text-foreground">
+                <h3 className="mt-5 font-display text-h3 font-semibold text-foreground">
                   {s.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

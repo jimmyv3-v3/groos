@@ -34,10 +34,9 @@ export function ServiceFeatureGrid({
             <RevealItem key={f.title}>
               <f.icon
                 className="h-6 w-6 text-brand"
-                strokeWidth={1.4}
                 aria-hidden
               />
-              <h3 className="mt-4 font-display text-base font-medium text-foreground">
+              <h3 className="mt-4 font-display text-h3 font-semibold text-foreground">
                 {f.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

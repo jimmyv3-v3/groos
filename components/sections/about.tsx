@@ -12,16 +12,16 @@ export function About() {
     >
       {/* large watermark monogram */}
       <div className="pointer-events-none absolute -right-10 top-1/2 hidden -translate-y-1/2 opacity-[0.06] lg:block">
-        <Monogram idSuffix="about-mark" className="h-[28rem] w-auto" />
+        <Monogram idSuffix="about-mark" className="h-112 w-auto" />
       </div>
 
       <div className="container relative">
         <div className="max-w-2xl">
           <Reveal>
-            <h2 className="font-display text-2xl font-light leading-tight tracking-tight text-foreground sm:text-3xl">
+            <h2 className="text-h2">
               {t.rich("title", {
                 accent: (chunks) => (
-                  <span className="accent-text font-normal">{chunks}</span>
+                  <span className="accent-text">{chunks}</span>
                 ),
               })}
             </h2>

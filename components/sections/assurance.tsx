@@ -21,8 +21,7 @@ export function Assurance() {
       <div className="container relative grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr]">
         {/* Uitgelicht keurmerk */}
         <Reveal>
-          <div className="glass-panel relative overflow-hidden rounded-xl p-8 text-center">
-            <div className="pointer-events-none absolute left-1/2 top-1/3 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,hsl(var(--brand)/0.12),transparent_70%)]" />
+          <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-8 text-center">
             <div className="relative mx-auto flex h-28 w-28 items-center justify-center rounded-2xl border border-border/70 bg-white p-3">
               {certification.src ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -32,7 +31,7 @@ export function Assurance() {
                   className="h-full w-full object-contain"
                 />
               ) : (
-                <BadgeCheck className="h-12 w-12 text-brand" strokeWidth={1.3} aria-hidden />
+                <BadgeCheck className="h-12 w-12 text-brand" aria-hidden />
               )}
             </div>
             <p className="relative mt-6 font-display text-xl font-medium text-brand-strong">
@@ -49,10 +48,10 @@ export function Assurance() {
           <Reveal>
             <h2
               id="kwaliteit-heading"
-              className="font-display text-2xl font-light leading-tight tracking-tight text-foreground sm:text-3xl"
+              className="text-h2"
             >
               {t("heading")}{" "}
-              <span className="accent-text font-normal">{t("headingAccent")}</span>
+              <span className="accent-text">{t("headingAccent")}</span>
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
               {t("intro")}
@@ -68,10 +67,10 @@ export function Assurance() {
                 <RevealItem key={text.title + i}>
                   <div className="flex gap-4">
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-card/50">
-                      <Icon className="h-5 w-5 text-brand" aria-hidden="true" strokeWidth={1.5} />
+                      <Icon className="h-5 w-5 text-brand" aria-hidden="true" />
                     </span>
                     <div>
-                      <h3 className="font-display text-base font-medium text-foreground">
+                      <h3 className="font-display text-h3 font-semibold text-foreground">
                         {text.title}
                       </h3>
                       <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">

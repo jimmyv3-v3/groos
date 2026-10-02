@@ -33,12 +33,8 @@ export function LegalPage({
       <main>
         {/* Header band */}
         <section className="relative overflow-hidden pb-14 pt-36 sm:pb-16 sm:pt-44">
-          <div
-            aria-hidden="true"
-            className="bg-grid pointer-events-none absolute inset-0 opacity-30"
-          />
           <div className="container relative max-w-3xl">
-            <h1 className="font-display text-4xl font-light leading-tight tracking-tight text-foreground sm:text-5xl">
+            <h1 className="text-h1">
               {title}
             </h1>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">
@@ -53,11 +49,11 @@ export function LegalPage({
         {/* Document body */}
         <section className="relative pb-28 sm:pb-32">
           <div className="container max-w-3xl">
-            <div className="hairline mb-12" />
+            <div className="mb-12 h-px bg-border" />
             <div className="space-y-12">
               {sections.map((section, i) => (
                 <article key={section.heading} className="scroll-mt-28">
-                  <h2 className="font-display text-xl font-medium tracking-tight text-foreground sm:text-2xl">
+                  <h2 className="text-h3">
                     <span className="text-brand-subtle">
                       {articlePrefix}
                       {i + 1}.

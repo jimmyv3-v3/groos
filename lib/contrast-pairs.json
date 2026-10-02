@@ -1,0 +1,185 @@
+{
+  "$comment": "Contrastparen uit spec 02 §4.1. Gelezen door scripts/check-contrast.mjs en tests/unit/design/contrast.test.ts (spec 14).",
+  "pairs": [
+    {
+      "fg": "foreground",
+      "bg": "background",
+      "min": 7,
+      "use": "tekst en koppen op wit"
+    },
+    {
+      "fg": "foreground",
+      "bg": "ice",
+      "min": 7,
+      "use": "tekst op ijs"
+    },
+    {
+      "fg": "foreground",
+      "bg": "brand-tint",
+      "min": 7,
+      "use": "tekst op blauwtint"
+    },
+    {
+      "fg": "muted-foreground",
+      "bg": "background",
+      "min": 7,
+      "use": "intro, meta en hulptekst op wit"
+    },
+    {
+      "fg": "muted-foreground",
+      "bg": "muted",
+      "min": 4.5,
+      "use": "hulptekst op ijs"
+    },
+    {
+      "fg": "muted-foreground",
+      "bg": "brand-tint",
+      "min": 4.5,
+      "use": "hulptekst op blauwtint"
+    },
+    {
+      "fg": "brand",
+      "bg": "background",
+      "min": 4.5,
+      "use": "link en accent op wit"
+    },
+    {
+      "fg": "brand",
+      "bg": "ice",
+      "min": 4.5,
+      "use": "link op ijs"
+    },
+    {
+      "fg": "brand",
+      "bg": "brand-tint",
+      "min": 4.5,
+      "use": "link en icoon op blauwtint"
+    },
+    {
+      "fg": "primary-foreground",
+      "bg": "primary",
+      "min": 7,
+      "use": "tekst op primaire knop en blauw vlak"
+    },
+    {
+      "fg": "primary-foreground",
+      "bg": "brand-strong",
+      "min": 4.5,
+      "use": "tekst op knop bij hover"
+    },
+    {
+      "fg": "on-brand-muted",
+      "bg": "brand",
+      "min": 4.5,
+      "use": "hulptekst op blauw vlak"
+    },
+    {
+      "fg": "brand-strong",
+      "bg": "background",
+      "min": 4.5,
+      "use": "nadruk en hovertekst"
+    },
+    {
+      "fg": "brand-strong",
+      "bg": "brand-tint",
+      "min": 4.5,
+      "use": "badge merk, chip geselecteerd"
+    },
+    {
+      "fg": "brand-subtle",
+      "bg": "background",
+      "min": 3,
+      "use": "decoratief en grote cijfers, alleen op wit"
+    },
+    {
+      "fg": "input",
+      "bg": "background",
+      "min": 3,
+      "use": "rand van invoerveld"
+    },
+    {
+      "fg": "ring",
+      "bg": "background",
+      "min": 3,
+      "use": "focusring"
+    },
+    {
+      "fg": "success-foreground",
+      "bg": "success",
+      "min": 4.5,
+      "use": "tekst op succesvlak"
+    },
+    {
+      "fg": "success-strong",
+      "bg": "success-tint",
+      "min": 4.5,
+      "use": "badge succes"
+    },
+    {
+      "fg": "warning-foreground",
+      "bg": "warning",
+      "min": 4.5,
+      "use": "tekst op waarschuwingsvlak"
+    },
+    {
+      "fg": "warning-strong",
+      "bg": "warning-tint",
+      "min": 4.5,
+      "use": "badge waarschuwing"
+    },
+    {
+      "fg": "destructive-foreground",
+      "bg": "destructive",
+      "min": 4.5,
+      "use": "tekst op destructieve knop"
+    },
+    {
+      "fg": "destructive",
+      "bg": "background",
+      "min": 4.5,
+      "use": "foutmelding op wit"
+    },
+    {
+      "fg": "destructive-strong",
+      "bg": "destructive-tint",
+      "min": 4.5,
+      "use": "badge fout"
+    },
+    {
+      "fg": "info-foreground",
+      "bg": "info",
+      "min": 4.5,
+      "use": "tekst op infovlak"
+    },
+    {
+      "fg": "info-strong",
+      "bg": "info-tint",
+      "min": 4.5,
+      "use": "badge info"
+    },
+    {
+      "fg": "muted-foreground",
+      "bg": "neutral-tint",
+      "min": 4.5,
+      "use": "badge neutraal"
+    }
+  ],
+  "brandToToken": {
+    "background": "background",
+    "foreground": "foreground",
+    "muted": "muted-foreground",
+    "accent": "brand",
+    "brand": "brand",
+    "brandStrong": "brand-strong",
+    "brandTint": "brand-tint",
+    "brandSubtle": "brand-subtle",
+    "onBrandMuted": "on-brand-muted",
+    "ice": "ice",
+    "border": "border",
+    "input": "input",
+    "success": "success",
+    "warning": "warning",
+    "danger": "destructive",
+    "info": "info"
+  }
+}

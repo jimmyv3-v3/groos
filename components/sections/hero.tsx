@@ -24,30 +24,23 @@ export function Hero() {
       id="top"
       className="relative flex items-start overflow-hidden lg:min-h-[72svh]"
     >
-      {/* Achtergrond: zachte gloed in de merkkleur rechts. TODO (design): eventueel
-          een sfeerfoto achter de gloed, via next/image met priority. */}
-      <div className="absolute inset-0">
-        <div className="absolute right-0 top-0 h-full w-[60%] bg-[radial-gradient(ellipse_70%_60%_at_75%_35%,hsl(var(--brand)/0.1),transparent_65%)] animate-glow-pulse" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/30" />
-      </div>
-
       <div className="container relative z-10 pt-24 pb-10 sm:pt-28 lg:pb-0">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <div className="max-w-2xl">
           <motion.h1
             {...rise(0.1)}
-            className="font-display text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+            className="text-hero"
           >
             {t.rich("home.hero.title", {
               accent: (chunks) => (
-                <span className="accent-text font-normal">{chunks}</span>
+                <span className="accent-text">{chunks}</span>
               ),
             })}
           </motion.h1>
 
           <motion.p
             {...rise(0.25)}
-            className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+            className="mt-6 max-w-[60ch] text-lead text-muted-foreground"
           >
             {t("home.hero.intro")}
           </motion.p>

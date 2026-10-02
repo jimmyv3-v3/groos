@@ -41,7 +41,7 @@ const INITIAL: FormState = {
 };
 
 const INPUT_CLASS =
-  "mt-1.5 w-full rounded-md border border-input bg-card/40 px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-brand/60 focus:outline-none focus:ring-2 focus:ring-ring";
+  "mt-1.5 w-full rounded-md border border-input bg-card/40 px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-brand/60 focus:outline-hidden focus:ring-2 focus:ring-ring";
 
 const LABEL_CLASS = "text-sm text-muted-foreground";
 
@@ -129,14 +129,6 @@ export function OfferteForm() {
       aria-labelledby="contact-heading"
       className="relative scroll-mt-24 py-16 sm:py-20"
     >
-      {/* Zachte gloed achter het formulier */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-      >
-        <div className="h-[600px] w-[800px] max-w-full rounded-full bg-primary/5 blur-[120px]" />
-      </div>
-
       <div className="container relative">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
           {/* Links: intro en contactkanalen */}
@@ -144,11 +136,11 @@ export function OfferteForm() {
             <RevealItem>
               <h2
                 id="contact-heading"
-                className="font-display text-2xl font-light tracking-tight sm:text-3xl"
+                className="text-h2"
               >
                 {t.rich("heading", {
                   accent: (chunks) => (
-                    <span className="accent-text font-normal">{chunks}</span>
+                    <span className="accent-text">{chunks}</span>
                   ),
                 })}
               </h2>
@@ -212,11 +204,11 @@ export function OfferteForm() {
 
           {/* Rechts: formulierkaart */}
           <Reveal delay={0.1}>
-            <div className="glass-panel rounded-lg p-6 sm:p-8">
+            <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
               {sent ? (
                 <div className="flex flex-col items-center gap-4 py-8 text-center" role="status">
                   <CheckCircle2 aria-hidden="true" className="h-10 w-10 text-brand-strong" />
-                  <p className="font-display text-lg font-light text-foreground">
+                  <p className="font-display text-lg text-foreground">
                     {t("successTitle")}
                   </p>
                   <p className="text-sm leading-relaxed text-muted-foreground">

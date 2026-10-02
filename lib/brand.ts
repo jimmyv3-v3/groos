@@ -1,17 +1,29 @@
 /**
- * Merkwaarden voor plekken waar CSS-variabelen niet werken: de OG-afbeelding,
- * het favicon, de apple-icon en de browser-themakleur. Houd de kleuren gelijk
- * aan de tokens in app/globals.css.
+ * Merkwaarden voor plekken waar CSS-variabelen niet werken: OG-afbeelding,
+ * favicon, apple-icon, e-mail en themakleur. Houd de hexwaarden gelijk aan
+ * app/globals.css; scripts/check-contrast.mjs controleert dat.
  */
 export const brand = {
-  /** Tekst in het tijdelijke beeldmerk en favicon, tot het echte logo er is. */
-  initials: "TB", // TODO
-  /** Regel onder de naam in het woordmerk, bijvoorbeeld de activiteit + "B.V.". */
-  descriptor: "TODO DESCRIPTOR B.V.",
+  wordmark: "groos",
+  descriptor: "Personeelsdiensten",
   colors: {
-    background: "#ffffff", // TODO: gelijk aan --background
-    foreground: "#0a0a0a", // TODO: gelijk aan --foreground
-    muted: "#737373", // TODO: gelijk aan --muted-foreground
-    accent: "#171717", // TODO: gelijk aan --brand
+    background: "#FFFFFF",
+    foreground: "#0B0F2E",
+    muted: "#4B5170",
+    accent: "#2741C9",
+    brand: "#2741C9",
+    brandStrong: "#1C2F9E",
+    brandTint: "#EEF1FD",
+    brandSubtle: "#7C8AE0",
+    onBrandMuted: "#DCE1FF",
+    ice: "#F5F6FA",
+    border: "#E3E6EF",
+    input: "#8A90AA",
+    success: "#16794A",
+    warning: "#B45309",
+    danger: "#C02B2B",
+    info: "#0E6F8C",
   },
 } as const;
+
+export type BrandColor = keyof typeof brand.colors;

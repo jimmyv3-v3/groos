@@ -25,13 +25,12 @@ export function Process() {
                 <span className="font-display text-sm font-medium tracking-brand text-brand-subtle">
                   {s.n}
                 </span>
-                <div className="hidden h-px flex-1 bg-gradient-to-r from-border to-transparent lg:block" />
+                <div className="hidden h-px flex-1 bg-border lg:block" />
               </div>
               <s.icon
                 className="mx-auto mt-6 h-7 w-7 text-brand lg:mx-0"
-                strokeWidth={1.3}
               />
-              <h3 className="mt-5 font-display text-lg font-medium text-foreground">
+              <h3 className="mt-5 font-display text-h3 font-semibold text-foreground">
                 {stepText[i].title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

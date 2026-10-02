@@ -31,7 +31,8 @@
 ## Stack en commando's
 
 - Next.js 16.3 App Router (Turbopack), React 19, TypeScript strict,
-  Tailwind CSS 3.4, shadcn/ui (`components.json`), next-intl 4, framer-motion,
+  Tailwind CSS 4 (`@tailwindcss/postcss`, tokens via `@theme inline`), shadcn/ui
+  (`components.json`, stijl new-york), next-intl 4, framer-motion (tot stap 4),
   lucide-react (vast op 0.456: nieuwere versies missen de social-iconen),
   @vercel/analytics.
 - `npm run dev` (localhost:3000) · `npm run build` · `npm run lint` (ESLint-CLI;
@@ -50,7 +51,7 @@
 | Bouwstenen van detailpagina's                    | `components/service/`                    |
 | Primitive (knop, input…)                         | `components/ui/`                         |
 | Merk-CTA (alle offerte- en belknoppen)           | `components/ui/cta-button.tsx`           |
-| Logo (tijdelijk)                                 | `components/brand/`                      |
+| Logo (`Logo`, `LogoMark`, paden in JSON)         | `components/brand/`                      |
 | Bedrijfsgegevens, navigatie, iconen, cijfers     | `lib/site.ts`                            |
 | Merk-hexwaarden (OG, favicon, themakleur)        | `lib/brand.ts`                           |
 | SEO-helpers en JSON-LD-builders                  | `lib/seo.ts`, `components/seo/json-ld.tsx` |
@@ -66,14 +67,19 @@
 
 ## Design tokens: de enige plek om te thema's
 
-Kleur en radius zijn CSS-variabelen in `app/globals.css` (`:root` + `.dark`),
-gekoppeld in `tailwind.config.ts`. Componenten gebruiken alleen semantische
-klassen (`bg-background`, `text-foreground`, `bg-primary`,
-`text-muted-foreground`, `border-border`, `text-brand`, `text-brand-strong`,
-`text-brand-subtle`) en de signature-klassen `.accent-text`, `.glass-panel`,
-`.logo-mono`, `.bg-grid`, `.spotlight`. Nooit hex- of hsl-waarden in
-componenten. Fonts via `next/font` in `app/[locale]/layout.tsx`
-(`--font-sans`, `--font-display`). Houd `lib/brand.ts` gelijk aan de tokens.
+Kleur, radius, typografie, schaduw en beweging zijn tokens in `app/globals.css`
+(hexwaarden in `:root`, gekoppeld via `@theme inline`; spec 02). Er is geen
+`tailwind.config.ts` en geen `.dark`-thema; het standaardpalet van Tailwind
+staat uit, dus alleen tokenklassen werken (`bg-background`, `text-foreground`,
+`bg-primary`, `text-muted-foreground`, `border-border`, `bg-brand-tint`,
+`text-brand`, `text-brand-strong`, `bg-ice`, `text-h2`, `text-lead`, ...).
+Signature-klassen: `.accent-text`, `.surface-brand`, `.pattern-oo`,
+`.prose-groos`. Nooit hex- of hsl-waarden in componenten. Fonts via
+`next/font` in `lib/fonts.ts` (Onest `--font-onest`, Instrument Sans
+`--font-instrument`), op `<html>` gezet in `app/[locale]/layout.tsx`. Houd
+`lib/brand.ts` gelijk aan de tokens; `node scripts/check-contrast.mjs`
+controleert contrast en gelijkheid. Primitives en knoppen: `components/ui/*`
+en `CtaButton`/`ctaButtonVariants`; overzicht op `/stijlgids` (alleen dev).
 
 ## Tekst en vertaling: drie mechanismen
 
@@ -108,8 +114,9 @@ Juridische pagina's houden hun tekst in de page zelf (`CONTENT = { nl, en }`).
 4. **Semantisch en toegankelijk.** Echte landmarks, één `h1` per pagina,
    alt-teksten, gelabelde velden, zichtbare focus.
 5. **Responsive.** Mobile-first; controleer op 390, 768, 1280 en 1440 px.
-6. **Beweging met mate.** framer-motion via `components/motion/*`; respecteer
-   `prefers-reduced-motion`; content nooit blokkeren op animatie.
+6. **Beweging met mate.** `Reveal` uit `components/motion/*` is scroll-gedreven
+   CSS zonder JavaScript; respecteer `prefers-reduced-motion`; content nooit
+   blokkeren op animatie.
 7. **Performance.** `next/image` voor nieuwe beelden, `next/font`, server
    components standaard; `"use client"` alleen bij interactie.
 8. **SEO.** Zie hierboven.

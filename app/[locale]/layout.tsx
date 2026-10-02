@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -9,16 +8,9 @@ import { contact } from "@/lib/site";
 import { brand } from "@/lib/brand";
 import { SITE_URL, organizationLd, websiteLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
+import { fontDisplay, fontSans } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
 import "../globals.css";
-
-// TODO (design): kies de definitieve lettertypes. Laad een koplettertype met
-// een tweede next/font-import, geef het variable "--font-display" en zet beide
-// variabelen op <html>. Zonder koplettertype valt font-display terug op sans.
-const sans = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
 
 // Standaardwaarden voor de hele site. Elke pagina zet daarnaast haar eigen
 // canonical, hreflang en OG via pageMetadata() uit lib/seo.ts.
@@ -79,8 +71,8 @@ export default async function LocaleLayout({
   const t = await getTranslations({ locale, namespace: "meta" });
 
   return (
-    <html lang={locale} className={sans.variable}>
-      <body className="font-sans antialiased">
+    <html lang={locale} className={cn(fontSans.variable, fontDisplay.variable)}>
+      <body className="bg-background font-sans text-foreground antialiased">
         <JsonLd data={organizationLd(t("description"))} />
         <JsonLd data={websiteLd(locale)} />
         <NextIntlClientProvider>{children}</NextIntlClientProvider>

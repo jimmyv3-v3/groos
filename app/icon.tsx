@@ -1,34 +1,15 @@
 import { ImageResponse } from "next/og";
-import { brand } from "@/lib/brand";
+import { tileDataUri } from "@/components/brand/logo-svg";
 
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-/**
- * Tijdelijk favicon met de initialen uit lib/brand.ts. TODO (design): vervang
- * door het echte beeldmerk door app/icon.png (512×512) toe te voegen en dit
- * bestand te verwijderen; laat nooit beide naast elkaar staan.
- */
+/** Favicon: kobalt tegel (hoekstraal 12/48) met de witte "oo" (spec 02 §4.11). */
 export default function Icon() {
   return new ImageResponse(
     (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: brand.colors.accent,
-          color: brand.colors.background,
-          fontSize: 30,
-          fontWeight: 700,
-          letterSpacing: -1,
-          borderRadius: 12,
-          fontFamily: "sans-serif",
-        }}
-      >
-        {brand.initials}
+      <div style={{ display: "flex", width: "100%", height: "100%" }}>
+        <img src={tileDataUri()} width={64} height={64} alt="" />
       </div>
     ),
     { ...size },

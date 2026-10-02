@@ -18,10 +18,9 @@ export function ServiceCta({
   const t = useTranslations();
   return (
     <section className="relative overflow-hidden py-16 sm:py-20">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[24rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--brand)/0.1),transparent_70%)] blur-2xl" />
       <div className="container relative">
         <Reveal className="mx-auto max-w-3xl rounded-xl border border-border/70 bg-card/40 px-8 py-12 text-center sm:px-12">
-          <h2 className="font-display text-2xl font-light leading-tight tracking-tight text-foreground sm:text-3xl">
+          <h2 className="text-h2">
             {title}
           </h2>
           {subtitle && (

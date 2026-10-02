@@ -27,7 +27,6 @@ export function ServiceHero({
   const t = useTranslations();
   return (
     <section className="relative overflow-hidden pb-16 pt-32 sm:pb-20 sm:pt-36">
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-[55%] bg-[radial-gradient(ellipse_70%_60%_at_75%_30%,hsl(var(--brand)/0.08),transparent_65%)]" />
       <div className="container relative">
         <nav
           aria-label={t("service.breadcrumbAria")}
@@ -62,7 +61,7 @@ export function ServiceHero({
           )}
         >
           <div className={image ? undefined : "max-w-3xl"}>
-            <h1 className="font-display text-3xl font-light leading-[1.1] tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+            <h1 className="text-h1">
               {title}
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
@@ -81,14 +80,14 @@ export function ServiceHero({
           </div>
 
           {image && (
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-border/60">
+            <div className="relative aspect-4/3 overflow-hidden rounded-lg border border-border/60">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={image}
                 alt={imageAlt ?? ""}
                 className="absolute inset-0 h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-background/70 via-background/10 to-transparent" />
             </div>
           )}
         </div>
