@@ -165,7 +165,7 @@ export function MobileMenu({ items, ctas, phone, whatsapp, logo, labels }: Mobil
                   {whatsapp.label}
                 </a>
               </div>
-              <LanguageToggle className="-mr-3" />
+              <LanguageToggle className="-mr-2" />
             </div>
           </div>
         </Dialog.Popup>

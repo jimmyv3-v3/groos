@@ -45,7 +45,7 @@ export async function SiteFooter() {
       <div className="container pt-14 lg:pt-20">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           {/* Merkblok */}
-          <div className="flex flex-col gap-5 lg:col-span-3">
+          <div className="flex flex-col gap-5 lg:col-span-4">
             <Link href="/" aria-label={th("homeAria")} className="self-start rounded-sm">
               <Wordmark idSuffix="footer" showDescriptor className="h-11" />
             </Link>
@@ -74,7 +74,7 @@ export async function SiteFooter() {
           </div>
 
           {/* Linkkolommen */}
-          <nav aria-label={t("navLabel")} className="grid gap-10 sm:grid-cols-3 lg:col-span-6 lg:gap-8">
+          <nav aria-label={t("navLabel")} className="grid gap-10 sm:grid-cols-3 lg:col-span-5 lg:gap-8">
             {model.footerColumns.map((column) => (
               <div key={column.key}>
                 <h2 className={HEADING}>{column.title}</h2>
@@ -155,7 +155,7 @@ export async function SiteFooter() {
                 </ul>
               </nav>
             )}
-            <LanguageToggle className="-ml-3 self-start md:ml-0" />
+            <LanguageToggle className="self-start" />
           </div>
         </div>
       </div>

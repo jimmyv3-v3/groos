@@ -155,9 +155,6 @@
   --shadow-lg: 0 16px 40px -12px rgb(11 15 46 / 0.16), 0 4px 8px -4px rgb(11 15 46 / 0.06);
 
   --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
-
-  /* Alleen voor de oude JV-secties; vervalt in bouwstap 4. */
-  --tracking-brand: 0.22em;
 }
 
 @layer base {

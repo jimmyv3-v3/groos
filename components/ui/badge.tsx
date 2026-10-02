@@ -29,17 +29,19 @@ export type BadgeTone = "neutral" | "brand" | "info" | "success" | "warning" | "
 type BadgeProps = {
   tone?: BadgeTone;
   size?: "sm" | "md";
+  /** @deprecated Elke badge heeft altijd een stip (spec 02 §4.7); de prop doet niets meer. */
   dot?: boolean;
   icon?: LucideIcon;
   children: React.ReactNode;
   className?: string;
 } & Omit<React.ComponentProps<"span">, "children">;
 
-/** Statuslabel; altijd met tekst, kleur is nooit de enige drager. */
+/** Statuslabel met een stip vóór de tekst; altijd met tekst, kleur is nooit de enige drager. */
 function Badge({ tone, size, dot, icon: Icon, children, className, ...props }: BadgeProps) {
+  void dot; // niet doorgeven aan de <span>
   return (
     <span data-slot="badge" className={cn(badgeVariants({ tone, size }), className)} {...props}>
-      {dot && <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />}
+      <span data-slot="badge-dot" className="size-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />
       {Icon && <Icon aria-hidden="true" />}
       {children}
     </span>

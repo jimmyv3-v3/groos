@@ -16,12 +16,25 @@ type AlertProps = {
   tone?: Tone;
   icon?: LucideIcon | false;
   title?: React.ReactNode;
+  /** Element van de titel; "h2" of "h3" als de titel de kop van een sectie is. */
+  titleAs?: "p" | "h2" | "h3";
+  /** Id van de titel, voor aria-labelledby bij de aanroeper. */
+  titleId?: string;
   children?: React.ReactNode;
   className?: string;
 } & Omit<React.ComponentProps<"div">, "title">;
 
 /** Melding in de pagina; de aanroeper zet role="status" of role="alert". */
-function Alert({ tone = "neutral", icon, title, children, className, ...props }: AlertProps) {
+function Alert({
+  tone = "neutral",
+  icon,
+  title,
+  titleAs: Title = "p",
+  titleId,
+  children,
+  className,
+  ...props
+}: AlertProps) {
   const t = TONES[tone];
   const Icon = icon === false ? null : (icon ?? t.icon);
   return (
@@ -32,7 +45,11 @@ function Alert({ tone = "neutral", icon, title, children, className, ...props }:
     >
       {Icon && <Icon className="mt-0.5 size-5 shrink-0" aria-hidden="true" />}
       <div className="grid gap-1">
-        {title && <p className="font-semibold">{title}</p>}
+        {title && (
+          <Title id={titleId} className="font-sans text-base font-semibold tracking-normal text-current">
+            {title}
+          </Title>
+        )}
         {children && <div>{children}</div>}
       </div>
     </div>

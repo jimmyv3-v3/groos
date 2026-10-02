@@ -14,7 +14,8 @@ import { IconTile } from "@/components/ui/icon-tile";
  */
 type FileInputProps = {
   id: string;
-  name: string;
+  /** Zonder name komt het bestand niet in de FormData (upload via signed URL, spec 07). */
+  name?: string;
   accept: string;
   maxSizeMb?: number;
   required?: boolean;

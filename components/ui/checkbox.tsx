@@ -23,6 +23,9 @@ type CheckboxFieldProps = {
   required?: boolean;
   invalid?: boolean;
   describedBy?: string;
+  disabled?: boolean;
+  checked?: boolean;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   className?: string;
 };
 
@@ -37,6 +40,9 @@ function CheckboxField({
   required,
   invalid,
   describedBy,
+  disabled,
+  checked,
+  onChange,
   className,
 }: CheckboxFieldProps) {
   const descId = description ? `${id}-description` : undefined;
@@ -45,13 +51,19 @@ function CheckboxField({
     <label
       htmlFor={id}
       data-slot="checkbox-field"
-      className={cn("flex min-h-11 cursor-pointer items-start gap-3 py-2", className)}
+      className={cn(
+        "flex min-h-11 cursor-pointer items-start gap-3 py-2 has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-60",
+        className,
+      )}
     >
       <Checkbox
         id={id}
         name={name}
         value={value}
         defaultChecked={defaultChecked}
+        checked={checked}
+        onChange={onChange}
+        disabled={disabled}
         required={required}
         aria-invalid={invalid || undefined}
         aria-describedby={describedByIds}
