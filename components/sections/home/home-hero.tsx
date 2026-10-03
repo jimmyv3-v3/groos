@@ -24,10 +24,12 @@ export async function HomeHero() {
         <h1 id="home-titel" className="max-w-[22ch] text-hero">
           {t.rich("title", { accent: (chunks) => <span className="accent-text">{chunks}</span> })}
         </h1>
-        <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">{t("intro")}</p>
+        <p className="mt-3 max-w-[60ch] text-lead text-muted-foreground sm:mt-4">{t("intro")}</p>
 
-        <div className="mt-5 grid gap-3 md:mt-10 md:grid-cols-2 md:gap-6">
-          <div role="group" aria-labelledby="deur-werk" className="pattern-oo flex min-w-0 flex-col rounded-2xl bg-brand-tint p-5 md:p-8">
+        {/* Op 390 bij 844 moet de onderkant van "Personeel aanvragen" binnen 844 px
+            liggen (AC-04-02); daarom op telefoons iets krappere marges. */}
+        <div className="mt-4 grid gap-3 sm:mt-6 md:mt-10 md:grid-cols-2 md:gap-6">
+          <div role="group" aria-labelledby="deur-werk" className="pattern-oo flex min-w-0 flex-col rounded-2xl bg-brand-tint p-4 sm:p-5 md:p-8">
             <h2 id="deur-werk" className="text-h3">
               {t("jobseeker.title")}
             </h2>
@@ -39,7 +41,7 @@ export async function HomeHero() {
             <ul
               role="list"
               aria-label={t("jobseeker.beroepenLabel")}
-              className="-mx-5 mt-2 flex gap-2 overflow-x-auto px-5 py-1 [scrollbar-width:none] md:mx-0 md:mt-3 md:flex-wrap md:overflow-visible md:px-0"
+              className="-mx-4 mt-2 flex gap-2 overflow-x-auto px-4 py-1 [scrollbar-width:none] sm:-mx-5 sm:px-5 md:mx-0 md:mt-3 md:flex-wrap md:overflow-visible md:px-0"
             >
               {beroepen.map(({ id, icon: Icon }) => (
                 <li key={id} className="shrink-0">
@@ -52,24 +54,29 @@ export async function HomeHero() {
             </ul>
           </div>
 
-          <div role="group" aria-labelledby="deur-personeel" className="pattern-oo flex min-w-0 flex-col rounded-2xl bg-brand-tint p-5 md:p-8">
+          <div role="group" aria-labelledby="deur-personeel" className="pattern-oo flex min-w-0 flex-col rounded-2xl bg-brand-tint p-4 sm:p-5 md:p-8">
             <h2 id="deur-personeel" className="text-h3">
               {t("employer.title")}
             </h2>
             <p className="mt-2">{t("employer.body")}</p>
-            <div className="mt-3 grid grid-cols-2 gap-3 sm:mt-4 sm:flex sm:flex-wrap md:grid lg:flex">
-              <CtaButton href={ROUTES.personeelAanvragen} className="px-3 text-center max-sm:text-sm max-sm:leading-tight max-sm:whitespace-normal sm:px-5 md:max-lg:px-3 md:max-lg:text-sm md:max-lg:leading-tight md:max-lg:whitespace-normal">
-                <ClipboardList aria-hidden className="max-[400px]:hidden md:max-lg:hidden" />
+            {/* 390: onder elkaar op volle breedte, "Personeel aanvragen" bovenaan;
+                768 tot 1023: smalle deur, dus twee compacte kolommen; daarna naast elkaar. */}
+            <div className="mt-3 flex flex-col gap-3 sm:mt-4 sm:flex-row sm:flex-wrap md:grid md:grid-cols-2 lg:flex">
+              <CtaButton
+                href={ROUTES.personeelAanvragen}
+                className="w-full sm:w-auto md:max-lg:w-full md:max-lg:px-3 md:max-lg:text-center md:max-lg:text-sm md:max-lg:leading-tight md:max-lg:whitespace-normal"
+              >
+                <ClipboardList aria-hidden className="md:max-lg:hidden" />
                 {tCommon("cta.requestStaff")}
               </CtaButton>
               <CtaButton
                 href={contact.phoneHref}
                 variant="secondary"
                 ariaLabel={tHeader("callAria", { phone: contact.phone })}
-                className="px-3 text-center max-sm:text-sm max-sm:leading-tight max-sm:whitespace-normal sm:px-5 md:max-lg:px-3 md:max-lg:text-sm md:max-lg:leading-tight md:max-lg:whitespace-normal"
+                className="w-full sm:w-auto md:max-lg:w-full md:max-lg:px-3 md:max-lg:text-center md:max-lg:text-sm md:max-lg:leading-tight md:max-lg:whitespace-normal"
               >
                 <Phone aria-hidden />
-                {tCommon("cta.callDirect")}
+                {tCommon("cta.call")}
               </CtaButton>
             </div>
             <p className="mt-3 text-sm text-muted-foreground md:mt-auto md:pt-3">

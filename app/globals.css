@@ -428,7 +428,10 @@
 }
 
 /* Reveal zonder JavaScript: scroll-gedreven CSS. Zonder ondersteuning, zonder
-   JavaScript of met reduced motion staat de inhoud gewoon zichtbaar. */
+   JavaScript of met reduced motion staat de inhoud gewoon zichtbaar. De
+   animatie zelf heeft geen JavaScript nodig; (scripting: enabled) zorgt dat
+   een browser met JavaScript uit niets verbergt tot er gescrold is (AC-02-16,
+   AC-04-24). Kent een browser `scripting` niet, dan geldt de regel niet. */
 @keyframes reveal-in {
   from {
     opacity: 0;
@@ -439,7 +442,7 @@
     transform: none;
   }
 }
-@media (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
   @supports (animation-timeline: view()) {
     .reveal {
       animation: reveal-in linear both;
