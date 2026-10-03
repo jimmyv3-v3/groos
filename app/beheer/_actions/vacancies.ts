@@ -4,8 +4,15 @@ import { refresh } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import type { Json } from "@/lib/database.types";
-import { VACANCY_EXTEND_DAYS, type CloseReason, type VacancyStatus } from "@/lib/data/options";
+import { isClaimConfirmed } from "@/lib/claims";
+import {
+  VACANCY_DEFAULT_CLOSE_DAYS,
+  VACANCY_EXTEND_DAYS,
+  type CloseReason,
+  type VacancyStatus,
+} from "@/lib/data/options";
 import { revalidateVacancies } from "@/lib/data/revalidate";
+import { publicStateOf } from "../_data/vacancies";
 import { actionError, mapDbError, publishFieldErrors, withAdmin } from "../_lib/action";
 import type { AdminContext } from "../_lib/auth";
 import {
@@ -14,10 +21,16 @@ import {
   amsterdamLocalToIso,
   formatDateNl,
   formatTimeNl,
+  isoToAmsterdamLocal,
 } from "../_lib/format";
 import { beheerPaths } from "../_lib/paths";
 import type { ActionResult } from "../_lib/result";
-import { isPublicStatus } from "../_lib/status";
+import {
+  extendRevalidationKind,
+  saveRevalidationKind,
+  scheduleRevalidationKind,
+  unscheduleRevalidationKind,
+} from "../_lib/revalidation";
 import { isPublishErrorCode, type PublishErrorCode } from "../_lib/types";
 import { fieldErrorsOf, uuid } from "../_lib/validation/common";
 import { vacancyDraftSchema, vacancyValuesFromFormData } from "../_lib/validation/vacancy";
@@ -35,18 +48,30 @@ type Current = {
   updated_at: string;
   publish_at: string | null;
   closes_at: string | null;
+  closed_at: string | null;
   image_path: string | null;
+  training_offered: string[];
+  /** Slug van de nl-vertaling vóór de actie. */
+  slug: string | null;
+  /** Publieke staat vóór de actie, zoals getVacancyForEdit die berekent (§5.3). */
+  publicState: "open" | "closed" | null;
 };
 
 async function loadCurrent(ctx: AdminContext, id: string): Promise<Current | null> {
   const { data, error } = await ctx.supabase
     .from("vacancies")
-    .select("id, number, status, updated_at, publish_at, closes_at, image_path")
+    .select(
+      "id, number, status, updated_at, publish_at, closes_at, closed_at, image_path, training_offered, nl:vacancy_translations(slug)",
+    )
     .eq("id", id)
+    .eq("vacancy_translations.locale", "nl")
     .maybeSingle();
   if (error) throw error;
-  return data;
+  if (!data) return null;
+  const { nl, ...row } = data;
+  return { ...row, slug: nl[0]?.slug ?? null, publicState: publicStateOf(row) };
 }
+
 
 async function publishErrors(ctx: AdminContext, id: string): Promise<PublishErrorCode[]> {
   const { data, error } = await ctx.supabase.rpc("vacancy_publish_errors", { p_vacancy_id: id });
@@ -108,26 +133,42 @@ export async function saveVacancy(_prev: ActionResult | null, formData: FormData
     const sentUpdatedAt = String(formData.get("updated_at") ?? "");
     const intent = formData.get("intent") === "publish" ? "publish" : "save";
 
-    const [current, admins] = await Promise.all([
+    const [current, contacts] = await Promise.all([
       id ? loadCurrent(ctx, id) : Promise.resolve(null),
-      ctx.supabase.from("admin_profiles").select("id").eq("is_active", true),
+      // Contactpersoon: alleen actieve beheerders met een telefoonnummer (B-48).
+      ctx.supabase.from("admin_profiles").select("id").eq("is_active", true).not("phone_e164", "is", null),
     ]);
+    if (contacts.error) throw contacts.error;
     if (id && !current) return actionError("niet_gevonden");
     if (current && sentUpdatedAt && Date.parse(current.updated_at) > Date.parse(sentUpdatedAt)) {
       return actionError("conflict");
     }
 
+    const storedClosesOn = current?.closes_at ? isoToAmsterdamLocal(current.closes_at).slice(0, 10) : null;
+    const values = vacancyValuesFromFormData(formData);
     const parsed = vacancyDraftSchema({
       status: current?.status ?? null,
-      adminIds: (admins.data ?? []).map((a) => a.id),
-    }).safeParse(vacancyValuesFromFormData(formData));
+      contactIds: (contacts.data ?? []).map((a) => a.id),
+      storedClosesOn,
+    }).safeParse(values);
     if (!parsed.success) return actionError("ongeldig", fieldErrorsOf(parsed.error));
+
+    // Ongewijzigde sluitdatum houdt het opgeslagen tijdstip; bij closed is hij
+    // alleen-lezen (heropenen gaat via reopenVacancy). Zonder claim
+    // certificateSupport negeert de actie training_offered uit het formulier (§4.7).
+    const keepClosesAt = current && (current.status === "closed" || values.closes_at.trim() === storedClosesOn);
+    const closesAt = current && keepClosesAt ? current.closes_at : parsed.data.vacancy.closes_at;
+    const trainingOffered = isClaimConfirmed("certificateSupport")
+      ? parsed.data.vacancy.training_offered
+      : (current?.training_offered ?? []);
 
     const { data: saved, error } = await ctx.supabase.rpc("save_vacancy", {
       // Nieuwe vacature: p_id is null (de gegenereerde typen kennen geen null voor uuid-argumenten).
       p_id: (current?.id ?? null) as unknown as string,
       p_vacancy: {
         ...parsed.data.vacancy,
+        closes_at: closesAt,
+        training_offered: trainingOffered,
         publish_at: current?.publish_at ?? null,
         image_path: current?.image_path ?? null,
       } as Json,
@@ -138,10 +179,12 @@ export async function saveVacancy(_prev: ActionResult | null, formData: FormData
     if (!row) return actionError("onbekend");
 
     const status: VacancyStatus = current?.status ?? "draft";
-    let toast: string = S.toasts.saved;
+    let toast: string = status === "published" || status === "closed" ? S.toasts.changesPublished : S.toasts.saved;
     let melding = "opgeslagen";
+    let publishedFromDraft = false;
 
-    if (intent === "publish" && (status === "draft" || status === "scheduled")) {
+    // Alleen vanuit een concept (of een nieuwe vacature) is intent publish een publicatie; anders opslaan.
+    if (intent === "publish" && status === "draft") {
       const errors = await publishErrors(ctx, row.vacancy_id);
       if (errors.length > 0) {
         if (!current) redirect(`${beheerPaths.vacancy(row.vacancy_number)}?melding=savedNotPublished`);
@@ -151,16 +194,24 @@ export async function saveVacancy(_prev: ActionResult | null, formData: FormData
       const { error: pubError } = await ctx.supabase
         .from("vacancies")
         .update({ status: "published" })
-        .eq("id", row.vacancy_id);
+        .eq("id", row.vacancy_id)
+        .eq("status", "draft");
       if (pubError) return mapDbError(pubError);
       await logStatusChange(ctx, row.vacancy_id, status, "published");
-      revalidateVacancies([row.vacancy_number], "visibility");
+      publishedFromDraft = true;
       toast = S.toasts.published;
       melding = "published";
-    } else if (isPublicStatus(status)) {
-      revalidateVacancies([row.vacancy_number], "content");
-      toast = S.toasts.changesPublished;
     }
+
+    const kind = saveRevalidationKind({
+      publishedFromDraft,
+      publicStateBefore: current?.publicState ?? null,
+      slugBefore: current?.slug ?? null,
+      slugAfter: row.vacancy_slug,
+      closesAtBefore: current?.closes_at ?? null,
+      closesAtAfter: closesAt,
+    });
+    if (kind) revalidateVacancies([row.vacancy_number], kind);
 
     if (!current) redirect(`${beheerPaths.vacancy(row.vacancy_number)}?melding=${melding}`);
     refresh();
@@ -195,7 +246,8 @@ export async function scheduleVacancy(input: { id: string; publishAt: string; cl
     if (Date.parse(publishIso) < Date.now() + 5 * 60 * 1000) {
       return actionError("ongeldig", { publishAt: [S.validation.publishInPast] });
     }
-    let closesIso: string | null = null;
+    // Zonder sluitdatum: publishAt plus VACANCY_DEFAULT_CLOSE_DAYS, vanuit draft en vanuit scheduled.
+    let closesIso = new Date(Date.parse(publishIso) + VACANCY_DEFAULT_CLOSE_DAYS * DAY).toISOString();
     if (parsed.data.closesOn) {
       if (!/^\d{4}-\d{2}-\d{2}$/.test(parsed.data.closesOn)) {
         return actionError("ongeldig", { closesOn: [S.validation.closesInPast] });
@@ -223,6 +275,8 @@ export async function scheduleVacancy(input: { id: string; publishAt: string; cl
       });
       if (!result.ok) return result;
     }
+    const kind = scheduleRevalidationKind(current.status, current.publicState);
+    if (kind) revalidateVacancies([current.number], kind);
     refresh();
     return {
       ok: true,
@@ -236,6 +290,9 @@ export async function unscheduleVacancy(input: { id: string }): Promise<ActionRe
     const { id } = idSchema.parse(input);
     const result = await transition(ctx, id, ["scheduled"], "draft");
     if (!result.ok) return result;
+    const { current } = result.data!;
+    const kind = unscheduleRevalidationKind(current.publicState);
+    if (kind) revalidateVacancies([current.number], kind);
     refresh();
     return { ok: true, toast: S.toasts.unscheduled };
   });
@@ -297,7 +354,7 @@ export async function extendVacancy(input: { id: string }): Promise<ActionResult
     const closesIso = new Date(base + VACANCY_EXTEND_DAYS * DAY).toISOString();
     const { error } = await ctx.supabase.from("vacancies").update({ closes_at: closesIso }).eq("id", id);
     if (error) return mapDbError(error);
-    revalidateVacancies([current.number], "content");
+    revalidateVacancies([current.number], extendRevalidationKind(current.publicState) ?? "content");
     refresh();
     return { ok: true, toast: fill(S.toasts.extended, { datum: formatDateNl(closesIso) }) };
   });
@@ -371,7 +428,7 @@ export async function setVacancyFlag(input: {
     const update = parsed.data.flag === "is_featured" ? { is_featured: parsed.data.value } : { is_urgent: parsed.data.value };
     const { error } = await ctx.supabase.from("vacancies").update(update).eq("id", current.id);
     if (error) return mapDbError(error);
-    if (isPublicStatus(current.status)) revalidateVacancies([current.number], "content");
+    if (current.publicState) revalidateVacancies([current.number], "content");
     refresh();
     const toast =
       parsed.data.flag === "is_featured"

@@ -1,5 +1,11 @@
 import "server-only";
-import { CLOSED_VISIBLE_DAYS, type CloseReason, type OccupationSlug, type VacancyStatus } from "@/lib/data/options";
+import {
+  CLOSED_VISIBLE_DAYS,
+  VACANCY_DEFAULT_CLOSE_DAYS,
+  type CloseReason,
+  type OccupationSlug,
+  type VacancyStatus,
+} from "@/lib/data/options";
 import type { VacancyDetail } from "@/lib/data/types";
 import { publicMediaUrl } from "@/lib/supabase/public-media";
 import type { AdminContext } from "../_lib/auth";
@@ -245,6 +251,27 @@ export async function getVacancyForEdit(ctx: AdminContext, number: number): Prom
   };
 }
 
+/**
+ * Datums en staat van het voorbeeld (spec 08 §4.7): publishedAt =
+ * published_at ?? publish_at ?? updated_at; closesAt = closes_at ?? publishedAt
+ * plus VACANCY_DEFAULT_CLOSE_DAYS; state closed bij status closed of archived of
+ * een publiek gesloten vacature, anders open.
+ */
+export function previewDates(v: {
+  status: VacancyStatus;
+  published_at: string | null;
+  publish_at: string | null;
+  closes_at: string | null;
+  closed_at: string | null;
+  updated_at: string;
+}): { publishedAt: string; closesAt: string; state: "open" | "closed" } {
+  const publishedAt = v.published_at ?? v.publish_at ?? v.updated_at;
+  const closesAt =
+    v.closes_at ?? new Date(Date.parse(publishedAt) + VACANCY_DEFAULT_CLOSE_DAYS * 24 * 60 * 60 * 1000).toISOString();
+  const closed = v.status === "closed" || v.status === "archived" || publicStateOf(v) === "closed";
+  return { publishedAt, closesAt, state: closed ? "closed" : "open" };
+}
+
 /** Vacature als VacancyDetail (spec 10), ook voor concepten. */
 export async function getVacancyPreview(ctx: AdminContext, number: number): Promise<VacancyDetail | null> {
   const v = await loadVacancy(ctx, number);
@@ -252,14 +279,14 @@ export async function getVacancyPreview(ctx: AdminContext, number: number): Prom
   const t = v.nl[0];
   const occ = v.occupation;
   const intro = t?.intro ?? "";
-  const state = publicStateOf(v);
+  const dates = previewDates(v);
   return {
     id: v.id,
     number: v.number,
     slug: t?.slug ?? "",
     path: `/vacatures/${t?.slug ?? ""}`,
     title: t?.title ?? "",
-    summary: t?.summary ?? intro.slice(0, 200),
+    summary: t?.summary ?? "",
     occupation: {
       slug: v.occupation_slug as OccupationSlug,
       nameNl: occ?.name_nl ?? v.occupation_slug,
@@ -278,9 +305,9 @@ export async function getVacancyPreview(ctx: AdminContext, number: number): Prom
     salaryMax: v.salary_max ?? 0,
     isFeatured: v.is_featured,
     isUrgent: v.is_urgent,
-    publishedAt: v.published_at ?? v.updated_at,
-    closesAt: v.closes_at ?? "",
-    state: state ?? "open",
+    publishedAt: dates.publishedAt,
+    closesAt: dates.closesAt,
+    state: dates.state,
     intro,
     tasks: t?.tasks ?? [],
     requirements: t?.requirements ?? [],
@@ -353,12 +380,24 @@ export async function listVacancyOptions(ctx: AdminContext): Promise<{ number: n
   return (data ?? []).map((v) => ({ number: v.number, title: v.nl[0]?.title ?? "" }));
 }
 
-export async function listAdminOptions(ctx: AdminContext): Promise<{ id: string; displayName: string }[]> {
+/**
+ * Actieve beheerders. hasPhone is phone_e164 is not null: alleen die mogen
+ * contactpersoon van een vacature zijn (B-48); toewijzen kan aan iedereen.
+ */
+export async function listAdminOptions(
+  ctx: AdminContext,
+): Promise<{ id: string; displayName: string; hasPhone: boolean }[]> {
   const { data, error } = await ctx.supabase
     .from("admin_profiles")
-    .select("id, display_name")
+    .select("id, display_name, phone_e164")
     .eq("is_active", true)
     .order("display_name");
   if (error) throw error;
-  return (data ?? []).map((a) => ({ id: a.id, displayName: a.display_name }));
+  return (data ?? []).map((a) => ({ id: a.id, displayName: a.display_name, hasPhone: a.phone_e164 !== null }));
+}
+
+/** Standaard contactpersoon: de ingelogde beheerder als die een telefoonnummer heeft, anders de eerste uit de lijst. */
+export function defaultContactId(admins: { id: string; hasPhone: boolean }[], meId: string): string {
+  const withPhone = admins.filter((a) => a.hasPhone);
+  return withPhone.find((a) => a.id === meId)?.id ?? withPhone[0]?.id ?? "";
 }

@@ -142,9 +142,10 @@ export async function confirmMfaEnrollment(_prev: ActionResult | null, formData:
 }
 
 export async function requestPasswordReset(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
+  // B-50: een bot krijgt dezelfde bevestiging, zonder aanroep van Supabase.
+  if (await isBotRequest()) return { ok: true, toast: S.auth.forgot.sent };
   const parsed = emailSchema.safeParse({ email: str(formData, "email") });
   if (!parsed.success) return invalid(fieldErrorsOf(parsed.error));
-  if (await isBotRequest()) return { ok: false, code: "bot", message: S.auth.errors.bot };
   if (hasSupabaseEnv()) {
     const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
