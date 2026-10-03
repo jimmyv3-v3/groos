@@ -48,7 +48,7 @@ export const glazenwasser = {
         places: ["Kantoren en hoge flats", "Winkelstraten, vaak voor openingstijd", "Woonwijken en daken met zonnepanelen"],
       },
       requirements: {
-        title: "Wat je nodig hebt",
+        title: "Wat je meebrengt",
         accent: "om hoog te werken",
         items: [
           "Je hebt geen last van hoogtevrees",
@@ -127,7 +127,7 @@ export const glazenwasser = {
       career: {
         title: "Je groeit door met",
         accent: "nieuwe methodes en certificaten",
-        steps: ["Glazenwasser", "Allround glazenwasser", "Gevelbehandelaar", "Meewerkend voorman"],
+        steps: ["Glazenwasser", "Allround glazenwasser", "Gevelbehandelaar", "Meewerkend ploegleider"],
         note: "Met IPAF en meer ervaring kun je meer soorten werk doen.",
       },
       vacancies: {
@@ -367,7 +367,7 @@ export const glazenwasser = {
   en: {
     jobseeker: {
       meta: {
-        title: "Working as a window cleaner in The Hague",
+        title: "Work as a window cleaner in The Hague",
         description:
           "Do you want to work as a window cleaner in The Hague? Read what the work at height involves, what you earn and when you start. You can apply without a CV.",
         keywords: [
@@ -379,7 +379,7 @@ export const glazenwasser = {
         ],
       },
       hero: {
-        title: "Working as a window cleaner in The Hague",
+        title: "Work as a window cleaner in The Hague",
         lead: "As a window cleaner, you clean windows and facades at offices, shops and homes in The Hague. You work in a team, partly at height.",
         facts: [
           { label: "Working hours", value: "Usually from 07:00" },
@@ -401,7 +401,7 @@ export const glazenwasser = {
         places: ["Offices and tall flats", "Shopping streets, often before opening time", "Residential areas and roofs with solar panels"],
       },
       requirements: {
-        title: "What you need",
+        title: "What you bring",
         accent: "to work at height",
         items: [
           "You are not afraid of heights",
@@ -479,7 +479,7 @@ export const glazenwasser = {
       career: {
         title: "You grow with",
         accent: "new methods and certificates",
-        steps: ["Window cleaner", "All-round window cleaner", "Facade cleaner", "Working foreman"],
+        steps: ["Window cleaner", "All-round window cleaner", "Facade cleaner", "Working crew leader"],
         note: "With IPAF and more experience, you can do more kinds of work.",
       },
       vacancies: {

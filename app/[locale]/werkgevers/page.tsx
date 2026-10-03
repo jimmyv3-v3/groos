@@ -36,11 +36,12 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers">
   const [t, tb] = await Promise.all([getTranslations({ locale }), getTranslations({ locale, namespace: "beroepen" })]);
   const c = getWerkgeversPage(locale);
   const faq = withConfirmedClaims(c.faq.items);
+  const supply = withConfirmedClaims(c.supply.items);
   const steps = t.raw("werkgevers.steps.items") as { title: string; body: string }[];
   const ctas: CtaLink[] = [
     { label: t("common.cta.requestStaff"), href: ROUTES.personeelAanvragen, variant: "primary" },
     {
-      label: t("common.cta.callDirect"),
+      label: t("common.cta.call"),
       href: contact.phoneHref,
       variant: "secondary",
       icon: <Phone aria-hidden="true" />,
@@ -64,8 +65,8 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers">
         heading={c.supply.title}
         accent={c.supply.accent}
         intro={c.supply.intro}
-        features={toFeatureItems(withConfirmedClaims(c.supply.items))}
-        columns={withConfirmedClaims(c.supply.items).length === 3 ? 3 : 4}
+        features={toFeatureItems(supply)}
+        columns={supply.length <= 3 ? 3 : 4}
       />
 
       <BeroepGrid

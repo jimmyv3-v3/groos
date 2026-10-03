@@ -50,7 +50,7 @@ export const schoonmaker = {
         places: ["Kantoren en scholen", "Zorginstellingen en hotels", "Nieuwe woningen na de bouw"],
       },
       requirements: {
-        title: "Wat je nodig hebt voor",
+        title: "Wat je meebrengt voor",
         accent: "schoonmaakwerk",
         items: [
           "Je werkt zelfstandig, vaak alleen",
@@ -93,7 +93,7 @@ export const schoonmaker = {
         accent: "soms nodig zijn",
         items: [
           {
-            name: "VOG (Verklaring Omtrent het Gedrag)",
+            name: "VOG",
             need: "sometimes",
             body: "Een VOG is een verklaring van de overheid over je gedrag. Je vraagt hem aan bij de gemeente.",
           },
@@ -128,7 +128,7 @@ export const schoonmaker = {
       career: {
         title: "Doorgroeien van schoonmaker",
         accent: "naar objectleider",
-        steps: ["Schoonmaker", "Allround schoonmaker", "Vloerenspecialist", "Meewerkend voorman", "Objectleider"],
+        steps: ["Schoonmaker", "Allround schoonmaker", "Vloerenspecialist", "Meewerkend teamleider", "Objectleider"],
         note: "Met ervaring kun je vloeren met machines behandelen of een team leiden.",
       },
       vacancies: {
@@ -396,7 +396,7 @@ export const schoonmaker = {
         places: ["Offices and schools", "Care homes and hotels", "New homes after building work"],
       },
       requirements: {
-        title: "What you need for",
+        title: "What you bring to",
         accent: "cleaning work",
         items: [
           "You work independently, often alone",

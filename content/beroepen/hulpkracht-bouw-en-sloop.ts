@@ -47,8 +47,8 @@ export const hulpkrachtBouwEnSloop = {
         places: ["Nieuwbouw van woningen", "Renovatie van flats en huurwoningen", "Sloopprojecten en straatwerk"],
       },
       requirements: {
-        title: "Wat je nodig hebt",
-        accent: "op de bouwplaats",
+        title: "Wat je meebrengt",
+        accent: "naar de bouwplaats",
         items: [
           "Je werkt buiten en kunt de hele dag tillen, bukken en staan",
           "Je spreekt genoeg Nederlands of Engels voor veiligheidsinstructies",
@@ -129,7 +129,7 @@ export const hulpkrachtBouwEnSloop = {
       career: {
         title: "Van hulpkracht groei je",
         accent: "door naar vakman",
-        steps: ["Hulpkracht", "Opperman of sloper", "Metselaar of stratenmaker na een opleiding", "Voorman"],
+        steps: ["Hulpkracht", "Opperman of sloper", "Metselaar of stratenmaker na een opleiding", "Ploegleider"],
         note: "Voor een vak als metselaar volg je eerst een opleiding.",
       },
       vacancies: {
@@ -156,7 +156,7 @@ export const hulpkrachtBouwEnSloop = {
           },
           {
             q: "Werk ik ook met asbest?",
-            a: "Nee, je werkt nooit met asbest. Zie je materiaal dat erop lijkt, dan stop je en meld je het bij de voorman.",
+            a: "Nee, je werkt nooit met asbest. Zie je materiaal dat erop lijkt, dan stop je en meld je het bij je leidinggevende.",
             specific: true,
           },
           {
@@ -246,7 +246,7 @@ export const hulpkrachtBouwEnSloop = {
           },
           {
             title: "Uw projectinstructie geldt",
-            body: "Onze hulpkrachten volgen uw instructies en de aanwijzingen van uw voorman. Met asbest werken zij nooit.",
+            body: "Onze hulpkrachten volgen uw instructies en de aanwijzingen van uw uitvoerder. Met asbest werken zij nooit.",
             icon: "safety",
           },
           {
@@ -340,7 +340,7 @@ export const hulpkrachtBouwEnSloop = {
           },
           {
             q: "Kunnen ze weken op hetzelfde project blijven?",
-            a: "Ja, u bepaalt hoe lang de inzet duurt, van een paar dagen tot de hele ruwbouw. Wie lang blijft, kent uw bouwplaats en uw voorman.",
+            a: "Ja, u bepaalt hoe lang de inzet duurt, van een paar dagen tot de hele ruwbouw. Wie lang blijft, kent uw bouwplaats en uw uitvoerder.",
             specific: true,
           },
           {
@@ -376,7 +376,7 @@ export const hulpkrachtBouwEnSloop = {
   en: {
     jobseeker: {
       meta: {
-        title: "Work as a construction and demolition labourer in The Hague",
+        title: "Work as a construction and demolition labourer",
         description:
           "Do you want to work as a construction and demolition labourer in The Hague? Read what you earn, when you start and why you need VCA. Apply without a CV.",
         keywords: [
@@ -408,8 +408,8 @@ export const hulpkrachtBouwEnSloop = {
         places: ["New homes being built", "Renovation of flats and rented homes", "Demolition and paving projects"],
       },
       requirements: {
-        title: "What you need",
-        accent: "on the building site",
+        title: "What you bring",
+        accent: "to the building site",
         items: [
           "You work outside and can lift, bend and stand all day",
           "You speak enough Dutch or English for safety instructions",
@@ -490,7 +490,7 @@ export const hulpkrachtBouwEnSloop = {
       career: {
         title: "From labourer you grow",
         accent: "into a skilled trade",
-        steps: ["Labourer", "Bricklayer's mate or demolition worker", "Bricklayer or paviour after training", "Foreman"],
+        steps: ["Labourer", "Bricklayer's mate or demolition worker", "Bricklayer or paviour after training", "Crew leader"],
         note: "A skilled trade starts with a training course.",
       },
       vacancies: {
@@ -516,7 +516,7 @@ export const hulpkrachtBouwEnSloop = {
           },
           {
             q: "Will I work with asbestos?",
-            a: "No, you never work with asbestos. If you see material that looks like it, you stop and tell the foreman.",
+            a: "No, you never work with asbestos. If you see material that looks like it, you stop and tell your supervisor.",
             specific: true,
           },
           {
@@ -559,7 +559,7 @@ export const hulpkrachtBouwEnSloop = {
     },
     employer: {
       meta: {
-        title: "Hire construction and demolition labourers in The Hague",
+        title: "Hire construction and demolition labourers",
         description:
           "Do you need labourers, bricklayers' mates or demolition workers in The Hague? Groos provides people for a day, a few weeks or longer. Request staff.",
         keywords: [
@@ -605,7 +605,7 @@ export const hulpkrachtBouwEnSloop = {
           },
           {
             title: "Your site instructions apply",
-            body: "Our labourers follow your instructions and the directions of your foreman. They never work with asbestos.",
+            body: "Our labourers follow your instructions and the directions of your site manager. They never work with asbestos.",
             icon: "safety",
           },
           {
@@ -699,7 +699,7 @@ export const hulpkrachtBouwEnSloop = {
           },
           {
             q: "Can they stay on the same project for weeks?",
-            a: "Yes, you decide how long the assignment lasts, from a few days to the whole shell construction. Someone who stays longer knows your site and foreman.",
+            a: "Yes, you decide how long the assignment lasts, from a few days to the whole shell construction. Someone who stays longer knows your site and your site manager.",
             specific: true,
           },
           {

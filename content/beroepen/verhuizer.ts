@@ -50,7 +50,7 @@ export const verhuizer = {
         places: ["Woningen in en rond Den Haag", "Kantoren, scholen en archieven", "Huizen van expats en diplomaten"],
       },
       requirements: {
-        title: "Wat je nodig hebt",
+        title: "Wat je meebrengt",
         accent: "als verhuizer",
         items: [
           "Je kunt de hele dag tillen en dragen, ook op trappen",
@@ -129,7 +129,7 @@ export const verhuizer = {
       career: {
         title: "Zo groei je door",
         accent: "in het verhuisvak",
-        steps: ["Verhuishulp", "Verhuizer", "Allround verhuizer of liftbediener", "Voorman"],
+        steps: ["Verhuishulp", "Verhuizer", "Allround verhuizer of liftbediener", "Ploegleider"],
       },
       vacancies: {
         title: "Vacatures voor verhuizers en bijrijders",
@@ -317,7 +317,7 @@ export const verhuizer = {
           },
           {
             q: "Kunnen uw verhuizers een verhuislift bedienen?",
-            a: "Dat verschilt per kandidaat, en wij vermelden wie al met een verhuislift heeft gewerkt. De instructie op uw eigen lift geeft uw voorman.",
+            a: "Dat verschilt per kandidaat, en wij vermelden wie al met een verhuislift heeft gewerkt. De instructie op uw eigen lift geeft uw ploegleider.",
             specific: true,
           },
           {
@@ -362,7 +362,7 @@ export const verhuizer = {
   en: {
     jobseeker: {
       meta: {
-        title: "Working as a mover in The Hague",
+        title: "Work as a mover in The Hague",
         description:
           "Do you want to work as a mover in The Hague? Read what the work involves, what you earn and why the end of the month is busy. You can apply without a CV.",
         keywords: [
@@ -377,7 +377,7 @@ export const verhuizer = {
         ],
       },
       hero: {
-        title: "Working as a mover in The Hague",
+        title: "Work as a mover in The Hague",
         lead: "As a mover you pack things and carry furniture from the old address to the new one. You start early and work in a team.",
         facts: [
           { label: "Working hours", value: "Start at 07:00 or earlier" },
@@ -398,7 +398,7 @@ export const verhuizer = {
         places: ["Homes in and around The Hague", "Offices, schools and archives", "Homes of expats and diplomats"],
       },
       requirements: {
-        title: "What you need",
+        title: "What you bring",
         accent: "as a mover",
         items: [
           "You can lift and carry all day, also on stairs",
@@ -475,7 +475,7 @@ export const verhuizer = {
       career: {
         title: "How you can grow",
         accent: "in the removals trade",
-        steps: ["Moving helper", "Mover", "All-round mover or lift operator", "Foreman"],
+        steps: ["Moving helper", "Mover", "All-round mover or lift operator", "Crew leader"],
       },
       vacancies: {
         title: "Jobs for movers and driver's mates",
@@ -663,7 +663,7 @@ export const verhuizer = {
           },
           {
             q: "Can your movers operate a furniture lift?",
-            a: "That differs per candidate, and we state who has already worked with a furniture lift. Your foreman gives the instruction on your own lift.",
+            a: "That differs per candidate, and we state who has already worked with a furniture lift. Your crew leader gives the instruction on your own lift.",
             specific: true,
           },
           {
