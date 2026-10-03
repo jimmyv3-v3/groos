@@ -477,11 +477,18 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
             <Logo tone="mono" className="h-10 text-ink" />
             <Logo tone="mono" variant="lockup" className="h-14 text-ink" />
           </div>
-          <div className="flex items-center justify-center gap-6 rounded-2xl border border-border p-10">
+          <div className="flex flex-wrap items-center justify-center gap-6 rounded-2xl border border-border p-10">
             <LogoMark variant="tile" className="size-16" />
-            <LogoMark variant="tile" className="size-6" />
+            <LogoMark variant="tile" className="size-8" />
             <LogoMark variant="tile" className="size-4" />
-            <LogoMark className="h-12" />
+            <LogoMark className="h-16" />
+            <LogoMark tone="mono" className="h-16" />
+          </div>
+          <div className="grid place-items-center rounded-2xl border border-border p-10">
+            <Logo layout="stacked" variant="lockup" className="h-32" />
+          </div>
+          <div className="surface-brand grid place-items-center rounded-2xl p-10">
+            <Logo layout="stacked" variant="lockup" className="h-32" />
           </div>
         </div>
       </Block>

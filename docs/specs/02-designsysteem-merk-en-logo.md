@@ -4,7 +4,7 @@
 |---|---|---|---|
 | concept | 1 | geen voor de bouw; 01 levert de structuur van header, footer en layout waarin dit uiterlijk landt | context/12 (volledig), docs/MIGRATIE.md §6, bijlagen/repo-inventaris.md §2 en §6, bijlagen/samenvattingen/context-12.md, context-13.md, context-research.md, 00 §3.2 (B-01, B-05, B-25, B-28, B-29, B-34, B-36, B-37), 00 §4.4a, `node_modules/next/dist/docs` (16.3.8: font, app-icons, opengraph-image, image-response) |
 
-Assets bij deze spec: `docs/specs/assets/logo/concept-1.svg`, `concept-2.svg`, `concept-3.svg` en `preview.svg`.
+Assets bij deze spec: `docs/specs/assets/logo/logo-mark.svg`, `logo-horizontaal.svg`, `logo-gestapeld.svg`, `icoon.svg`, `overzicht.svg` en `overzicht.png`.
 
 ## 1 Doel
 
@@ -19,7 +19,7 @@ Werkzoekende
 
 Opdrachtgever
 4. S-02-04 Een facilitair manager bekijkt de site op een laptop. Veel witruimte, één accentkleur en een strakke kopletter zeggen dat Groos het op orde heeft.
-5. S-02-05 Een opdrachtgever deelt de link in WhatsApp. De OG-afbeelding toont het woordmerk, een heldere kop en het domein.
+5. S-02-05 Een opdrachtgever deelt de link in WhatsApp. De OG-afbeelding toont het logo, een heldere kop en het domein.
 
 Beheerder
 6. S-02-06 Jimmy opent `/beheer` op zijn telefoon. Statusbadges hebben een vaste kleur per betekenis en altijd een tekstlabel, tabellen scrollen horizontaal binnen hun kader en meldingen verschijnen als toast.
@@ -29,7 +29,7 @@ Bouw en iteratie
 8. S-02-08 Djulan wil morgen het blauw iets aanpassen. Hij wijzigt één token in `app/globals.css` en de hexwaarde in `lib/brand.ts`; `node scripts/check-contrast.mjs` zegt direct of alle paren nog halen.
 
 Merk buiten het scherm
-9. S-02-09 Groos laat een hesje en een bus bedrukken. Het logo werkt in één kleur, de tegel met de "oo" werkt op 16 px als favicon en op de borst van een hesje.
+9. S-02-09 Groos laat een hesje en een bus bedrukken. Het logo werkt in één kleur, de tegel met het beeldmerk werkt op 16 px als favicon en op de borst van een hesje.
 
 ## 3 Scope
 
@@ -48,7 +48,7 @@ Wel in fase 1:
 | E-02-09 | Iconen uit lucide-react 0.456 met lijndikte 2, altijd met tekstlabel of `aria-hidden` naast tekst. | R-05, R-15 |
 | E-02-10 | De site oogt verzorgd zonder foto's (B-25) en heeft optionele fotoslots. | R-05, R-12 |
 | E-02-11 | Beweging is subtiel (reveal en hover), werkt zonder JavaScript en respecteert `prefers-reduced-motion`. | R-15 |
-| E-02-12 | Een nieuw logo met beeldmerk en woordmerk, drie concepten als SVG, één aanbevolen, met constructie, varianten, minimale maat, vrije ruimte en gebruik op hesje en bus. | R-06 |
+| E-02-12 | Het logo van de klant (B-61): het beeldmerk één op één en vlak overgenomen, met het woordmerk in het lettertype van de site, met constructie, opbouw horizontaal en gestapeld, varianten, minimale maat, vrije ruimte en gebruik op hesje en bus. | R-06 |
 | E-02-13 | Het logo is inline SVG met `currentColor` (`Logo`, `LogoMark`), plus favicon, apple-icon, `public/brand/logo.png` (512 bij 512) voor JSON-LD en een e-maillogo. | R-06, R-09 |
 | E-02-14 | De fonts voor de OG-afbeelding staan met `OFL.txt` in `assets/fonts/`; opmaak en bouw van de OG-afbeelding zijn van spec 12. | R-09 |
 | E-02-15 | Het uiterlijk van header, mobiel menu, actiebalk en footer ligt vast; spec 01 levert de structuur. | R-01, R-05, R-14 |
@@ -82,7 +82,7 @@ Fase 2 of later: fotografie (vult de fotoslots), Pantone- en folieproef voor dru
 | Achtergrond | Wit | `#FFFFFF` | standaardachtergrond |
 | Tekst en koppen | Nacht (inkt) | `#0B0F2E` | alle tekst, koppen, woordmerk |
 | Hulptekst | Leigrijs | `#4B5170` | intro's, meta, labels; haalt 7,75:1 dus ook voor lopende tekst |
-| Merk | Groos-kobalt | `#2741C9` | primaire knop, links, iconen, focusring, de "oo" |
+| Merk | Groos-kobalt | `#2741C9` | primaire knop, links, iconen, focusring, de sikkel en de twee o's in het logo |
 | Merk sterk | Diep kobalt | `#1C2F9E` | hover, nadruk, tekst op blauwtint |
 | Merk subtiel | Lichtkobalt | `#7C8AE0` | alleen decoratief of groot (3,20:1), alleen op wit |
 | Blauwtint | IJsblauw | `#EEF1FD` | rustige blauwe vlakken, icoontegels, selectie |
@@ -963,7 +963,7 @@ Regels:
 | Verloop via `hsl(var(--muted))` | vervalt | `projects.tsx:43` en `segment-accordion.tsx:36,90`: `bg-muted` |
 | Gloed-hoverschaduw | vervalt | `button.tsx:13` (bestand verdwijnt), `trust-bar.tsx:36`: `hover:shadow-[…]` weghalen |
 | Nieuw: `.surface-brand` | het enige blauwe vlak, zet tokens lokaal om | CTA-band van spec 04 en 05 |
-| Nieuw: `.pattern-oo` | heel licht patroon van twee ringen, afgeleid van het beeldmerk, alleen in een hoek | op `.surface-brand` of een blauwtintvlak, nooit achter lopende tekst |
+| Nieuw: `.pattern-oo` | heel licht patroon van twee ringen, afgeleid van de twee o's in het woordmerk, alleen in een hoek | op `.surface-brand` of een blauwtintvlak, nooit achter lopende tekst |
 | Nieuw: `.prose-groos` | opmaak voor lange tekst | juridische pagina's (09), vacaturetekst (06) |
 
 `Marquee` (`components/ui/marquee.tsx`) en `CountUp` (`components/motion/count-up.tsx`) vervallen; ze worden verwijderd in dezelfde stap waarin spec 04 `Clients` en `Metrics` verwijdert (stap 4). Er komt geen ticker, marquee of telanimatie terug.
@@ -1095,7 +1095,7 @@ Er zijn geen foto's en er komen geen stockfoto's. De site oogt toch verzorgd doo
 2. **Witruimte en ritme.** Secties wisselen wit en ijs; elke sectie heeft één kop, één intro en één blok inhoud.
 3. **Rustige blauwe vlakken.** Panelen in `bg-brand-tint` (bijvoorbeeld de lijst met vijf beroepen naast de hero) en hooguit één `.surface-brand` per pagina voor de afsluitende oproep.
 4. **Lijniconen in tegels.** `IconTile` bij beroepen, stappen en kenmerken; stappen krijgen een groot cijfer in `font-display text-h1 text-brand-subtle` (decoratief, groot genoeg voor 3:1).
-5. **Het patroon van het beeldmerk.** `.pattern-oo`: twee ringen in een raster van 56 px, op 8 tot 12 % dekking, zichtbaar in één hoek, nooit achter lopende tekst.
+5. **Het patroon van de twee o's.** `.pattern-oo`: twee ringen in een raster van 56 px, op 8 tot 12 % dekking, zichtbaar in één hoek, nooit achter lopende tekst.
 6. **Mensen zonder foto.** Jimmy en Lorenzo als initialen ("J" en "L") in een cirkel van 56 px `bg-brand-tint text-brand-strong font-display text-h3`, met voornaam en telefoonnummer ernaast.
 
 Fotoslots: `PhotoSlot` met `ratio` 4/5 voor portretten en 3/2 voor werkfoto's. Komen er foto's, dan alleen eigen beelden met correcte beschermingsmiddelen (context/12 §3.2), in `public/` en via `next/image`.
@@ -1111,95 +1111,84 @@ Fotoslots: `PhotoSlot` met `ratio` 4/5 voor portretten en 3/2 voor werkfoto's. K
 
 ### 4.11 Logo (R-06)
 
-**Drie concepten** (bestanden in `docs/specs/assets/logo/`, overzicht in `preview.svg`: op wit, op kobalt, in één kleur zwart en op 24 px en 16 px op ware grootte).
+**Het logo van de klant (B-61).** De klant heeft zijn logo gekozen: een beeldmerk in de vorm van een G met links een sikkel. De site neemt alleen de vorm van dat beeldmerk over, één op één, en zet die vlak. Het zilver, het reliëf, de schaduw en het zwarte vlak van het aangeleverde beeld vervallen, en de letters van dat beeld zijn niet overgenomen. Het woordmerk "groos" en de beschrijver "Personeelsdiensten" blijven staan in het lettertype van de site. Er zijn geen andere logo-ontwerpen meer; eerdere concepten en varianten zijn verwijderd.
 
-| Concept | Idee | Sterk | Zwak | Oordeel |
-|---|---|---|---|---|
-| 1 Schakel (`concept-1.svg`) | Twee in elkaar grijpende ringen naast het woordmerk "groos": de koppeling tussen werkgever en werknemer (context/12 C). | Duidelijk verhaal. | Op 24 px loopt de vlechting dicht tot een vlek; het lijkt op een linkicoon of een oneindigteken; de vlechting vraagt maskers, lastig in borduur en folie. | niet aanbevolen |
-| 2 Vooruit (`concept-2.svg`) | Een doorlopende G waarvan de dwarsbalk uit de ring naar rechts loopt, naast "Groos". | Zeer leesbaar op 16 px; eenvoudig te borduren. | Lijkt sterk op de G van Google (ring, opening rechtsboven, dwarsbalk); een G-monogram is generiek. | niet aanbevolen |
-| **3 Samen (`concept-3.svg`)** | Het woordmerk "groos" waarin de twee o's één gedeelde stam hebben. De "oo" in kobalt is het beeldmerk: twee mensen naast elkaar, werkgever en werknemer, Jimmy en Lorenzo. | Eigen woordbeeld; het beeldmerk zit in de naam; werkt als tegel op 16 px; werkt in één kleur; past bij "trots op goed werk" zonder grootspraak. | De losse "oo" kan aan een bril of oneindigteken doen denken; binnen het woordmerk en als tegel is dat geen probleem. | **aanbevolen** |
+**Het beeldmerk** (`docs/specs/assets/logo/logo-mark.svg`, vak van 90,55 bij 100 eenheden) bestaat uit vier delen:
 
-**Constructie van concept 3.**
-- Woordmerk "groos" in kleine letters uit Instrument Sans, gewicht 640, breedte 100, korpsgrootte 50 eenheden, spatiëring -0,012 em, omgezet naar contouren (Instrument Sans valt onder de SIL Open Font License, die gebruik in een logo toestaat).
-- Ligatuur: de tweede "o" schuift 0,16 em naar links, zodat de rechterstam van de eerste en de linkerstam van de tweede samenvallen tot één stam.
-- Kleur: "gr" en "s" in nacht `#0B0F2E`, "oo" in kobalt `#2741C9`.
+| Deel | Vorm | Kleur |
+|---|---|---|
+| Bovenboog | Vlakke balk bovenaan (rechte bovenrand, rechte rechterrand, rechte onderrand) die links met een vloeiende boog naar beneden loopt en in een punt eindigt. | nacht `#0B0F2E` |
+| Kom | Linksonder: een punt die naar rechtsonder uitloopt in een vlakke balk met een rechte rechterrand, op de basislijn. | nacht `#0B0F2E` |
+| Rechterblok | Horizontale balk naar binnen met daaronder de stam; de stam is rechtsonder schuin afgesneden en eindigt links in een punt op de basislijn. | nacht `#0B0F2E` |
+| Sikkel | Links, tussen bovenboog en kom: een smalle maan met twee scherpe punten. | kobalt `#2741C9` |
+
+Constructie: de vorm is overgetrokken van het aangeleverde beeld (voorvlak van de letter, zonder de schaduw) en daarna opnieuw opgebouwd als schone geometrie. Rechte randen zijn rechte lijnen, horizontaal en verticaal precies langs de assen; elke boog is één kubische curve; de overgang van balk naar boog is vloeiend; punten en hoeken zijn scherp. De kom en het rechterblok delen één basislijn. De tussenruimtes tussen de delen zijn die van het aangeleverde beeld. Gemeten afwijking ten opzichte van het beeld: langs de randen hooguit 0,2 procent van de breedte van het beeldmerk, bij de vier scherpe punten naar schatting 0,3 procent. Het beeldmerk wordt niet hertekend, vereenvoudigd of "verbeterd"; wie de vorm wijzigt, doet dat alleen in `logo-mark.svg`.
+
+**Woordmerk en beschrijver** (ongewijzigd).
+- Woordmerk "groos" in kleine letters uit Instrument Sans, gewicht 640, breedte 100, korpsgrootte 50 eenheden, spatiëring -0,012 em, omgezet naar contouren (Instrument Sans valt onder de SIL Open Font License, die gebruik in een logo toestaat). De tweede "o" schuift 0,16 em naar links, zodat de twee o's één stam delen. Kleur: "gr" en "s" in nacht, de twee o's in kobalt.
 - Beschrijver "Personeelsdiensten" in Onest Medium op een kwart van de korpsgrootte, spatiëring 0,045 em, kleur leigrijs, linksuitgelijnd met de "g", basislijn 0,52 korps onder die van het woordmerk.
-- Beeldmerk los: de "oo" in een vak van 48 bij 48. Tegel: kobalt vierkant van 48 bij 48 met hoekstraal 12 en de "oo" uitgespaard op 34 eenheden.
 
-**Varianten.**
+**Opbouw.**
+
+| Opbouw | Bestand | Regel |
+|---|---|---|
+| Horizontaal met beschrijver | `logo-horizontaal.svg` (185,51 bij 52,08) | Beeldmerk links, even hoog als het tekstblok (bovenkant van de kleine letters tot de basislijn van de beschrijver); tussenruimte een kwart van de hoogte van het beeldmerk. |
+| Horizontaal zonder beschrijver | afgeleid (166,18 bij 36,75) | Zelfde regel: beeldmerk even hoog als het woordmerk met de staart van de "g"; tussenruimte een kwart van die hoogte. Dit is het logo in de header. |
+| Gestapeld | `logo-gestapeld.svg` (125,33 bij 126,08; zonder beschrijver 123,72 bij 110,75) | Beeldmerk van 60 eenheden hoog, gecentreerd boven het tekstblok, met 14 eenheden tussenruimte. |
+| Icoon | `icoon.svg` (48 bij 48) | Kobalt tegel met hoekstraal 12 en het beeldmerk in wit op twee derde van de hoogte, gecentreerd. |
+
+**Varianten** (overzicht in `docs/specs/assets/logo/overzicht.svg` en `overzicht.png`).
 
 | Variant | Gebruik |
 |---|---|
-| Kleur op wit: nacht met kobalt "oo" | standaard: header, footer, documenten |
-| Wit op kobalt | `.surface-brand`, social banners, bus in kobalt |
+| Kleur op wit: G en letters in nacht, sikkel en de twee o's in kobalt | standaard: header, footer, documenten |
+| Wit op kobalt: alles wit, ook de sikkel | `.surface-brand`, social banners, bus in kobalt |
 | Eén kleur nacht of zwart | stempel, fax, gravure, hesje op fluorgeel of oranje |
 | Eén kleur wit | donkere jassen, folie op donkere ruiten |
-| Tegel (kobalt met witte "oo") | favicon, apple-icon, socialprofielen, WhatsApp-profiel, borst van het hesje |
-| Met beschrijver (lockup) | footer, e-mail, offertes, OG-afbeelding, bus |
+| Icoon (kobalt tegel met wit beeldmerk) | favicon, apple-icon, app-iconen van het beheer, socialprofielen, WhatsApp-profiel, borst van het hesje |
+| Met beschrijver (lockup) | footer, e-mail, offertes, bus |
+| Gestapeld | vierkante plekken: `public/brand/logo.png`, profielbeelden met naam, drukwerk |
+
+Op kobalt is alles wit, ook de sikkel. Een sikkel in de lichte tint `#DCE1FF` leest op kleine maten als een drukfout, en de tussenruimtes houden de sikkel al los van de G. De witte tegel met het beeldmerk in kleur bestaat alleen in het overzicht: op 16 px valt de sikkel daar weg en op een donkere tabbalk is het een wit vlak. De kobalt tegel houdt op 16 en 32 px een gesloten, herkenbare G.
 
 **Maten en vrije ruimte.**
-- Woordmerk minimaal 24 px hoog op scherm (circa 81 px breed), in druk 8 mm.
-- Lockup met beschrijver minimaal 44 px hoog op scherm (beschrijver dan ongeveer 10,5 px), in druk 15 mm.
-- Losse "oo" minimaal 24 px breed; tegel minimaal 16 px (alleen favicon), verder 24 px.
-- Vrije ruimte rondom het woordmerk: de hoogte van de "o" (x-hoogte); rondom de tegel: een kwart van de tegelbreedte.
-- Niet doen: de "oo" anders kleuren dan kobalt of de logokleur, het woordmerk vervormen of uitrekken, schaduw of verloop toevoegen, de beschrijver los zetten van het woordmerk, het logo op een foto zonder rustig vlak plaatsen.
+- Horizontaal logo zonder beschrijver minimaal 24 px hoog op scherm (circa 109 px breed), in druk 8 mm.
+- Lockup met beschrijver minimaal 44 px hoog op scherm (beschrijver dan ongeveer 10,5 px, circa 157 px breed), in druk 15 mm.
+- Los beeldmerk minimaal 24 px hoog; tegel minimaal 16 px (alleen favicon), verder 24 px.
+- Vrije ruimte rondom het logo: de hoogte van de "o" (x-hoogte); rondom het losse beeldmerk en de tegel: een kwart van de breedte.
+- Niet doen: het beeldmerk hertekenen, spiegelen of draaien, de delen losmaken of de tussenruimtes dichtzetten, de sikkel anders kleuren dan kobalt of de logokleur, het woordmerk vervormen of uitrekken, schaduw, verloop of reliëf toevoegen, de beschrijver los zetten van het woordmerk, het logo op een foto zonder rustig vlak plaatsen.
 
 **Hesje en bus.**
-- Hesje (EN ISO 20471): borst links de tegel van 50 mm of het woordmerk van 80 mm breed in één kleur nacht; rug het woordmerk met beschrijver van 250 mm breed in één kleur nacht. Nooit over de reflecterende banden, en binnen het maximale bedrukte oppervlak dat de leverancier per klasse opgeeft.
-- Bus (wit): zijkant de lockup in kleur, 600 tot 900 mm breed, met daaronder het domein en het hoofdnummer in Onest Medium; achterkant het woordmerk en het nummer. Optioneel één kobaltband van 150 mm onderlangs. De foliekleur voor `#2741C9` wordt met een proef bepaald.
+- Hesje (EN ISO 20471): borst links de tegel van 50 mm of het horizontale logo van 80 mm breed in één kleur nacht; rug de lockup met beschrijver van 250 mm breed in één kleur nacht. Nooit over de reflecterende banden, en binnen het maximale bedrukte oppervlak dat de leverancier per klasse opgeeft.
+- Bus (wit): zijkant de lockup in kleur, 600 tot 900 mm breed, met daaronder het domein en het hoofdnummer in Onest Medium; achterkant het horizontale logo en het nummer. Optioneel één kobaltband van 150 mm onderlangs. De foliekleur voor `#2741C9` wordt met een proef bepaald.
 
-**Implementatie** (stap 2):
-1. `components/brand/logo-paths.json`: gegenereerd uit `concept-3.svg` met `node scripts/extract-logo.mjs` (bron hieronder). Velden: `wordmark { viewBox: "0 0 123.72 36.75", transform, grs, oo }`, `lockup { viewBox: "0 0 125.33 52.08", descriptorTransform, descriptor }`, `mark { viewBox: "0 0 48 48", transform, oo }`, `tile { viewBox: "0 0 48 48", rx: 12, transform, oo }`.
+**Implementatie.**
+1. `components/brand/logo-paths.json`: gegenereerd uit de vier bronbestanden met `node scripts/extract-logo.mjs`. Velden: `mark { viewBox: "0 0 90.55 100", g, crescent }`, `wordmark { transform, grs, oo }`, `descriptor { transform, d }`, `horizontal { wordmark, lockup }` en `stacked { wordmark, lockup }` met elk `{ viewBox, mark, text }` (de twee `transform`-waarden van beeldmerk en tekstblok), en `tile { viewBox: "0 0 48 48", rx: 12, mark }`. De opbouw zonder beschrijver leidt het script af met de regels uit de tabel hierboven.
 2. `components/brand/logo.tsx` (S):
 
 ```ts
 type LogoProps = {
-  variant?: "wordmark" | "lockup";   // standaard "wordmark"
-  tone?: "brand" | "mono";           // brand: "gr s" in currentColor, "oo" in fill-brand; mono: alles currentColor
-  className?: string;                // hoogte via h-*, breedte volgt (w-auto)
-  title?: string;                    // standaard contact.shortName
-  decorative?: boolean;              // true: aria-hidden, voor een logo in een link met eigen aria-label
+  variant?: "wordmark" | "lockup";     // standaard "wordmark"; "lockup" zet de beschrijver eronder
+  layout?: "horizontal" | "stacked";   // standaard "horizontal": beeldmerk links; "stacked": beeldmerk boven
+  tone?: "brand" | "mono";             // brand: sikkel en "oo" in fill-brand, de rest currentColor; mono: alles currentColor
+  className?: string;                  // hoogte via h-*, breedte volgt (w-auto)
+  title?: string;                      // standaard contact.shortName
+  decorative?: boolean;                // true: aria-hidden, voor een logo in een link met eigen aria-label
 };
 ```
 
-Rendert `<svg viewBox=… role="img" aria-label={title} focusable="false" className={cn("h-7 w-auto shrink-0 text-foreground", className)}>` met een `<g transform={wordmark.transform}>` en twee paden (`fill-current` en `fill-brand` of `fill-current`), en bij `lockup` een tweede groep met de beschrijver (`fill-muted-foreground` of `fill-current`). Binnen `.surface-brand` wordt het logo vanzelf wit, omdat `--brand` daar wit is en de tekstkleur ook.
+Rendert `<svg viewBox=… role="img" aria-label={title} focusable="false" className={cn("h-7 w-auto shrink-0 text-foreground", className)}>` met een groep voor het beeldmerk (de G `fill-current`, de sikkel `fill-brand` of `fill-current`) en een groep voor het tekstblok (woordmerk, en bij `lockup` de beschrijver in `fill-muted-foreground` of `fill-current`). Binnen `.surface-brand` wordt het logo vanzelf wit, omdat `--brand` daar wit is en de tekstkleur ook. Elk logo bevat het beeldmerk; een woordmerk zonder beeldmerk bestaat niet.
 
-3. `components/brand/logo-mark.tsx` (S): `LogoMark({ variant?: "oo" | "tile"; className?; title?; decorative? })`. `oo`: één pad `fill-current` (standaard `text-brand`); `tile`: `<rect rx="12" className="fill-current">` plus de "oo" in `fill-background`.
-4. Compatibiliteit: `components/brand/wordmark.tsx` houdt `Wordmark({ className?, idSuffix?, showDescriptor? })`, rendert `<Logo variant={showDescriptor ? "lockup" : "wordmark"} decorative />` en heeft nu `showDescriptor = false` als standaard (header zonder beschrijver, footer met `showDescriptor`). `components/brand/monogram.tsx` houdt `Monogram({ className?, idSuffix?, title? })` en rendert `<LogoMark variant="oo" />`. Beide wrappers blijven zolang andere specs ze aanroepen.
-5. `scripts/brand-assets.mjs` maakt met `sharp` (nieuwe devDependency `sharp@^0.35.5`, dezelfde versie die Next al meebrengt) uit `logo-paths.json` en de kleuren uit `lib/brand.ts`, die het leest met dezelfde reguliere expressie als `check-contrast.mjs` (een `.mjs`-script kan `lib/brand.ts` in deze repo niet importeren, omdat Node `.ts` hier als CommonJS behandelt; getest op 2 oktober 2026): `public/brand/logo.png` (512 bij 512, wit, woordmerk in kleur gecentreerd op 384 px breed; voor `site.logo` en `organizationLd`), `public/brand/logo-email.png` (480 bij 200, wit, lockup in kleur met 24 px marge; voor spec 11, weergave op 160 px breed), `public/brand/logo.svg` (lockup in kleur) en `public/brand/logo-mark.svg` (tegel met uitgespaarde "oo" via een masker). Draaien met `node scripts/brand-assets.mjs`; de PNG's worden gecommit.
-6. `app/icon.tsx` (64 bij 64) en `app/apple-icon.tsx` (180 bij 180) met `ImageResponse` uit `next/og`: een `<div style={{ display: "flex" }}>` met een `<img>` van een SVG-data-URI, opgebouwd uit `logo-paths.json` (`tile`) en `brand.colors.brand`. Favicon: kobalt tegel met hoekstraal 12/48 en witte "oo"; apple-icon: volle kobalt vierkant zonder hoekstraal (iOS rondt zelf af) met de witte "oo" op 70 % breedte. Geen `app/icon.png` of `favicon.ico` ernaast.
+3. `components/brand/logo-mark.tsx` (S): `LogoMark({ variant?: "mark" | "tile"; tone?: "brand" | "mono"; className?; title?; decorative? })`. `mark`: de G `fill-current` (standaard `text-foreground`) en de sikkel `fill-brand`; `tile`: `<rect rx="12" className="fill-current">` (standaard `text-brand`) met het beeldmerk in `fill-background`.
+4. Compatibiliteit: `components/brand/wordmark.tsx` houdt `Wordmark({ className?, idSuffix?, showDescriptor? })`, rendert `<Logo variant={showDescriptor ? "lockup" : "wordmark"} decorative />` en heeft `showDescriptor = false` als standaard (header zonder beschrijver, footer met `showDescriptor`). `components/brand/monogram.tsx` houdt `Monogram({ className?, idSuffix?, title? })` en rendert `<LogoMark variant="mark" />`. Beide wrappers blijven zolang andere specs ze aanroepen.
+5. `scripts/brand-assets.mjs` maakt met `sharp` (devDependency `sharp@^0.35.5`, dezelfde versie die Next al meebrengt) uit `logo-paths.json` en de kleuren uit `lib/brand.ts`, die het leest met dezelfde reguliere expressie als `check-contrast.mjs` (een `.mjs`-script kan `lib/brand.ts` in deze repo niet importeren, omdat Node `.ts` hier als CommonJS behandelt): `public/brand/logo.png` (512 bij 512, wit, gestapelde lockup in kleur gecentreerd op 352 px breed; voor `site.logo` en `organizationLd`), `public/brand/logo-email.png` (480 bij 200, wit, horizontale lockup in kleur met 24 px marge; voor spec 11, weergave op 160 px breed), `public/brand/logo.svg` (horizontale lockup in kleur), `public/brand/logo-mark.svg` (kobalt tegel met wit beeldmerk) en het overzicht `docs/specs/assets/logo/overzicht.svg` en `overzicht.png`. Draaien met `node scripts/brand-assets.mjs`; de bestanden worden gecommit.
+6. `components/brand/logo-svg.ts` levert de SVG-data-URI's voor plekken zonder CSS: `tileDataUri({ rounded? })`, `markDataUri({ g?, crescent? })`, `logoDataUri()` en de verhoudingen `markRatio` en `logoRatio`. `app/icon.tsx` (64 bij 64) en `app/apple-icon.tsx` (180 bij 180) gebruiken `tileDataUri` in een `ImageResponse` uit `next/og`. Favicon: kobalt tegel met hoekstraal 12/48 en het witte beeldmerk; apple-icon: volle kobalt vierkant zonder hoekstraal (iOS rondt zelf af). `app/beheer/icon.tsx` zet het witte beeldmerk op 60 procent van een kobalt vlak (192 en 512, maskable). Geen `app/icon.png` of `favicon.ico` ernaast.
+7. Het beeldmerk wijzigen: alleen de paden `mark-g` en `mark-crescent` in `logo-mark.svg` aanpassen (en in de drie andere bronbestanden, die dezelfde paden bevatten), daarna `node scripts/extract-logo.mjs` en `node scripts/brand-assets.mjs`.
 
-`scripts/extract-logo.mjs` (getest op `concept-3.svg`; draaien vanuit de repo-root):
-
-```js
-// Eenmalig: haalt de paden van concept 3 uit docs/specs/assets/logo/concept-3.svg
-// en schrijft components/brand/logo-paths.json. Gebruik: node scripts/extract-logo.mjs
-import { readFileSync, writeFileSync } from "node:fs";
-
-const root = process.argv[2] ?? ".";
-const svg = readFileSync(`${root}/docs/specs/assets/logo/concept-3.svg`, "utf8");
-const group = (id) => svg.match(new RegExp(`<g id="${id}"( transform="([^"]+)")?>([\\s\\S]*?)</g>(?=<g id=|\\n</svg>)`));
-const paths = (s) => [...s.matchAll(/<path(?: transform="([^"]+)")? d="([^"]+)"/g)].map((m) => ({ transform: m[1], d: m[2] }));
-
-const word = group("c3-wordmark");
-const desc = group("c3-descriptor");
-const tile = group("c3-mark-tile");
-const mark = group("c3-mark");
-const [grs, oo] = paths(word[3]);
-const out = {
-  source: "docs/specs/assets/logo/concept-3.svg",
-  wordmark: { viewBox: "0 0 123.72 36.75", transform: word[2], grs: grs.d, oo: oo.d },
-  lockup: { viewBox: "0 0 125.33 52.08", descriptorTransform: desc[2], descriptor: paths(desc[3])[0].d },
-  mark: { viewBox: "0 0 48 48", transform: paths(mark[3])[0].transform, oo: paths(mark[3])[0].d },
-  tile: { viewBox: "0 0 48 48", rx: 12, transform: paths(tile[3])[0].transform, oo: paths(tile[3])[0].d },
-};
-writeFileSync(`${root}/components/brand/logo-paths.json`, JSON.stringify(out, null, 2) + "\n");
-console.log("logo-paths.json geschreven", Object.fromEntries(Object.entries(out).map(([k, v]) => [k, typeof v === "string" ? v : Object.keys(v)])));
-```
 
 ### 4.12 Fonts voor de OG-afbeelding
 
-- Opmaak en bouw van de OG-afbeelding: zie spec 12 §4.6 (eigenaar OG-afbeeldingen); het woordmerk komt als SVG uit `components/brand/logo-paths.json`.
+- Opmaak en bouw van de OG-afbeelding: zie spec 12 §4.6 (eigenaar OG-afbeeldingen); het logo komt als SVG uit `components/brand/logo-svg.ts` (`logoDataUri`).
 - De fonts blijven van deze spec en staan in `assets/fonts/` (statische TTF, OFL): `assets/fonts/InstrumentSans-SemiBold.ttf`, `assets/fonts/Onest-Regular.ttf` en `assets/fonts/Onest-Medium.ttf`. Het script zet ook `assets/fonts/OFL.txt` neer, met de licentietekst van beide families. Ophalen (stap 2):
 
 ```bash
@@ -1441,7 +1430,7 @@ export function cn(...inputs: ClassValue[]) {
 8. **21st.dev.** Spawn de sub-agents uit §9 en wacht op hun voorstellen voordat je primitives afmaakt.
 9. **shadcn.** `npx shadcn@latest add input textarea native-select card table skeleton`. Controleer daarna met `git diff app/globals.css` dat de CLI de tokens niet heeft aangepast; zo wel, zet de versie uit §4.2 terug. Controleer dat `package.json` geen nieuwe pakketten kreeg.
 10. **Primitives.** Pas de toegevoegde bestanden aan volgens §4.7 en schrijf `cta-button.tsx` (met `ctaButtonVariants` en `data-slot`), `label.tsx`, `field.tsx`, `checkbox.tsx`, `radio-group.tsx`, `file-input.tsx`, `badge.tsx`, `chip.tsx`, `icon-tile.tsx`, `accordion.tsx`, `alert.tsx`, `photo-slot.tsx`, `sheet.tsx`, `tabs.tsx`, `breadcrumb.tsx`, `pagination.tsx` en `toast.tsx`. Verwijder `components/ui/button.tsx` en `@radix-ui/react-slot` (in lijn met spec 01). Pas `navigation-menu.tsx` en `language-toggle.tsx` alleen in uiterlijk aan.
-11. **Logo.** Kopieer `scripts/extract-logo.mjs` uit §4.11 naar `scripts/`, draai `node scripts/extract-logo.mjs`, schrijf `components/brand/logo.tsx` en `logo-mark.tsx`, en zet `wordmark.tsx` en `monogram.tsx` om naar wrappers (§4.11).
+11. **Logo.** Draai `node scripts/extract-logo.mjs` (§4.11), schrijf `components/brand/logo.tsx` en `logo-mark.tsx`, en zet `wordmark.tsx` en `monogram.tsx` om naar wrappers (§4.11).
 12. **Assets.** Schrijf `scripts/brand-assets.mjs` (§4.11 punt 5) en draai het. Haal de fonts en `OFL.txt` op voor `assets/fonts/` (§4.12).
 13. **Iconen.** Herschrijf `app/icon.tsx` en `app/apple-icon.tsx` (§4.11 punt 6).
 14. **Migratie van bestaande componenten.** Voer de tabel uit §4.6 uit. Daarna geven deze zoekopdrachten niets meer: `grep -rn "hsl(var(" app components lib` en `grep -rnE "glass-panel|spotlight|bg-grid|logo-mono|blend-top|hairline|animate-glow-pulse" app components`. `SectionHeading` krijgt `text-h2` voor de kop en `text-lead text-muted-foreground max-w-[60ch]` voor de intro, met gelijke props.
@@ -1468,7 +1457,7 @@ Afhankelijkheden: spec 01 neemt `lib/fonts.ts`, `Wordmark`, `CtaButton`, `naviga
 | AC-02-09 | Op `/` bij 1280 px staat in de header een `svg` met `role="img"` of een link met `aria-label` rond een decoratieve `svg`; de `svg` is 28 px hoog, bij 390 px 26 px; er is een pad met de klasse `fill-brand`. | E-02-12, E-02-13, E-02-15 |
 | AC-02-10 | Op `/stijlgids` hebben alle paden van het logo binnen `.surface-brand` een berekende `fill` van `rgb(255, 255, 255)`, en het logo met `tone="mono"` heeft alleen paden in `currentColor`. | E-02-12, E-02-13 |
 | AC-02-11 | `public/brand/logo.png` is een PNG van 512 bij 512, `public/brand/logo-email.png` een PNG van 480 bij 200 (gemeten met `sharp(...).metadata()`), en `public/brand/logo.svg` en `logo-mark.svg` bestaan; `npm run check -- --warn` meldt geen ontbrekend logo. | E-02-13 |
-| AC-02-12 | `GET /icon` geeft 200 met `content-type: image/png` en 64 bij 64 px; `GET /apple-icon` 200 en 180 bij 180 px; beide tonen een kobalt vlak met een witte "oo". | E-02-13 |
+| AC-02-12 | `GET /icon` geeft 200 met `content-type: image/png` en 64 bij 64 px; `GET /apple-icon` 200 en 180 bij 180 px; beide tonen een kobalt vlak met het witte beeldmerk. | E-02-13 |
 | AC-02-13 | Op `/stijlgids`: na Tab naar de eerste `CtaButton` is de berekende `outline` `2px solid rgb(39, 65, 201)` met `outline-offset` `2px`; na focus in een `Input` is `border-color` `rgb(39, 65, 201)`. | E-02-05 |
 | AC-02-14 | Op `/stijlgids` bij 390 px is elk element met `data-slot="cta-button"`, elke `input` (behalve checkbox, radio en `sr-only`), elke `textarea`, elke `select`, elke chip, paginalink, `RadioCard` en elk label van `CheckboxField` minstens 44 px hoog. | E-02-05, E-02-07 |
 | AC-02-15 | Met JavaScript uit (`javaScriptEnabled: false`) kan op `/stijlgids` het demoformulier een keuzevak aanvinken, een `RadioCard` kiezen, een optie in `NativeSelect` kiezen en versturen; de gekozen waarden staan daarna in de query van de URL. | E-02-08 |
@@ -1477,7 +1466,7 @@ Afhankelijkheden: spec 01 neemt `lib/fonts.ts`, `Wordmark`, `CtaButton`, `naviga
 | AC-02-18 | Na `npm run build && npm start` geeft `GET /stijlgids` een 404; met `npm run dev` geeft hij 200 met `<meta name="robots" content="noindex, nofollow">`. | E-02-07 |
 | AC-02-19 | Bij 390 px is de header 64 px hoog, de menuknop 44 bij 44 px, zijn de knoppen van de actiebalk 48 px hoog en hebben de footerlinks een hoogte van minstens 44 px; de footer heeft `background-color` `rgb(245, 246, 250)`. | E-02-15 |
 | AC-02-20 | `docs/21st-keuzes.md` heeft een sectie "Spec 02" met per plek uit §9 de kandidaten (id, naam, preview-URL), de keuze en de aanpassingen, en er zijn hooguit twee `get_component`-aanroepen gedaan. | E-02-16 |
-| AC-02-21 | `docs/specs/assets/logo/concept-1.svg`, `concept-2.svg`, `concept-3.svg` en `preview.svg` bestaan en zijn geldige XML; `components/brand/logo-paths.json` heeft als `source` `docs/specs/assets/logo/concept-3.svg`. | E-02-12 |
+| AC-02-21 | `docs/specs/assets/logo/logo-mark.svg`, `logo-horizontaal.svg`, `logo-gestapeld.svg`, `icoon.svg` en `overzicht.svg` bestaan en zijn geldige XML, `overzicht.png` bestaat, en er staan geen andere logo-ontwerpen in die map; `components/brand/logo-paths.json` noemt de vier bronbestanden als `source` en `node scripts/extract-logo.mjs` laat het bestand ongewijzigd. | E-02-12 |
 | AC-02-22 | `assets/fonts/InstrumentSans-SemiBold.ttf`, `Onest-Regular.ttf` en `Onest-Medium.ttf` bestaan, elk kleiner dan 100 kB, en `assets/fonts/OFL.txt` bestaat. | E-02-14 |
 | AC-02-23 | Op `/stijlgids` staan zes badges in de tonen neutral, brand, info, success, warning en danger, elk met een tekstlabel; de tabel van §4.7 voor statusbadges is in spec 08 overgenomen (kruiscontrole). | E-02-18 |
 | AC-02-24 | Lighthouse mobiel op de productiebuild van `/` na stap 4: Cumulative Layout Shift 0,05 of lager, en geen verzoek naar `fonts.googleapis.com` of `fonts.gstatic.com` vanuit de browser. | E-02-04, E-02-11 |
@@ -1490,7 +1479,7 @@ Afhankelijkheden: spec 01 neemt `lib/fonts.ts`, `Wordmark`, `CtaButton`, `naviga
 |---|---|---|---|
 | Merkrichting (B-01) | Wit met kobalt, richting C zonder limoen. | Jimmy en Lorenzo via Djulan | Alleen tokens in `app/globals.css`, `lib/brand.ts`, fonts en logo wijzigen. |
 | Tint van het blauw | `#2741C9` in plaats van `#3340E0` (rustiger, 7,82:1). | Djulan | Eén token en één hexwaarde; het contrastscript toetst opnieuw. |
-| Logo | Concept 3 "Samen" (B-59); woordmerk in kleine letters. | Jimmy en Lorenzo via Djulan | Bij concept 1 of 2: `logo-paths.json` opnieuw genereren uit dat bestand (zelfde opzet), `LogoMark` krijgt het andere beeldmerk; in `scripts/extract-logo.mjs` het bronpad naar `concept-1.svg` of `concept-2.svg` zetten, `node scripts/extract-logo.mjs` en `node scripts/brand-assets.mjs` draaien; AC-02-21 krijgt de andere `source`. |
+| Logo | Besloten (B-61): het beeldmerk van de klant, één op één en vlak, met het woordmerk in het lettertype van de site. | Jimmy en Lorenzo via Djulan | Een wijziging van het beeldmerk: de paden in `docs/specs/assets/logo/logo-mark.svg` en de drie andere bronbestanden aanpassen, daarna `node scripts/extract-logo.mjs` en `node scripts/brand-assets.mjs` draaien. |
 | Merkrecht | Geen onderzoek gedaan; context/12 §4.3 noemt naamgenoten. | Jimmy (specialist BOIP en EUIPO, klasse 35) | Vóór belettering van bus en hesjes laten toetsen. |
 | Druk en folie | Pantone en foliekleur voor `#2741C9` volgen uit een proef. | Jimmy | Geen gevolg voor de site. |
 | Nieuwe pakketten (B-37) | `tw-animate-css` 1.4 en devDependency `sharp` 0.35.5 zijn nodig en hier vermeld; geen `radix-ui`, `sonner` of `next-themes`. | Djulan | Zonder `sharp`: PNG's eenmalig met de hand maken. |

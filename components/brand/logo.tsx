@@ -3,9 +3,11 @@ import { cn } from "@/lib/utils";
 import paths from "./logo-paths.json";
 
 type LogoProps = {
-  /** "wordmark" (standaard) of "lockup" met de beschrijver eronder. */
+  /** "wordmark" (standaard): beeldmerk met "groos"; "lockup": met de beschrijver eronder. */
   variant?: "wordmark" | "lockup";
-  /** brand: "gr s" in currentColor en "oo" in kobalt; mono: alles currentColor. */
+  /** "horizontal" (standaard): beeldmerk links; "stacked": beeldmerk boven het woordmerk. */
+  layout?: "horizontal" | "stacked";
+  /** brand: sikkel en "oo" in kobalt, de rest in currentColor; mono: alles currentColor. */
   tone?: "brand" | "mono";
   /** Hoogte via h-*, de breedte volgt. */
   className?: string;
@@ -15,21 +17,25 @@ type LogoProps = {
 };
 
 /**
- * Logo van Groos, concept 3 "Samen" (spec 02 §4.11): het woordmerk "groos"
- * waarin de twee o's één stam delen. Inline SVG; binnen .surface-brand wordt
- * het vanzelf wit, omdat --brand en de tekstkleur daar wit zijn.
+ * Logo van Groos (spec 02 §4.11): het beeldmerk van de klant, een G in drie
+ * delen met een sikkel links, naast of boven het woordmerk "groos". Inline
+ * SVG; binnen .surface-brand wordt het vanzelf wit, omdat --brand en de
+ * tekstkleur daar wit zijn.
  */
 export function Logo({
   variant = "wordmark",
+  layout = "horizontal",
   tone = "brand",
   className,
   title = contact.shortName,
   decorative = false,
 }: LogoProps) {
   const lockup = variant === "lockup";
+  const box = paths[layout][variant];
+  const accent = tone === "brand" ? "fill-brand" : "fill-current";
   return (
     <svg
-      viewBox={lockup ? paths.lockup.viewBox : paths.wordmark.viewBox}
+      viewBox={box.viewBox}
       role={decorative ? undefined : "img"}
       aria-label={decorative ? undefined : title}
       aria-hidden={decorative ? true : undefined}
@@ -37,18 +43,24 @@ export function Logo({
       data-slot="logo"
       className={cn("h-7 w-auto shrink-0 text-foreground", className)}
     >
-      <g transform={paths.wordmark.transform}>
-        <path className="fill-current" d={paths.wordmark.grs} />
-        <path className={tone === "brand" ? "fill-brand" : "fill-current"} d={paths.wordmark.oo} />
+      <g transform={box.mark}>
+        <path className="fill-current" d={paths.mark.g} />
+        <path className={accent} d={paths.mark.crescent} />
       </g>
-      {lockup && (
-        <g transform={paths.lockup.descriptorTransform}>
-          <path
-            className={tone === "brand" ? "fill-muted-foreground in-[.surface-brand]:fill-current" : "fill-current"}
-            d={paths.lockup.descriptor}
-          />
+      <g transform={box.text}>
+        <g transform={paths.wordmark.transform}>
+          <path className="fill-current" d={paths.wordmark.grs} />
+          <path className={accent} d={paths.wordmark.oo} />
         </g>
-      )}
+        {lockup && (
+          <g transform={paths.descriptor.transform}>
+            <path
+              className={tone === "brand" ? "fill-muted-foreground in-[.surface-brand]:fill-current" : "fill-current"}
+              d={paths.descriptor.d}
+            />
+          </g>
+        )}
+      </g>
     </svg>
   );
 }

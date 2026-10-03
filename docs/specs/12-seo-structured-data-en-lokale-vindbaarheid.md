@@ -107,7 +107,7 @@ OG-afbeeldingen).
 | `lib/seo.ts` | pure helpers en builders | herschreven (§4.2 tot en met §4.5) | alle pagina's, 01 (`Breadcrumbs`, layout), 04 tot en met 09 |
 | `lib/og.tsx` | gedeelde opmaak, fonts en kleuren voor `ImageResponse` | nieuw (§4.6) | alle OG-routes |
 | `assets/fonts/InstrumentSans-SemiBold.ttf`, `assets/fonts/Onest-Regular.ttf`, `assets/fonts/Onest-Medium.ttf`, `assets/fonts/OFL.txt` | fontbestanden (statische TTF) en licentie | bestaand, geleverd door spec 02 in bouwstap 2; deze spec leest ze alleen | `lib/og.tsx` |
-| `components/brand/logo-paths.json` | logopaden en viewBoxen | bestaand, geleverd door spec 02; deze spec leest `wordmark` | `lib/og.tsx` |
+| `components/brand/logo-paths.json` | logopaden en viewBoxen | bestaand, geleverd door spec 02; deze spec leest het logo via `logoDataUri()` uit `components/brand/logo-svg.ts` | `lib/og.tsx` |
 | `app/opengraph-image.tsx` | site-brede OG-afbeelding | herschreven | alle pagina's zonder eigen beeld |
 | `app/twitter-image.tsx` | hergebruikt de OG-afbeelding | ongewijzigd | idem |
 | `app/[locale]/vacatures/[slug]/opengraph-image.tsx` en `twitter-image.tsx` | OG per vacature | nieuw | spec 06 |
@@ -423,10 +423,10 @@ export const OG_COLORS = {
 export function loadOgFonts(): Promise<NonNullable<ConstructorParameters<typeof ImageResponse>[1]>["fonts"]>;
 
 /**
- * Woordmerk in kleur als SVG-data-URI, opgebouwd uit components/brand/logo-paths.json (wordmark,
- * spec 02): "gr" en "s" in OG_COLORS.ink, "oo" in OG_COLORS.accent. Vervangt loadLogoDataUri met logo.png.
+ * Logo in kleur als SVG-data-URI (beeldmerk links, woordmerk rechts, zonder beschrijver), opgebouwd
+ * uit components/brand/logo-paths.json (spec 02 §4.11, B-61). Vervangt loadLogoDataUri met logo.png.
  */
-export function wordmarkDataUri(): string;
+export function logoDataUri(): string;
 
 export type OgCardProps = {
   /** Klein label boven de kop, bijvoorbeeld "Vacature" of "Werkgevers". Geen hoofdletters. */
@@ -448,7 +448,7 @@ Opmaak van `OgCard` (inline styles, want `ImageResponse` ondersteunt geen
 Tailwind-klassen uit de app):
 
 - Achtergrond `OG_COLORS.canvas` (wit), binnenmarge 72 px. Links een verticale balk van 12 px breed over de volle hoogte in `OG_COLORS.accent` (kobalt, B-01). Geen verlopen, geen glans, geen raster (B-29).
-- Bovenaan het woordmerk in kleur als `<img>` met de SVG-data-URI van `wordmarkDataUri()` (uit `components/brand/logo-paths.json`), 48 px hoog en ongeveer 162 px breed (viewBox 123,72 bij 36,75), zonder losse naamtekst ernaast.
+- Bovenaan het logo in kleur (beeldmerk met woordmerk) als `<img>` met de SVG-data-URI van `logoDataUri()` (uit `components/brand/logo-svg.ts`), 48 px hoog en ongeveer 217 px breed (viewBox 166,18 bij 36,75), zonder losse naamtekst ernaast.
 - Daaronder, bij `label`, het label in Onest 500, 28 px, kleur `accent`, gewone hoofdletters (spec 03: geen `uppercase`).
 - De kop in Instrument Sans 600, kleur `ink`, regelafstand 1,1, hoogstens drie regels: 76 px tot 28 tekens, 64 px tot 44 tekens, anders 56 px. Langer dan 90 tekens wordt afgekapt met een beletselteken.
 - `lines` in Onest 400, 34 px, kleur `muted`. `highlight` als pil met achtergrond `accentSoft` (ijs) en tekst `accent`, Onest 500, 34 px.
@@ -620,7 +620,7 @@ de registers van spec 01 en 09.
 | `site`, `contact`, `socials` uit `lib/site.ts` | alle builders, NAP | 01 |
 | `STATIC_ROUTES`, `BEROEP_ROUTE_META`, `paths`, `routeMeta` uit `lib/routes.ts`; `beroepen` uit `content/beroepen/index.ts` | sitemap, llms.txt | 01 |
 | `LEGAL_DOCS`, `publishedLegalDocs()` uit `lib/legal.ts` | sitemap, llms.txt | 09 |
-| `brand.colors` uit `lib/brand.ts`, `wordmark` uit `components/brand/logo-paths.json`, fonts in `assets/fonts/` | OG | 02 |
+| `brand.colors` uit `lib/brand.ts`, `logoDataUri()` uit `components/brand/logo-svg.ts`, fonts in `assets/fonts/` | OG | 02 |
 | `public/brand/logo.png` (`site.logo`) | `logo` in `organizationLd`, `employmentAgencyLd` en `hiringOrganization` | 02 |
 | `isClaimConfirmed("workArea")` uit `lib/claims.ts` | `areaServed` in `employmentAgencyLd` en `serviceLd` (B-43) | 03 |
 | `displayCity(city, locale)`, `getVacancySeoParts(vacancy, locale)` en `todayInAmsterdam()` uit `components/vacatures/vacancy-format.ts` | plaatsnaam in de vacature-OG; de pagina geeft `city`, `hours`, `wage` en `startDate` aan `vacancyMetadata` en `[hours, wage, start]` als `facts` aan `jobPostingLd` | 06 |
@@ -1136,7 +1136,7 @@ direct na `npm run db:seed:reset` (B-46).
 | Spec 14 en `/vacatures?pagina=2` | Met zes seedvacatures en 12 per pagina is pagina 2 een 404 (spec 10 `outOfRange`). Deze spec toetst de paginering daarom met een unit-test (AC-12-21). Spec 14 §7.3 test `/vacatures?pagina=2` als pagina; dat vraagt meer seedvacatures of een kleinere paginagrootte in de test. | kruiscontrole, spec 14 | Geen wijziging hier. |
 | OG-beeld voor `/en` | De site-brede OG-afbeelding is Nederlands en wordt ook op `/en` gebruikt; een tweede site-brede route zou het pad `/opengraph-image` veranderen waar spec 13 en 14 op testen. Beroeps- en vacaturebeelden zijn wel per taal. | Djulan | `generateImageMetadata` met `nl` en `en`; dan wijzigen de URL's en de checks van spec 13 en 14. |
 | Kleurrollen OG | `OG_COLORS` koppelt de rollen aan `brand.colors` van spec 02: canvas `background`, ink `foreground`, muted `muted`, accent `accent`, accentSoft `brandTint`, onAccent `background` (§4.6). | spec 02 | Alleen de koppeling in `lib/og.tsx`. |
-| Logo in OG | Het woordmerk in kleur als SVG-data-URI uit `components/brand/logo-paths.json` (spec 02), 48 px hoog, zonder losse naamtekst; `wordmarkDataUri()` vervangt `loadLogoDataUri` met `logo.png`. `public/brand/logo.png` blijft alleen voor `site.logo` in JSON-LD. | spec 02 | Ander logoconcept: spec 02 genereert `logo-paths.json` opnieuw; `wordmarkDataUri` blijft gelijk. |
+| Logo in OG | Het logo in kleur (beeldmerk met woordmerk, B-61) als SVG-data-URI uit `components/brand/logo-svg.ts` (spec 02), 48 px hoog, zonder losse naamtekst; `logoDataUri()` vervangt `loadLogoDataUri` met `logo.png`. `public/brand/logo.png` blijft alleen voor `site.logo` in JSON-LD. | spec 02 | Een gewijzigd beeldmerk: spec 02 genereert `logo-paths.json` opnieuw; `logoDataUri` blijft gelijk. |
 | Fonts | Gesloten in de kruiscontrole (ronde 1): `loadOgFonts` leest `assets/fonts/InstrumentSans-SemiBold.ttf`, `assets/fonts/Onest-Regular.ttf` en `assets/fonts/Onest-Medium.ttf` van spec 02; spec 02 levert ook `assets/fonts/OFL.txt`. `assets/og/` en het eigen downloadscript vervallen. | gesloten (spec 02) | Andere fonts in spec 02: alleen de bestandsnamen in `loadOgFonts`. |
 | Sleutels in andere namespaces | Deze spec leest `vacatures.meta.*`, `vacatures.og.*`, `vacatures.detail.sections.*`, `vacatures.detail.minAge.*` (spec 06) en `beroepen.og.*` met `{occupation}` en `{occupationPlural}` (spec 05); de tekst staat alleen bij de eigenaar (§6.4). | spec 05, spec 06 | Andere namen: alleen `VacancyMetaKey`, de OG-routes en de aanroep van `jobPostingLd`. |
 | `lib/legal.ts` | Gesloten in de kruiscontrole (ronde 1, B-40): `published` komt voor alle vaste routes uit `STATIC_ROUTES`; voor de juridische routes leest `lib/routes.ts` die waarde uit `lib/legal.ts`. De sitemap leest alleen `STATIC_ROUTES` (plus `updatedAt` uit `LEGAL_DOCS`), `llms.txt` `publishedLegalDocs()`. | gesloten (B-40) | Geen; alleen de import in `lib/routes.ts` (spec 01). |

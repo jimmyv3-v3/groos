@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og";
 import { brand } from "@/lib/brand";
 import { OG_SIZE } from "@/lib/seo";
 import { site } from "@/lib/site";
-import { wordmarkDataUri, wordmarkRatio } from "@/components/brand/logo-svg";
+import { logoDataUri, logoRatio } from "@/components/brand/logo-svg";
 
 /**
  * Gedeelde opmaak, fonts en kleuren voor alle OG-afbeeldingen (spec 12 §4.6).
@@ -14,7 +14,7 @@ import { wordmarkDataUri, wordmarkRatio } from "@/components/brand/logo-svg";
  */
 
 export const OG_CONTENT_TYPE = "image/png";
-export { OG_SIZE, wordmarkDataUri };
+export { OG_SIZE, logoDataUri };
 
 /** Kleurrollen voor de OG-afbeeldingen; waarden komen uit lib/brand.ts (spec 02), nooit hex hier. */
 export const OG_COLORS = {
@@ -60,7 +60,7 @@ export type OgCardProps = {
 
 const DEFAULT_FOOTER = new URL(site.url).hostname.replace(/^www\./, "");
 const TITLE_MAX = 90;
-const WORDMARK_HEIGHT = 48;
+const LOGO_HEIGHT = 48;
 
 function fitTitle(title: string): string {
   return title.length > TITLE_MAX ? `${title.slice(0, TITLE_MAX - 1).trimEnd()}…` : title;
@@ -100,9 +100,9 @@ export async function renderOgCard({
           {/* ImageResponse (Satori) kent alleen <img>, geen next/image. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={wordmarkDataUri()}
-            height={WORDMARK_HEIGHT}
-            width={Math.round(WORDMARK_HEIGHT * wordmarkRatio)}
+            src={logoDataUri()}
+            height={LOGO_HEIGHT}
+            width={Math.round(LOGO_HEIGHT * logoRatio)}
             alt=""
           />
           <div style={{ display: "flex", flexDirection: "column" }}>
