@@ -73,7 +73,7 @@ export async function SiteFooter() {
           </div>
 
           {/* Linkkolommen */}
-          <nav aria-label={t("navLabel")} className="grid gap-10 sm:grid-cols-3 lg:col-span-5 lg:gap-8">
+          <nav id="footermenu" aria-label={t("navLabel")} className="grid scroll-mt-20 gap-10 sm:grid-cols-3 lg:col-span-5 lg:gap-8">
             {model.footerColumns.map((column) => (
               <div key={column.key}>
                 <h2 className={HEADING}>{column.title}</h2>
@@ -120,7 +120,7 @@ export async function SiteFooter() {
               </a>
               {hours && (
                 <p className="mt-2">
-                  {t("openingHours", {
+                  {tc("contact.officeHoursValue", {
                     opens: formatTime(hours.opens, locale as Locale),
                     closes: formatTime(hours.closes, locale as Locale),
                   })}

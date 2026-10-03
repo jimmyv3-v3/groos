@@ -67,6 +67,8 @@ const U_NAMESPACES = new Set(["werkgevers"]);
 /** Uitgezonderd van C-10 (niet van C-09). */
 const ZONE_EXEMPT = ["common.cta", "header.nav", "common.whatsapp"];
 const NO_MARKER = new Set(["header.nav.werkzoekenden", "header.nav.werkgevers"]);
+/** Vaste labels uit de sleutelboom van spec 03 §6.14 die een woord uit lijst B bevatten zonder iets te beloven (C-12). */
+const C12_EXEMPT = new Set(["header.actionBar"]);
 
 function zoneForKey(path) {
   const segments = path.split(/\.|\[\d+\]/).filter(Boolean);
@@ -472,7 +474,9 @@ function checkEntry(entry, stats) {
       }
     }
     // C-12 lijst B, C-13 moeilijke woorden
-    const b = RE_LIST_B_NL.exec(text);
+    // Een vraag beschrijft de wens van de lezer, geen belofte ("Heeft u snel mensen nodig?", B-22).
+    const claimText = sents.filter((x) => !x.trim().endsWith("?")).join(" ");
+    const b = C12_EXEMPT.has(entry.path) ? null : RE_LIST_B_NL.exec(claimText);
     if (b && !/\d/.test(text)) report(entry, "C-12", "warning", `woord "${b[1]}" zonder concreet feit: "${raw}"`);
     const hard = RE_HARD.exec(text);
     if (hard && entry.zone === "je") report(entry, "C-13", "warning", `moeilijk woord "${hard[1]}" in een je-zone: "${raw}"`);

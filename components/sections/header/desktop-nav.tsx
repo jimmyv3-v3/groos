@@ -20,6 +20,8 @@ import {
  * Hoofdmenu vanaf lg (spec 01 §4.4): Vacatures, Werkzoekenden (paneel),
  * Werkgevers (paneel), Over ons, Contact. Panelen in twee kolommen: links de
  * vijf beroepen met icoon, rechts twee of drie acties, zonder beschrijvingen.
+ * Zonder JavaScript (`noscript:`, media query `scripting: none`) zijn
+ * Werkzoekenden en Werkgevers gewone links naar /werkzoekenden en /werkgevers.
  */
 /** Actieve sectie: kleur plus streep onder de tekst (spec 02 §4.13), nooit alleen kleur. */
 const ACTIVE =
@@ -50,7 +52,18 @@ export function DesktopNav({ items, ariaLabel }: { items: ResolvedNavItem[]; ari
           const { panel } = item;
           return (
             <NavigationMenuItem key={item.key}>
-              <NavigationMenuTrigger data-active={active ? "" : undefined} className={ACTIVE}>{item.label}</NavigationMenuTrigger>
+              <NavigationMenuTrigger data-active={active ? "" : undefined} className={cn(ACTIVE, "noscript:hidden")}>
+                {item.label}
+              </NavigationMenuTrigger>
+              {/* Zonder JavaScript opent het paneel niet; dan linkt het menu-item direct naar de doelgroeppagina. */}
+              <Link
+                href={item.href}
+                aria-current={active === "page" ? "page" : undefined}
+                data-active={active ? "" : undefined}
+                className={cn(navigationMenuTriggerStyle(), "relative hidden flex-row noscript:inline-flex", ACTIVE)}
+              >
+                {item.label}
+              </Link>
               <NavigationMenuContent>
                 <div className="grid w-[37rem] grid-cols-[1fr_15.5rem] gap-2">
                   <ul aria-label={panel.beroepenLabel} className="grid content-start gap-0.5 p-1">

@@ -7,7 +7,6 @@
     "register": "Register",
     "requestStaff": "Request staff",
     "call": "Call us",
-    "callDirect": "Call now",
     "callPerson": "Call {name}",
     "whatsapp": "WhatsApp us",
     "whatsappPerson": "WhatsApp {name}",
@@ -48,7 +47,6 @@
   "loading": "Loading",
   "a11y": {
     "callPerson": "Call {name} on {phone}",
-    "whatsappPerson": "Send {name} a WhatsApp message",
     "emailAddress": "Email {email}"
   },
   "contact": {
@@ -64,10 +62,10 @@
   "notes": {
     "freeJobseeker": "Applying and registering with us is free of charge.",
     "cvOptionalJobseeker": "You can also apply without a CV.",
-    "responseJobseeker": "We respond to your application within one working day.",
+    "responseJobseeker": "You will hear from us within one working day.",
     "noObligationEmployer": "Submitting a request places you under no obligation.",
-    "responseEmployer": "We respond to your request within one working day.",
-    "urgentEmployer": "Do you need people today or tomorrow? Then call us directly."
+    "responseEmployer": "You will hear from us within one working day.",
+    "urgentEmployer": "Do you need people at short notice? Then call us directly."
   },
   "labels": {
     "faq": "Frequently asked questions"

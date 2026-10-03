@@ -170,3 +170,26 @@ Previewbasis: `https://21st.dev/` plus het pad.
 | Codeveld (`OtpField`) | 28138 OTP Verification Card (sean0205); 28263 OTP Input Field (sean0205); 29287 OTP field (coss.com); 29246 Two-Factor Authentication Card (diarmuradi) | eigen primitives | nee | één veld met `one-time-code`, `inputMode="numeric"`, plakken toegestaan; vakjeslook alleen via letterafstand en monospace |
 | Koppelen met QR (`MfaEnroll`) | 5751 Enable 2FA Card (ahmedmayara) `ahmedmayara/enable-2fa-card/default/preview.1755731021760.png`; 29246 Two-Factor Authentication Card (diarmuradi) | 5751 als layout, sleutelveld naar 29246 | nee | genummerde `<ol>`, QR via `next/image` met `unoptimized`, sleutel in groepen van vier met kopieerknop en `aria-live` |
 | Wachtwoord (`PasswordResetForm`, `PasswordSetForm`) | 29241 New Password Form (diarmuradi) `diarmuradi/new-password-2/default/preview.1790055859735-5f70af03-ac9f-415e-bcc9-f89edf9f70ea.png`; 28480 Reset Password Card (diarmuradi); 25092 Reset Password Email Link (felipemenezes098) | eigen, 29241 als referentie | nee | vlakke primaire knop, `new-password`, hint met minimaal 12 tekens |
+
+## Spec 01
+
+Uitgevoerd op 3 oktober 2026 in de nazorg van bouwstap 3b door één
+scout-sub-agent voor de vier plekken van spec 01 §9.2 tot en met §9.5: zestien
+`search`-vragen (type component, limit 10) en acht `get_inspiration`-vragen.
+`get_inspiration` gaf weer eerst ongerelateerde bladwijzers en daarna treffers
+die ook uit `search` kwamen. Geen enkele `get_component`-aanroep: de kandidaten
+zijn alleen op metadata en beschrijving beoordeeld en brengen Radix,
+framer-motion, swipe-gebaren, eyebrows of een nieuwsbrief mee. Header, menu,
+actiebalk, footer en randpagina's staan daarom op de eigen primitives
+(base-ui `NavigationMenu`, `Dialog` en `Accordion`, `CtaButton`), binnen het
+uiterlijk van spec 02 §4.13.
+
+Previewbasis: `https://cdn.21st.dev/` plus het pad.
+
+| Plek | Kandidaten (id, naam, auteur, preview) | Keuze | get_component | Aanpassing |
+|---|---|---|---|---|
+| Header met uitklapmenu | 18191 Rich Navigation Menu (shadcnui-blocks) `shadcnui-blocks/navigation-menu-06/default/preview.1784402589357-df36d659-aff3-4089-a586-8cf8af372849.png`; 2307 Navbar 5 (shadcnblockscom) `shadcnblockscom/navbar-5/default/preview.1747815725934.png`; 31509 Navigation Menu (wensity) `user_3JFJF7Mbb5ImA8DO9hE1FECx2fT/navigation-menu/default/preview.1790892336645.webp`; 21220 Centered Nav Header (olewandowski1) `7ovr/centered-nav-header/default/preview.1784732440036-897e2fca-d619-4f29-ba12-df758b1a4ee8.png` | eigen op base-ui `NavigationMenu`; paneelindeling naar 18191, balkverdeling naar 21220 | nee | twee kolommen (iconenlijst en acties) zonder beschrijvingen of beeld; telefoonlink eigen ontwerp; zonder JavaScript gewone links |
+| Mobiel menu | 31359 Dialog (wensity) `user_3JFJF7Mbb5ImA8DO9hE1FECx2fT/dialog/default/preview.1790329305537.webp`; 11312 Accordion (coss.com) `coss.com/coss-accordion/multiple/preview.1774276391759.png`; 19548 Accordion (cnippet-dev) `larsen66/cnippet-accordion/settings/preview.1783974792885.png`; afgevallen 11444 Drawer (coss.com) wegens swipe en snap points | eigen op base-ui `Dialog`, slotpatroon naar 31359, groepen naar 11312 | nee | schermvullend, eigen kopregel met sluitknop, twee knoppen onderaan |
+| Vaste actiebalk | geen bruikbare kandidaat (alleen zwevende knoppen, actierails en tabbalken, vaak met framer-motion) | eigen | nee | twee gelijke `CtaButton`s van 48 px met ruimte voor de safe area |
+| Footer | 21474 Agency Footer (shadcnspace) `shadcnspace/footer-01/default/preview.1784818505149-ed0e668f-bd79-4049-afa0-9f56f7faeba1.png`; 27521 Footer Two (meschacirung) `meschacirung/footer-2/default/preview.1789775015705-f3263de5-a73f-4636-b7fd-ccb3d315965d.png`; 28165 Mega Sitemap Footer (olewandowski1) `7ovr/footer-4/default/preview.1789956852749-bbd62fa6-697d-4627-a79b-8c8d98560314.png`; 2223 Footer 7 (shadcnblockscom) `shadcnblockscom/footer-7/default/preview.1747730843256.png`; afgevallen 33904, 29772, 29773, 19358, 31985 en 27511 wegens groot woordmerk, glas of nieuwsbrief | eigen; inhoud naar 21474, drie kolommen naar 27521, onderbalk met taalknop naar 28165 | nee | contactblok als `<address>` uit `lib/site.ts`; juridische links via `FooterLegal` |
+| 404 en foutpagina | 29344 404 Search And Popular Links (olewandowski1) `7ovr/error-2/default/preview.1790066661168-f86e259a-a0ac-4f7e-92be-ee4f0590d196.png`; 21523 Not Found 404 Page (mohammadshehadeh) `hirael/not-found-01/default/preview.1784798788843-10b9f187-dc6a-433b-a46a-4c9a4c9b112c.png`; 29348 500 Server Error Page (olewandowski1) `7ovr/error-3/default/preview.1790067226699-b8de791b-6677-4113-ab7e-728a13651247.png`; 29364 Error 500 Page (mohammadshehadeh) `hirael/error-01/default/preview.1790069192318-37220e4b-685f-4be6-b5a5-fecb60b41b37.png`; afgevallen 21525, 29427 en 1780 wegens de grote "404" | eigen; linklijst naar 29344, foutpagina naar 29348 | nee | h1, twee zinnen en drie links zonder cijfer of eyebrow; één knop plus het telefoonnummer |

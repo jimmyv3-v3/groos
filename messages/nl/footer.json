@@ -7,6 +7,5 @@
     "groos": "Groos",
     "contact": "Contact"
   },
-  "openingHours": "Maandag tot en met vrijdag van {opens} tot {closes} uur",
   "rights": "© {year} {name}"
 }

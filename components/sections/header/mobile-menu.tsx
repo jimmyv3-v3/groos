@@ -50,10 +50,19 @@ export function MobileMenu({ items, ctas, phone, whatsapp, logo, labels }: Mobil
       <Dialog.Trigger
         aria-label={labels.open}
         data-slot="cta-button"
-        className={ctaButtonVariants({ variant: "ghost", size: "icon", className: "-mr-2 lg:hidden" })}
+        className={ctaButtonVariants({ variant: "ghost", size: "icon", className: "-mr-2 noscript:hidden lg:hidden" })}
       >
         <Menu aria-hidden />
       </Dialog.Trigger>
+      {/* Zonder JavaScript opent het venster niet; de knop springt dan naar het linkoverzicht in de footer. */}
+      <a
+        href="#footermenu"
+        aria-label={labels.open}
+        data-slot="cta-button"
+        className={cn(ctaButtonVariants({ variant: "ghost", size: "icon" }), "-mr-2 hidden noscript:inline-flex lg:noscript:hidden")}
+      >
+        <Menu aria-hidden />
+      </a>
       <Dialog.Portal>
         <Dialog.Popup
           className="fixed inset-0 z-60 flex flex-col bg-background text-foreground outline-hidden transition-[opacity,translate] duration-200 ease-brand data-[ending-style]:-translate-y-2 data-[ending-style]:opacity-0 data-[starting-style]:-translate-y-2 data-[starting-style]:opacity-0 motion-reduce:transition-none motion-reduce:duration-0 lg:hidden"

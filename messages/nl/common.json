@@ -7,7 +7,6 @@
     "register": "Schrijf je in",
     "requestStaff": "Personeel aanvragen",
     "call": "Bel ons",
-    "callDirect": "Bel direct",
     "callPerson": "Bel {name}",
     "whatsapp": "App ons",
     "whatsappPerson": "App {name}",
@@ -48,7 +47,6 @@
   "loading": "Bezig met laden",
   "a11y": {
     "callPerson": "Bel {name} op {phone}",
-    "whatsappPerson": "Stuur {name} een WhatsApp-bericht",
     "emailAddress": "Mail naar {email}"
   },
   "contact": {
@@ -64,10 +62,10 @@
   "notes": {
     "freeJobseeker": "Solliciteren en inschrijven kost je niets.",
     "cvOptionalJobseeker": "Je kunt ook zonder cv solliciteren.",
-    "responseJobseeker": "Wij reageren binnen één werkdag op je sollicitatie.",
+    "responseJobseeker": "Je hoort binnen één werkdag van ons.",
     "noObligationEmployer": "Een aanvraag doen is vrijblijvend.",
-    "responseEmployer": "Wij reageren binnen één werkdag op uw aanvraag.",
-    "urgentEmployer": "Heeft u vandaag of morgen mensen nodig? Bel ons dan direct."
+    "responseEmployer": "U hoort binnen één werkdag van ons.",
+    "urgentEmployer": "Heeft u snel mensen nodig? Bel ons dan direct."
   },
   "labels": {
     "faq": "Veelgestelde vragen"

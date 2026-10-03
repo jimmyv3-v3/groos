@@ -7,6 +7,5 @@
     "groos": "Groos",
     "contact": "Contact"
   },
-  "openingHours": "Monday to Friday from {opens} to {closes}",
   "rights": "© {year} {name}"
 }
