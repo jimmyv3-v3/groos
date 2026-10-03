@@ -97,6 +97,22 @@ function supabaseError(where: string, error: { message: string; code?: string })
   return new Error(`${where}: ${error.message}${error.code ? ` (${error.code})` : ""}`);
 }
 
+/**
+ * Tijdelijke uitzondering op B-56: zolang de migraties niet op het project
+ * staan (PGRST205, tabel of view niet gevonden) gedraagt de data-laag zich als
+ * "niet geconfigureerd" en blijft de site leeg in plaats van te falen. Elke
+ * andere Supabase-fout wordt gewoon gegooid.
+ */
+let warnedNoSchema = false;
+export function isSchemaMissing(error: unknown): boolean {
+  const missing = error instanceof Error && error.message.includes("(PGRST205)");
+  if (missing && !warnedNoSchema) {
+    warnedNoSchema = true;
+    console.warn("[lib/data] De tabellen ontbreken op het Supabase-project (PGRST205); draai npm run db:dev:opzetten.");
+  }
+  return missing;
+}
+
 /** Kleine letters, zonder diakrieten, 's-Gravenhage als Den Haag, leestekens als spatie. */
 export function normalizeSearchText(text: string): string {
   return text
@@ -282,7 +298,12 @@ const loadOpenVacanciesCached = unstable_cache(
 /** Alle open vacatures; [] alleen als Supabase niet geconfigureerd is. Gooit bij een Supabase-fout. */
 async function loadOpenVacancies(): Promise<OpenVacancy[]> {
   if (!supabaseConfiguredOrWarn()) return [];
-  return loadOpenVacanciesCached();
+  try {
+    return await loadOpenVacanciesCached();
+  } catch (error) {
+    if (isSchemaMissing(error)) return [];
+    throw error;
+  }
 }
 
 function loadVacancyByNumberCached(number: number): Promise<PublicVacancyRow | null> {
@@ -431,7 +452,13 @@ export async function getVacancyFacets(filters: VacancyFilters = {}): Promise<Va
 export const getVacancyByNumber = cache(async (number: number): Promise<VacancyDetail | null> => {
   if (!Number.isInteger(number) || number < 1001) return null;
   if (!supabaseConfiguredOrWarn()) return null;
-  const row = await loadVacancyByNumberCached(number);
+  let row: PublicVacancyRow | null;
+  try {
+    row = await loadVacancyByNumberCached(number);
+  } catch (error) {
+    if (!isSchemaMissing(error)) throw error;
+    row = null;
+  }
   return row ? toDetail(row) : null;
 });
 
@@ -509,7 +536,12 @@ export async function getOpenVacancyCount(): Promise<number> {
 /** Actieve beroepen; [] alleen als Supabase niet geconfigureerd is. Gooit bij een Supabase-fout. */
 async function loadOccupations() {
   if (!supabaseConfiguredOrWarn()) return [];
-  return loadActiveOccupations();
+  try {
+    return await loadActiveOccupations();
+  } catch (error) {
+    if (isSchemaMissing(error)) return [];
+    throw error;
+  }
 }
 
 /** Aantal open vacatures per beroep, voor listOccupations(). */

@@ -1,5 +1,6 @@
 import "server-only";
 import { loadActiveOccupations } from "./occupation-loader";
+import { isSchemaMissing } from "./vacancies";
 import type { OccupationWithCount } from "./types";
 import { countOpenVacanciesByOccupation, supabaseConfiguredOrWarn } from "./vacancies";
 
@@ -10,6 +11,10 @@ import { countOpenVacanciesByOccupation, supabaseConfiguredOrWarn } from "./vaca
  */
 export async function listOccupations(): Promise<OccupationWithCount[]> {
   if (!supabaseConfiguredOrWarn()) return [];
-  const [occupations, counts] = await Promise.all([loadActiveOccupations(), countOpenVacanciesByOccupation()]);
+  const [occupations, counts] = await Promise.all([loadActiveOccupations().catch((error) => {
+      if (isSchemaMissing(error)) return [];
+      throw error;
+    }),
+    countOpenVacanciesByOccupation(),]);
   return occupations.map((o) => ({ ...o, openCount: counts.get(o.slug) ?? 0 }));
 }
