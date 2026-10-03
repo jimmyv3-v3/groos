@@ -325,3 +325,111 @@ test("vaste pagina's: lijstlengtes en woorden (§5.4, spec 03 §6.12)", () => {
   range("werkgevers woorden", wgWords, 700, 1000);
   range("wtta woorden", wtWords, 500, 900);
 });
+
+/* Metadata, koppen en functienamen (nazorg bouwstap 3b) ---------------------- */
+
+/** §6.6 is de enige bron van de metatitels per beroep (en §12 voor de Engelse werkgeverstitels). */
+const META_TITLES: Record<string, { nl: [string, string]; en: [string | null, string] }> = {
+  glazenwasser: {
+    nl: ["Werken als glazenwasser in Den Haag", "Personeel voor glazenwasserijen in Den Haag"],
+    en: [null, "Staff for window cleaning companies in The Hague"],
+  },
+  schoonmaker: {
+    nl: ["Werken als schoonmaker in Den Haag", "Schoonmakers inhuren in Den Haag"],
+    en: [null, "Hire cleaners in The Hague"],
+  },
+  "logistiek-medewerker": {
+    nl: ["Werken als logistiek medewerker in Den Haag", "Logistiek medewerkers inhuren in Den Haag"],
+    en: [null, "Hire logistics workers in The Hague"],
+  },
+  verhuizer: {
+    nl: ["Werken als verhuizer in Den Haag", "Personeel voor verhuisbedrijven in Den Haag"],
+    en: [null, "Staff for removal companies in The Hague"],
+  },
+  "hulpkracht-bouw-en-sloop": {
+    nl: ["Werken als hulpkracht bouw en sloop in Den Haag", "Hulpkrachten bouw en sloop inhuren in Den Haag"],
+    en: ["Work as a construction and demolition labourer", "Hire construction and demolition labourers"],
+  },
+};
+
+test("metatitels volgens §6.6 en binnen B-44 (hoogstens 52 tekens), beschrijvingen 120 tot 160 tekens", () => {
+  for (const c of CONTENT) {
+    for (const locale of LOCALES) {
+      const expected = META_TITLES[c.id][locale];
+      (["jobseeker", "employer"] as const).forEach((perspective, i) => {
+        const { title, description } = c[locale][perspective].meta;
+        const where = `${c.id}/${locale}/${perspective}`;
+        if (expected[i]) assert.equal(title, expected[i], `${where}: metatitel wijkt af van §6.6`);
+        assert.ok(title.length <= 52, `${where}: metatitel ${title.length} tekens (B-44: hoogstens 52)`);
+        range(`${where} metabeschrijving tekens`, description.length, 120, 160);
+        assert.ok(!/[!–—]|\s-\s/.test(description), `${where}: uitroepteken of streepje in de beschrijving`);
+      });
+    }
+    // Engelse werkzoekendetitels in de vorm van beroepen.og.werkzoekende ("Work as a ...").
+    assert.match(c.en.jobseeker.meta.title, /^Work as an? /, `${c.id}: Engelse titel begint niet met "Work as a"`);
+  }
+  for (const locale of LOCALES) {
+    const metas = [MESSAGES[locale].werkzoekenden.meta, MESSAGES[locale].werkgevers.meta, MESSAGES[locale].werkgevers.wtta.meta];
+    for (const meta of metas) {
+      assert.ok(meta.title.length <= 52, `${locale}: titel "${meta.title}" langer dan 52 tekens`);
+      range(`${locale} beschrijving "${meta.title}"`, meta.description.length, 120, 160);
+    }
+  }
+});
+
+test("kop van requirements begint met 'Wat je meebrengt' en geen structuurlabels van Wilk (§6.6, R-08)", () => {
+  for (const c of CONTENT) {
+    assert.match(c.nl.jobseeker.requirements.title, /^Wat je meebrengt/, `${c.id}/nl`);
+    assert.match(c.en.jobseeker.requirements.title, /^What you bring/, `${c.id}/en`);
+    for (const locale of LOCALES) {
+      for (const perspective of ["jobseeker", "employer"] as const) {
+        const heads = Object.values(c[locale][perspective]).flatMap((v) =>
+          v && typeof v === "object" && "title" in v && typeof v.title === "string" ? [v.title] : [],
+        );
+        for (const h of heads) {
+          assert.ok(!/^(Wat ga je doen|Wat vragen wij|Wat bieden wij|Interesse)\b/i.test(h), `${c.id}/${locale}: kop "${h}"`);
+        }
+      }
+    }
+  }
+});
+
+test("functienamen en andere tekst genderneutraal (spec 09 VR-01)", () => {
+  const all = [
+    ...CONTENT.flatMap((c) => LOCALES.flatMap((l) => strings(c[l]))),
+    ...LOCALES.flatMap((l) => [werkzoekendenPage, werkgeversPage, wttaPage].flatMap((p) => strings(p[l]))),
+  ];
+  for (const s of all) {
+    assert.ok(!/\b(voorman|voormannen|foreman|foremen|schoonmaakster|dame|sterke man)\b/i.test(s), `niet genderneutraal: "${s}"`);
+  }
+});
+
+test("supply op /werkgevers: met alle vlaggen op false alleen de twee A-items (§6.5, personalIntake)", () => {
+  for (const locale of LOCALES) {
+    const claims = werkgeversPage[locale].supply.items.map((i) => ("claim" in i ? i.claim : undefined));
+    assert.deepEqual(claims, [undefined, "personalIntake", undefined, "replacement"], `${locale}: claims in supply`);
+    assert.equal(visible(werkgeversPage[locale]).supply.items.length, 2);
+  }
+});
+
+test("Wtta-tijdlijn met de zes mijlpalen van §6.5 en een bron per item", () => {
+  const dates = ["2026-11-01", "2027-01-01", "2027-05-01", "2027-07-01", "2028-01-01", "2028-01-01"];
+  for (const locale of LOCALES) {
+    const items = wttaPage[locale].timeline.items;
+    assert.deepEqual(
+      items.map((i) => i.date),
+      dates,
+      `${locale}: datums`,
+    );
+    for (const i of items) assert.ok(i.source.length > 0, `${locale} ${i.date}: bron ontbreekt`);
+    assert.ok(items[0].dateLabel && items[2].dateLabel, `${locale}: perioden zonder dateLabel`);
+    assert.equal(wttaPage[locale].reviewedAt, "2026-10-02");
+  }
+});
+
+test("messages volgens §6.2 en §6.3 (loonlabel zonder 'starter', VR-02)", () => {
+  assert.equal(MESSAGES.nl.beroepen.ui.wage.rangeLabel, "Bruto uurloon zonder ervaring, voor 21 jaar en ouder");
+  assert.equal(MESSAGES.en.beroepen.ui.wage.rangeLabel, "Gross hourly wage without experience, aged 21 and over");
+  assert.equal(MESSAGES.en.beroepen["hulpkracht-bouw-en-sloop"].enkelvoud, "Construction and demolition labourer");
+  assert.equal(MESSAGES.en.beroepen["hulpkracht-bouw-en-sloop"].meervoud, "Construction and demolition labourers");
+});

@@ -6,7 +6,7 @@ import type { BeroepIcon } from "@/content/beroepen/icons";
  * Typen voor de lange tekst per beroep (spec 05 §5.2). Geen runtime-imports,
  * zodat de databestanden ook buiten Next (tests, scripts) te laden zijn.
  * Lengtes in de commentaren worden gecontroleerd door
- * tests/unit/content/beroepen-kwaliteit.test.mjs.
+ * tests/unit/content/beroepen-kwaliteit.test.ts.
  */
 
 export type Claimable = { claim?: ClaimKey };
@@ -73,7 +73,7 @@ export type EmployerCopy = {
 export type BeroepCopy = { jobseeker: JobseekerCopy; employer: EmployerCopy };
 
 export type WageFacts = {
-  /** Bruto per uur, 21 jaar en ouder, voor starters. */
+  /** Bruto per uur, 21 jaar en ouder, zonder ervaring. */
   starter: { min: number; max: number };
   /** Optioneel: bandbreedte met ervaring. */
   experienced?: { min: number; max: number };

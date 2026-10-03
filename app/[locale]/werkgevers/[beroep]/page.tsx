@@ -66,7 +66,7 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/[
   const ctas: CtaLink[] = [
     { label: t("common.cta.requestStaff"), href: `${ROUTES.personeelAanvragen}?beroep=${id}`, variant: "primary" },
     {
-      label: t("common.cta.callDirect"),
+      label: t("common.cta.call"),
       href: contact.phoneHref,
       variant: "secondary",
       icon: <Phone aria-hidden="true" />,

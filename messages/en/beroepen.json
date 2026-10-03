@@ -38,7 +38,7 @@
     "wageFactLabel": "Hourly wage (indication)",
     "wage": {
       "badge": "Indication",
-      "rangeLabel": "Gross hourly wage for starters aged 21 and over",
+      "rangeLabel": "Gross hourly wage without experience, aged 21 and over",
       "experiencedLabel": "With experience",
       "source": "Source: {source}. Checked on {date}.",
       "disclaimerJobseeker": "This is an indication, not a promised wage. Your hourly wage is always stated in the job."

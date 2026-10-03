@@ -38,7 +38,7 @@
     "wageFactLabel": "Uurloon (indicatie)",
     "wage": {
       "badge": "Indicatie",
-      "rangeLabel": "Bruto uurloon voor starters van 21 jaar en ouder",
+      "rangeLabel": "Bruto uurloon zonder ervaring, voor 21 jaar en ouder",
       "experiencedLabel": "Met ervaring",
       "source": "Bron: {source}. Gecontroleerd op {date}.",
       "disclaimerJobseeker": "Dit is een indicatie en geen loonbelofte. Je uurloon staat altijd in de vacature."

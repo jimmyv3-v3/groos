@@ -25,6 +25,7 @@ export const werkgeversPage = {
           title: "Kandidaten na een gesprek",
           body: "Wij spreken kandidaten eerst over het werk, de werktijden en hun ervaring. Daarna stellen wij aan u voor wie bij de opdracht past.",
           icon: "person",
+          claim: "personalIntake",
         },
         {
           title: "Contract en loon via Groos",
@@ -188,6 +189,7 @@ export const werkgeversPage = {
           title: "Candidates after a conversation",
           body: "We first talk to candidates about the work, the working hours and their experience. Then we introduce the people who suit the assignment.",
           icon: "person",
+          claim: "personalIntake",
         },
         {
           title: "Contract and pay through Groos",

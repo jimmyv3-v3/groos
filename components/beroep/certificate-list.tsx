@@ -30,7 +30,7 @@ export function CertificateList({
               <Card className="h-full gap-3">
                 <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
                   <h3 className="text-h3">{item.name}</h3>
-                  <Badge tone="neutral" size="md">
+                  <Badge tone="neutral" size="sm">
                     {item.needLabel}
                   </Badge>
                 </div>

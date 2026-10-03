@@ -2,10 +2,11 @@ import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/sections/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
 
 /**
- * Loonindicatie (spec 05 §4.4.2): één groot bedrag met badge, bron, peildatum
- * en voorbehoud. Alle strings komen opgemaakt binnen; dit component formatteert niets.
+ * Loonindicatie (spec 05 §4.4.2): een Card variant="tint" met badge, één groot
+ * bedrag, het voorbehoud direct eronder, en daaronder bron en peildatum. Alle strings komen opgemaakt binnen; dit component formatteert niets.
  */
 export function WageIndication({
   id,
@@ -39,9 +40,9 @@ export function WageIndication({
       <div className="container grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-16">
         <SectionHeading title={heading} accent={accent} intro={intro} />
         <Reveal>
-          <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
+          <Card variant="tint" className="gap-0 md:p-8">
             <div className="flex flex-wrap items-center gap-3">
-              <Badge tone="brand" size="md">
+              <Badge tone="brand" size="sm">
                 {badge}
               </Badge>
               <p className="text-sm text-muted-foreground">{rangeLabel}</p>
@@ -55,7 +56,7 @@ export function WageIndication({
               </dl>
             )}
             {extra && <p className="mt-4 text-base text-muted-foreground">{extra}</p>}
-          </div>
+          </Card>
           <p className="mt-4 text-sm text-muted-foreground">{source}</p>
         </Reveal>
       </div>

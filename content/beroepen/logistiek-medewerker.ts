@@ -53,8 +53,8 @@ export const logistiekMedewerker = {
         ],
       },
       requirements: {
-        title: "Wat het werk",
-        accent: "van je vraagt",
+        title: "Wat je meebrengt",
+        accent: "naar het magazijn",
         items: [
           "Je staat en loopt de hele dienst",
           "Je tilt regelmatig dozen en kratten",
@@ -423,8 +423,8 @@ export const logistiekMedewerker = {
         ],
       },
       requirements: {
-        title: "What the work",
-        accent: "asks of you",
+        title: "What you bring",
+        accent: "to the warehouse",
         items: [
           "You stand and walk for the whole shift",
           "You regularly lift boxes and crates",
