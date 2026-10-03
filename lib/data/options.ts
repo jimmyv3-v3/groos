@@ -148,3 +148,5 @@ export const RETENTION_DAYS = {
   pendingUploadHours: 24,
 } as const; // B-07
 export const MINIMUM_WAGE_21_PLUS = 14.99; // per 1 juli 2026; jaarlijks bijwerken (waarschuwing in spec 08)
+export const VACANCY_SORTS = [{ id: "newest", slug: "nieuwste" }, { id: "salary", slug: "salaris" }, { id: "closing", slug: "sluitdatum" }] as const;   // id = VacancySort, slug = waarde van ?sortering (B-16)
+export type VacancySortSlug = (typeof VACANCY_SORTS)[number]["slug"];

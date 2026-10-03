@@ -15,7 +15,7 @@ import {
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { QUALIFICATIONS, type Qualification } from "@/lib/data/options";
+import { QUALIFICATIONS, type Qualification, type WorkplaceLanguage } from "@/lib/data/options";
 import type { VacancyDetail } from "@/lib/data/types";
 import { Card } from "@/components/ui/card";
 import { getVacancyFormatters } from "./vacancy-format";
@@ -24,6 +24,8 @@ type Props = {
   vacancy: VacancyDetail;
   locale: Locale;
   variant?: "full" | "compact";
+  /** Taal op de werkvloer (spec 06 §4.9); zonder prop geldt vacancy.workplaceLanguage. */
+  workplaceLanguage?: WorkplaceLanguage | null;
   headingId?: string;
 };
 
@@ -34,7 +36,8 @@ const isNamed = (q: string): q is Qualification => (QUALIFICATIONS as readonly s
  * Kenmerkenblok (spec 06 §4.9): een <dl> in vaste volgorde; een rij zonder
  * waarde vervalt. Telefoon: één kolom, label links; vanaf sm twee kolommen.
  */
-export async function VacancyFacts({ vacancy: v, locale, variant = "full", headingId = "kenmerken" }: Props) {
+export async function VacancyFacts({ vacancy: v, locale, variant = "full", workplaceLanguage, headingId = "kenmerken" }: Props) {
+  const language = workplaceLanguage === undefined ? v.workplaceLanguage : workplaceLanguage;
   const [f, t] = await Promise.all([
     getVacancyFormatters(locale),
     getTranslations({ locale, namespace: "vacatures.facts" }),
@@ -86,8 +89,8 @@ export async function VacancyFacts({ vacancy: v, locale, variant = "full", headi
         t("qualifications.none")
       ),
   });
-  if (v.workplaceLanguage) {
-    rows.push({ key: "language", icon: Languages, label: t("labels.language"), value: t(`languageOptions.${v.workplaceLanguage}`) });
+  if (language) {
+    rows.push({ key: "language", icon: Languages, label: t("labels.language"), value: t(`languageOptions.${language}`) });
   }
   if (full) {
     rows.push({

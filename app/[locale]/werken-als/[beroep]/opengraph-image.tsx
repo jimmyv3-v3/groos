@@ -1,10 +1,10 @@
 import { getTranslations } from "next-intl/server";
-import { hasLocale } from "next-intl";
-import { routing, type Locale } from "@/i18n/routing";
+import { resolveLocale } from "@/i18n/locale";
 import { beroepen, findBeroepBySlug } from "@/content/beroepen";
 import { contact } from "@/lib/site";
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgCard } from "@/lib/og";
 import nlMeta from "@/messages/nl/meta.json";
+import { lowerFirst } from "@/components/vacatures/vacancy-helpers";
 import SiteOgImage from "@/app/opengraph-image";
 
 /**
@@ -23,7 +23,7 @@ export function generateStaticParams() {
 
 export default async function BeroepOgImage({ params }: { params: Promise<{ locale: string; beroep: string }> }) {
   const { locale: raw, beroep } = await params;
-  const locale: Locale = hasLocale(routing.locales, raw) ? raw : routing.defaultLocale;
+  const locale = resolveLocale(raw);
   const item = findBeroepBySlug("werkzoekende", beroep);
   if (!item) return SiteOgImage();
 
@@ -32,7 +32,7 @@ export default async function BeroepOgImage({ params }: { params: Promise<{ loca
     getTranslations({ locale, namespace: "header.nav" }),
     getTranslations({ locale, namespace: "meta" }),
   ]);
-  const occupation = t(`${item.id}.enkelvoud`).toLocaleLowerCase(locale);
+  const occupation = lowerFirst(t(`${item.id}.enkelvoud`), locale);
   const occupationPlural = t(`${item.id}.meervoud`);
   return renderOgCard({
     label: tNav("werkzoekenden"),

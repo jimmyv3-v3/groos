@@ -1,11 +1,10 @@
 import { getTranslations } from "next-intl/server";
-import { hasLocale } from "next-intl";
-import { routing, type Locale } from "@/i18n/routing";
+import { resolveLocale } from "@/i18n/locale";
 import { contact } from "@/lib/site";
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgCard } from "@/lib/og";
 import { getVacancyByNumber } from "@/lib/data/vacancies";
 import { parseVacancySlug } from "@/lib/data/vacancy-search-params";
-import { getVacancyMetaValues } from "@/components/vacatures/vacancy-format";
+import { getVacancySeoParts } from "@/components/vacatures/vacancy-format";
 import nlVacatures from "@/messages/nl/vacatures.json";
 import SiteOgImage from "@/app/opengraph-image";
 
@@ -21,20 +20,20 @@ export const contentType = OG_CONTENT_TYPE;
 
 export default async function VacancyOgImage({ params }: { params: Promise<{ locale: string; slug: string }> }) {
   const { locale: raw, slug } = await params;
-  const locale: Locale = hasLocale(routing.locales, raw) ? raw : routing.defaultLocale;
+  const locale = resolveLocale(raw);
   const number = parseVacancySlug(slug);
   const vacancy = number ? await getVacancyByNumber(number) : null;
   if (!vacancy) return SiteOgImage();
 
-  const [t, values] = await Promise.all([
+  const [t, { city, hours, wage }] = await Promise.all([
     getTranslations({ locale, namespace: "vacatures.og" }),
-    getVacancyMetaValues(vacancy, locale),
+    getVacancySeoParts(vacancy, locale),
   ]);
   const closed = vacancy.state === "closed";
   return renderOgCard({
     label: t("label"),
     title: vacancy.title,
-    lines: closed ? [values.city] : [values.city, values.hours],
-    highlight: closed ? t("closed") : values.wage,
+    lines: closed ? [city] : [city, hours],
+    highlight: closed ? t("closed") : wage,
   });
 }

@@ -11,14 +11,15 @@ import contactText from "@/messages/nl/contact.json";
 import { routing } from "@/i18n/routing";
 import { beroepen } from "@/content/beroepen";
 import { contact } from "@/lib/site";
+import { publishedLegalDocs, type LegalDocId } from "@/lib/legal";
 import { ROUTES, STATIC_ROUTES, paths, type StaticPath } from "@/lib/routes";
 import { absoluteUrl } from "@/lib/seo";
 
 /**
- * /llms.txt volgens llmstxt.org (spec 12 §4.9, spec 01 §7.3): een korte
- * Markdown-samenvatting uit dezelfde registers en messages als de site. Geen
- * vacaturedata; /vacatures is altijd actueel. Spec 12 vervangt het filter op
- * `published` voor juridische routes door publishedLegalDocs() van spec 09.
+ * /llms.txt volgens llmstxt.org (spec 12 §4.9): een korte Markdown-samenvatting
+ * uit dezelfde registers en messages als de site. Geen vacaturedata; /vacatures
+ * is altijd actueel. Vaste routes uit STATIC_ROUTES (published en llms "kern"),
+ * juridische documenten uit publishedLegalDocs() onder "Optional" (B-40).
  */
 export const dynamic = "force-static";
 
@@ -31,12 +32,9 @@ const LABELS: Partial<Record<StaticPath, string>> = {
   [ROUTES.wtta]: header.nav.wtta,
   [ROUTES.overOns]: header.nav.overOns,
   [ROUTES.contact]: header.nav.contact,
-  [ROUTES.privacyverklaring]: legal.nav.privacy,
-  [ROUTES.cookieverklaring]: legal.nav.cookies,
-  [ROUTES.klachtenregeling]: legal.nav.complaints,
-  [ROUTES.algemeneVoorwaarden]: legal.nav.terms,
 };
 
+/** Vaste koppeling route naar <namespace>.meta.description (spec 12 §4.9). */
 const DESCRIPTIONS: Partial<Record<StaticPath, string>> = {
   [ROUTES.vacatures]: vacatures.meta.description,
   [ROUTES.werkzoekenden]: werkzoekenden.meta.description,
@@ -45,23 +43,35 @@ const DESCRIPTIONS: Partial<Record<StaticPath, string>> = {
   [ROUTES.contact]: contactText.meta.description,
 };
 
+const LEGAL_LABELS: Record<LegalDocId, string> = {
+  privacy: legal.nav.privacy,
+  cookies: legal.nav.cookies,
+  complaints: legal.nav.complaints,
+  terms: legal.nav.terms,
+};
+
 const WERKZOEKENDE = new Set<StaticPath>([ROUTES.vacatures, ROUTES.werkzoekenden, ROUTES.inschrijven]);
 const WERKGEVER = new Set<StaticPath>([ROUTES.werkgevers, ROUTES.personeelAanvragen, ROUTES.wtta]);
+
+const lowerFirst = (s: string) => s.charAt(0).toLocaleLowerCase("nl") + s.slice(1);
+const sentence = (s: string) => (/[.!?]$/.test(s) ? s : `${s}.`);
 
 function link(path: string, label: string, description?: string): string {
   return `- [${label}](${absoluteUrl(path)})${description ? `: ${description}` : ""}`;
 }
 
-function routeLines(filter: (path: StaticPath) => boolean, llms: "kern" | "optioneel"): string[] {
-  return STATIC_ROUTES.filter((r) => r.published && r.llms === llms && r.path !== "/" && filter(r.path)).map((r) =>
-    link(r.path, LABELS[r.path] ?? r.path, DESCRIPTIONS[r.path]),
+/** Kernroutes met published en llms "kern"; de homepage staat er niet als link in. */
+function routeLines(filter: (path: StaticPath) => boolean): string[] {
+  return STATIC_ROUTES.filter((r) => r.published && r.llms === "kern" && r.path !== ROUTES.home && filter(r.path)).map(
+    (r) => link(r.path, LABELS[r.path] ?? r.path, DESCRIPTIONS[r.path]),
   );
 }
 
 export function GET() {
-  const lower = (s: string) => s.charAt(0).toLocaleLowerCase("nl") + s.slice(1);
+  // NAW uit contact (lib/site.ts) plus common.address.byAppointment; KvK en btw alleen als ze gevuld zijn.
   const naw = [
-    `${contact.name}, ${contact.street}, ${contact.postalCode} ${contact.city} (${lower(common.address.byAppointment).replace(/\.$/, "")}).`,
+    `${contact.name}, ${contact.street}, ${contact.postalCode} ${contact.city}.`,
+    sentence(common.address.byAppointment),
     `Telefoon en WhatsApp: ${contact.phone}.`,
     `E-mail: ${contact.email}.`,
     ...(contact.kvk ? [`KvK: ${contact.kvk}.`] : []),
@@ -79,21 +89,21 @@ export function GET() {
     "",
     `## ${header.nav.werkzoekenden}`,
     "",
-    ...routeLines((p) => WERKZOEKENDE.has(p), "kern"),
-    ...beroepen.map((b) => link(paths.werkenAls(b.id), `${header.menu.beroepenWerkzoekenden} ${lower(beroepenText[b.id].enkelvoud)}`)),
+    ...routeLines((p) => WERKZOEKENDE.has(p)),
+    ...beroepen.map((b) => link(paths.werkenAls(b.id), `${header.menu.beroepenWerkzoekenden} ${lowerFirst(beroepenText[b.id].enkelvoud)}`)),
     "",
     `## ${header.nav.werkgevers}`,
     "",
-    ...routeLines((p) => WERKGEVER.has(p), "kern"),
+    ...routeLines((p) => WERKGEVER.has(p)),
     ...beroepen.map((b) => link(paths.werkgeverBeroep(b.id), beroepenText[b.id].meervoud)),
     "",
     "## Groos",
     "",
-    ...routeLines((p) => !WERKZOEKENDE.has(p) && !WERKGEVER.has(p), "kern"),
+    ...routeLines((p) => !WERKZOEKENDE.has(p) && !WERKGEVER.has(p)),
     "",
     "## Optional",
     "",
-    ...routeLines(() => true, "optioneel"),
+    ...publishedLegalDocs().map((d) => link(d.path, LEGAL_LABELS[d.id])),
     ...((routing.locales as readonly string[]).includes("en") ? [link("/en", "English version")] : []),
     "",
   ];
