@@ -16,7 +16,10 @@ type ChipProps = {
   className?: string;
 };
 
-/** Filterchip: een link (met scroll={false}) of een <span>. */
+/**
+ * Filterchip: een link (met scroll={false}) of een <span>. Er is geen
+ * ChipCheckbox: filters in een formulier gebruiken CheckboxField (spec 06).
+ */
 function Chip({ children, href, selected, count, removeLabel, className }: ChipProps) {
   const inner = (
     <>
@@ -54,40 +57,4 @@ function Chip({ children, href, selected, count, removeLabel, className }: ChipP
   );
 }
 
-type ChipCheckboxProps = {
-  name: string;
-  value: string;
-  children: React.ReactNode;
-  defaultChecked?: boolean;
-  count?: number;
-  className?: string;
-};
-
-/** Chip als native checkbox, zodat filters zonder JavaScript als GET-formulier werken. */
-function ChipCheckbox({ name, value, children, defaultChecked, count, className }: ChipCheckboxProps) {
-  return (
-    <label
-      data-slot="chip"
-      className={cn(
-        chipBase,
-        "group cursor-pointer has-[:checked]:border-brand has-[:checked]:bg-brand-tint has-[:checked]:text-brand-strong has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring",
-        className,
-      )}
-    >
-      <input
-        type="checkbox"
-        name={name}
-        value={value}
-        defaultChecked={defaultChecked}
-        className="peer sr-only"
-      />
-      <Check className="hidden group-has-[:checked]:block" aria-hidden="true" />
-      <span>{children}</span>
-      {typeof count === "number" && (
-        <span className="tabular-nums text-muted-foreground">{count}</span>
-      )}
-    </label>
-  );
-}
-
-export { Chip, ChipCheckbox };
+export { Chip };

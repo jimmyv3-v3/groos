@@ -51,7 +51,7 @@ function AccordionItem({
           />
         </span>
       </summary>
-      <div className="pr-12 pb-5 text-base text-muted-foreground">{children}</div>
+      <div className="pr-12 pb-5 text-base">{children}</div>
     </details>
   );
 }

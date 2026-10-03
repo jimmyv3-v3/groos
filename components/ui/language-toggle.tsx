@@ -45,38 +45,28 @@ export function LanguageToggle({ className }: { className?: string }) {
     <div
       role="group"
       aria-label={t("label")}
-      className={cn(
-        "inline-flex h-11 items-center gap-1.5 rounded-lg px-3 text-sm font-medium text-foreground lg:h-10",
-        isPending && "opacity-60",
-        className,
-      )}
+      className={cn("inline-flex items-center gap-1", isPending && "opacity-60", className)}
     >
       <Languages className="size-4 shrink-0 text-brand" aria-hidden />
-      {routing.locales.map((code, i) => (
-        <span key={code} className="flex items-center">
-          {i > 0 && (
-            <span className="px-0.5 text-border-strong" aria-hidden>
-              /
-            </span>
+      {routing.locales.map((code) => (
+        <Link
+          key={code}
+          href={pathname}
+          locale={code}
+          hrefLang={code}
+          lang={code}
+          aria-label={t(code)}
+          aria-current={code === locale ? "true" : undefined}
+          onClick={(event) => switchTo(event, code)}
+          className={cn(
+            "relative inline-flex h-11 min-w-11 items-center justify-center rounded-lg px-2 text-sm font-medium uppercase transition-colors duration-150 ease-brand lg:h-10 lg:min-w-10",
+            code === locale
+              ? "text-foreground after:absolute after:inset-x-2.5 after:bottom-2 after:h-0.5 after:rounded-full after:bg-brand"
+              : "text-muted-foreground hover:bg-muted hover:text-brand-strong",
           )}
-          <Link
-            href={pathname}
-            locale={code}
-            hrefLang={code}
-            lang={code}
-            aria-label={t(code)}
-            aria-current={code === locale ? "true" : undefined}
-            onClick={(event) => switchTo(event, code)}
-            className={cn(
-              "inline-flex min-h-11 items-center rounded-sm px-1 uppercase transition-colors duration-150 ease-brand lg:min-h-10",
-              code === locale
-                ? "text-foreground underline decoration-brand decoration-2 underline-offset-[6px]"
-                : "text-muted-foreground hover:text-brand-strong",
-            )}
-          >
-            {code}
-          </Link>
-        </span>
+        >
+          {code}
+        </Link>
       ))}
     </div>
   );

@@ -28,9 +28,9 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckboxField } from "@/components/ui/checkbox";
-import { Chip, ChipCheckbox } from "@/components/ui/chip";
+import { Chip } from "@/components/ui/chip";
 import { CtaButton } from "@/components/ui/cta-button";
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet } from "@/components/ui/field";
 import { FileInput } from "@/components/ui/file-input";
 import { IconTile } from "@/components/ui/icon-tile";
 import { Input } from "@/components/ui/input";
@@ -176,6 +176,10 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
             Versturen
           </CtaButton>
           <CtaButton disabled>Niet beschikbaar</CtaButton>
+          <CtaButton variant="secondary" href="https://wa.me/31612345678" external newTabLabel="(opent in een nieuw venster)">
+            <MessageCircle className="text-brand" aria-hidden />
+            WhatsApp
+          </CtaButton>
         </div>
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <CtaButton size="sm">Klein</CtaButton>
@@ -193,15 +197,18 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
         </p>
         <form method="get" className="mt-8 max-w-xl">
           <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="sg-naam">Naam</FieldLabel>
-              <Input id="sg-naam" name="naam" autoComplete="name" />
-            </Field>
-            <Field invalid>
-              <FieldLabel htmlFor="sg-tel">Telefoonnummer</FieldLabel>
-              <Input id="sg-tel" name="telefoon" type="tel" aria-invalid aria-describedby="sg-tel-fout" />
-              <FieldError id="sg-tel-fout">Vul je telefoonnummer in, dan kunnen wij je bellen.</FieldError>
-            </Field>
+            <FieldSet>
+              <FieldLegend variant="group">Jouw gegevens</FieldLegend>
+              <Field>
+                <FieldLabel htmlFor="sg-naam">Naam</FieldLabel>
+                <Input id="sg-naam" name="naam" autoComplete="name" />
+              </Field>
+              <Field invalid>
+                <FieldLabel htmlFor="sg-tel">Telefoonnummer</FieldLabel>
+                <Input id="sg-tel" name="telefoon" type="tel" aria-invalid aria-describedby="sg-tel-fout" />
+                <FieldError id="sg-tel-fout">Vul je telefoonnummer in, dan kunnen wij je bellen.</FieldError>
+              </Field>
+            </FieldSet>
             <Field>
               <FieldLabel htmlFor="sg-beroep">Beroep</FieldLabel>
               <NativeSelect id="sg-beroep" name="beroep" defaultValue="">
@@ -216,7 +223,7 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
               </NativeSelect>
             </Field>
             <Field>
-              <FieldLabel htmlFor="sg-bericht">Bericht (optioneel)</FieldLabel>
+              <FieldLabel htmlFor="sg-bericht">Bericht (niet verplicht)</FieldLabel>
               <Textarea id="sg-bericht" name="bericht" aria-describedby="sg-bericht-hulp" />
               <FieldDescription id="sg-bericht-hulp">Vertel kort wat je zoekt.</FieldDescription>
             </Field>
@@ -225,16 +232,16 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
               <RadioCard id="sg-nee" name="werkvergunning" value="nee" label="Nee" />
             </RadioGroup>
             <Field>
-              <FieldLabel htmlFor="sg-cv">Cv (optioneel)</FieldLabel>
+              <FieldLabel htmlFor="sg-cv">Cv (niet verplicht)</FieldLabel>
               <FileInput
                 id="sg-cv"
                 name="cv"
                 accept=".pdf,.doc,.docx"
                 labels={{
-                  choose: "Kies een bestand",
+                  choose: "Kies bestand",
                   change: "Ander bestand kiezen",
-                  remove: "Bestand weghalen",
-                  hint: "Pdf, doc of docx, maximaal 10 MB.",
+                  remove: "Verwijder",
+                  hint: "Een pdf of Word-bestand van hoogstens 10 MB.",
                 }}
               />
             </Field>
@@ -251,9 +258,14 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
           </FieldGroup>
         </form>
         <div className="mt-8 grid max-w-xl gap-3">
-          <Alert tone="success" role="status" title="Gelukt">
-            Gelukt, wij hebben je gegevens ontvangen. Wij nemen zo snel mogelijk contact met je op.
+          <Alert tone="success" role="status">
+            Gelukt, wij hebben je gegevens ontvangen. Jimmy of Lorenzo belt je om kennis te maken.
           </Alert>
+          <section aria-labelledby="sg-melding-kop">
+            <Alert tone="warning" title="Deze vacature is gesloten" titleAs="h2" titleId="sg-melding-kop">
+              Bekijk de andere vacatures of schrijf je in, dan bellen wij je bij nieuw werk.
+            </Alert>
+          </section>
           <Alert tone="info">Deze vacaturetekst is alleen in het Nederlands beschikbaar.</Alert>
           <Alert tone="warning">Deze vacature is gesloten.</Alert>
           <Alert tone="danger" role="alert">
@@ -266,9 +278,7 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
       <Block title="Badges en chips">
         <div className="flex flex-wrap gap-2">
           <Badge tone="neutral">Concept</Badge>
-          <Badge tone="brand" dot>
-            Nieuw
-          </Badge>
+          <Badge tone="brand">Nieuw</Badge>
           <Badge tone="info">In behandeling</Badge>
           <Badge tone="success">Geplaatst</Badge>
           <Badge tone="warning">Gesloten</Badge>
@@ -284,13 +294,7 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
           <Chip href="/stijlgids" count={4}>
             Verhuizer
           </Chip>
-          <Chip removeLabel="Filter Glazenwasser weghalen">Glazenwasser</Chip>
-          <ChipCheckbox name="beroep" value="logistiek" defaultChecked>
-            Logistiek
-          </ChipCheckbox>
-          <ChipCheckbox name="beroep" value="bouw">
-            Bouw en sloop
-          </ChipCheckbox>
+          <Chip removeLabel="Verwijder filter Glazenwasser">Glazenwasser</Chip>
         </div>
       </Block>
 
@@ -394,13 +398,9 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
                 <SheetTitle>Filters</SheetTitle>
                 <SheetDescription>Kies een beroep en een regio.</SheetDescription>
               </SheetHeader>
-              <div className="flex flex-wrap gap-2 p-5">
-                <ChipCheckbox name="f-beroep" value="schoonmaker">
-                  Schoonmaker
-                </ChipCheckbox>
-                <ChipCheckbox name="f-beroep" value="verhuizer">
-                  Verhuizer
-                </ChipCheckbox>
+              <div className="grid p-5">
+                <CheckboxField id="sg-f-schoonmaker" name="f-beroep" value="schoonmaker" label="Schoonmaker" />
+                <CheckboxField id="sg-f-verhuizer" name="f-beroep" value="verhuizer" label="Verhuizer" />
               </div>
               <SheetFooter>
                 <CtaButton className="w-full">Toon 12 vacatures</CtaButton>

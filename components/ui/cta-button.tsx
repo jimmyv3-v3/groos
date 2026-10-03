@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  * zonder href een <button>. Elk element krijgt data-slot="cta-button".
  * Binnen .surface-brand wordt primary vanzelf wit met kobalt tekst.
  */
-export const ctaButtonVariants = cva(
+const buttonVariants = cva(
   "inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg font-medium transition-[background-color,border-color,color,box-shadow] duration-150 ease-brand motion-safe:active:translate-y-px [&_svg]:size-[1.125rem] [&_svg]:shrink-0 aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
@@ -22,7 +22,8 @@ export const ctaButtonVariants = cva(
         ghost: "text-foreground hover:bg-muted hover:text-brand-strong",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive-strong",
-        link: "h-auto min-h-11 px-0 text-brand underline-offset-4 hover:underline",
+        // min-h-11 houdt ook een tekstknop op 44 px doelgrootte (AC-02-14, spec 02 §12).
+        link: "text-brand underline-offset-4 hover:underline",
       },
       size: {
         sm: "h-11 px-4 text-sm lg:h-10",
@@ -31,12 +32,29 @@ export const ctaButtonVariants = cva(
         icon: "size-11",
       },
     },
-    compoundVariants: [{ variant: "link", className: "h-auto min-h-11 px-0" }],
+    // Na de maat, zodat h-auto en px-0 winnen van de maatklassen.
+    compoundVariants: [
+      { variant: "link", size: ["sm", "default", "lg", "icon"], className: "h-auto min-h-11 w-auto px-0" },
+    ],
     defaultVariants: { variant: "primary", size: "default" },
   },
 );
 
-type CtaButtonVariantProps = VariantProps<typeof ctaButtonVariants>;
+type CtaButtonVariantProps = VariantProps<typeof buttonVariants>;
+
+/**
+ * Klassen van de knop voor elementen die zelf geen CtaButton zijn (next/link in
+ * het beheer, base-ui-triggers). Samengevoegd met tailwind-merge, zodat een
+ * className van de aanroeper wint van de maat- en variantklassen.
+ */
+export function ctaButtonVariants(opts: {
+  variant?: CtaButtonVariantProps["variant"];
+  size?: CtaButtonVariantProps["size"];
+  className?: string;
+} = {}): string {
+  const { variant, size, className } = opts;
+  return cn(buttonVariants({ variant, size }), className);
+}
 
 export interface CtaButtonProps {
   children: ReactNode;
@@ -48,6 +66,10 @@ export interface CtaButtonProps {
   variant?: NonNullable<CtaButtonVariantProps["variant"]>;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
+  /**
+   * Alleen als de naam moet afwijken van het zichtbare label; begint dan met
+   * dat label (WCAG 2.5.3, B-54).
+   */
   ariaLabel?: string;
   /** target="_blank" rel="noopener noreferrer" (WhatsApp, externe links). */
   external?: boolean;
@@ -59,7 +81,7 @@ export interface CtaButtonProps {
   newTabLabel?: string;
   /** Toont een draaiende LoaderCircle, zet aria-busy en blokkeert de knop. */
   pending?: boolean;
-  /** Toegankelijke naam van de spinner (common.a11y.loading). */
+  /** Met pending: statustekst voor schermlezers (common.loading of de verzendtekst). */
   pendingLabel?: string;
 }
 
@@ -83,16 +105,14 @@ export function CtaButton({
   const newTab = external && newTabLabel ? newTabLabel : undefined;
   const content = (
     <>
-      {pending && (
-        <LoaderCircle
-          className="animate-spin"
-          aria-hidden={pendingLabel ? undefined : true}
-          aria-label={pendingLabel}
-          role={pendingLabel ? "img" : undefined}
-        />
-      )}
+      {pending && <LoaderCircle className="motion-safe:animate-spin" aria-hidden="true" />}
       {children}
       {newTab && <span className="sr-only"> {newTab}</span>}
+      {pending && pendingLabel && (
+        <span role="status" className="sr-only">
+          {pendingLabel}
+        </span>
+      )}
     </>
   );
 
@@ -125,7 +145,7 @@ export function CtaButton({
     <button
       type={type}
       disabled={blocked}
-      className={cn(classes)}
+      className={classes}
       onClick={onClick}
       aria-label={ariaLabel}
       aria-busy={pending || undefined}

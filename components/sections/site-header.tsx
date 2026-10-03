@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
 import { contact } from "@/lib/site";
 import { getNavModel } from "@/lib/navigation";
 import { Wordmark } from "@/components/brand/wordmark";
@@ -34,7 +33,11 @@ export async function SiteHeader() {
             href={contact.phoneHref}
             aria-label={t("callAria", { phone: contact.phone })}
             data-slot="cta-button"
-            className={cn(ctaButtonVariants({ variant: "ghost", size: "sm" }), "hidden px-3 tabular-nums lg:inline-flex")}
+            className={ctaButtonVariants({
+              variant: "ghost",
+              size: "icon",
+              className: "hidden tabular-nums lg:inline-flex xl:h-10 xl:w-auto xl:px-4",
+            })}
           >
             <Phone className="text-brand" aria-hidden />
             <span className="hidden xl:inline">{contact.phone}</span>

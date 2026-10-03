@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 
 /**
  * Opbouw van een formulierveld (naar shadcn field). Optionele velden krijgen
- * "(optioneel)" in het label via messages, geen sterretje.
+ * achter het label forms.common.optionalMark ("(niet verplicht)"), geen sterretje.
  */
 function Field({
   invalid,
@@ -31,11 +31,23 @@ function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
   );
 }
 
-function FieldLegend({ className, ...props }: React.ComponentProps<"legend">) {
+const LEGEND_VARIANTS = {
+  /** Gelijk aan Label: de vraag van een groep keuzerondjes of keuzevakjes. */
+  label: "text-sm font-medium text-foreground",
+  /** Titel van een groep velden in een formulier. */
+  group: "mb-2 font-display text-h3 font-semibold text-foreground",
+} as const;
+
+function FieldLegend({
+  variant = "label",
+  className,
+  ...props
+}: { variant?: keyof typeof LEGEND_VARIANTS } & React.ComponentProps<"legend">) {
   return (
     <legend
       data-slot="field-legend"
-      className={cn("mb-2 font-display text-h3 font-semibold text-foreground", className)}
+      data-variant={variant}
+      className={cn(LEGEND_VARIANTS[variant], className)}
       {...props}
     />
   );

@@ -41,6 +41,7 @@ function ToastList({ closeLabel }: { closeLabel: string }) {
       </div>
       <Toast.Close
         aria-label={closeLabel}
+        data-slot="cta-button"
         className={ctaButtonVariants({ variant: "ghost", size: "icon", className: "-m-2 shrink-0" })}
       >
         <X aria-hidden="true" />
