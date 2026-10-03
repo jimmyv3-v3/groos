@@ -57,7 +57,9 @@ test.describe("juridische pagina's @readonly", () => {
     await expect(h2).toHaveCount(9);
     for (let i = 0; i < 9; i++) await expect(h2.nth(i)).toHaveText(new RegExp(`^Artikel ${i + 1}\\. `));
     const main = page.locator("main");
-    for (const woord of ["vijf werkdagen", "Jimmy", "Lorenzo"]) await expect(main).toContainText(woord);
+    for (const woord of ["vijf werkdagen", "Ons team"]) await expect(main).toContainText(woord);
+    // Geen persoonsnamen op de publieke site (B-60).
+    for (const naam of ["Jimmy", "Lorenzo"]) await expect(main).not.toContainText(naam);
   });
 
   test("algemene voorwaarden: noindex, niet in de sitemap en nergens gelinkt (AC-09-07)", async ({ page, request }) => {

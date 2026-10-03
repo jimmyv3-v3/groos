@@ -115,7 +115,7 @@ export const schoonmaker = {
           },
           {
             title: "Eén vaste contactpersoon",
-            body: "Wil je meer uren of andere tijden, bel dan Jimmy of Lorenzo.",
+            body: "Wil je meer uren of andere tijden, bel dan ons team.",
             icon: "phone",
           },
           {
@@ -232,8 +232,8 @@ export const schoonmaker = {
             icon: "handshake",
           },
           {
-            title: "Twee vaste contactpersonen",
-            body: "U heeft contact met Jimmy of Lorenzo, ook als het rooster op een object verandert.",
+            title: "Eén vast team",
+            body: "U heeft contact met ons team, ook als het rooster op een object verandert.",
             icon: "phone",
           },
           {
@@ -341,7 +341,7 @@ export const schoonmaker = {
           },
           {
             q: "Wie is mijn contactpersoon bij Groos?",
-            a: "U heeft contact met Jimmy of Lorenzo. Zij nemen de aanvraag met u door en blijven daarna uw vaste contactpersonen.",
+            a: "U heeft contact met ons team. Wij nemen de aanvraag met u door en blijven daarna uw vaste aanspreekpunt.",
             specific: false,
           },
         ],
@@ -461,7 +461,7 @@ export const schoonmaker = {
           },
           {
             title: "One regular contact person",
-            body: "If you want more hours or different times, call Jimmy or Lorenzo.",
+            body: "If you want more hours or different times, call our team.",
             icon: "phone",
           },
           {
@@ -579,7 +579,7 @@ export const schoonmaker = {
           },
           {
             title: "Two regular contact persons",
-            body: "You deal with Jimmy or Lorenzo, also when the schedule at a site changes.",
+            body: "You deal with our team, also when the schedule at a site changes.",
             icon: "phone",
           },
           {
@@ -687,7 +687,7 @@ export const schoonmaker = {
           },
           {
             q: "Who is my contact person at Groos?",
-            a: "You deal with Jimmy or Lorenzo. They go through the request with you and remain your regular contacts after that.",
+            a: "You deal with our team. We go through the request with you and remain your regular point of contact after that.",
             specific: false,
           },
         ],

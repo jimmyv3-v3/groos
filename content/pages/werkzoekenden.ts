@@ -37,7 +37,7 @@ export const werkzoekendenPage = {
         },
         {
           title: "Eén vaste contactpersoon",
-          body: "Jimmy of Lorenzo belt je en blijft je contactpersoon. Heb je een vraag over je werk, dan bel of app je gewoon.",
+          body: "Ons team belt je en blijft je aanspreekpunt. Heb je een vraag over je werk, dan bel of app je gewoon.",
           icon: "phone",
         },
         {
@@ -93,7 +93,7 @@ export const werkzoekendenPage = {
         },
         { label: "Kosten", jobseeker: "Gratis, ook inschrijven", employer: "Een uurtarief over gewerkte uren" },
         { label: "Contract", jobseeker: "Uitzendovereenkomst met Groos", employer: "Afspraken met Groos over de inzet" },
-        { label: "Contact", jobseeker: "Jimmy of Lorenzo, op hun eigen nummer", employer: "Jimmy of Lorenzo, op hun eigen nummer" },
+        { label: "Contact", jobseeker: "Ons team, op één vast nummer", employer: "Ons team, op één vast nummer" },
         { label: "Eerste stap", jobseeker: "Solliciteren of inschrijven", employer: "Personeel aanvragen of bellen" },
       ],
     },
@@ -133,7 +133,7 @@ export const werkzoekendenPage = {
         },
         {
           q: "Wat gebeurt er als mijn werk stopt?",
-          a: "Dan zoeken wij samen met je naar nieuw werk. Jimmy of Lorenzo belt je om te horen wat je wilt en wanneer je kunt.",
+          a: "Dan zoeken wij samen met je naar nieuw werk. Ons team belt je om te horen wat je wilt en wanneer je kunt.",
           specific: false,
         },
         // TODO claim housing: het antwoord gaat uit van "nee" (spec 09 VR-15, geen huisvesting in fase 1). Regelt Groos wel huisvesting, dan alleen met SNF-keur en een los huurcontract, en dit antwoord herschrijven.
@@ -148,7 +148,7 @@ export const werkzoekendenPage = {
     cta: {
       title: "Klaar voor",
       accent: "je volgende baan?",
-      body: "Solliciteer in een paar minuten op een vacature of schrijf je in. Jimmy of Lorenzo belt je om kennis te maken.",
+      body: "Solliciteer in een paar minuten op een vacature of schrijf je in. Ons team belt je om kennis te maken.",
     },
   },
   en: {
@@ -183,7 +183,7 @@ export const werkzoekendenPage = {
         },
         {
           title: "One regular contact person",
-          body: "Jimmy or Lorenzo calls you and stays your contact person. If you have a question about your work, just call or send a message.",
+          body: "Our team calls you and stays your point of contact. If you have a question about your work, just call or send a message.",
           icon: "phone",
         },
         {
@@ -239,7 +239,7 @@ export const werkzoekendenPage = {
         },
         { label: "Costs", jobseeker: "Free, including registration", employer: "An hourly rate for the hours worked" },
         { label: "Contract", jobseeker: "Agency work contract with Groos", employer: "Agreements with Groos about the assignment" },
-        { label: "Contact", jobseeker: "Jimmy or Lorenzo, on their own number", employer: "Jimmy or Lorenzo, on their own number" },
+        { label: "Contact", jobseeker: "Our team, on one fixed number", employer: "Our team, on one fixed number" },
         { label: "First step", jobseeker: "Applying or registering", employer: "Requesting staff or calling" },
       ],
     },
@@ -279,7 +279,7 @@ export const werkzoekendenPage = {
         },
         {
           q: "What happens when my work stops?",
-          a: "Then we look for new work together with you. Jimmy or Lorenzo calls you to hear what you want and when you can work.",
+          a: "Then we look for new work together with you. Our team calls you to hear what you want and when you can work.",
           specific: false,
         },
         // TODO claim housing: same as nl.
@@ -294,7 +294,7 @@ export const werkzoekendenPage = {
     cta: {
       title: "Ready for",
       accent: "your next job?",
-      body: "Apply for a job or register with us in a few minutes. Jimmy or Lorenzo calls you to get to know you.",
+      body: "Apply for a job or register with us in a few minutes. Our team calls you to get to know you.",
     },
   },
 } satisfies Localized<WerkzoekendenCopy>;

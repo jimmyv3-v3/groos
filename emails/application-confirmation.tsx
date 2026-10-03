@@ -18,9 +18,9 @@ const COPY = {
     greetingNoName: "Hoi,",
     received: "Wij hebben je sollicitatie op {vacancyTitle} in {vacancyCity} goed ontvangen. Je referentienummer is {reference}.",
     receivedNoCity: "Wij hebben je sollicitatie op {vacancyTitle} goed ontvangen. Je referentienummer is {reference}.",
-    next: "{contactName} bekijkt je sollicitatie en neemt daarna contact met je op. Dat doen wij vanaf {contactPhoneDisplay}, dus sla dat nummer op in je telefoon.",
+    next: "Ons team bekijkt je sollicitatie en neemt daarna contact met je op. Dat doen wij vanaf {companyPhone}, dus sla dat nummer op in je telefoon.",
     nextResponse:
-      "{contactName} bekijkt je sollicitatie en belt of appt je binnen één werkdag. Dat doen wij vanaf {contactPhoneDisplay}, dus sla dat nummer op in je telefoon.",
+      "Ons team bekijkt je sollicitatie en belt of appt je binnen één werkdag. Dat doen wij vanaf {companyPhone}, dus sla dat nummer op in je telefoon.",
     factsTitle: "Wat wij van je hebben ontvangen",
     reference: "Referentienummer",
     vacancy: "Vacature",
@@ -48,9 +48,9 @@ const COPY = {
     greetingNoName: "Hi,",
     received: "We have received your application for {vacancyTitle} in {vacancyCity}. Your reference number is {reference}.",
     receivedNoCity: "We have received your application for {vacancyTitle}. Your reference number is {reference}.",
-    next: "{contactName} will review your application and then get in touch with you. We will call or message you from {contactPhoneDisplay}, so save that number in your phone.",
+    next: "Our team will review your application and then get in touch with you. We will call or message you from {companyPhone}, so save that number in your phone.",
     nextResponse:
-      "{contactName} will review your application and call or message you within one working day. We will contact you from {contactPhoneDisplay}, so save that number in your phone.",
+      "Our team will review your application and call or message you within one working day. We will contact you from {companyPhone}, so save that number in your phone.",
     factsTitle: "What we received from you",
     reference: "Reference number",
     vacancy: "Job",
@@ -79,8 +79,6 @@ export type ApplicationConfirmationProps = {
   vacancyTitle: string;
   vacancyNumber: number;
   vacancyCity: string | null;
-  contactName: string;
-  contactPhoneDisplay: string;
   phoneDisplay: string;
   hasCv: boolean;
   retentionConsent: boolean;
@@ -130,7 +128,7 @@ export default function ApplicationConfirmation(props: ApplicationConfirmationPr
       ) : (
         <EmailText>{withLink(c.privacy, c.privacyLink, privacyHref)}</EmailText>
       )}
-      <EmailSignoff locale={props.locale} />
+      <EmailSignoff locale={props.locale} company={props.company} />
     </EmailLayout>
   );
 }

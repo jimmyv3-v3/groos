@@ -153,7 +153,7 @@ nieuwe bestanden en de regels die andere specs toepassen.
 | `app/opengraph-image.tsx`, `app/llms.txt/route.ts` (12) | `meta.{ogHeadline, ogSubline, description, organizationDescription}` |
 | Elke CTA in specs 04 tot en met 07 via `CtaButton` (02) | `common.cta.*`, `common.notes.*` |
 | Elke WhatsApp-link (04, 05, 06, 07) | `common.whatsapp.*` met de helper `whatsappLink(text?, phone?)` uit `lib/site.ts` (spec 01) |
-| Contactpersonen (04, 06, 07) | `common.people.<id>.role`, `common.cta.{callPerson, whatsappPerson}`, `common.a11y.*` met `people` uit `lib/site.ts` |
+| Teamcontact (04, 06, 07) | `common.team.title`, `common.cta.{call, whatsapp, email}`, `common.a11y.call` met `contact` uit `lib/site.ts` (B-60) |
 | Vacaturekenmerken en kaarten (06) | `common.format.*` met `lib/format.ts` |
 
 ## 5 Data
@@ -262,7 +262,7 @@ eigen formatters.
 
 ### 5.3 Tekst in de database
 
-Vacatureteksten schrijft Jimmy of Lorenzo in `/beheer`. De velden staan in spec 10
+Vacatureteksten schrijft ons team in `/beheer`. De velden staan in spec 10
 (`vacancy_translations`: `title`, `summary`, `intro`, `tasks`, `requirements`,
 `offer`, `extra`, `seo_title`, `seo_description`; `vacancies.salary_note`). De
 juridische regels voor vacatureteksten (VR-01 tot en met VR-15) staan in spec 09
@@ -553,7 +553,7 @@ tussen accolades vult de schrijver in. Een voorbeeld met een claim draagt de mar
 | ZS-07 | Bereik met van-tot | {Belofte}, van {kleinste geval} tot {grootste geval}. | Wij leveren mensen voor korte en lange klussen, van één schoonmaker voor een oplevering tot een ploeg verhuizers voor een kantoorverhuizing. | Bij ons vind je allerlei praktisch werk, van ramen wassen tot orderpicken. |
 | ZS-08 | Staartbijzin (hoogstens één per pagina) | …, {kwaliteit} van {bron van vertrouwen}. | …, met twee vaste contactpersonen die uw bedrijf kennen. | …, met een contactpersoon die je gewoon kunt bellen. |
 | ZS-09 | Kwaliteit die gelijk blijft | {Wat wij doen} zolang {de inzet loopt}, zodat {constante uitkomst}. | Wij houden contact zolang de inzet loopt, zodat de laatste week net zo goed gaat als de eerste. | Wij bellen je ook als je al aan het werk bent, om te horen hoe het gaat. |
-| ZS-10 | Vast aanspreekpunt | {U of je} heeft contact met {naam of rol}, die {volledige belofte}. | U heeft contact met Jimmy of Lorenzo, die uw aanvraag van begin tot eind regelt. | Je hebt één vaste contactpersoon, Jimmy of Lorenzo, die je belt als er werk voor je is. |
+| ZS-10 | Vast aanspreekpunt | {U of je} heeft contact met {naam of rol}, die {volledige belofte}. | U heeft contact met ons team, die uw aanvraag van begin tot eind regelt. | Je hebt één vast aanspreekpunt, ons team, die je belt als er werk voor je is. |
 | ZS-11 | Geruststelling bij een risico | {Risico}, dan {opvang} en {nette afhandeling}. | Valt een medewerker onverwacht uit, dan zoeken wij een vervanger en houden wij u op de hoogte. [TODO claim replacement] | Gaat er iets mis op je werk, bel ons dan, dan zoeken wij samen een oplossing. |
 | ZS-12 | Regel of norm plus maatregel | Volgens {wet of bevestigde norm} {concrete maatregel}. | Volgens de wet krijgt elke uitzendkracht hetzelfde loon als uw vaste medewerkers in dezelfde functie. | Volgens de wet krijg je hetzelfde loon als vaste collega's die hetzelfde werk doen. |
 | ZS-13 | Probleemherkenning (alleen u) | {Probleem} merkt u pas als {gevolg zichtbaar is}. | Een tekort aan mensen merkt u pas echt als het werk blijft liggen. | Niet gebruiken; schrijf positief (ZS-06). |
@@ -561,7 +561,7 @@ tussen accolades vult de schrijver in. Een voorbeeld met een claim draagt de mar
 | ZS-15 | Metabeschrijving in drie delen | {Vraag of bewering met onderwerp en plaats}. {Concreet feit}. {Oproep}. | Wilt u schoonmakers inhuren in Den Haag en omgeving? Groos levert mensen voor een dag, een paar weken of langer. Vraag vrijblijvend personeel aan. | Wil je werken als schoonmaker in Den Haag? Lees wat het werk inhoudt, wat je verdient en hoe laat je begint. Solliciteren kan zonder cv. |
 | ZS-16 | Knop plus belofte als microcopy | Knop {werkwoord} {object}; belofte als losse zin ernaast | Knop "Personeel aanvragen" met "Een aanvraag doen is vrijblijvend." | Knop "Solliciteer direct" met "Je kunt ook zonder cv solliciteren." |
 | ZS-17 | Foutmelding | {Wat er mis is}. {Wat de lezer nu kan doen}. | Vul uw telefoonnummer in, dan kunnen wij u terugbellen. | Dit bestand is groter dan 10 MB. Kies een kleiner bestand of stuur je cv via WhatsApp. |
-| ZS-18 | Succesmelding | Bedankt voor {uw of je} {actie}. {Vervolgstap}. | Bedankt voor uw aanvraag. Wij nemen contact met u op om de details te bespreken. | Bedankt voor je sollicitatie. Jimmy of Lorenzo belt je om kennis te maken. |
+| ZS-18 | Succesmelding | Bedankt voor {uw of je} {actie}. {Vervolgstap}. | Bedankt voor uw aanvraag. Wij nemen contact met u op om de details te bespreken. | Bedankt voor je sollicitatie. Ons team belt je om kennis te maken. |
 
 **Alineasjablonen**
 
@@ -577,7 +577,7 @@ tussen accolades vult de schrijver in. Een voorbeeld met een claim draagt de mar
 | AS-08 | FAQ-antwoord | {Direct antwoord met komma}. {Concreet feit}. {Aanbod of voorbehoud}. | Vraag: "Voor hoe lang kan ik iemand inhuren?" Antwoord: "Dat bepaalt u zelf. Sommige opdrachtgevers hebben iemand een dag nodig, anderen een paar maanden. Wij stemmen de inzet af op uw planning." | Vraag: "Kan ik ook zonder cv solliciteren?" Antwoord: "Ja, een cv is niet nodig. Je vult je naam, je telefoonnummer en je woonplaats in, en wij bespreken je ervaring aan de telefoon." |
 | AS-09 | Prijs- en start-FAQ | {Tarief of loon} hangt af van {A}, {B}, {C} en {D}. {Oproep}, dan {heldere uitkomst}. | Prijs: "Het tarief hangt af van het beroep, het aantal uren, de werktijden en de duur van de inzet. Na uw aanvraag sturen wij u een voorstel met een helder uurtarief." Start: "Na uw aanvraag nemen wij contact met u op om de details te bespreken. Daarna stellen wij mensen voor die op de gewenste datum kunnen beginnen." | Loon: "Je uurloon staat bij elke vacature. Het is hetzelfde loon als vaste collega's in dezelfde functie verdienen." Start: "Na je sollicitatie bellen wij je om kennis te maken. Past het werk, dan spreken wij samen je eerste werkdag af." |
 | AS-10 | Regiopagina (fase 2) | {Plaats} {echt lokaal kenmerk}. Wij {belofte}, van {plek A} tot {plek B}. | Alleen met geverifieerde lokale feiten (spec 15); nu niet gebruiken. | idem |
-| AS-11 | CTA-band en formulierintro | h2 vraagkop (ZS-04) plus twee zinnen: actie en vervolgstap | h2 "Heeft u <accent>binnenkort</accent> extra mensen nodig?" Tekst: "Vertel ons wie u zoekt en vanaf wanneer. Wij nemen contact met u op om de aanvraag door te nemen." | h2 "Klaar voor <accent>je volgende baan</accent>?" Tekst: "Solliciteer in een paar minuten, ook zonder cv. Jimmy of Lorenzo belt je om kennis te maken." |
+| AS-11 | CTA-band en formulierintro | h2 vraagkop (ZS-04) plus twee zinnen: actie en vervolgstap | h2 "Heeft u <accent>binnenkort</accent> extra mensen nodig?" Tekst: "Vertel ons wie u zoekt en vanaf wanneer. Wij nemen contact met u op om de aanvraag door te nemen." | h2 "Klaar voor <accent>je volgende baan</accent>?" Tekst: "Solliciteer in een paar minuten, ook zonder cv. Ons team belt je om kennis te maken." |
 | AS-12 | Herkomst (over ons) | {Wie en wanneer}. {Waarom}. Daarna: {mensen en ambitie}. | Groos is in {jaar} in Den Haag opgericht door Jimmy en Lorenzo. Zij wilden een bureau waar opdrachtgevers en werkzoekenden steeds dezelfde mensen spreken. [TODO claim foundingStory] | Gedeelde pagina; je alleen in een werkzoekendenblok. |
 
 Het accent in een h2 staat aan het slot en komt dan uit twee sleutels (`title`,
@@ -612,7 +612,7 @@ Markering per plek:
    niet geschreven; de bedoelde tekst staat als commentaar
    `// TODO claim <sleutel>: "<zin>"` naast de veilige versie.
 3. **Voorbeeldcopy in specs en contentbrieven.** Marker `[TODO claim <sleutel>]`.
-4. **Database.** Jimmy of Lorenzo schrijft per vacature alleen wat voor die vacature
+4. **Database.** ons team schrijft per vacature alleen wat voor die vacature
    klopt; de hints in `/beheer` herinneren daaraan (§5.3).
 
 `npm run check` vindt elke open claim via K6 (spec 14) in de TODO-regels van
@@ -790,9 +790,7 @@ staan onder het blok.
       "register": "Schrijf je in",
       "requestStaff": "Personeel aanvragen",
       "call": "Bel ons",
-      "callPerson": "Bel {name}",
       "whatsapp": "App ons",
-      "whatsappPerson": "App {name}",
       "email": "Mail ons",
       "contact": "Neem contact op",
       "readMoreLink": "Lees meer over {subject}"
@@ -819,17 +817,12 @@ staan onder het blok.
     "address": {
       "byAppointment": "Langskomen kan alleen op afspraak."
     },
-    "people": {
-      "jimmy": {
-        "role": "Contactpersoon"
-      },
-      "lorenzo": {
-        "role": "Contactpersoon"
-      }
+    "team": {
+      "title": "Kom in contact met ons team"
     },
     "loading": "Bezig met laden",
     "a11y": {
-      "callPerson": "Bel {name} op {phone}",
+      "call": "Bel ons op {phone}",
       "emailAddress": "Mail naar {email}"
     },
     "contact": {
@@ -837,7 +830,6 @@ staan onder het blok.
       "whatsapp": "WhatsApp",
       "email": "E-mail",
       "address": "Adres",
-      "contactPersons": "Contactpersonen",
       "officeHours": "Kantoortijden",
       "officeHoursValue": "Maandag tot en met vrijdag van {opens} tot {closes} uur",
       "afterHours": "Buiten kantoortijden zijn wij bereikbaar voor spoed."
@@ -955,13 +947,11 @@ De footer krijgt daarnaast de wettelijke vermeldingen van spec 09: `FooterLegal`
 
 Toelichting bij keuzes:
 
-- `callPerson` en `whatsappPerson` met `{name}` vervangen vaste sleutels als
-  `callJimmy`: de voornamen en nummers komen uit `people` in `lib/site.ts`, zodat een
-  nieuwe contactpersoon geen nieuwe sleutels vraagt. Op de site staat dan "Bel Jimmy"
-  en "Bel Lorenzo".
-- `call` en `whatsapp` gaan naar het hoofdnummer (Jimmy, B-21). De rol bij een
-  persoon is voorlopig "Contactpersoon"; de echte rol (bijvoorbeeld oprichter) volgt
-  als Jimmy en Lorenzo die opgeven (§12).
+- De publieke site noemt geen persoonsnamen (B-60). `callPerson`, `whatsappPerson`
+  en `common.people` zijn vervallen; op de site staat "Bel ons" en "App ons".
+- `call` en `whatsapp` gaan naar het ene hoofdnummer (B-60). `team.title` is de
+  algemene oproep "Kom in contact met ons team" en dient als kop van het teamblok
+  (`TeamContactCard`); als knoplabel is hij te lang (C-14).
 - De taalnamen staan in hun eigen taal ("Nederlands", "English"), in beide bestanden
   gelijk; dat is de gangbare vorm voor een taalwissel.
 - `common.notes.responseJobseeker` ("Je hoort binnen één werkdag van ons.") en
@@ -1004,9 +994,7 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
       "register": "Register",
       "requestStaff": "Request staff",
       "call": "Call us",
-      "callPerson": "Call {name}",
       "whatsapp": "WhatsApp us",
-      "whatsappPerson": "WhatsApp {name}",
       "email": "Email us",
       "contact": "Contact us",
       "readMoreLink": "Read more about {subject}"
@@ -1033,17 +1021,12 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
     "address": {
       "byAppointment": "Visits are by appointment only."
     },
-    "people": {
-      "jimmy": {
-        "role": "Contact person"
-      },
-      "lorenzo": {
-        "role": "Contact person"
-      }
+    "team": {
+      "title": "Get in touch with our team"
     },
     "loading": "Loading",
     "a11y": {
-      "callPerson": "Call {name} on {phone}",
+      "call": "Call us on {phone}",
       "emailAddress": "Email {email}"
     },
     "contact": {
@@ -1051,7 +1034,6 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
       "whatsapp": "WhatsApp",
       "email": "Email",
       "address": "Address",
-      "contactPersons": "Contacts",
       "officeHours": "Office hours",
       "officeHoursValue": "Monday to Friday from {opens} to {closes}",
       "afterHours": "Outside office hours we can be reached for urgent requests."
@@ -1358,8 +1340,8 @@ C-14. `fout.json` heeft onder C-14 een knop `cta.apply` met vier woorden
 | `/werkgevers/[beroep]` | zie spec 05 §6.6 (metatitels) en §7.1 (beschrijvingssjabloon) | idem | idem | u |
 | `/werkgevers/personeel-aanvragen` | Personeel aanvragen | Request staff | Vertel ons welke mensen u zoekt, vanaf wanneer en voor hoe lang. Wij nemen daarna contact met u op om uw aanvraag te bespreken. | u |
 | `/werkgevers/wtta` | Inlenen en de Wtta | Hiring and the Wtta | Vanaf 2028 mag u alleen inlenen bij een toegelaten uitlener. Lees wat de Wtta voor uw bedrijf betekent en hoe u de status van een uitzendbureau controleert. | u |
-| `/over-ons` | Over ons | About us | Groos Personeelsdiensten is een Haags uitzendbureau voor praktisch werk in vijf beroepen. Lees wie Jimmy en Lorenzo zijn en hoe wij werken. | neutraal |
-| `/contact` | Contact | Contact | Bel, app of mail Jimmy en Lorenzo van Groos Personeelsdiensten in Den Haag. Stuur een bericht via het formulier of maak een afspraak om langs te komen. | neutraal |
+| `/over-ons` | Over ons | About us | Groos Personeelsdiensten is een Haags uitzendbureau voor praktisch werk in vijf beroepen. Lees wie wij zijn en hoe ons team werkt. | neutraal |
+| `/contact` | Contact | Contact | Bel, app of mail het team van Groos Personeelsdiensten in Den Haag. Stuur een bericht via het formulier of maak een afspraak om langs te komen. | neutraal |
 | Juridisch | documentnaam (`legal.nav.<id>`, spec 09) | idem | Eén feitelijke zin over de inhoud, plus wie het document beheert. | neutraal |
 | Bedankpagina | Bedankt voor je sollicitatie, enzovoort | Thank you for your application | Niet nodig (noindex), wel een titel | per doelgroep |
 | 404 | `notFound.metaTitle` | idem | Niet nodig (noindex) | neutraal |
@@ -1377,7 +1359,7 @@ copy als de pagina; nooit een aparte, hardgecodeerde Nederlandse tekst.
   (`common.a11y`, `header.*`, `*Aria`). Geen tekst in componenten.
 - Linkteksten zeggen waar ze heen gaan (`readMoreLink` met onderwerp, nooit "klik
   hier"). Telefoonlinks tonen het nummer en hebben `aria-label` uit
-  `common.a11y.callPerson`. Een WhatsApp-link opent in een nieuw venster en heeft de
+  `common.a11y.call`. Een WhatsApp-link opent in een nieuw venster en heeft de
   schermlezertekst `common.opensInNewTab`.
 - De taalwissel toont "Nederlands" met `lang="nl"` en "English" met `lang="en"`
   (WCAG 3.1.2).
@@ -1546,8 +1528,8 @@ Oplevering:        <NL in de sleutels; lijst gebruikte claims; uitvoer van check
 | Beroepsnamen in messages | Spec 05 levert per id `beroepen.<id>.enkelvoud` en `.meervoud` met hoofdletter in nl en en (paden uit spec 01 §6) met de waarden uit §6.8; in een zin met `toLocaleLowerCase()` | spec 05 | Andere paden: alleen de afnemers in §4.3; de waarden blijven |
 | Engelse naam hulpkracht | Gesloten (kruiscontrole ronde 1): definitief "construction and demolition labourer" en "construction and demolition labourers" (§6.8), zoals in de seed van spec 10 | Djulan (besloten) | Geen |
 | Footervermeldingen volgens spec 01 | Gesloten (kruiscontrole ronde 1): de footer gebruikt `FooterLegal` van spec 09 met `legal.nav.*` en `legal.footer.*`; `footer` krijgt geen sleutels voor KvK, btw of juridische links | master-agent (besloten) | Geen |
-| Rol van Jimmy en Lorenzo | `common.people.<id>.role` is "Contactpersoon" tot de echte rol bekend is | Jimmy en Lorenzo | Alleen die twee waarden |
-| `people`, `whatsappLink` en `openingHours` | Spec 01 levert in `lib/site.ts` `people` (`PersonId` jimmy en lorenzo, `firstName`, `phone`), `whatsappLink(text?, phone?)` en `contact.openingHours` | spec 01 | Andere namen: alleen de afnemers in §4.3 en §6.17 |
+| Persoonsnamen | Vervallen (B-60): geen persoonsnamen of rollen op de publieke site, `common.people` bestaat niet meer | Djulan | Geen |
+| `whatsappLink` en `openingHours` | Spec 01 levert in `lib/site.ts` `whatsappLink(text?)` en `contact.openingHours`; `people` is vervallen (B-60) | spec 01 | Andere namen: alleen de afnemers in §4.3 en §6.17 |
 | Vacaturetitel | De titel in de database bevat geen plaats; de plaats is een eigen veld (spec 10 legt dat vast in `vacancy_translations.title`) | spec 06 | Neemt spec 06 de plaats in de getoonde titel op, dan vervalt `in {plaats}` in het metasjabloon |
 | Doelgroepblokken in `content/beroepen` | Spec 05 gebruikt de sleutels `jobseeker` en `employer` voor de twee perspectieven | spec 05 | De zones in `check-copy.mjs` krijgen de andere namen |
 | Claims in twee lagen | `lib/claims.ts` schakelt de weergave; de bevestiging zelf staat in `docs/compliance/claims-status.md` en `npm run check:claims` (spec 09) | master-agent bij de kruiscontrole | Kiest de kruiscontrole één laag, dan vervalt `lib/claims.ts` en wordt onbevestigde copy niet geschreven |

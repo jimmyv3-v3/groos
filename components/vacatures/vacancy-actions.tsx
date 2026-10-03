@@ -2,14 +2,13 @@ import { MessageCircle, Phone, Send } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import type { VacancyDetail } from "@/lib/data/types";
-import { whatsappLink } from "@/lib/site";
+import { contact, whatsappLink } from "@/lib/site";
 import { CtaButton } from "@/components/ui/cta-button";
-import { asPhone, type ResolvedVacancyContact } from "./vacancy-format";
 
-type Props = { vacancy: VacancyDetail; locale: Locale; contact: ResolvedVacancyContact };
+type Props = { vacancy: VacancyDetail; locale: Locale };
 
-/** Solliciteer direct, App {naam} en Bel {naam} (spec 06 §4.10). */
-export async function VacancyActions({ vacancy, locale, contact }: Props) {
+/** Solliciteer direct, App ons en Bel ons, op het hoofdnummer (spec 06 §4.10, B-60). */
+export async function VacancyActions({ vacancy, locale }: Props) {
   const [t, tc, tw, ta, tCommon] = await Promise.all([
     getTranslations({ locale, namespace: "vacatures.detail" }),
     getTranslations({ locale, namespace: "common.cta" }),
@@ -17,7 +16,7 @@ export async function VacancyActions({ vacancy, locale, contact }: Props) {
     getTranslations({ locale, namespace: "common.a11y" }),
     getTranslations({ locale, namespace: "common" }),
   ]);
-  const showWhatsapp = vacancy.state === "open" && vacancy.allowWhatsappApply && contact.whatsappE164 !== null;
+  const showWhatsapp = vacancy.state === "open" && vacancy.allowWhatsappApply;
 
   return (
     <div role="group" aria-label={t("actionsLabel")} className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -25,29 +24,26 @@ export async function VacancyActions({ vacancy, locale, contact }: Props) {
         <Send aria-hidden="true" />
         {tc("apply")}
       </CtaButton>
-      {showWhatsapp && contact.whatsappE164 && (
+      {showWhatsapp && (
         <CtaButton
-          href={whatsappLink(
-            tw("vacatureSolliciteren", { title: vacancy.title, number: vacancy.number }),
-            asPhone(contact.whatsappE164),
-          )}
+          href={whatsappLink(tw("vacatureSolliciteren", { title: vacancy.title, number: vacancy.number }))}
           variant="secondary"
           size="lg"
           external
           newTabLabel={tCommon("opensInNewTab")}
         >
           <MessageCircle aria-hidden="true" />
-          {tc("whatsappPerson", { name: contact.name })}
+          {tc("whatsapp")}
         </CtaButton>
       )}
       <CtaButton
-        href={`tel:${contact.phoneE164}`}
+        href={contact.phoneHref}
         variant="secondary"
         size="lg"
-        ariaLabel={ta("callPerson", { name: contact.name, phone: contact.phoneDisplay })}
+        ariaLabel={ta("call", { phone: contact.phone })}
       >
         <Phone aria-hidden="true" />
-        {tc("callPerson", { name: contact.name })}
+        {tc("call")}
       </CtaButton>
     </div>
   );

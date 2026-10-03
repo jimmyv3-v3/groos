@@ -21,7 +21,7 @@ import { VacancyBody } from "@/components/vacatures/vacancy-body";
 import { VacancyClosedNotice } from "@/components/vacatures/vacancy-closed-notice";
 import { VacancyContactCard } from "@/components/vacatures/vacancy-contact-card";
 import { VacancyFacts } from "@/components/vacatures/vacancy-facts";
-import { getVacancySeoParts, lowerFirst, resolveVacancyContact } from "@/components/vacatures/vacancy-format";
+import { getVacancySeoParts, lowerFirst } from "@/components/vacatures/vacancy-format";
 import { VacancyHeader } from "@/components/vacatures/vacancy-header";
 import { VacancyHowTo } from "@/components/vacatures/vacancy-how-to";
 import { VacancyListSkeleton } from "@/components/vacatures/vacancy-list-skeleton";
@@ -106,7 +106,6 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
   }
 
   const { city, hours, wage, start } = await getVacancySeoParts(vacancy, locale);
-  const contact = resolveVacancyContact(vacancy);
   // JobPosting alleen op een open vacature in het Nederlands (spec 06 §7.4); deze tak is altijd open.
   const ld =
     locale === "nl"
@@ -136,7 +135,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
         <div className="grid max-w-4xl gap-6">
           <VacancyHeader vacancy={vacancy} locale={locale} />
           <VacancyFacts vacancy={vacancy} locale={locale} variant="full" workplaceLanguage={vacancy.workplaceLanguage} />
-          <VacancyActions vacancy={vacancy} locale={locale} contact={contact} />
+          <VacancyActions vacancy={vacancy} locale={locale} />
         </div>
         <div className="mt-10 lg:grid lg:grid-cols-12 lg:gap-10">
           <div className="grid min-w-0 gap-12 lg:col-span-8">
@@ -158,12 +157,12 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
             </div>
             <VacancyHowTo locale={locale} />
             {vacancy.state === "open" && <ApplySection vacancy={vacancy} locale={locale} />}
-            <VacancyContactCard vacancy={vacancy} locale={locale} contact={contact} />
+            <VacancyContactCard vacancy={vacancy} locale={locale} />
             <VacancyShare vacancy={vacancy} locale={locale} url={shareUrl} />
           </div>
           <aside className="hidden lg:col-span-4 lg:block">
             <div className="sticky top-24">
-              <VacancyApplyAside vacancy={vacancy} locale={locale} contact={contact} />
+              <VacancyApplyAside vacancy={vacancy} locale={locale} />
             </div>
           </aside>
         </div>

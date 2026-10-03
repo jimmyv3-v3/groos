@@ -4,7 +4,7 @@
     "title": "Thank you for your application",
     "intro": "We have received your application. You will also get a confirmation by email.",
     "reference": "Your reference number is {reference}.",
-    "whoCalls": "{name} will call or message you to get to know you. Keep your phone close by.",
+    "whoCalls": "Our team will call or message you to get to know you. Keep your phone close by.",
     "steps": {
       "title": "What happens",
       "accent": "next",
@@ -20,7 +20,7 @@
     "title": "Thank you for registering",
     "intro": "We have received your registration. You will also get a confirmation by email.",
     "reference": "Your reference number is {reference}.",
-    "whoCalls": "{name} will call or message you to hear what work you are looking for.",
+    "whoCalls": "Our team will call or message you to hear what work you are looking for.",
     "steps": {
       "title": "What happens",
       "accent": "next",
@@ -36,7 +36,7 @@
     "title": "Thank you for your request",
     "intro": "We have received your request. You will also get a confirmation by email.",
     "reference": "Your reference number is {reference}.",
-    "whoCalls": "{name} will contact you to go through the request.",
+    "whoCalls": "Our team will contact you to go through the request.",
     "steps": {
       "title": "What happens",
       "accent": "next",
@@ -52,7 +52,7 @@
     "metaTitle": "Thank you for your message",
     "title": "Thank you for your message",
     "intro": "We have received your message. If you entered an email address, you will also get a confirmation by email.",
-    "whoCalls": "{name} will answer your message. If you asked us to call you back, we will call the number you entered.",
+    "whoCalls": "Our team will answer your message. If you asked us to call you back, we will call the number you entered.",
     "homeLink": "Go to the homepage"
   }
 }

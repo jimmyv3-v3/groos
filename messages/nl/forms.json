@@ -84,7 +84,7 @@
   "apply": {
     "title": "Solliciteer op",
     "accent": "deze vacature",
-    "intro": "Je bent in een paar minuten klaar en een cv is niet nodig. {name} belt of appt je om kennis te maken.",
+    "intro": "Je bent in een paar minuten klaar en een cv is niet nodig. Ons team belt of appt je om kennis te maken.",
     "vacancyLine": "Je solliciteert op {title}, vacature {number}.",
     "submit": "Verstuur sollicitatie",
     "submitting": "Bezig met versturen",
@@ -103,7 +103,7 @@
     "benefits": [
       "Inschrijven kost je niets",
       "Een cv is niet nodig",
-      "Je hebt één vaste contactpersoon"
+      "Je hebt één vast aanspreekpunt"
     ],
     "formTitle": "Vertel ons",
     "formAccent": "welk werk je zoekt",
@@ -197,7 +197,7 @@
     "submitting": "Bezig met versturen",
     "alternatives": {
       "title": "Liever direct overleggen?",
-      "body": "Bel of app {name}. Wij nemen uw aanvraag dan telefonisch met u door."
+      "body": "Bel of app ons team. Wij nemen uw aanvraag dan telefonisch met u door."
     },
     "steps": {
       "title": "Zo gaat het",

@@ -118,7 +118,7 @@ export const logistiekMedewerker = {
           },
           {
             title: "Eén nummer voor je rooster",
-            body: "Jimmy of Lorenzo is je vaste contactpersoon, ook als je andere diensten wilt.",
+            body: "Ons team is je vaste aanspreekpunt, ook als je andere diensten wilt.",
             icon: "phone",
           },
           {
@@ -203,7 +203,7 @@ export const logistiekMedewerker = {
       cta: {
         title: "Klaar voor werk",
         accent: "in het magazijn?",
-        body: "Solliciteer of schrijf je in, en vertel of je al een certificaat hebt. Jimmy of Lorenzo belt je om kennis te maken.",
+        body: "Solliciteer of schrijf je in, en vertel of je al een certificaat hebt. Ons team belt je om kennis te maken.",
       },
     },
     employer: {
@@ -254,7 +254,7 @@ export const logistiekMedewerker = {
           },
           {
             title: "Eén vaste contactpersoon",
-            body: "U belt met Jimmy of Lorenzo over de planning, het rooster en wijzigingen.",
+            body: "U belt met ons team over de planning, het rooster en wijzigingen.",
             icon: "phone",
           },
           {
@@ -488,7 +488,7 @@ export const logistiekMedewerker = {
           },
           {
             title: "One number for your schedule",
-            body: "Jimmy or Lorenzo is your regular contact person, also when you want other shifts.",
+            body: "Our team is your regular point of contact, also when you want other shifts.",
             icon: "phone",
           },
           {
@@ -572,7 +572,7 @@ export const logistiekMedewerker = {
       cta: {
         title: "Ready for work",
         accent: "in the warehouse?",
-        body: "Apply or register, and tell us whether you already have a certificate. Jimmy or Lorenzo will call you to get to know you.",
+        body: "Apply or register, and tell us whether you already have a certificate. Our team will call you to get to know you.",
       },
     },
     employer: {
@@ -623,7 +623,7 @@ export const logistiekMedewerker = {
           },
           {
             title: "One regular contact person",
-            body: "You call Jimmy or Lorenzo about planning, schedules and changes.",
+            body: "You call our team about planning, schedules and changes.",
             icon: "phone",
           },
           {

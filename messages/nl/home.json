@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Uitzendbureau in Den Haag voor <accent>praktisch werk</accent>",
-    "intro": "Wij zoeken mensen voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop in Den Haag en omgeving. Werkzoekenden en opdrachtgevers spreken bij ons steeds met Jimmy of Lorenzo.",
+    "title": "Hét uitzendbureau in Den Haag voor <accent>al uw praktische werk</accent>",
+    "intro": "Betrouwbare mensen voor uw bedrijf en goed werk voor wie aan de slag wil. Ons team regelt het persoonlijk, van de eerste kennismaking tot de eerste werkdag.",
     "jobseeker": {
       "title": "Ik zoek werk",
       "body": "Bekijk de open vacatures of kies hieronder je beroep.",
@@ -55,7 +55,7 @@
         },
         {
           "title": "Wij bellen je",
-          "body": "Jimmy of Lorenzo belt je om te horen welk werk je zoekt en wanneer je kunt werken."
+          "body": "Ons team belt je om te horen welk werk je zoekt en wanneer je kunt werken."
         },
         {
           "title": "Je begint",
@@ -87,8 +87,8 @@
     "intro": "Wij beloven alleen wat wij kunnen waarmaken. Dit zijn de vaste afspraken voor iedereen die met Groos werkt.",
     "items": {
       "contactpersonen": {
-        "title": "Twee vaste contactpersonen",
-        "body": "U spreekt steeds met Jimmy of Lorenzo. Hun 06-nummers staan op deze site en bij elke vacature."
+        "title": "Eén vast team",
+        "body": "U spreekt steeds met ons eigen team. Ons telefoonnummer staat op deze site en bij elke vacature."
       },
       "beroepen": {
         "title": "Vijf praktische beroepen",
@@ -105,9 +105,9 @@
     }
   },
   "people": {
-    "title": "Bij Groos spreekt u",
-    "accent": "Jimmy of Lorenzo",
-    "intro": "Zij plaatsen de vacatures, spreken werkzoekenden en bespreken aanvragen met opdrachtgevers. Bel of app hen gerust met een vraag over werk of personeel.",
+    "title": "Kom in contact met",
+    "accent": "ons team",
+    "intro": "Wij plaatsen de vacatures, spreken werkzoekenden en bespreken aanvragen met opdrachtgevers. Bel of app ons gerust met een vraag over werk of personeel.",
     "aboutLink": "Lees meer over Groos"
   },
   "faq": {
@@ -153,8 +153,8 @@
           "a": "Dat bepaalt u zelf, ook als het om één dag gaat. Wij stemmen het aantal mensen en de uren af op uw planning."
         },
         {
-          "q": "Wie is mijn vaste contactpersoon?",
-          "a": "U heeft contact met Jimmy of Lorenzo, die uw aanvraag zelf afhandelen. Hun nummers staan op deze site, zodat u hen direct kunt bellen."
+          "q": "Met wie heb ik contact?",
+          "a": "U heeft contact met ons team, dat uw aanvraag zelf afhandelt. Ons nummer staat op deze site, zodat u ons direct kunt bellen."
         },
         {
           "q": "Krijgen jullie mensen hetzelfde loon als mijn vaste medewerkers?",

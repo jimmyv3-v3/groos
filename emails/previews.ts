@@ -79,8 +79,6 @@ export function previewProps(
         vacancyTitle: "Glazenwasser",
         vacancyNumber: 1001,
         vacancyCity: "Den Haag",
-        contactName: "Jimmy",
-        contactPhoneDisplay: "06 83 35 19 85",
         phoneDisplay: PHONE.display,
         hasCv: true,
         retentionConsent: variant === "consent",

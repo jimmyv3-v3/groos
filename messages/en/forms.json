@@ -84,7 +84,7 @@
   "apply": {
     "title": "Apply for",
     "accent": "this job",
-    "intro": "It only takes a few minutes and you do not need a CV. {name} will call or message you to get to know you.",
+    "intro": "It only takes a few minutes and you do not need a CV. Our team will call or message you to get to know you.",
     "vacancyLine": "You are applying for {title}, job {number}.",
     "submit": "Send application",
     "submitting": "Sending",
@@ -103,7 +103,7 @@
     "benefits": [
       "Registering is free",
       "You do not need a CV",
-      "You have one dedicated contact"
+      "You have one dedicated point of contact"
     ],
     "formTitle": "Tell us",
     "formAccent": "what work you are looking for",
@@ -197,7 +197,7 @@
     "submitting": "Sending",
     "alternatives": {
       "title": "Prefer to talk directly?",
-      "body": "Call or message {name}. We will then go through your request with you by phone."
+      "body": "Call or message our team. We will then go through your request with you by phone."
     },
     "steps": {
       "title": "What happens",

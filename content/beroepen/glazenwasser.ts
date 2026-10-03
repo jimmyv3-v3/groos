@@ -114,7 +114,7 @@ export const glazenwasser = {
           },
           {
             title: "Een vaste contactpersoon",
-            body: "Jimmy of Lorenzo belt je als er werk is. Met vragen kun je hen ook zelf bellen.",
+            body: "Ons team belt je als er werk is. Met vragen kun je ons ook zelf bellen.",
             icon: "phone",
           },
           {
@@ -185,7 +185,7 @@ export const glazenwasser = {
       cta: {
         title: "Wil je werken als glazenwasser",
         accent: "in een vaste ploeg?",
-        body: "Solliciteer op een vacature of schrijf je in. Jimmy of Lorenzo belt je over routes en werktijden die bij je passen.",
+        body: "Solliciteer op een vacature of schrijf je in. Ons team belt je over routes en werktijden die bij je passen.",
       },
     },
     employer: {
@@ -235,8 +235,8 @@ export const glazenwasser = {
             icon: "handshake",
           },
           {
-            title: "Twee vaste contactpersonen",
-            body: "U belt met Jimmy of Lorenzo, ook als het weer uw planning omgooit. Zij kennen uw aanvraag.",
+            title: "Eén vast team",
+            body: "U belt met ons team, ook als het weer uw planning omgooit. Wij kennen uw aanvraag.",
             icon: "phone",
           },
           {
@@ -342,7 +342,7 @@ export const glazenwasser = {
           },
           {
             q: "Wie is mijn contactpersoon bij Groos?",
-            a: "U heeft contact met Jimmy of Lorenzo. Zij regelen uw aanvraag en blijven uw aanspreekpunt zolang de glazenwassers bij u werken.",
+            a: "U heeft contact met ons team. Wij regelen uw aanvraag en blijven uw aanspreekpunt zolang de glazenwassers bij u werken.",
             specific: false,
           },
           {
@@ -466,7 +466,7 @@ export const glazenwasser = {
           },
           {
             title: "One regular contact person",
-            body: "Jimmy or Lorenzo calls you when there is work. You can also call them with questions.",
+            body: "Our team calls you when there is work. You can also call us with questions.",
             icon: "phone",
           },
           {
@@ -537,7 +537,7 @@ export const glazenwasser = {
       cta: {
         title: "Do you want to clean windows",
         accent: "in a regular team?",
-        body: "Apply for a job or register with us. Jimmy or Lorenzo calls you about rounds and hours that suit you.",
+        body: "Apply for a job or register with us. Our team calls you about rounds and hours that suit you.",
       },
     },
     employer: {
@@ -587,7 +587,7 @@ export const glazenwasser = {
           },
           {
             title: "Two regular contact persons",
-            body: "You call Jimmy or Lorenzo, also when the weather upsets your planning. They know your request.",
+            body: "You call our team, also when the weather upsets your planning. We know your request.",
             icon: "phone",
           },
           {
@@ -691,7 +691,7 @@ export const glazenwasser = {
           },
           {
             q: "Who is my contact person at Groos?",
-            a: "You deal with Jimmy or Lorenzo. They handle your request and remain your contact for as long as the window cleaners work for you.",
+            a: "You deal with our team. We handle your request and remain your contact for as long as the window cleaners work for you.",
             specific: false,
           },
           {

@@ -5,12 +5,12 @@ import type { VacancyDetail } from "@/lib/data/types";
 import { whatsappLink } from "@/lib/site";
 import { Card } from "@/components/ui/card";
 import { CtaButton } from "@/components/ui/cta-button";
-import { asPhone, getVacancyFormatters, type ResolvedVacancyContact } from "./vacancy-format";
+import { getVacancyFormatters } from "./vacancy-format";
 
-type Props = { vacancy: VacancyDetail; locale: Locale; contact: ResolvedVacancyContact };
+type Props = { vacancy: VacancyDetail; locale: Locale };
 
 /** Vaste sollicitatiebalk op lg en breder (spec 06 §4.10): in het kort, knop en WhatsApp. */
-export async function VacancyApplyAside({ vacancy, locale, contact }: Props) {
+export async function VacancyApplyAside({ vacancy, locale }: Props) {
   const [f, t, tf, tc, tw, tCommon] = await Promise.all([
     getVacancyFormatters(locale),
     getTranslations({ locale, namespace: "vacatures.detail" }),
@@ -19,7 +19,7 @@ export async function VacancyApplyAside({ vacancy, locale, contact }: Props) {
     getTranslations({ locale, namespace: "common.whatsapp" }),
     getTranslations({ locale, namespace: "common" }),
   ]);
-  const showWhatsapp = vacancy.state === "open" && vacancy.allowWhatsappApply && contact.whatsappE164 !== null;
+  const showWhatsapp = vacancy.state === "open" && vacancy.allowWhatsappApply;
   const rows = [
     { key: "wage", label: tf("wage"), value: f.wage(vacancy.salaryMin, vacancy.salaryMax) },
     { key: "hours", label: tf("hours"), value: f.hours(vacancy.hoursMin, vacancy.hoursMax) },
@@ -44,19 +44,16 @@ export async function VacancyApplyAside({ vacancy, locale, contact }: Props) {
           <Send aria-hidden="true" />
           {tc("apply")}
         </CtaButton>
-        {showWhatsapp && contact.whatsappE164 && (
+        {showWhatsapp && (
           <CtaButton
-            href={whatsappLink(
-              tw("vacatureSolliciteren", { title: vacancy.title, number: vacancy.number }),
-              asPhone(contact.whatsappE164),
-            )}
+            href={whatsappLink(tw("vacatureSolliciteren", { title: vacancy.title, number: vacancy.number }))}
             variant="secondary"
             className="w-full"
             external
             newTabLabel={tCommon("opensInNewTab")}
           >
             <MessageCircle aria-hidden="true" />
-            {tc("whatsappPerson", { name: contact.name })}
+            {tc("whatsapp")}
           </CtaButton>
         )}
       </div>

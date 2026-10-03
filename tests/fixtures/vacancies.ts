@@ -9,8 +9,9 @@ import type { VacancyDetail } from "@/lib/data/types";
  */
 
 const DAY = 24 * 60 * 60 * 1000;
-const JIMMY = { name: "Jimmy", phoneE164: "+31683351985", whatsappE164: "+31683351985", photoUrl: null };
-const LORENZO = { name: "Lorenzo", phoneE164: "+31652549539", whatsappE164: null, photoUrl: null };
+// Contactbeheerders uit admin_profiles; de publieke site toont ze niet (B-60).
+const BEHEERDER_A = { name: "Beheerder A", phoneE164: "+31683351985", whatsappE164: "+31683351985", photoUrl: null };
+const BEHEERDER_B = { name: "Beheerder B", phoneE164: "+31612345678", whatsappE164: null, photoUrl: null };
 
 const OCCUPATIONS = {
   glazenwasser: { nameNl: "Glazenwasser", pluralNl: "Glazenwassers", nameEn: "Window cleaner", pluralEn: "Window cleaners" },
@@ -99,7 +100,7 @@ const ROWS: Row[] = [
     isUrgent: false,
     publishedDaysAgo: 5,
     closesInDays: 40,
-    contact: JIMMY,
+    contact: BEHEERDER_A,
   },
   {
     number: 1002,
@@ -132,7 +133,7 @@ const ROWS: Row[] = [
     isUrgent: false,
     publishedDaysAgo: 2,
     closesInDays: 43,
-    contact: LORENZO,
+    contact: BEHEERDER_B,
   },
   {
     number: 1003,
@@ -170,7 +171,7 @@ const ROWS: Row[] = [
     isUrgent: true,
     publishedDaysAgo: 1,
     closesInDays: 44,
-    contact: JIMMY,
+    contact: BEHEERDER_A,
   },
   {
     number: 1004,
@@ -203,7 +204,7 @@ const ROWS: Row[] = [
     isUrgent: false,
     publishedDaysAgo: 10,
     closesInDays: 35,
-    contact: LORENZO,
+    contact: BEHEERDER_B,
   },
   {
     number: 1005,
@@ -237,7 +238,7 @@ const ROWS: Row[] = [
     isUrgent: false,
     publishedDaysAgo: 3,
     closesInDays: 42,
-    contact: JIMMY,
+    contact: BEHEERDER_A,
   },
   {
     number: 1006,
@@ -270,7 +271,7 @@ const ROWS: Row[] = [
     isUrgent: false,
     publishedDaysAgo: 7,
     closesInDays: 38,
-    contact: LORENZO,
+    contact: BEHEERDER_B,
   },
   {
     number: 1007,
@@ -299,7 +300,7 @@ const ROWS: Row[] = [
     isUrgent: false,
     publishedDaysAgo: 25,
     closesInDays: 20,
-    contact: JIMMY,
+    contact: BEHEERDER_A,
     closed: { daysAgo: 5, reason: "filled" },
   },
 ];

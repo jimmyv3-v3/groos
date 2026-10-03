@@ -28,8 +28,8 @@ const COPY = {
     greeting: "Beste {greetingName},",
     greetingNoName: "Goedendag,",
     receivedCallback:
-      "Wij hebben uw verzoek om terug te bellen goed ontvangen. Jimmy of Lorenzo belt u op het nummer dat u heeft ingevuld.",
-    received: "Wij hebben uw bericht goed ontvangen. Jimmy of Lorenzo leest het en antwoordt u per e-mail of telefoon.",
+      "Wij hebben uw verzoek om terug te bellen goed ontvangen. Ons team belt u op het nummer dat u heeft ingevuld.",
+    received: "Wij hebben uw bericht goed ontvangen. Ons team leest het en antwoordt u per e-mail of telefoon.",
     topic: "Onderwerp",
     jobSeeker: "Zoekt u werk? Dan kunt u zich ook direct inschrijven op onze website.",
     jobSeekerLink: "inschrijven",
@@ -46,8 +46,8 @@ const COPY = {
     heading: "Thank you for your message",
     greeting: "Dear {greetingName},",
     greetingNoName: "Hello,",
-    receivedCallback: "We have received your request to be called back. Jimmy or Lorenzo will call you on the number you entered.",
-    received: "We have received your message. Jimmy or Lorenzo will read it and reply by email or phone.",
+    receivedCallback: "We have received your request to be called back. Our team will call you on the number you entered.",
+    received: "We have received your message. Our team will read it and reply by email or phone.",
     topic: "Subject",
     jobSeeker: "Looking for work? You can also register on our website straight away.",
     jobSeekerLink: "register",
@@ -84,7 +84,7 @@ export default function ContactConfirmation(props: ContactConfirmationProps): Re
       {props.topic === "employer" && <EmailText>{withLink(c.employer, c.employerLink, props.links.staffRequest)}</EmailText>}
       <EmailText>{fill(c.hurry, values)}</EmailText>
       <EmailText>{withLink(c.privacy, c.privacyLink, props.links.privacy.berichten)}</EmailText>
-      <EmailSignoff locale={props.locale} />
+      <EmailSignoff locale={props.locale} company={props.company} />
     </EmailLayout>
   );
 }

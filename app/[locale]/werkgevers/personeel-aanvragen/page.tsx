@@ -12,7 +12,7 @@ import { isClaimConfirmed } from "@/lib/claims";
 import { OCCUPATION_SLUGS } from "@/lib/data/options";
 import { ROUTES } from "@/lib/routes";
 import { pageMetadata } from "@/lib/seo";
-import { contact, people } from "@/lib/site";
+import { contact } from "@/lib/site";
 
 // Personeel aanvragen (spec 07 §4.7). Statisch; het formulier leest ?beroep=
 // in de browser.
@@ -40,15 +40,12 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/p
     getTranslations({ locale, namespace: "header" }),
   ]);
   const occupationOptions = OCCUPATION_SLUGS.map((id) => ({ value: id, label: tb(`${id}.meervoud`) }));
-  const either = new Intl.ListFormat(locale, { type: "disjunction" }).format(people.map((p) => p.firstName));
-  const first = people[0];
   const aside = {
     form: "staffRequest" as const,
     locale,
     title: t("staffRequest.alternatives.title"),
-    body: t("staffRequest.alternatives.body", { name: either }),
+    body: t("staffRequest.alternatives.body"),
     whatsappText: tc("whatsapp.werkgever"),
-    persons: people.map((p) => ({ name: p.firstName, phone: p.phone, whatsapp: p.whatsapp })),
   };
   const steps = t.raw("staffRequest.steps.items") as { title: string; body: string }[];
 
@@ -78,11 +75,11 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/p
             <CtaButton
               variant="secondary"
               href={contact.phoneHref}
-              ariaLabel={tc("a11y.callPerson", { name: first.firstName, phone: contact.phone })}
+              ariaLabel={tc("a11y.call", { phone: contact.phone })}
               className="shrink-0"
             >
               <Phone aria-hidden="true" />
-              {tc("cta.callPerson", { name: first.firstName })}
+              {tc("cta.call")}
             </CtaButton>
           </div>
         </div>

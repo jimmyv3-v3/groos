@@ -1,5 +1,4 @@
 import type { Locale } from "@/i18n/routing";
-import { people } from "@/lib/site";
 import { NEW_BADGE_DAYS } from "./constants";
 
 /**
@@ -17,10 +16,8 @@ export function displayCity(city: string, locale: Locale): string {
   return locale === "en" ? (CITY_EN[city] ?? city) : city;
 }
 
-/** Eerst de personen uit lib/site.ts, dan +316xxxxxxxx als "06 xx xx xx xx", anders de invoer. */
+/** +316xxxxxxxx als "06 xx xx xx xx", anders de invoer. */
 export function displayPhone(e164: string): string {
-  const person = people.find((p) => p.phone.e164 === e164);
-  if (person) return person.phone.display;
   const mobile = /^\+316(\d{2})(\d{2})(\d{2})(\d{2})$/.exec(e164);
   if (mobile) return `06 ${mobile.slice(1).join(" ")}`;
   return e164;

@@ -116,7 +116,7 @@ export const verhuizer = {
           },
           {
             title: "Een vaste contactpersoon",
-            body: "Jimmy of Lorenzo vertelt je vooraf waar de wagen staat en hoe laat je begint.",
+            body: "Ons team vertelt je vooraf waar de wagen staat en hoe laat je begint.",
             icon: "phone",
           },
           {
@@ -187,7 +187,7 @@ export const verhuizer = {
       cta: {
         title: "Wil je meehelpen",
         accent: "bij de volgende verhuizing?",
-        body: "Schrijf je in en vertel welke dagen je kunt. Jimmy of Lorenzo belt je als een ploeg iemand zoekt.",
+        body: "Schrijf je in en vertel welke dagen je kunt. Ons team belt je als een ploeg iemand zoekt.",
       },
     },
     employer: {
@@ -237,8 +237,8 @@ export const verhuizer = {
             icon: "handshake",
           },
           {
-            title: "Twee vaste contactpersonen",
-            body: "U belt met Jimmy of Lorenzo, die uw aanvraag van begin tot eind regelen.",
+            title: "Eén vast team",
+            body: "U belt met ons team, dat uw aanvraag van begin tot eind regelt.",
             icon: "phone",
           },
           {
@@ -342,7 +342,7 @@ export const verhuizer = {
           },
           {
             q: "Wat als een verhuizer op de verhuisdag uitvalt?",
-            a: "Dan zoeken wij een vervanger en houden wij u op de hoogte. Belt een medewerker 's ochtends af, dan hoort u dat direct van Jimmy of Lorenzo.",
+            a: "Dan zoeken wij een vervanger en houden wij u op de hoogte. Belt een medewerker 's ochtends af, dan hoort u dat direct van ons team.",
             specific: true,
             claim: "replacement",
           },
@@ -462,7 +462,7 @@ export const verhuizer = {
           },
           {
             title: "One regular contact person",
-            body: "Jimmy or Lorenzo tells you in advance where the van is and what time you start.",
+            body: "Our team tells you in advance where the van is and what time you start.",
             icon: "phone",
           },
           {
@@ -533,7 +533,7 @@ export const verhuizer = {
       cta: {
         title: "Do you want to help",
         accent: "with the next move?",
-        body: "Register and tell us which days you can work. Jimmy or Lorenzo will call you when a team needs someone.",
+        body: "Register and tell us which days you can work. Our team will call you when a team needs someone.",
       },
     },
     employer: {
@@ -584,7 +584,7 @@ export const verhuizer = {
           },
           {
             title: "Two regular contact persons",
-            body: "You deal with Jimmy or Lorenzo, who handle your request from start to finish.",
+            body: "You deal with our team, which handles your request from start to finish.",
             icon: "phone",
           },
           {
@@ -688,7 +688,7 @@ export const verhuizer = {
           },
           {
             q: "What if a mover drops out on the moving day?",
-            a: "Then we look for a replacement and keep you informed. If a worker calls in sick in the morning, you hear it straight away from Jimmy or Lorenzo.",
+            a: "Then we look for a replacement and keep you informed. If a worker calls in sick in the morning, you hear it straight away from our team.",
             specific: true,
             claim: "replacement",
           },

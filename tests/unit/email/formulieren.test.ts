@@ -58,36 +58,25 @@ function application(contact: Record<string, unknown> | null) {
 
 beforeEach(() => {
   sent.length = 0;
-  tables = { admin_profiles: [{ email: "Jimmy@example.com" }, { email: "info@groospersoneelsdiensten.nl" }] };
+  tables = { admin_profiles: [{ email: "Planner@example.com" }, { email: "info@groospersoneelsdiensten.nl" }] };
 });
 
 describe("sendApplicationEmails (spec 11 §4.10)", () => {
-  it("noemt de actieve contactpersoon met zijn nummer", async () => {
+  it("noemt geen contactpersoon bij naam, ook als de vacature er een heeft (B-60)", async () => {
     tables.applications = application({
-      display_name: "Jimmy",
-      phone_e164: "+31683351985",
-      whatsapp_e164: "+31683351985",
+      display_name: "Beheerder A",
+      phone_e164: "+31611111111",
+      whatsapp_e164: "+31611111111",
       is_active: true,
     });
     await sendApplicationEmails({ applicationId: "x" });
-    const props = sent[0].react.props as { contactName: string; contactPhoneDisplay: string };
+    const props = sent[0].react.props as Record<string, unknown> & { company: { phoneDisplay: string } };
     assert.equal(sent[0].template, "application-confirmation");
-    assert.equal(props.contactName, "Jimmy");
-    assert.equal(props.contactPhoneDisplay, "06 83 35 19 85");
-  });
-
-  it("valt zonder telefoonnummer van de contactpersoon terug op Jimmy of Lorenzo en het hoofdnummer", async () => {
-    tables.applications = application({ display_name: "Kees", phone_e164: null, whatsapp_e164: null, is_active: true });
-    await sendApplicationEmails({ applicationId: "x" });
-    const props = sent[0].react.props as { contactName: string; contactPhoneDisplay: string };
-    assert.equal(props.contactName, "Jimmy of Lorenzo");
-    assert.equal(props.contactPhoneDisplay, "06 83 35 19 85");
-  });
-
-  it("valt bij een inactieve contactpersoon ook terug", async () => {
-    tables.applications = application({ display_name: "Kees", phone_e164: "+31611111111", whatsapp_e164: null, is_active: false });
-    await sendApplicationEmails({ applicationId: "x" });
-    assert.equal((sent[0].react.props as { contactName: string }).contactName, "Jimmy of Lorenzo");
+    assert.equal("contactName" in props, false);
+    assert.equal("contactPhoneDisplay" in props, false);
+    assert.equal(props.company.phoneDisplay, "06 83 35 19 85");
+    assert.equal(JSON.stringify(props).includes("Beheerder A"), false);
+    assert.equal(JSON.stringify(props).includes("06 11 11 11 11"), false);
   });
 
   it("stuurt de interne melding als één mail naar info@ en de beheerders, ontdubbeld en gesorteerd", async () => {
@@ -97,7 +86,7 @@ describe("sendApplicationEmails (spec 11 §4.10)", () => {
       sent.map((s) => s.template),
       ["application-confirmation", "application-notification"],
     );
-    assert.deepEqual(sent[1].to, ["info@groospersoneelsdiensten.nl", "jimmy@example.com"]);
+    assert.deepEqual(sent[1].to, ["info@groospersoneelsdiensten.nl", "planner@example.com"]);
     assert.deepEqual(sent[1].entity, { type: "application", id: "00000000-0000-4000-8000-000000000010" });
   });
 

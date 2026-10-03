@@ -17,9 +17,9 @@ const COPY = {
     greeting: "Hoi {greetingName},",
     greetingNoName: "Hoi,",
     received: "Wij hebben je inschrijving goed ontvangen. Je referentienummer is {reference}.",
-    next: "Jimmy of Lorenzo belt of appt je om te horen welk werk je zoekt. Is er passend werk, dan nemen wij opnieuw contact met je op.",
+    next: "Ons team belt of appt je om te horen welk werk je zoekt. Is er passend werk, dan nemen wij opnieuw contact met je op.",
     nextResponse:
-      "Jimmy of Lorenzo belt of appt je binnen één werkdag om te horen welk werk je zoekt. Is er passend werk, dan nemen wij opnieuw contact met je op.",
+      "Ons team belt of appt je binnen één werkdag om te horen welk werk je zoekt. Is er passend werk, dan nemen wij opnieuw contact met je op.",
     factsTitle: "Wat wij van je hebben ontvangen",
     reference: "Referentienummer",
     interest: "Interesse in",
@@ -44,9 +44,9 @@ const COPY = {
     greeting: "Hi {greetingName},",
     greetingNoName: "Hi,",
     received: "We have received your registration. Your reference number is {reference}.",
-    next: "Jimmy or Lorenzo will call or message you to hear what work you are looking for. When there is suitable work, we will contact you again.",
+    next: "Our team will call or message you to hear what work you are looking for. When there is suitable work, we will contact you again.",
     nextResponse:
-      "Jimmy or Lorenzo will call or message you within one working day to hear what work you are looking for. When there is suitable work, we will contact you again.",
+      "Our team will call or message you within one working day to hear what work you are looking for. When there is suitable work, we will contact you again.",
     factsTitle: "What we received from you",
     reference: "Reference number",
     interest: "Interested in",
@@ -108,7 +108,7 @@ export default function RegistrationConfirmation(props: RegistrationConfirmation
       <EmailText>{c.consent}</EmailText>
       <EmailText>{fill(c.withdraw, values)}</EmailText>
       <EmailText>{withLink(c.privacy, c.privacyLink, props.links.privacy.inschrijven)}</EmailText>
-      <EmailSignoff locale={props.locale} />
+      <EmailSignoff locale={props.locale} company={props.company} />
     </EmailLayout>
   );
 }

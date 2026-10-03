@@ -3,7 +3,6 @@ import { cache } from "react";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { formatDate, formatEuro } from "@/lib/format";
-import { contact, people, type Phone } from "@/lib/site";
 import { SHIFTS, type ShiftId } from "@/lib/data/options";
 import type { VacancyDetail } from "@/lib/data/types";
 import { displayCity, displayPhone, upcomingStartDate } from "./vacancy-helpers";
@@ -71,30 +70,4 @@ export async function getVacancySeoParts(vacancy: VacancyDetail, locale: Locale)
     startDate,
     start: startDate ? tm("startDateSentence", { date: startDate }) : tm("startAsapSentence"),
   };
-}
-
-export type ResolvedVacancyContact = {
-  name: string;
-  phoneE164: string;
-  phoneDisplay: string;
-  whatsappE164: string | null;
-  photoUrl: string | null;
-};
-
-/** Contactpersoon van de vacature; zonder profiel het hoofdnummer van Jimmy (B-21). */
-export function resolveVacancyContact(vacancy: VacancyDetail): ResolvedVacancyContact {
-  const c = vacancy.contact;
-  const phoneE164 = c?.phoneE164 ?? contact.phoneE164;
-  return {
-    name: c?.name ?? people[0].firstName,
-    phoneE164,
-    phoneDisplay: displayPhone(phoneE164),
-    whatsappE164: c?.whatsappE164 ?? contact.phoneE164,
-    photoUrl: c?.photoUrl ?? null,
-  };
-}
-
-/** Phone-object voor whatsappLink() uit lib/site.ts. */
-export function asPhone(e164: string): Phone {
-  return { display: displayPhone(e164), e164: e164 as Phone["e164"] };
 }

@@ -1,4 +1,4 @@
-// TODO (Jimmy): tekst van de voorwaarden aanleveren (B-11); daarna LEGAL_DOCS terms op published true.
+// TODO (opdrachtgever): tekst van de voorwaarden aanleveren (B-11); daarna LEGAL_DOCS terms op published true.
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { resolveLocale } from "@/i18n/locale";
@@ -15,14 +15,14 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
   nl: {
     title: "Algemene voorwaarden",
     metaDescription: "TODO beschrijving zodra de voorwaarden er zijn",
-    intro: "TODO Inleiding door Jimmy of de jurist.",
+    intro: "TODO Inleiding door Groos of de jurist.",
     sections: [],
   },
   en: {
     title: "Terms and conditions",
     metaDescription: "TODO description once the terms are available",
     intro:
-      "TODO Introduction by Jimmy or the lawyer. This is a translation of the Dutch text. If the two versions differ, the Dutch version applies.",
+      "TODO Introduction by Groos or the lawyer. This is a translation of the Dutch text. If the two versions differ, the Dutch version applies.",
     sections: [],
   },
 };

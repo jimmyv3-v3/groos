@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Building2, Mail, MapPin, Phone, Clock, UserRound } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ContactPersonCard } from "@/components/contact/contact-person-card";
+import { TeamContactCard } from "@/components/contact/team-contact-card";
 import { ContactForm } from "@/components/forms/contact-form";
 import { FormErrorBoundary } from "@/components/forms/form-error-boundary";
 import { Breadcrumbs } from "@/components/sections/breadcrumbs";
@@ -12,9 +12,9 @@ import { isClaimConfirmed } from "@/lib/claims";
 import { formatTime } from "@/lib/format";
 import { ROUTES } from "@/lib/routes";
 import { employmentAgencyLd, pageMetadata } from "@/lib/seo";
-import { contact, people } from "@/lib/site";
+import { contact } from "@/lib/site";
 
-// Contact (spec 07 §4.9): personen, gegevens, keuzeblok en het contactformulier.
+// Contact (spec 07 §4.9): teamblok, gegevens, keuzeblok en het contactformulier.
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/contact">): Promise<Metadata> {
   const { locale: raw } = await params;
@@ -50,7 +50,6 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
     getTranslations({ locale, namespace: "meta" }),
     getTranslations({ locale, namespace: "header" }),
   ]);
-  const either = new Intl.ListFormat(locale, { type: "disjunction" }).format(people.map((p) => p.firstName));
   const hours = contact.openingHours;
 
   return (
@@ -70,16 +69,12 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
       <section aria-labelledby="personen-titel" className="py-10 sm:py-14">
         <div className="container">
           <h2 id="personen-titel" className="text-h2">
-            {t("people.title")} <span className="accent-text">{t("people.accent", { name: either })}</span>
+            {t("people.title")} <span className="accent-text">{t("people.accent")}</span>
           </h2>
           <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">{t("people.intro")}</p>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:max-w-4xl">
-            {people.map((person) => (
-              <li key={person.id}>
-                <ContactPersonCard person={person} locale={locale} />
-              </li>
-            ))}
-          </ul>
+          <div className="mt-8 lg:max-w-4xl">
+            <TeamContactCard locale={locale} />
+          </div>
         </div>
       </section>
 

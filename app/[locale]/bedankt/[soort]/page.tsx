@@ -11,7 +11,7 @@ import { resolveLocale } from "@/i18n/locale";
 import { isClaimConfirmed } from "@/lib/claims";
 import { BEDANKT_SOORTEN, ROUTES, isBedanktSoort, paths, type BedanktSoort } from "@/lib/routes";
 import { pageMetadata } from "@/lib/seo";
-import { contact, people, whatsappLink } from "@/lib/site";
+import { contact, whatsappLink } from "@/lib/site";
 
 // Bedankpagina's (spec 07 §4.10): statisch, noindex, follow en zonder
 // kruimelpad. De referentie komt client-side uit ?ref=.
@@ -55,7 +55,6 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
     getTranslations({ locale, namespace: "common" }),
   ]);
   const key = KEYS[soort];
-  const either = new Intl.ListFormat(locale, { type: "disjunction" }).format(people.map((p) => p.firstName));
   const jobseeker = key === "application" || key === "registration";
   const staff = key === "staffRequest";
 
@@ -76,7 +75,7 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
               />
             </Suspense>
           )}
-          <p className="mt-4 max-w-[60ch] text-base text-foreground">{t(`${key}.whoCalls`, { name: either })}</p>
+          <p className="mt-4 max-w-[60ch] text-base text-foreground">{t(`${key}.whoCalls`)}</p>
 
           {jobseeker && isClaimConfirmed("responseTime") && (
             <p className="mt-3 text-base text-muted-foreground">{tc("notes.responseJobseeker")}</p>

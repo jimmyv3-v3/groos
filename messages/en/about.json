@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "About us",
-    "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work in five occupations. Read who Jimmy and Lorenzo are and how we work."
+    "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work in five occupations. Read who we are and how our team works."
   },
   "hero": {
     "title": "Groos is an old Dutch word for <accent>pride</accent>",
-    "intro": "We are an employment agency in The Hague for window cleaning, cleaning, logistics, removals and construction and demolition. Jimmy and Lorenzo run Groos together and are the dedicated contacts."
+    "intro": "We are an employment agency in The Hague for window cleaning, cleaning, logistics, removals and construction and demolition. Our team knows the work and handles every request itself."
   },
   "story": {
     "title": "What pride means",
@@ -17,9 +17,9 @@
     ]
   },
   "people": {
-    "title": "The people behind",
-    "accent": "Groos",
-    "intro": "At Groos you always deal with the same two people. Feel free to call or message them with a question about work or staff."
+    "title": "Get in touch with",
+    "accent": "our team",
+    "intro": "At Groos you always deal with the same small team. Feel free to call or message us with a question about work or staff."
   },
   "area": {
     "title": "An agency from The Hague for",

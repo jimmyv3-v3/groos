@@ -3,12 +3,11 @@ import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import { ROUTES } from "@/lib/routes";
-import { people } from "@/lib/site";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/sections/section-heading";
-import { ContactPersonCard } from "@/components/contact/contact-person-card";
+import { TeamContactCard } from "@/components/contact/team-contact-card";
 
-/** Jimmy en Lorenzo als vaste gezichten, zonder foto's (spec 04 §4.3.6). */
+/** Het team van Groos met één contactblok, zonder namen (spec 04 §4.3.6, B-60). */
 export async function HomePeople({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: "home.people" });
 
@@ -17,13 +16,9 @@ export async function HomePeople({ locale }: { locale: Locale }) {
       <div className="container section">
         <SectionHeading headingId="home-mensen-titel" title={t("title")} accent={t("accent")} intro={t("intro")} />
         <Reveal>
-          <ul role="list" className="mt-10 grid gap-4 sm:grid-cols-2 lg:max-w-4xl">
-            {people.map((person) => (
-              <li key={person.id}>
-                <ContactPersonCard person={person} locale={locale} headingLevel="h3" />
-              </li>
-            ))}
-          </ul>
+          <div className="mt-10 lg:max-w-4xl">
+            <TeamContactCard locale={locale} />
+          </div>
         </Reveal>
         <Link
           href={ROUTES.overOns}

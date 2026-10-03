@@ -37,7 +37,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
               `Telefoon: ${PHONE}`,
             ],
           },
-          "Wij hebben geen functionaris voor gegevensbescherming, omdat dat voor ons niet verplicht is. Jimmy en Lorenzo zijn het aanspreekpunt voor alle vragen over privacy.",
+          "Wij hebben geen functionaris voor gegevensbescherming, omdat dat voor ons niet verplicht is. Ons team is het aanspreekpunt voor alle vragen over privacy.",
         ],
       },
       {
@@ -118,8 +118,8 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         id: "e-mail",
         heading: "Bevestigingen en meldingen per e-mail",
         blocks: [
-          "Na het versturen van een formulier krijgt u een bevestiging per e-mail, en Jimmy en Lorenzo krijgen een melding. Wij versturen die e-mails via Resend, vanaf servers in de Europese Unie.",
-          "Een cv sturen wij nooit als bijlage mee. Jimmy en Lorenzo openen een cv alleen in onze beveiligde beheeromgeving.",
+          "Na het versturen van een formulier krijgt u een bevestiging per e-mail, en ons team krijgt een melding. Wij versturen die e-mails via Resend, vanaf servers in de Europese Unie.",
+          "Een cv sturen wij nooit als bijlage mee. Wij openen een cv alleen in onze beveiligde beheeromgeving.",
           "Van elke verstuurde e-mail bewaren wij negentig dagen een kort verzendverslag. Daarin staat niet wat er in de e-mail stond, en uw e-mailadres alleen in onherkenbare vorm.",
         ],
       },
@@ -204,7 +204,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         id: "beveiliging",
         heading: "Beveiliging",
         blocks: [
-          "Wij beveiligen gegevens met passende technische en organisatorische maatregelen. Alleen Jimmy en Lorenzo kunnen in de beheeromgeving, met een wachtwoord en een code uit een app op hun telefoon.",
+          "Wij beveiligen gegevens met passende technische en organisatorische maatregelen. Alleen onze eigen medewerkers kunnen in de beheeromgeving, met een wachtwoord en een code uit een app op hun telefoon.",
           "Cv's staan in afgeschermde opslag en zijn alleen te openen via een link die kort geldig is. Wij leggen vast wanneer een cv is bekeken.",
           "Gaat er toch iets mis met persoonsgegevens, dan melden wij dat binnen 72 uur bij de Autoriteit Persoonsgegevens als de wet dat vraagt. Loopt u daardoor een groot risico, dan laten wij het u ook zelf weten.",
         ],
@@ -213,7 +213,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         id: "besluiten",
         heading: "Geen automatische besluiten",
         blocks: [
-          "Wij nemen geen besluiten over mensen die alleen door een computer worden genomen. Jimmy of Lorenzo bekijkt zelf elke sollicitatie en inschrijving.",
+          "Wij nemen geen besluiten over mensen die alleen door een computer worden genomen. Een medewerker van ons team bekijkt zelf elke sollicitatie en inschrijving.",
           "Wij gebruiken geen kunstmatige intelligentie om sollicitaties te selecteren of te beoordelen. Gaan wij dat ooit wel doen, dan passen wij eerst deze verklaring aan.",
         ],
       },
@@ -277,7 +277,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
               `Phone: ${PHONE}`,
             ],
           },
-          "We do not have a data protection officer, because we are not required to have one. Jimmy and Lorenzo are the point of contact for all questions about privacy.",
+          "We do not have a data protection officer, because we are not required to have one. Our team is the point of contact for all questions about privacy.",
         ],
       },
       {
@@ -358,8 +358,8 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         id: "e-mail",
         heading: "Confirmations and notifications by email",
         blocks: [
-          "After you submit a form you receive a confirmation by email, and Jimmy and Lorenzo receive a notification. We send these emails through Resend, from servers in the European Union.",
-          "We never send a CV as an attachment. Jimmy and Lorenzo only open a CV in our secure admin environment.",
+          "After you submit a form you receive a confirmation by email, and our team receives a notification. We send these emails through Resend, from servers in the European Union.",
+          "We never send a CV as an attachment. We only open a CV in our secure admin environment.",
           "For every email sent, we keep a short delivery record for ninety days. It does not contain what the email said, and your email address only in an unrecognisable form.",
         ],
       },
@@ -444,7 +444,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         id: "beveiliging",
         heading: "Security",
         blocks: [
-          "We protect data with appropriate technical and organisational measures. Only Jimmy and Lorenzo can access the admin environment, with a password and a code from an app on their phone.",
+          "We protect data with appropriate technical and organisational measures. Only our own staff can access the admin environment, with a password and a code from an app on their phone.",
           "CVs are kept in protected storage and can only be opened through a link that is valid for a short time. We record when a CV has been viewed.",
           "If something does go wrong with personal data, we report it to the Dutch Data Protection Authority (Autoriteit Persoonsgegevens) within 72 hours when the law requires it. If this puts you at high risk, we also tell you ourselves.",
         ],
@@ -453,7 +453,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
         id: "besluiten",
         heading: "No automated decisions",
         blocks: [
-          "We do not make decisions about people that are taken by a computer alone. Jimmy or Lorenzo personally reviews every application and registration.",
+          "We do not make decisions about people that are taken by a computer alone. A member of our team personally reviews every application and registration.",
           "We do not use artificial intelligence to select or assess applications. If we ever start doing so, we will update this statement first.",
         ],
       },

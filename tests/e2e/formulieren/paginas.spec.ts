@@ -49,12 +49,14 @@ test.describe("bedankpagina's (AC-07-20) @readonly", () => {
 });
 
 test.describe("contactpagina (AC-07-25) @readonly", () => {
-  test("personen, gegevens en het formulier", async ({ page }) => {
+  test("teamblok, gegevens en het formulier", async ({ page }) => {
     await page.goto("/contact");
     const main = page.locator("main");
     await expect(main.locator('a[href="tel:+31683351985"]').first()).toBeVisible();
-    await expect(main.locator('a[href="tel:+31652549539"]').first()).toBeVisible();
-    // Alleen Jimmy heeft WhatsApp; de knop heeft geen eigen aria-label (B-54).
+    // Eén nummer op de hele publieke site (B-60): het tweede nummer staat er niet meer.
+    await expect(main.locator('a[href="tel:+31652549539"]')).toHaveCount(0);
+    await expect(main.getByRole("heading", { level: 2, name: `${t("contact.people.title")} ${t("contact.people.accent")}` })).toBeVisible();
+    // Eén WhatsApp-knop in het teamblok; de knop heeft geen eigen aria-label (B-54).
     const whatsapp = main.locator('a[href^="https://wa.me/"]');
     await expect(whatsapp).toHaveCount(1);
     await expect(whatsapp).not.toHaveAttribute("aria-label", /.*/);

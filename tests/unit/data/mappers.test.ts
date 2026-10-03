@@ -70,7 +70,7 @@ function rij(overrides: Record<string, unknown> = {}) {
     is_urgent: false,
     allow_whatsapp_apply: true,
     image_path: null,
-    contact_name: "Jimmy",
+    contact_name: "Beheerder A",
     contact_phone: "+31683351985",
     contact_whatsapp: "+31683351985",
     contact_photo_path: null,
@@ -96,7 +96,7 @@ describe("rij uit public_vacancies naar VacancyDetail", () => {
     expect(detail?.path).toBe("/vacatures/opleveringsschoonmaker-delft-1007");
     expect(detail?.summary.startsWith("Je verwijdert bouwstof")).toBe(true);
     expect(detail?.summary.length).toBeLessThanOrEqual(200);
-    expect(detail?.contact).toEqual({ name: "Jimmy", phoneE164: "+31683351985", whatsappE164: "+31683351985", photoUrl: null });
+    expect(detail?.contact).toEqual({ name: "Beheerder A", phoneE164: "+31683351985", whatsappE164: "+31683351985", photoUrl: null });
     expect(detail?.asksDrivingLicenseB).toBe(true);
     expect(detail?.workplaceLanguage).toBeNull();
   });

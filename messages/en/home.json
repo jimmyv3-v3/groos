@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Employment agency in The Hague for <accent>hands-on work</accent>",
-    "intro": "We find people for window cleaning, cleaning, logistics, removals and construction and demolition in The Hague and the surrounding area. Job seekers and clients always speak to Jimmy or Lorenzo.",
+    "title": "The employment agency in The Hague for <accent>all your hands-on work</accent>",
+    "intro": "Reliable people for your business and good work for anyone ready to start. Our team arranges it personally, from the first conversation to the first working day.",
     "jobseeker": {
       "title": "I am looking for work",
       "body": "View the open jobs or choose your occupation below.",
@@ -55,7 +55,7 @@
         },
         {
           "title": "We call you",
-          "body": "Jimmy or Lorenzo calls you to hear what work you are looking for and when you can work."
+          "body": "Our team calls you to hear what work you are looking for and when you can work."
         },
         {
           "title": "You start",
@@ -87,8 +87,8 @@
     "intro": "We only promise what we can deliver. These are the fixed arrangements for everyone who works with Groos.",
     "items": {
       "contactpersonen": {
-        "title": "Two dedicated contacts",
-        "body": "You always speak to Jimmy or Lorenzo. Their mobile numbers are on this site and with every job."
+        "title": "One dedicated team",
+        "body": "You always speak to our own team. Our phone number is on this site and with every job."
       },
       "beroepen": {
         "title": "Five hands-on occupations",
@@ -105,9 +105,9 @@
     }
   },
   "people": {
-    "title": "At Groos you speak to",
-    "accent": "Jimmy or Lorenzo",
-    "intro": "They post the jobs, talk to job seekers and discuss requests with clients. Feel free to call or message them with a question about work or staff.",
+    "title": "Get in touch with",
+    "accent": "our team",
+    "intro": "We post the jobs, talk to job seekers and discuss requests with clients. Feel free to call or message us with a question about work or staff.",
     "aboutLink": "Read more about Groos"
   },
   "faq": {
@@ -153,8 +153,8 @@
           "a": "You decide, even if it is for a single day. We match the number of people and the hours to your planning."
         },
         {
-          "q": "Who is my dedicated contact?",
-          "a": "You deal with Jimmy or Lorenzo, who handle your request themselves. Their numbers are on this site, so you can call them directly."
+          "q": "Who do I deal with?",
+          "a": "You deal with our team, which handles your request itself. Our number is on this site, so you can call us directly."
         },
         {
           "q": "Do your people receive the same pay as my permanent staff?",

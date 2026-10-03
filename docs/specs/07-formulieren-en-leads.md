@@ -17,7 +17,7 @@ Werkzoekende
 3. S-07-03: Een werkzoekende kiest een foto van zijn cv. Het formulier meldt direct dat alleen pdf en Word kunnen, zonder iets te uploaden.
 4. S-07-04: Een werkzoekende zonder passende vacature schrijft zich in op `/inschrijven`, kiest Verhuizer en Logistiek medewerker en vinkt de verplichte toestemming aan. Zonder vinkje krijgt hij een foutmelding bij het vinkje.
 5. S-07-05: Een werkzoekende met JavaScript uit verstuurt de sollicitatie zonder cv. De server toont fouten bij de velden of stuurt door naar de bedankpagina.
-6. S-07-06: Een werkzoekende wil liever niet typen. Naast het formulier tikt hij op App Jimmy; WhatsApp opent met "Hallo Groos, ik wil graag solliciteren op de vacature Glazenwasser (nummer 1001)."
+6. S-07-06: Een werkzoekende wil liever niet typen. Naast het formulier tikt hij op App ons; WhatsApp opent met "Hallo Groos, ik wil graag solliciteren op de vacature Glazenwasser (nummer 1001)."
 
 Werkgever
 
@@ -101,7 +101,7 @@ Talentpool via `candidates` (spec 10 §3.3), jobalert met dubbele opt-in, sollic
 | `components/forms/form-error-boundary.tsx` | `FormErrorBoundary` (client) | nieuw |
 | `components/forms/use-form-behaviour.ts` | hook `useFormBehaviour` (client) | nieuw |
 | `components/forms/fields/*.tsx` | veldcomponenten (client) | nieuw |
-| `components/contact/contact-person-card.tsx` | `ContactPersonCard` (server) | nieuw |
+| `components/contact/team-contact-card.tsx` | `TeamContactCard` (server) | nieuw |
 | `components/forms/bedankt-reference.tsx` | `BedanktReference` (client) | nieuw |
 | `app/[locale]/inschrijven/page.tsx` | pagina | skelet van spec 01 vervangen |
 | `app/[locale]/werkgevers/personeel-aanvragen/page.tsx` | pagina | skelet vervangen |
@@ -121,7 +121,7 @@ Talentpool via `candidates` (spec 10 §3.3), jobalert met dubbele opt-in, sollic
 | `ServiceSteps` (`components/service/service-steps.tsx`), props `{id?; heading; accent?; intro?; steps: StepItem[]}` met `StepItem` uit `components/service/types.ts` | 05 | blok "Zo gaat het verder" op `/inschrijven`, `/werkgevers/personeel-aanvragen` en de bedankpagina's |
 | `beroepen.<id>.enkelvoud` en `beroepen.<id>.meervoud` in messages | 05 | labels van de beroepen in `RegisterForm` en `StaffRequestForm` |
 | `Breadcrumbs` (`components/sections/breadcrumbs.tsx`), props `{items: Crumb[]; className?; jsonLd?}` | 01 | kruimelpad op `/inschrijven`, `/werkgevers/personeel-aanvragen`, `/contact`; niet op bedankpagina's |
-| `contact`, `people`, `getPerson`, `whatsappLink(text?, phone?)` uit `lib/site.ts` | 01 | nummers, e-mail, adres, personen, WhatsApp-links |
+| `contact`, `whatsappLink(text?)` uit `lib/site.ts` | 01 | het ene nummer, e-mail, adres, WhatsApp-links (B-60) |
 | `ROUTES`, `paths.bedankt(soort)`, `BEDANKT_SOORTEN`, `BedanktSoort` uit `lib/routes.ts` | 01 | routes en doorsturen |
 | `redirect`, `Link` uit `@/i18n/navigation`; `resolveLocale` | 01 | doorsturen met behoud van `/en` |
 | `pageMetadata()` uit `lib/seo.ts` | 12 | metadata van alle pagina's |
@@ -193,7 +193,7 @@ type ApplySectionProps = { vacancy: VacancyDetail; locale: Locale };
 | Volgorde | Inhoud |
 |---|---|
 | 1 | `<section id="solliciteren" aria-labelledby="solliciteren-titel" className="scroll-mt-24">` |
-| 2 | h2 `forms.apply.title` plus accent `forms.apply.accent`; daaronder `forms.apply.intro` met `{name}` = `resolveVacancyContact(vacancy).name` (spec 06) en `forms.apply.vacancyLine` met `{title}` en `{number}` |
+| 2 | h2 `forms.apply.title` plus accent `forms.apply.accent`; daaronder `forms.apply.intro` (zonder parameter, "Ons team belt of appt je", B-60) en `forms.apply.vacancyLine` met `{title}` en `{number}` |
 | 3 | Raster: onder `lg` één kolom met eerst een compacte strook `ContactAside` (twee knoppen naast elkaar) en dan het formulier; vanaf `lg` twee kolommen, formulier 7/12 links en `ContactAside` 5/12 rechts, `sticky top-24` |
 | 4 | `<FormErrorBoundary form="apply"><ApplyForm vacancy={applyVacancy} locale={locale} /></FormErrorBoundary>` |
 
@@ -243,20 +243,20 @@ type ContactAsideProps = {
 };
 ```
 
-Rendert `<aside aria-label={forms.common.alternativesLabel}>` met h3 `title` (B-05: titel van een item binnen de sectie), alinea `body` en per persoon twee knoppen, beide `CtaButton variant="secondary"` via `TrackedContactLink`:
+Rendert `<aside aria-label={forms.common.alternativesLabel}>` met h3 `title` (B-05: titel van een item binnen de sectie), alinea `body` en twee knoppen naar het ene nummer van het team (B-60), beide `CtaButton variant="secondary"` via `TrackedContactLink`. De prop `persons` bestaat niet meer; `whatsapp?: boolean` (standaard waar) verbergt de WhatsApp-knop:
 
-- Bellen: `href={`tel:${phone.e164}`}`, label `common.cta.callPerson` met `{name}` en `aria-label` `common.a11y.callPerson` met `{name}` en `{phone}` (`phone.display`); icoon `Phone`.
-- WhatsApp, alleen als `whatsapp` waar is: `href={whatsappLink(whatsappText, phone)}`, `external` en `newTabLabel={t("common.opensInNewTab")}`, label `common.cta.whatsappPerson` met `{name}` en geen `ariaLabel`; de toegankelijke naam is het label plus `newTabLabel` (B-54); icoon `MessageCircle`.
+- Bellen: `href={contact.phoneHref}`, label `common.cta.call` en `aria-label` `common.a11y.call` met `{phone}` (`contact.phone`); icoon `Phone`.
+- WhatsApp, alleen als `whatsapp` waar is: `href={whatsappLink(whatsappText)}`, `external` en `newTabLabel={t("common.opensInNewTab")}`, label `common.cta.whatsapp` en geen `ariaLabel`; de toegankelijke naam is het label plus `newTabLabel` (B-54); icoon `MessageCircle`.
 
 Iconen uit Lucide 0.456 met `aria-hidden`.
 
-Welke personen en tekst per formulier:
+WhatsApp en tekst per formulier (bellen en appen gaan altijd naar het hoofdnummer, B-60):
 
-| Formulier | Personen | `whatsappText` |
+| Formulier | `whatsapp` | `whatsappText` |
 |---|---|---|
-| `apply` | uit `resolveVacancyContact(vacancy)` (spec 06, `components/vacatures/vacancy-format.ts`): `const c = resolveVacancyContact(vacancy); persons = [{ name: c.name, phone: { display: c.phoneDisplay, e164: c.phoneE164 }, whatsapp: vacancy.allowWhatsappApply && c.whatsappE164 !== null }]`; de terugval zonder contactpersoon is die van `resolveVacancyContact`, deze module heeft voor sollicitaties geen eigen terugval op `people` | `common.whatsapp.vacatureSolliciteren` met `{title}` en `{number}` |
-| `register` | `people` | `common.whatsapp.werkzoekende` |
-| `staffRequest` | `people` | `common.whatsapp.werkgever` |
+| `apply` | `vacancy.allowWhatsappApply` | `common.whatsapp.vacatureSolliciteren` met `{title}` en `{number}` |
+| `register` | altijd | `common.whatsapp.werkzoekende` |
+| `staffRequest` | altijd | `common.whatsapp.werkgever` |
 | `contact` | niet gebruikt; `/contact` heeft eigen kaarten (§4.9) | `common.whatsapp.algemeen` |
 
 Bij `apply` levert `resolveVacancyContact` het nummer al als weergave (`phoneDisplay`) en als E.164 (`phoneE164`); deze module formatteert dat nummer niet opnieuw.
@@ -287,7 +287,7 @@ Met JavaScript leest het formulier bij het laden `?beroep=<id>` uit de URL en vi
 |---|---|---|
 | 1 | Kruimelpad Werkgevers, Personeel aanvragen | `Breadcrumbs` met `items=[{label: header.nav.werkgevers, href: ROUTES.werkgevers}, {label: header.nav.personeelAanvragen, href: ROUTES.personeelAanvragen}]` |
 | 2 | h1 `forms.staffRequest.title`, lead `forms.staffRequest.intro`, regel `common.notes.noObligationEmployer` | eigen markup |
-| 3 | Spoedregel: `common.notes.urgentEmployer` ("Heeft u snel mensen nodig? Bel ons dan direct.") met een belknop naar `contact.phoneHref` (label `common.cta.callPerson` met de voornaam van de eerste persoon, `aria-label` `common.a11y.callPerson`); de zin `common.contact.afterHours` alleen bij `isClaimConfirmed("afterHoursUrgent")` | eigen markup, `CtaButton variant="secondary"` |
+| 3 | Spoedregel: `common.notes.urgentEmployer` ("Heeft u snel mensen nodig? Bel ons dan direct.") met een belknop naar `contact.phoneHref` (label `common.cta.call`, `aria-label` `common.a11y.call`); de zin `common.contact.afterHours` alleen bij `isClaimConfirmed("afterHoursUrgent")` | eigen markup, `CtaButton variant="secondary"` |
 | 4 | h2 `formTitle` plus `formAccent`; `StaffRequestForm` links, `ContactAside` rechts vanaf `lg`, als strook erboven onder `lg` | `StaffRequestForm` in `FormErrorBoundary` |
 | 5 | Zo gaat het na uw aanvraag | `ServiceSteps id="zo-gaat-het" heading={steps.title} accent={steps.accent} steps={items}` |
 
@@ -325,12 +325,12 @@ Bovenaan de pagina staat `<JsonLd data={employmentAgencyLd({ locale, description
 |---|---|---|
 | 1 | Kruimelpad Contact | `Breadcrumbs items=[{label: header.nav.contact, href: ROUTES.contact}]` |
 | 2 | h1 `contact.title`, lead `contact.intro` | eigen markup |
-| 3 | h2 `contact.people.title` plus accent (met `{name}` = "Jimmy of Lorenzo"), alinea `contact.people.intro`, twee kaarten naast elkaar vanaf 640 px | `ContactPersonCard` per item in `people` |
+| 3 | h2 `contact.people.title` plus accent ("Kom in contact met" en "ons team"), alinea `contact.people.intro`, één contactblok | `TeamContactCard` |
 | 4 | h2 `contact.details.title` plus accent; definitielijst (`<dl>`): adres met label `common.contact.address` (`contact.street`, `contact.postalCode contact.city`) en daaronder `common.address.byAppointment`; e-mail met label `common.contact.email` als `mailto:`-link; algemeen nummer (`contact.details.phone`) als `tel:`-link; kantoortijden alleen als `contact.openingHours` in `lib/site.ts` gevuld is, met `common.contact.officeHours` en `common.contact.officeHoursValue` (`{opens}`, `{closes}` via `formatTime`); spoed: `common.contact.afterHours` alleen bij `isClaimConfirmed("afterHoursUrgent")`; KvK (`contact.details.kvk`) alleen als `contact.kvk` gevuld is | eigen markup |
 | 5 | h2 `contact.choice.title` plus accent; twee kaarten met h3: werkzoekende (links `common.cta.viewJobs` naar `/vacatures` en `common.cta.register` naar `/inschrijven`) en werkgever (link `common.cta.requestStaff` naar `/werkgevers/personeel-aanvragen`) | eigen markup, `CtaButton` |
 | 6 | `<section id="contactformulier">` met h2 `contact.form.title` plus accent, intro, `ContactForm` | `ContactForm` in `FormErrorBoundary` |
 
-`ContactPersonCard` (server, `components/contact/contact-person-card.tsx`): props `{ person: Person; locale: Locale; headingLevel?: "h3" }`. Rendert een cirkel met de eerste letter van de voornaam (B-25: geen foto's; als `person.photo` bestaat `next/image` 64 px met alt `contact.people.photoAlt`), h3 met de voornaam, het nummer `person.phone.display` als `tel:`-link en de knoppen `common.cta.callPerson` en, als `person.whatsapp` waar is, `common.cta.whatsappPerson` met `common.whatsapp.algemeen` als voorinvultekst (`TrackedContactLink` met `form: "contact"`, labels zoals in §4.5: de belknop `common.cta.callPerson` met `ariaLabel` `common.a11y.callPerson`, de WhatsApp-knop `common.cta.whatsappPerson` zonder `ariaLabel`, met `external` en `newTabLabel={t("common.opensInNewTab")}`, zodat de toegankelijke naam het label plus `newTabLabel` is (B-54)). Geen rol of achternaam zolang die niet bevestigd zijn (00 §7).
+`TeamContactCard` (server, `components/contact/team-contact-card.tsx`, vervangt `ContactPersonCard`, B-60): props `{ locale: Locale; heading?: "h3"; body?: string; whatsappText?: string; form?: FormId; analytics?: { beroep?; vacature? } }`. Rendert optioneel een h3 met `common.team.title` ("Kom in contact met ons team") en de alinea `body`, het hoofdnummer `contact.phone` als `tel:`-link, het e-mailadres als `mailto:`-link en drie knoppen: `common.cta.call` met `ariaLabel` `common.a11y.call`, `common.cta.whatsapp` zonder `ariaLabel`, met `external` en `newTabLabel={t("common.opensInNewTab")}` (B-54) en `common.whatsapp.algemeen` als standaard voorinvultekst, en `common.cta.email`. Bellen en WhatsApp gaan via `TrackedContactLink` (standaard `form: "contact"`). Geen persoonsnamen, initialen, foto's of tweede nummer. Dezelfde kaart staat op `/`, `/over-ons` en, met `heading="h3"` en `vacatures.detail.contact.body`, op de vacaturepagina.
 
 `ContactForm` (client), props `{ locale: Locale }`. Velden: naam, telefoonnummer, e-mailadres (hint bij telefoon: één van beide is genoeg), onderwerp (`ChoiceField` met vier opties in een raster van 2 bij 2 vanaf 640 px), bericht. Met JavaScript:
 
@@ -348,7 +348,7 @@ Spec 01 legt de route vast als `app/[locale]/bedankt/[soort]/page.tsx`, statisch
 |---|---|
 | 1 | Geen kruimelpad (spec 01 §4.9). `<section>` met icoon `CircleCheck` in het merkblauw (`aria-hidden`), h1 `bedankt.<key>.title` en alinea `intro` |
 | 2 | `BedanktReference` (client, binnen `<Suspense fallback={null}>`): leest `ref` uit `useSearchParams()` en toont `bedankt.<key>.reference` alleen als de waarde past op `^S-\d{4}-\d{4,6}$` (sollicitatie, inschrijving) of `^P-\d{4}-\d{4,6}$` (aanvraag). Props `{ template: string; pattern: "S" \| "P" }`, waarbij `template` de vertaalde zin is met `{reference}` vervangen door `__REF__`. Bij contact niet gerenderd |
-| 3 | `whoCalls` met `{name}` = "Jimmy of Lorenzo" (`Intl.ListFormat` over `people`) |
+| 3 | `whoCalls` zonder parameter ("Ons team …", B-60) |
 | 4 | Notitie: bij sollicitatie en inschrijving `common.notes.responseJobseeker`, bij aanvraag `common.notes.responseEmployer`, alleen bij `isClaimConfirmed("responseTime")`; bij aanvraag daarnaast `common.notes.urgentEmployer` ("Heeft u snel mensen nodig? Bel ons dan direct.") met een belknop `common.cta.call` naar `contact.phoneHref` (`CtaButton variant="secondary"`) |
 | 5 | `ServiceSteps` met `heading={steps.title} accent={steps.accent} steps={items}` uit `bedankt.<key>.steps` (niet bij contact) |
 | 6 | Knoppen en links per soort, zie de tabel hieronder. De WhatsApp-knop is `CtaButton variant="secondary"` met `external` en `newTabLabel={t("common.opensInNewTab")}`, label `common.cta.whatsapp` en voorinvultekst `common.whatsapp.werkzoekende` (sollicitatie, inschrijving) of `common.whatsapp.werkgever` (aanvraag) |
@@ -694,7 +694,7 @@ Zones voor `npm run check:copy`: de bouw-agent vult `ZONES` in `scripts/check-co
     "apply": {
       "title": "Solliciteer op",
       "accent": "deze vacature",
-      "intro": "Je bent in een paar minuten klaar en een cv is niet nodig. {name} belt of appt je om kennis te maken.",
+      "intro": "Je bent in een paar minuten klaar en een cv is niet nodig. Ons team belt of appt je om kennis te maken.",
       "vacancyLine": "Je solliciteert op {title}, vacature {number}.",
       "submit": "Verstuur sollicitatie",
       "submitting": "Bezig met versturen",
@@ -713,7 +713,7 @@ Zones voor `npm run check:copy`: de bouw-agent vult `ZONES` in `scripts/check-co
       "benefits": [
         "Inschrijven kost je niets",
         "Een cv is niet nodig",
-        "Je hebt één vaste contactpersoon"
+        "Je hebt één vast aanspreekpunt"
       ],
       "formTitle": "Vertel ons",
       "formAccent": "welk werk je zoekt",
@@ -807,7 +807,7 @@ Zones voor `npm run check:copy`: de bouw-agent vult `ZONES` in `scripts/check-co
       "submitting": "Bezig met versturen",
       "alternatives": {
         "title": "Liever direct overleggen?",
-        "body": "Bel of app {name}. Wij nemen uw aanvraag dan telefonisch met u door."
+        "body": "Bel of app ons team. Wij nemen uw aanvraag dan telefonisch met u door."
       },
       "steps": {
         "title": "Zo gaat het",
@@ -861,15 +861,14 @@ Zones voor `npm run check:copy`: de bouw-agent vult `ZONES` in `scripts/check-co
   "contact": {
     "meta": {
       "title": "Contact",
-      "description": "Bel, app of mail Jimmy en Lorenzo van Groos Personeelsdiensten in Den Haag. Stuur een bericht via het formulier of maak een afspraak om langs te komen."
+      "description": "Bel, app of mail het team van Groos Personeelsdiensten in Den Haag. Stuur een bericht via het formulier of maak een afspraak om langs te komen."
     },
     "title": "Contact met Groos Personeelsdiensten",
-    "intro": "Bij Groos spreekt u altijd Jimmy of Lorenzo. Bel of app een van hen, of stuur een bericht via het formulier.",
+    "intro": "Bij Groos spreekt u altijd iemand van ons team. Bel of app ons, of stuur een bericht via het formulier.",
     "people": {
-      "title": "Bel of app",
-      "accent": "{name}",
-      "intro": "Allebei zijn ze op hun eigen nummer bereikbaar.",
-      "photoAlt": "Portret van {name}"
+      "title": "Kom in contact met",
+      "accent": "ons team",
+      "intro": "Ons team is bereikbaar op één nummer, ook via WhatsApp. U kunt ons ook een e-mail sturen."
     },
     "details": {
       "title": "Gegevens van",
@@ -901,7 +900,7 @@ Zones voor `npm run check:copy`: de bouw-agent vult `ZONES` in `scripts/check-co
       "title": "Bedankt voor je sollicitatie",
       "intro": "Wij hebben je sollicitatie goed ontvangen. Je krijgt ook een bevestiging per e-mail.",
       "reference": "Je referentienummer is {reference}.",
-      "whoCalls": "{name} belt of appt je om kennis te maken. Houd je telefoon bij de hand.",
+      "whoCalls": "Ons team belt of appt je om kennis te maken. Houd je telefoon bij de hand.",
       "steps": {
         "title": "Zo gaat het",
         "accent": "verder",
@@ -917,7 +916,7 @@ Zones voor `npm run check:copy`: de bouw-agent vult `ZONES` in `scripts/check-co
       "title": "Bedankt voor je inschrijving",
       "intro": "Wij hebben je inschrijving goed ontvangen. Je krijgt ook een bevestiging per e-mail.",
       "reference": "Je referentienummer is {reference}.",
-      "whoCalls": "{name} belt of appt je om te horen welk werk je zoekt.",
+      "whoCalls": "Ons team belt of appt je om te horen welk werk je zoekt.",
       "steps": {
         "title": "Zo gaat het",
         "accent": "verder",
@@ -933,7 +932,7 @@ Zones voor `npm run check:copy`: de bouw-agent vult `ZONES` in `scripts/check-co
       "title": "Bedankt voor uw aanvraag",
       "intro": "Wij hebben uw aanvraag goed ontvangen. U krijgt ook een bevestiging per e-mail.",
       "reference": "Uw referentienummer is {reference}.",
-      "whoCalls": "{name} neemt contact met u op om de aanvraag door te nemen.",
+      "whoCalls": "Ons team neemt contact met u op om de aanvraag door te nemen.",
       "steps": {
         "title": "Zo gaat het",
         "accent": "verder",
@@ -949,14 +948,14 @@ Zones voor `npm run check:copy`: de bouw-agent vult `ZONES` in `scripts/check-co
       "metaTitle": "Bedankt voor uw bericht",
       "title": "Bedankt voor uw bericht",
       "intro": "Wij hebben uw bericht goed ontvangen. Heeft u een e-mailadres ingevuld, dan krijgt u ook een bevestiging per e-mail.",
-      "whoCalls": "{name} beantwoordt uw bericht. Heeft u om terugbellen gevraagd, dan bellen wij u op het nummer dat u heeft ingevuld.",
+      "whoCalls": "Ons team beantwoordt uw bericht. Heeft u om terugbellen gevraagd, dan bellen wij u op het nummer dat u heeft ingevuld.",
       "homeLink": "Naar de homepage"
     }
   }
 }
 ```
 
-Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` is `contact.email`; `{phone}` is `Phone.display`; `{number}` en `{title}` komen uit de vacature; `{reference}` vult `BedanktReference` in; `{percent}` is een geheel getal. De link in `forms.privacy.*` gaat naar `/privacyverklaring` met het anker uit §4.4 tot en met §4.9; in `forms.contactForm.topicHints` naar `/inschrijven` of `/werkgevers/personeel-aanvragen`.
+Parameters: `{name}` is alleen nog een bestandsnaam (cv); persoonsnamen komen niet voor (B-60); `{email}` is `contact.email`; `{phone}` is `Phone.display`; `{number}` en `{title}` komen uit de vacature; `{reference}` vult `BedanktReference` in; `{percent}` is een geheel getal. De link in `forms.privacy.*` gaat naar `/privacyverklaring` met het anker uit §4.4 tot en met §4.9; in `forms.contactForm.topicHints` naar `/inschrijven` of `/werkgevers/personeel-aanvragen`.
 
 ### 6.2 Sleutelboom EN
 
@@ -1048,7 +1047,7 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
     "apply": {
       "title": "Apply for",
       "accent": "this job",
-      "intro": "It only takes a few minutes and you do not need a CV. {name} will call or message you to get to know you.",
+      "intro": "It only takes a few minutes and you do not need a CV. Our team will call or message you to get to know you.",
       "vacancyLine": "You are applying for {title}, job {number}.",
       "submit": "Send application",
       "submitting": "Sending",
@@ -1067,7 +1066,7 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
       "benefits": [
         "Registering is free",
         "You do not need a CV",
-        "You have one dedicated contact"
+        "You have one dedicated point of contact"
       ],
       "formTitle": "Tell us",
       "formAccent": "what work you are looking for",
@@ -1161,7 +1160,7 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
       "submitting": "Sending",
       "alternatives": {
         "title": "Prefer to talk directly?",
-        "body": "Call or message {name}. We will then go through your request with you by phone."
+        "body": "Call or message our team. We will then go through your request with you by phone."
       },
       "steps": {
         "title": "What happens",
@@ -1215,15 +1214,14 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
   "contact": {
     "meta": {
       "title": "Contact",
-      "description": "Call, message or email Jimmy and Lorenzo of Groos Personeelsdiensten in The Hague. Send a message using the form or make an appointment to visit."
+      "description": "Call, message or email the team of Groos Personeelsdiensten in The Hague. Send a message using the form or make an appointment to visit."
     },
     "title": "Contact Groos Personeelsdiensten",
-    "intro": "At Groos you always speak to Jimmy or Lorenzo. Call or message one of them, or send a message using the form.",
+    "intro": "At Groos you always speak to someone from our team. Call or message us, or send a message using the form.",
     "people": {
-      "title": "Call or message",
-      "accent": "{name}",
-      "intro": "Both can be reached on their own number.",
-      "photoAlt": "Portrait of {name}"
+      "title": "Get in touch with",
+      "accent": "our team",
+      "intro": "Our team can be reached on one number, also through WhatsApp. You can also send us an email."
     },
     "details": {
       "title": "Details of",
@@ -1255,7 +1253,7 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
       "title": "Thank you for your application",
       "intro": "We have received your application. You will also get a confirmation by email.",
       "reference": "Your reference number is {reference}.",
-      "whoCalls": "{name} will call or message you to get to know you. Keep your phone close by.",
+      "whoCalls": "Our team will call or message you to get to know you. Keep your phone close by.",
       "steps": {
         "title": "What happens",
         "accent": "next",
@@ -1271,7 +1269,7 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
       "title": "Thank you for registering",
       "intro": "We have received your registration. You will also get a confirmation by email.",
       "reference": "Your reference number is {reference}.",
-      "whoCalls": "{name} will call or message you to hear what work you are looking for.",
+      "whoCalls": "Our team will call or message you to hear what work you are looking for.",
       "steps": {
         "title": "What happens",
         "accent": "next",
@@ -1287,7 +1285,7 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
       "title": "Thank you for your request",
       "intro": "We have received your request. You will also get a confirmation by email.",
       "reference": "Your reference number is {reference}.",
-      "whoCalls": "{name} will contact you to go through the request.",
+      "whoCalls": "Our team will contact you to go through the request.",
       "steps": {
         "title": "What happens",
         "accent": "next",
@@ -1303,7 +1301,7 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
       "metaTitle": "Thank you for your message",
       "title": "Thank you for your message",
       "intro": "We have received your message. If you entered an email address, you will also get a confirmation by email.",
-      "whoCalls": "{name} will answer your message. If you asked us to call you back, we will call the number you entered.",
+      "whoCalls": "Our team will answer your message. If you asked us to call you back, we will call the number you entered.",
       "homeLink": "Go to the homepage"
     }
   }
@@ -1313,7 +1311,7 @@ Parameters: `{name}` is een voornaam of de lijst "Jimmy of Lorenzo"; `{email}` i
 ### 6.3 Overige tekst
 
 - WhatsApp-voorinvulteksten: `common.whatsapp.vacatureSolliciteren`, `common.whatsapp.werkzoekende`, `common.whatsapp.werkgever` en `common.whatsapp.algemeen` (spec 03 §6.17); deze module maakt geen eigen voorinvultekst.
-- Persoonslinks: `common.cta.callPerson`, `common.cta.whatsappPerson`, `common.a11y.callPerson` en `common.opensInNewTab` (spec 03).
+- Contactlinks: `common.cta.call`, `common.cta.whatsapp`, `common.cta.email`, `common.a11y.call`, `common.team.title` en `common.opensInNewTab` (spec 03).
 - Contactgegevens op `/contact`: `common.contact.address`, `common.contact.email`, `common.contact.officeHours`, `common.contact.officeHoursValue`, `common.contact.afterHours` en `common.address.byAppointment` (spec 03).
 - Notities: `common.notes.noObligationEmployer` en `common.notes.urgentEmployer` zonder vlag; `common.notes.responseJobseeker` en `responseEmployer` alleen bij `responseTime`.
 - Beroepsnamen: `beroepen.<id>.enkelvoud` en `.meervoud` (spec 05).
@@ -1439,7 +1437,7 @@ Dit is bouwstap 6 van 00 §6, samen met spec 11. Voorwaarden: spec 10 (tabellen,
 | AC-07-22 | Een sollicitatie geopend via `?utm_source=google_jobs_apply` levert `utm = {"source":"google_jobs_apply"}`; zonder UTM-parameters is `utm` leeg. | E-07-04 | R-10 |
 | AC-07-23 | In het netwerkpaneel bevatten de analytics-verzoeken alleen de events uit §5.9 met de eigenschappen `form`, `beroep` en `vacature`; geen naam, e-mail, telefoon, woonplaats, bestandsnaam of referentie (controle op de eerste preview, lokaal via de consolelog van `track`). | E-07-13 | R-11 |
 | AC-07-24 | Met alle vlaggen in `lib/claims.ts` op `false` en `contact.openingHours` leeg staat op `/contact`, `/werkgevers/personeel-aanvragen` en de bedankpagina's geen kantoortijd, geen "spoed buiten kantoortijden" en geen reactietermijn; met `contact.openingHours = { days: "ma-vr", opens: "07:00", closes: "18:00" }` verschijnt "Maandag tot en met vrijdag van 07.00 tot 18.00 uur" op `/contact`. | E-07-15 | R-12 |
-| AC-07-25 | `/contact` toont een kaart voor Jimmy en Lorenzo met hun nummer als `tel:`-link, een WhatsApp-knop alleen bij personen met `whatsapp: true`, het adres met "Langskomen kan alleen op afspraak.", het e-mailadres als `mailto:`-link en het formulier onder `#contactformulier`; geen kaart of iframe van een derde partij. | E-07-10, E-07-11 | R-01, R-11 |
+| AC-07-25 | `/contact` toont één teamblok met het hoofdnummer als `tel:`-link, één WhatsApp-knop en het e-mailadres, zonder persoonsnamen en zonder het nummer 06 52 54 95 39 (B-60), het adres met "Langskomen kan alleen op afspraak.", het e-mailadres als `mailto:`-link en het formulier onder `#contactformulier`; geen kaart of iframe van een derde partij. | E-07-10, E-07-11 | R-01, R-11 |
 | AC-07-26 | `npm run check -- --warn` meldt geen sleutelverschil voor `forms`, `contact` en `bedankt`; `npm run check:copy` geeft geen fouten in deze namespaces (geen uitroepteken, geen streepje tussen zinsdelen, geen "we", geen je in een u-zone). | E-07-12 | R-07, R-13 |
 | AC-07-27 | De JavaScript-omvang van `/inschrijven`, `/werkgevers/personeel-aanvragen`, `/contact` en een vacaturepagina blijft onder 235 kB gzip volgens `scripts/check-bundles.mjs`. | E-07-01 | R-15 |
 | AC-07-28 | `grep -rn "SUPABASE_SECRET_KEY\|createSupabaseAdminClient" components` geeft niets; `app/actions/_shared.ts` begint met `import "server-only"`; geen FormData van een Server Action is groter dan 1 MB, omdat het bestandsveld geen `name` heeft. | E-07-03, E-07-06 | R-11 |
@@ -1465,4 +1463,4 @@ Dit is bouwstap 6 van 00 §6, samen met spec 11. Voorwaarden: spec 10 (tabellen,
 | Nieuwe bestanden buiten 00 §4.4a | Deze spec claimt `components/contact/*` en `app/actions/_shared.ts`. Spec 04 mag `ContactPersonCard` hergebruiken op `/over-ons`. | master-agent | Bij een andere eigenaar alleen een verplaatsing. |
 | Spam in sollicitaties en aanvragen | Vanaf drie links in vrije tekst wordt een sollicitatie of aanvraag geweigerd met `blocked`, omdat die tabellen geen status `spam` hebben; een contactbericht komt binnen als `spam` zonder mail. | Jimmy en Lorenzo | Grens is één constante `LINK_LIMIT`. |
 | Minimale invultijd | 3 seconden, gemeten in de browser (`fillMs`). | Djulan | Alleen `MIN_FILL_MS`. |
-| Contactpersoon bij solliciteren | `ApplySection` en `ContactAside` nemen naam, nummer en WhatsApp-nummer uit `resolveVacancyContact` (spec 06), ook de terugval zonder contactpersoon (Jimmy met het hoofdnummer, B-21); deze module heeft geen eigen terugval op `people`. | Jimmy en Lorenzo | Alleen `resolveVacancyContact` in spec 06. |
+| Contactpersoon bij solliciteren | `ApplySection` en `ContactAside` tonen altijd het team met het hoofdnummer uit `contact` in `lib/site.ts` (B-60); `resolveVacancyContact` is vervallen en de contactbeheerder van een vacature blijft alleen in `/beheer` zichtbaar. | Djulan | Geen. |

@@ -8,9 +8,7 @@
       "register": "Schrijf je in",
       "requestStaff": "Personeel aanvragen",
       "call": "Bel ons",
-      "callPerson": "Bel {name}",
       "whatsapp": "App ons",
-      "whatsappPerson": "App {name}",
       "email": "Mail ons",
       "contact": "Neem contact op",
       "readMoreLink": "Lees meer over {subject}"
@@ -37,17 +35,12 @@
     "address": {
       "byAppointment": "Langskomen kan alleen op afspraak."
     },
-    "people": {
-      "jimmy": {
-        "role": "Contactpersoon"
-      },
-      "lorenzo": {
-        "role": "Contactpersoon"
-      }
+    "team": {
+      "title": "Kom in contact met ons team"
     },
     "loading": "Bezig met laden",
     "a11y": {
-      "callPerson": "Bel {name} op {phone}",
+      "call": "Bel ons op {phone}",
       "emailAddress": "Mail naar {email}"
     },
     "contact": {
@@ -55,7 +48,6 @@
       "whatsapp": "WhatsApp",
       "email": "E-mail",
       "address": "Adres",
-      "contactPersons": "Contactpersonen",
       "officeHours": "Kantoortijden",
       "officeHoursValue": "Maandag tot en met vrijdag van {opens} tot {closes} uur",
       "afterHours": "Buiten kantoortijden zijn wij bereikbaar voor spoed."

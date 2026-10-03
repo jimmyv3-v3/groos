@@ -120,8 +120,8 @@ export const hulpkrachtBouwEnSloop = {
             icon: "safety",
           },
           {
-            title: "Bellen met Jimmy of Lorenzo",
-            body: "Ook tijdens een project bel of app je Jimmy of Lorenzo met je vragen.",
+            title: "Bellen met ons team",
+            body: "Ook tijdens een project bel of app je ons team met je vragen.",
             icon: "phone",
           },
         ],
@@ -195,7 +195,7 @@ export const hulpkrachtBouwEnSloop = {
       cta: {
         title: "Wil je aan de slag",
         accent: "op de bouwplaats?",
-        body: "Solliciteer op een vacature of schrijf je in. Jimmy of Lorenzo belt je daarna om kennis te maken.",
+        body: "Solliciteer op een vacature of schrijf je in. Ons team belt je daarna om kennis te maken.",
       },
     },
     employer: {
@@ -250,8 +250,8 @@ export const hulpkrachtBouwEnSloop = {
             icon: "safety",
           },
           {
-            title: "Korte lijn met Jimmy of Lorenzo",
-            body: "Over de planning, de uren en de mensen op uw project belt u met Jimmy of Lorenzo.",
+            title: "Korte lijn met ons team",
+            body: "Over de planning, de uren en de mensen op uw project belt u met ons team.",
             icon: "phone",
           },
           {
@@ -481,8 +481,8 @@ export const hulpkrachtBouwEnSloop = {
             icon: "safety",
           },
           {
-            title: "Call Jimmy or Lorenzo",
-            body: "During a project, you call or message Jimmy or Lorenzo with your questions.",
+            title: "Call our team",
+            body: "During a project, you call or message our team with your questions.",
             icon: "phone",
           },
         ],
@@ -554,7 +554,7 @@ export const hulpkrachtBouwEnSloop = {
       cta: {
         title: "Do you want to start",
         accent: "on a building site?",
-        body: "Apply for a job or register. Jimmy or Lorenzo then calls you to get to know you.",
+        body: "Apply for a job or register. Our team then calls you to get to know you.",
       },
     },
     employer: {
@@ -609,8 +609,8 @@ export const hulpkrachtBouwEnSloop = {
             icon: "safety",
           },
           {
-            title: "Direct contact with Jimmy or Lorenzo",
-            body: "You call Jimmy or Lorenzo about the planning, the hours and the people on your project.",
+            title: "Direct contact with our team",
+            body: "You call our team about the planning, the hours and the people on your project.",
             icon: "phone",
           },
           {

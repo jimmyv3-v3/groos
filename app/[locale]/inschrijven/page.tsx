@@ -11,7 +11,6 @@ import { resolveLocale } from "@/i18n/locale";
 import { OCCUPATION_SLUGS } from "@/lib/data/options";
 import { ROUTES } from "@/lib/routes";
 import { pageMetadata } from "@/lib/seo";
-import { people } from "@/lib/site";
 
 // Inschrijven zonder vacature (spec 07 §4.6). Statisch; het formulier leest
 // ?beroep= in de browser.
@@ -45,7 +44,6 @@ export default async function Page({ params }: PageProps<"/[locale]/inschrijven"
     title: t("register.alternatives.title"),
     body: t("register.alternatives.body"),
     whatsappText: tc("whatsapp.werkzoekende"),
-    persons: people.map((p) => ({ name: p.firstName, phone: p.phone, whatsapp: p.whatsapp })),
   };
   const benefits = t.raw("register.benefits") as string[];
   const steps = t.raw("register.steps.items") as { title: string; body: string }[];

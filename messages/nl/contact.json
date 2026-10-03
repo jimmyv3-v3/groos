@@ -1,15 +1,14 @@
 {
   "meta": {
     "title": "Contact",
-    "description": "Bel, app of mail Jimmy en Lorenzo van Groos Personeelsdiensten in Den Haag. Stuur een bericht via het formulier of maak een afspraak om langs te komen."
+    "description": "Bel, app of mail het team van Groos Personeelsdiensten in Den Haag. Stuur een bericht via het formulier of maak een afspraak om langs te komen."
   },
   "title": "Contact met Groos Personeelsdiensten",
-  "intro": "Bij Groos spreekt u altijd Jimmy of Lorenzo. Bel of app een van hen, of stuur een bericht via het formulier.",
+  "intro": "Bij Groos spreekt u altijd iemand van ons team. Bel of app ons, of stuur een bericht via het formulier.",
   "people": {
-    "title": "Bel of app",
-    "accent": "{name}",
-    "intro": "Allebei zijn ze op hun eigen nummer bereikbaar.",
-    "photoAlt": "Portret van {name}"
+    "title": "Kom in contact met",
+    "accent": "ons team",
+    "intro": "Ons team is bereikbaar op één nummer, ook via WhatsApp. U kunt ons ook een e-mail sturen."
   },
   "details": {
     "title": "Gegevens van",

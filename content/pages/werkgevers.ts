@@ -17,7 +17,7 @@ export const werkgeversPage = {
       items: [
         {
           title: "Eén vaste contactpersoon",
-          body: "Jimmy of Lorenzo neemt uw aanvraag aan en blijft uw contactpersoon zolang de inzet loopt.",
+          body: "Ons team neemt uw aanvraag aan en blijft uw aanspreekpunt zolang de inzet loopt.",
           icon: "phone",
         },
         // Werkwijze zonder getal (categorie B, spec 05 §6.5). Een harde belofte van persoonlijke screening valt onder claim personalIntake.
@@ -106,7 +106,7 @@ export const werkgeversPage = {
         },
         { label: "Kosten", jobseeker: "Gratis, ook inschrijven", employer: "Een uurtarief over gewerkte uren" },
         { label: "Contract", jobseeker: "Uitzendovereenkomst met Groos", employer: "Afspraken met Groos over de inzet" },
-        { label: "Contact", jobseeker: "Jimmy of Lorenzo, op hun eigen nummer", employer: "Jimmy of Lorenzo, op hun eigen nummer" },
+        { label: "Contact", jobseeker: "Ons team, op één vast nummer", employer: "Ons team, op één vast nummer" },
         { label: "Eerste stap", jobseeker: "Solliciteren of inschrijven", employer: "Personeel aanvragen of bellen" },
       ],
     },
@@ -126,7 +126,7 @@ export const werkgeversPage = {
         },
         {
           q: "Wie is mijn contactpersoon bij Groos?",
-          a: "Uw contactpersoon is Jimmy of Lorenzo, en dat blijft zo zolang de inzet loopt. U belt of appt hen op hun eigen 06-nummer.",
+          a: "U heeft contact met ons team, en dat blijft zo zolang de inzet loopt. U belt of appt ons op één vast nummer.",
           specific: false,
         },
         {
@@ -182,7 +182,7 @@ export const werkgeversPage = {
       items: [
         {
           title: "One regular contact person",
-          body: "Jimmy or Lorenzo takes your request and stays your contact person for as long as the assignment runs.",
+          body: "Our team takes your request and stays your point of contact for as long as the assignment runs.",
           icon: "phone",
         },
         {
@@ -270,7 +270,7 @@ export const werkgeversPage = {
         },
         { label: "Costs", jobseeker: "Free, including registration", employer: "An hourly rate for the hours worked" },
         { label: "Contract", jobseeker: "Agency work contract with Groos", employer: "Agreements with Groos about the assignment" },
-        { label: "Contact", jobseeker: "Jimmy or Lorenzo, on their own number", employer: "Jimmy or Lorenzo, on their own number" },
+        { label: "Contact", jobseeker: "Our team, on one fixed number", employer: "Our team, on one fixed number" },
         { label: "First step", jobseeker: "Applying or registering", employer: "Requesting staff or calling" },
       ],
     },
@@ -290,7 +290,7 @@ export const werkgeversPage = {
         },
         {
           q: "Who is my contact person at Groos?",
-          a: "Your contact person is Jimmy or Lorenzo, and that stays the same for as long as the assignment runs. You call or message them on their own mobile number.",
+          a: "You deal with our team, and that stays the same for as long as the assignment runs. You call or message us on one fixed number.",
           specific: false,
         },
         {

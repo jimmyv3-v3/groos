@@ -1,8 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
-import { resolveVacancyContact } from "@/components/vacatures/vacancy-format";
 import type { VacancyDetail } from "@/lib/data/types";
-import type { Phone } from "@/lib/site";
 import { ApplyForm, type ApplyFormVacancy } from "./apply-form";
 import { ContactAside } from "./contact-aside";
 import { FormErrorBoundary } from "./form-error-boundary";
@@ -12,24 +10,13 @@ type ApplySectionProps = { vacancy: VacancyDetail; locale: Locale };
 /**
  * Het sollicitatieblok op de vacaturepagina (spec 07 §4.4). Spec 06 plaatst
  * het alleen bij vacancy.state === "open"; dit is het enige blok met
- * section#solliciteren. Er gaan geen gegevens van de contactpersoon naar de client.
+ * section#solliciteren. Bellen en appen gaat naar ons team op het hoofdnummer (B-60).
  */
 export async function ApplySection({ vacancy, locale }: ApplySectionProps) {
   const [t, tc] = await Promise.all([
     getTranslations({ locale, namespace: "forms.apply" }),
     getTranslations({ locale, namespace: "common" }),
   ]);
-  // Naam, nummer en WhatsApp-nummer komen uit spec 06, ook de terugval zonder
-  // contactpersoon; deze module heeft daarvoor geen eigen terugval.
-  const c = resolveVacancyContact(vacancy);
-  const persons: { name: string; phone: Phone; whatsapp: boolean }[] = [
-    {
-      name: c.name,
-      phone: { display: c.phoneDisplay, e164: c.phoneE164 as Phone["e164"] },
-      whatsapp: vacancy.allowWhatsappApply && c.whatsappE164 !== null,
-    },
-  ];
-
   const applyVacancy: ApplyFormVacancy = {
     number: vacancy.number,
     title: vacancy.title,
@@ -42,7 +29,7 @@ export async function ApplySection({ vacancy, locale }: ApplySectionProps) {
     title: t("alternatives.title"),
     body: t("alternatives.body", { number: vacancy.number }),
     whatsappText: tc("whatsapp.vacatureSolliciteren", { title: vacancy.title, number: vacancy.number }),
-    persons,
+    whatsapp: vacancy.allowWhatsappApply,
     analytics: { beroep: vacancy.occupation.slug, vacature: vacancy.number },
   };
 
@@ -54,7 +41,7 @@ export async function ApplySection({ vacancy, locale }: ApplySectionProps) {
             {t("title")} <span className="accent-text">{t("accent")}</span>
           </h2>
           <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">
-            {t("intro", { name: c.name })}
+            {t("intro")}
           </p>
           <p className="mt-2 text-base text-muted-foreground">
             {t("vacancyLine", { title: vacancy.title, number: vacancy.number })}

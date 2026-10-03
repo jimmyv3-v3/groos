@@ -13,7 +13,6 @@ import type { EmailLocale } from "@/emails/types";
 import { isClaimConfirmed } from "@/lib/claims";
 import { OCCUPATION_SLUGS, type ContactTopic, type OccupationSlug, type RequestDuration } from "@/lib/data/options";
 import { formatDate } from "@/lib/format";
-import { contact, people } from "@/lib/site";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { formatPhoneDisplay } from "@/lib/validation/phone";
 import beroepenEn from "@/messages/en/beroepen.json";
@@ -47,10 +46,6 @@ function utmSource(utm: Json | null): string | null {
   if (!utm || typeof utm !== "object" || Array.isArray(utm)) return null;
   const source = utm.source;
   return typeof source === "string" && /^[a-z0-9._-]{1,100}$/.test(source) ? source : null;
-}
-
-function jimmyOfLorenzo(locale: EmailLocale): string {
-  return new Intl.ListFormat(locale, { type: "disjunction" }).format(people.map((p) => p.firstName));
 }
 
 const FALLBACK_LABELS = { nl: beroepenNl, en: beroepenEn } as const;
@@ -148,9 +143,6 @@ export async function sendApplicationEmails(input: { applicationId: string }): P
     }
     const locale = asLocale(row.locale);
     const entity = { type: "application" as const, id: row.id };
-    // Contactpersoon alleen als hij actief is en een telefoonnummer heeft, anders "Jimmy of Lorenzo" met het hoofdnummer.
-    const c = row.vacancy?.contact;
-    const person = c?.is_active && c.phone_e164 ? { name: c.display_name, phoneE164: c.phone_e164 } : null;
     const vacancyTitle = row.vacancy_title_snapshot ?? "";
     const vacancyNumber = row.vacancy_number ?? 0;
 
@@ -163,8 +155,6 @@ export async function sendApplicationEmails(input: { applicationId: string }): P
         vacancyTitle,
         vacancyNumber,
         vacancyCity: row.vacancy?.city ?? null,
-        contactName: person ? person.name : jimmyOfLorenzo(locale),
-        contactPhoneDisplay: person ? formatPhoneDisplay(person.phoneE164) : contact.phone,
         phoneDisplay: row.phone_e164 ? formatPhoneDisplay(row.phone_e164) : "",
         hasCv: Boolean(row.cv_path),
         retentionConsent: row.retention_consent,

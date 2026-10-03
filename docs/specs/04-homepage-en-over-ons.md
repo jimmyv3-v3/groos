@@ -66,10 +66,10 @@ Een keurmerkstrook met registerlink zodra B-24 bevestigd is, echte citaten zodra
 | E-04-03 | De homepage toont de vijf beroepen in de volgorde van `content/beroepen/index.ts`, elk met een link naar `/werken-als/<slug>` en naar `/werkgevers/<slug>`. | R-01, R-09 |
 | E-04-04 | De homepage legt de werkwijze uit in twee sporen van drie stappen, voor werkzoekenden in je-vorm en voor opdrachtgevers in u-vorm. | R-01, R-07 |
 | E-04-05 | Het blok "Wat u van Groos kunt verwachten" bevat alleen claims uit categorie A en B van het claimbeleid (spec 03); er staat geen cijferband, logowand, citaat, keurmerk, cao, Wtta-status, reactietermijn of 24/7. | R-12, R-08 |
-| E-04-06 | Jimmy en Lorenzo staan op `/` en `/over-ons` als twee kaarten met initiaal, voornaam, nummer en belknop, en bij Jimmy ook WhatsApp; geen foto zolang er geen is. | R-01, R-12 |
+| E-04-06 | Het team van Groos staat op `/` en `/over-ons` als één contactblok (`TeamContactCard`) met het ene telefoonnummer, WhatsApp en e-mail; geen persoonsnamen en geen foto's (B-60). | R-01, R-12 |
 | E-04-07 | Het vragenblok op `/` heeft twee sets van vijf vragen (werkzoekenden en werkgevers), wisselt zonder JavaScript van set en houdt alle tien antwoorden in de HTML. | R-01, R-14, R-15 |
 | E-04-08 | Een blauwe afsluiter (`.surface-brand`) sluit beide pagina's af met twee knoppen en het hoofdnummer. | R-01, R-05 |
-| E-04-09 | `/over-ons` vertelt wat Groos betekent, stelt Jimmy en Lorenzo voor, noemt het werkgebied en de werkwijze en leidt naar contact; J. Versseput wordt nergens genoemd. | R-07, R-08, R-12 |
+| E-04-09 | `/over-ons` vertelt wat Groos betekent, stelt het team voor zonder persoonsnamen (B-60), noemt het werkgebied en de werkwijze en leidt naar contact; J. Versseput wordt nergens genoemd. | R-07, R-08, R-12 |
 | E-04-10 | Alle tekst staat in de namespaces `home` en `about`, gespiegeld in nl en en, volgens de schrijfregels van spec 03 en de aanspreekvorm per blok (B-04). | R-07, R-13 |
 | E-04-11 | Metadata via `pageMetadata()`; JSON-LD op `/` met `employmentAgencyLd` en `faqLd` (plus `organizationLd` en `websiteLd` uit de layout), op `/over-ons` alleen `BreadcrumbList` via `Breadcrumbs`. | R-09 |
 | E-04-12 | De JV-homepagesecties, hun registers in `lib/site.ts` en hun messages zijn verwijderd volgens §4.1. | R-08, R-19 |
@@ -122,7 +122,7 @@ Opruimen in dezelfde stap (stap 4):
 | 3 | Vijf beroepen | `HomeBeroepen` | `#beroepen` | wit | neutraal |
 | 4 | Zo werkt het, twee sporen | `HowItWorks` | `#zo-werkt-het` | ijs | spoor 1 je, spoor 2 u |
 | 5 | Wat u van Groos kunt verwachten | `WhyGroos` | `#waarom-groos` | wit | wij en u |
-| 6 | Jimmy en Lorenzo | `HomePeople` met `ContactPersonCard` (spec 07) | `#contactpersonen` | ijs | wij en u |
+| 6 | Ons team | `HomePeople` met `TeamContactCard` (spec 07) | `#contactpersonen` | ijs | wij en u |
 | 7 | Veelgestelde vragen | `HomeFaq` | `#veelgestelde-vragen` | wit | set 1 je, set 2 u |
 | 8 | Afsluiter | `CtaBand` | `#aan-de-slag` | wit met blauw vlak | wij en u |
 | 9 | Footer | `SiteFooter` (spec 01, 02, 09) | | ijs | |
@@ -140,7 +140,7 @@ Elke sectie (behalve de hero) is een `<section aria-labelledby="<kop-id>">` met 
 | Deel | Element | Sleutel | NL | EN |
 |---|---|---|---|---|
 | Kop | `h1#home-titel`, `text-hero`, rich `<accent>` | `home.hero.title` | Uitzendbureau in Den Haag voor `<accent>`praktisch werk`</accent>` | Employment agency in The Hague for `<accent>`hands-on work`</accent>` |
-| Intro | `p.text-lead.text-muted-foreground` | `home.hero.intro` | Wij zoeken mensen voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop in Den Haag en omgeving. Werkzoekenden en opdrachtgevers spreken bij ons steeds met Jimmy of Lorenzo. | We find people for window cleaning, cleaning, logistics, removals and construction and demolition in The Hague and the surrounding area. Job seekers and clients always speak to Jimmy or Lorenzo. |
+| Intro | `p.text-lead.text-muted-foreground` | `home.hero.intro` | Betrouwbare mensen voor uw bedrijf en goed werk voor wie aan de slag wil. Ons team regelt het persoonlijk, van de eerste kennismaking tot de eerste werkdag. | Reliable people for your business and good work for anyone ready to start. Our team arranges it personally, from the first conversation to the first working day. |
 | Deur 1, kop | `h2`, met de klasse `text-h3` | `home.hero.jobseeker.title` | Ik zoek werk | I am looking for work |
 | Deur 1, tekst | `p` | `home.hero.jobseeker.body` | Bekijk de open vacatures of kies hieronder je beroep. | View the open jobs or choose your occupation below. |
 | Deur 1, knop | `CtaButton` primary, `href={ROUTES.vacatures}`, icoon `Briefcase` | `common.cta.viewJobs` | Bekijk vacatures | View jobs |
@@ -296,7 +296,7 @@ De parameters zijn `beroepen.<id>.enkelvoud` en `.meervoud` met `toLocaleLowerCa
 | Intro | `home.steps.intro` | Werk zoeken en personeel aanvragen gaat bij Groos in drie stappen. Zo weet iedereen vooraf wat er gebeurt. | Finding work and requesting staff at Groos takes three steps. That way everyone knows in advance what will happen. |
 | Spoor 1, kop (h3) | `home.steps.jobseeker.title` | Voor werkzoekenden | For job seekers |
 | Stap 1 | `home.steps.jobseeker.steps[0]` | Solliciteer of schrijf je in · Kies een vacature of schrijf je in zonder vacature, een cv is niet nodig. | Apply or register · Choose a job or register without one, you do not need a CV. |
-| Stap 2 | `home.steps.jobseeker.steps[1]` | Wij bellen je · Jimmy of Lorenzo belt je om te horen welk werk je zoekt en wanneer je kunt werken. | We call you · Jimmy or Lorenzo calls you to hear what work you are looking for and when you can work. |
+| Stap 2 | `home.steps.jobseeker.steps[1]` | Wij bellen je · ons team belt je om te horen welk werk je zoekt en wanneer je kunt werken. | We call you · our team calls you to hear what work you are looking for and when you can work. |
 | Stap 3 | `home.steps.jobseeker.steps[2]` | Je begint · Past het werk, dan spreken wij samen je eerste werkdag, je uren en je uurloon af. | You start · If the work suits you, we agree your first working day, your hours and your hourly wage together. |
 | Spoor 1, knop | `common.cta.viewJobs` | Bekijk vacatures | View jobs |
 | Spoor 2, kop (h3) | `home.steps.employer.title` | Voor werkgevers | For employers |
@@ -329,7 +329,7 @@ In de tabel scheidt "·" de stapnaam (`title`) van de staptekst (`body`).
 |---|---|---|---|
 | Kop | `home.why.title`, `home.why.accent` | Wat u van Groos / kunt verwachten | What you can / expect from Groos |
 | Intro | `home.why.intro` | Wij beloven alleen wat wij kunnen waarmaken. Dit zijn de vaste afspraken voor iedereen die met Groos werkt. | We only promise what we can deliver. These are the fixed arrangements for everyone who works with Groos. |
-| Kaart 1 (icoon `Users`) | `home.why.items.contactpersonen` | Twee vaste contactpersonen · U spreekt steeds met Jimmy of Lorenzo. Hun 06-nummers staan op deze site en bij elke vacature. | Two dedicated contacts · You always speak to Jimmy or Lorenzo. Their mobile numbers are on this site and with every job. |
+| Kaart 1 (icoon `Users`) | `home.why.items.contactpersonen` | Twee vaste contactpersonen · U spreekt steeds met ons eigen team. Ons telefoonnummer staat op deze site en bij elke vacature. | Two dedicated contacts · You always speak to our own team. Our phone number is on this site and with every job. |
 | Kaart 2 (icoon `Briefcase`) | `home.why.items.beroepen` | Vijf praktische beroepen · Groos richt zich op glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Per beroep staat op deze site wat het werk inhoudt. | Five hands-on occupations · Groos focuses on window cleaning, cleaning, logistics, removals and construction and demolition. For each occupation this site explains what the work involves. |
 | Kaart 3 (icoon `Euro`) | `home.why.items.loon` | Eerlijk over loon · Bij elke vacature staat het bruto uurloon. Volgens de wet krijgt een uitzendkracht hetzelfde loon als vaste collega's in dezelfde functie. | Honest about pay · Every job shows the gross hourly wage. By law a temporary worker receives the same pay as permanent colleagues in the same role. |
 | Kaart 4 (icoon `MessageCircle`) | `home.why.items.solliciteren` | Solliciteren op drie manieren · Werkzoekenden solliciteren via het formulier, met een WhatsApp-bericht of met een telefoontje. Een cv is daarbij niet nodig. | Three ways to apply · Job seekers apply through the form, with a WhatsApp message or with a phone call. A CV is not needed. |
@@ -351,19 +351,19 @@ Per item een `Card variant="default"` met `IconTile tone="tint"`, `CardTitle as=
 
 **Beweging.** `RevealGroup` op de kaarten.
 
-#### 4.3.6 Jimmy en Lorenzo (`HomePeople`)
+#### 4.3.6 Ons team (`HomePeople`)
 
-**Doel.** De twee vaste gezichten tonen, zonder foto's (B-25), met directe nummers (B-21).
+**Doel.** Eén contactblok voor het team: geen persoonsnamen, één telefoonnummer, WhatsApp en e-mail (B-60, vervangt de twee personenkaarten uit B-21 en B-26).
 
 | Deel | Sleutel | NL | EN |
 |---|---|---|---|
-| Kop | `home.people.title`, `home.people.accent` | Bij Groos spreekt u / Jimmy of Lorenzo | At Groos you speak to / Jimmy or Lorenzo |
-| Intro | `home.people.intro` | Zij plaatsen de vacatures, spreken werkzoekenden en bespreken aanvragen met opdrachtgevers. Bel of app hen gerust met een vraag over werk of personeel. | They post the jobs, talk to job seekers and discuss requests with clients. Feel free to call or message them with a question about work or staff. |
+| Kop | `home.people.title`, `home.people.accent` | Kom in contact met / ons team | Get in touch with / our team |
+| Intro | `home.people.intro` | Wij plaatsen de vacatures, spreken werkzoekenden en bespreken aanvragen met opdrachtgevers. Bel of app ons gerust met een vraag over werk of personeel. | We post the jobs, talk to job seekers and discuss requests with clients. Feel free to call or message us with a question about work or staff. |
 | Link | `home.people.aboutLink` | Lees meer over Groos | Read more about Groos |
 
-**Component.** `HomePeople` in `components/sections/home/home-people.tsx`, async server component met props `{ locale: Locale }`. Rendert `SectionHeading` (met `headingId="home-mensen-titel"`), daaronder `<ul role="list" className="mt-10 grid gap-4 sm:grid-cols-2 lg:max-w-4xl">` met per persoon uit `people` (`lib/site.ts`) een `<li><ContactPersonCard person={person} locale={locale} headingLevel="h3" /></li>`, en onder de lijst een `Link` naar `ROUTES.overOns` met de klasse `link` en `ArrowRight`.
+**Component.** `HomePeople` in `components/sections/home/home-people.tsx`, async server component met props `{ locale: Locale }`. Rendert `SectionHeading` (met `headingId="home-mensen-titel"`), daaronder `<TeamContactCard locale={locale} />` in een `div.mt-10.lg:max-w-4xl`, en onder het blok een `Link` naar `ROUTES.overOns` met de klasse `link` en `ArrowRight`.
 
-`ContactPersonCard` (spec 07, `components/contact/contact-person-card.tsx`) toont de initiaal in een cirkel (spec 02 §4.9 punt 6), de voornaam als h3, het nummer als `tel:`-link en de knoppen Bellen en, alleen bij `person.whatsapp`, WhatsApp. Deze spec bouwt geen eigen personenkaart. Heeft de kaart van spec 07 nog geen foto-ondersteuning wanneer er foto's komen, dan regelt spec 07 dat via `person.photo`.
+`TeamContactCard` (spec 07, `components/contact/team-contact-card.tsx`) toont het hoofdnummer en het e-mailadres uit `contact` in `lib/site.ts` als links en de knoppen Bel ons, App ons en Mail ons. Deze spec bouwt geen eigen contactkaart en toont geen persoonsnamen, initialen of foto's (B-60).
 
 **Gedrag per breedte.** 390: kaarten onder elkaar. 640 en breder: twee kaarten naast elkaar (`sm:grid-cols-2`). 1280 en 1440: het raster blijft maximaal 56 rem breed, links uitgelijnd onder de kop.
 
@@ -400,7 +400,7 @@ Vragen en antwoorden voor werkgevers (u-vorm, vraag in de stem van de bezoeker),
 |---|---|---|---|
 | 1 | Wat kost een uitzendkracht? | Het tarief hangt af van het beroep, het aantal uren, de werktijden en de duur van de inzet. Na uw aanvraag sturen wij u een voorstel met een uurtarief. | A, B |
 | 2 | Voor hoe lang kan ik personeel inhuren? | Dat bepaalt u zelf, ook als het om één dag gaat. Wij stemmen het aantal mensen en de uren af op uw planning. | A |
-| 3 | Wie is mijn vaste contactpersoon? | U heeft contact met Jimmy of Lorenzo, die uw aanvraag zelf afhandelen. Hun nummers staan op deze site, zodat u hen direct kunt bellen. | A |
+| 3 | Met wie heb ik contact? | U heeft contact met ons team, dat uw aanvraag zelf afhandelt. Ons nummer staat op deze site, zodat u ons direct kunt bellen. | A |
 | 4 | Krijgen jullie mensen hetzelfde loon als mijn vaste medewerkers? | Ja, dat schrijft de wet voor met de gelijkwaardige beloning. Een uitzendkracht krijgt hetzelfde loon en dezelfde vergoedingen als uw vaste medewerkers in dezelfde functie. Daarom vragen wij bij uw aanvraag naar de beloning in uw bedrijf. | A |
 | 5 | Wie zorgt voor veiligheid op de werkplek? | Als opdrachtgever zorgt u volgens de Arbowet voor een veilige werkplek en voor uitleg over het werk. Wij spreken vooraf met u af welke certificaten en beschermingsmiddelen nodig zijn. | A, B |
 
@@ -519,7 +519,7 @@ De h2 rendert `{title} <span className="accent-text">{accent}</span>` met een sp
 |---|---|---|---|---|
 | 1 | Kruimelpad, h1 en lead | `AboutHero` | geen (h1 `id="over-ons-titel"`) | wit |
 | 2 | Wat de naam betekent | `AboutStory` | `#verhaal` | wit |
-| 3 | Jimmy en Lorenzo | `AboutPeople` met `ContactPersonCard` | `#contactpersonen` | ijs |
+| 3 | Ons team | `AboutPeople` met `TeamContactCard` | `#contactpersonen` | ijs |
 | 4 | Werkgebied en adres | `AboutArea` | `#werkgebied` | wit |
 | 5 | Zo werken wij | `AboutApproach` | `#werkwijze` | ijs |
 | 6 | Contact | `CtaBand` | `#contact` | wit met blauw vlak |
@@ -533,7 +533,7 @@ Alle componenten in `components/sections/about/*`, async server components zonde
 | Deel | Sleutel | NL | EN |
 |---|---|---|---|
 | h1 (`text-h1`, rich `<accent>`) | `about.hero.title` | Groos is een oud woord voor `<accent>`trots`</accent>` | Groos is an old Dutch word for `<accent>`pride`</accent>` |
-| Lead | `about.hero.intro` | Wij zijn een uitzendbureau uit Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Jimmy en Lorenzo leiden Groos samen en zijn de vaste contactpersonen. | We are an employment agency in The Hague for window cleaning, cleaning, logistics, removals and construction and demolition. Jimmy and Lorenzo run Groos together and are the dedicated contacts. |
+| Lead | `about.hero.intro` | Wij zijn een uitzendbureau uit Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Ons team kent het werk en regelt elke aanvraag zelf. | We are an employment agency in The Hague for window cleaning, cleaning, logistics, removals and construction and demolition. Our team knows the work and handles every request itself. |
 
 Gedrag: op 390 px h1 in twee of drie regels; op 1280 px één of twee regels met `max-w-[22ch]`. Geen beweging.
 
@@ -555,10 +555,10 @@ Opbouw: `SectionHeading` met `headingId="over-ons-verhaal-titel"`, daarna `<div 
 
 | Deel | Sleutel | NL | EN |
 |---|---|---|---|
-| Kop | `about.people.title`, `about.people.accent` | De mensen achter / Groos | The people behind / Groos |
-| Intro | `about.people.intro` | Bij Groos heeft u steeds contact met dezelfde twee mensen. Bel of app hen gerust met een vraag over werk of personeel. | At Groos you always deal with the same two people. Feel free to call or message them with a question about work or staff. |
+| Kop | `about.people.title`, `about.people.accent` | Kom in contact met / ons team | Get in touch with / our team |
+| Intro | `about.people.intro` | Bij Groos heeft u steeds contact met hetzelfde kleine team. Bel of app ons gerust met een vraag over werk of personeel. | At Groos you always deal with the same small team. Feel free to call or message us with a question about work or staff. |
 
-Zelfde raster als `HomePeople` (§4.3.6) met `ContactPersonCard`, zonder de link naar over ons. Komen er foto's (B-25), dan toont `ContactPersonCard` die; deze sectie verandert niet.
+Zelfde blok als `HomePeople` (§4.3.6) met `TeamContactCard`, zonder de link naar over ons.
 
 #### 4.5.4 `AboutArea`
 
@@ -654,8 +654,8 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
 {
   "home": {
     "hero": {
-      "title": "Uitzendbureau in Den Haag voor <accent>praktisch werk</accent>",
-      "intro": "Wij zoeken mensen voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop in Den Haag en omgeving. Werkzoekenden en opdrachtgevers spreken bij ons steeds met Jimmy of Lorenzo.",
+      "title": "Hét uitzendbureau in Den Haag voor <accent>al uw praktische werk</accent>",
+      "intro": "Betrouwbare mensen voor uw bedrijf en goed werk voor wie aan de slag wil. Ons team regelt het persoonlijk, van de eerste kennismaking tot de eerste werkdag.",
       "jobseeker": {
         "title": "Ik zoek werk",
         "body": "Bekijk de open vacatures of kies hieronder je beroep.",
@@ -694,7 +694,7 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
         "title": "Voor werkzoekenden",
         "steps": [
           { "title": "Solliciteer of schrijf je in", "body": "Kies een vacature of schrijf je in zonder vacature, een cv is niet nodig." },
-          { "title": "Wij bellen je", "body": "Jimmy of Lorenzo belt je om te horen welk werk je zoekt en wanneer je kunt werken." },
+          { "title": "Wij bellen je", "body": "Ons team belt je om te horen welk werk je zoekt en wanneer je kunt werken." },
           { "title": "Je begint", "body": "Past het werk, dan spreken wij samen je eerste werkdag, je uren en je uurloon af." }
         ]
       },
@@ -712,16 +712,16 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
       "accent": "kunt verwachten",
       "intro": "Wij beloven alleen wat wij kunnen waarmaken. Dit zijn de vaste afspraken voor iedereen die met Groos werkt.",
       "items": {
-        "contactpersonen": { "title": "Twee vaste contactpersonen", "body": "U spreekt steeds met Jimmy of Lorenzo. Hun 06-nummers staan op deze site en bij elke vacature." },
+        "contactpersonen": { "title": "Eén vast team", "body": "U spreekt steeds met ons eigen team. Ons telefoonnummer staat op deze site en bij elke vacature." },
         "beroepen": { "title": "Vijf praktische beroepen", "body": "Groos richt zich op glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Per beroep staat op deze site wat het werk inhoudt." },
         "loon": { "title": "Eerlijk over loon", "body": "Bij elke vacature staat het bruto uurloon. Volgens de wet krijgt een uitzendkracht hetzelfde loon als vaste collega's in dezelfde functie." },
         "solliciteren": { "title": "Solliciteren op drie manieren", "body": "Werkzoekenden solliciteren via het formulier, met een WhatsApp-bericht of met een telefoontje. Een cv is daarbij niet nodig." }
       }
     },
     "people": {
-      "title": "Bij Groos spreekt u",
-      "accent": "Jimmy of Lorenzo",
-      "intro": "Zij plaatsen de vacatures, spreken werkzoekenden en bespreken aanvragen met opdrachtgevers. Bel of app hen gerust met een vraag over werk of personeel.",
+      "title": "Kom in contact met",
+      "accent": "ons team",
+      "intro": "Wij plaatsen de vacatures, spreken werkzoekenden en bespreken aanvragen met opdrachtgevers. Bel of app ons gerust met een vraag over werk of personeel.",
       "aboutLink": "Lees meer over Groos"
     },
     "faq": {
@@ -745,7 +745,7 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
         "items": [
           { "q": "Wat kost een uitzendkracht?", "a": "Het tarief hangt af van het beroep, het aantal uren, de werktijden en de duur van de inzet. Na uw aanvraag sturen wij u een voorstel met een uurtarief." },
           { "q": "Voor hoe lang kan ik personeel inhuren?", "a": "Dat bepaalt u zelf, ook als het om één dag gaat. Wij stemmen het aantal mensen en de uren af op uw planning." },
-          { "q": "Wie is mijn vaste contactpersoon?", "a": "U heeft contact met Jimmy of Lorenzo, die uw aanvraag zelf afhandelen. Hun nummers staan op deze site, zodat u hen direct kunt bellen." },
+          { "q": "Met wie heb ik contact?", "a": "U heeft contact met ons team, dat uw aanvraag zelf afhandelt. Ons nummer staat op deze site, zodat u ons direct kunt bellen." },
           { "q": "Krijgen jullie mensen hetzelfde loon als mijn vaste medewerkers?", "a": "Ja, dat schrijft de wet voor met de gelijkwaardige beloning. Een uitzendkracht krijgt hetzelfde loon en dezelfde vergoedingen als uw vaste medewerkers in dezelfde functie. Daarom vragen wij bij uw aanvraag naar de beloning in uw bedrijf." },
           { "q": "Wie zorgt voor veiligheid op de werkplek?", "a": "Als opdrachtgever zorgt u volgens de Arbowet voor een veilige werkplek en voor uitleg over het werk. Wij spreken vooraf met u af welke certificaten en beschermingsmiddelen nodig zijn." }
         ]
@@ -760,11 +760,11 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
   "about": {
     "meta": {
       "title": "Over ons",
-      "description": "Groos Personeelsdiensten is een Haags uitzendbureau voor praktisch werk in vijf beroepen. Lees wie Jimmy en Lorenzo zijn en hoe wij werken."
+      "description": "Groos Personeelsdiensten is een Haags uitzendbureau voor praktisch werk in vijf beroepen. Lees wie wij zijn en hoe ons team werkt."
     },
     "hero": {
       "title": "Groos is een oud woord voor <accent>trots</accent>",
-      "intro": "Wij zijn een uitzendbureau uit Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Jimmy en Lorenzo leiden Groos samen en zijn de vaste contactpersonen."
+      "intro": "Wij zijn een uitzendbureau uit Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Ons team kent het werk en regelt elke aanvraag zelf."
     },
     "story": {
       "title": "Wat trots betekent in",
@@ -776,9 +776,9 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
       ]
     },
     "people": {
-      "title": "De mensen achter",
-      "accent": "Groos",
-      "intro": "Bij Groos heeft u steeds contact met dezelfde twee mensen. Bel of app hen gerust met een vraag over werk of personeel."
+      "title": "Kom in contact met",
+      "accent": "ons team",
+      "intro": "Bij Groos heeft u steeds contact met hetzelfde kleine team. Bel of app ons gerust met een vraag over werk of personeel."
     },
     "area": {
       "title": "Een Haags bureau voor",
@@ -816,8 +816,8 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
 {
   "home": {
     "hero": {
-      "title": "Employment agency in The Hague for <accent>hands-on work</accent>",
-      "intro": "We find people for window cleaning, cleaning, logistics, removals and construction and demolition in The Hague and the surrounding area. Job seekers and clients always speak to Jimmy or Lorenzo.",
+      "title": "The employment agency in The Hague for <accent>all your hands-on work</accent>",
+      "intro": "Reliable people for your business and good work for anyone ready to start. Our team arranges it personally, from the first conversation to the first working day.",
       "jobseeker": {
         "title": "I am looking for work",
         "body": "View the open jobs or choose your occupation below.",
@@ -856,7 +856,7 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
         "title": "For job seekers",
         "steps": [
           { "title": "Apply or register", "body": "Choose a job or register without one, you do not need a CV." },
-          { "title": "We call you", "body": "Jimmy or Lorenzo calls you to hear what work you are looking for and when you can work." },
+          { "title": "We call you", "body": "Our team calls you to hear what work you are looking for and when you can work." },
           { "title": "You start", "body": "If the work suits you, we agree your first working day, your hours and your hourly wage together." }
         ]
       },
@@ -874,16 +874,16 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
       "accent": "expect from Groos",
       "intro": "We only promise what we can deliver. These are the fixed arrangements for everyone who works with Groos.",
       "items": {
-        "contactpersonen": { "title": "Two dedicated contacts", "body": "You always speak to Jimmy or Lorenzo. Their mobile numbers are on this site and with every job." },
+        "contactpersonen": { "title": "One dedicated team", "body": "You always speak to our own team. Our phone number is on this site and with every job." },
         "beroepen": { "title": "Five hands-on occupations", "body": "Groos focuses on window cleaning, cleaning, logistics, removals and construction and demolition. For each occupation this site explains what the work involves." },
         "loon": { "title": "Honest about pay", "body": "Every job shows the gross hourly wage. By law a temporary worker receives the same pay as permanent colleagues in the same role." },
         "solliciteren": { "title": "Three ways to apply", "body": "Job seekers apply through the form, with a WhatsApp message or with a phone call. A CV is not needed." }
       }
     },
     "people": {
-      "title": "At Groos you speak to",
-      "accent": "Jimmy or Lorenzo",
-      "intro": "They post the jobs, talk to job seekers and discuss requests with clients. Feel free to call or message them with a question about work or staff.",
+      "title": "Get in touch with",
+      "accent": "our team",
+      "intro": "We post the jobs, talk to job seekers and discuss requests with clients. Feel free to call or message us with a question about work or staff.",
       "aboutLink": "Read more about Groos"
     },
     "faq": {
@@ -907,7 +907,7 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
         "items": [
           { "q": "What does a temporary worker cost?", "a": "The rate depends on the occupation, the number of hours, the working times and the length of the assignment. After your request we send you a proposal with an hourly rate." },
           { "q": "For how long can I hire staff?", "a": "You decide, even if it is for a single day. We match the number of people and the hours to your planning." },
-          { "q": "Who is my dedicated contact?", "a": "You deal with Jimmy or Lorenzo, who handle your request themselves. Their numbers are on this site, so you can call them directly." },
+          { "q": "Who do I deal with?", "a": "You deal with our team, which handles your request itself. Our number is on this site, so you can call us directly." },
           { "q": "Do your people receive the same pay as my permanent staff?", "a": "Yes, the law requires equivalent pay. A temporary worker receives the same pay and the same allowances as your permanent staff in the same role. That is why we ask about pay at your company when you submit a request." },
           { "q": "Who is responsible for safety at the workplace?", "a": "As the client you are responsible under the Working Conditions Act for a safe workplace and for explaining the work. We agree with you in advance which certificates and protective equipment are needed." }
         ]
@@ -922,11 +922,11 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
   "about": {
     "meta": {
       "title": "About us",
-      "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work in five occupations. Read who Jimmy and Lorenzo are and how we work."
+      "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work in five occupations. Read who we are and how our team works."
     },
     "hero": {
       "title": "Groos is an old Dutch word for <accent>pride</accent>",
-      "intro": "We are an employment agency in The Hague for window cleaning, cleaning, logistics, removals and construction and demolition. Jimmy and Lorenzo run Groos together and are the dedicated contacts."
+      "intro": "We are an employment agency in The Hague for window cleaning, cleaning, logistics, removals and construction and demolition. Our team knows the work and handles every request itself."
     },
     "story": {
       "title": "What pride means",
@@ -938,9 +938,9 @@ Fout in de database bij de eerste build of verversing: `LatestVacancies` vangt f
       ]
     },
     "people": {
-      "title": "The people behind",
-      "accent": "Groos",
-      "intro": "At Groos you always deal with the same two people. Feel free to call or message them with a question about work or staff."
+      "title": "Get in touch with",
+      "accent": "our team",
+      "intro": "At Groos you always deal with the same small team. Feel free to call or message us with a question about work or staff."
     },
     "area": {
       "title": "An agency from The Hague for",
@@ -1268,7 +1268,7 @@ Alle criteria gelden op localhost met `npm run build && npm run start` tegen `gr
 | AC-04-06 | `#beroepen` bevat vijf `h3`'s in de volgorde Glazenwasser, Schoonmaker, Logistiek medewerker, Verhuizer, Hulpkracht bouw en sloop, en tien links: de vijf `/werken-als/<slug>` met tekst "Werken als <naam in kleine letters>" en de vijf `/werkgevers/<meervoudsslug>` met tekst "Huur <meervoud in kleine letters> in". | E-04-03 |
 | AC-04-07 | `#zo-werkt-het` bevat twee `h3`'s ("Voor werkzoekenden", "Voor werkgevers") en twee `ol`'s met elk drie `li`'s; de cijfers hebben `aria-hidden="true"`. In het eerste spoor komt geen los woord "u" of "uw" voor, in het tweede geen los woord "je", "jij" of "jouw". | E-04-04 |
 | AC-04-08 | `document.querySelector("main").innerText` op `/` en `/over-ons` (beide talen) bevat geen van: "24/7", "dag en nacht", "binnen één werkdag", "binnen 24 uur", "keurmerk", "cao", "Wtta", "NEN", "SNA", "ABU", "NBBU", "Versseput", "Wilk", en geen getal gevolgd door "+" of "%". | E-04-05, E-04-09 |
-| AC-04-09 | `#contactpersonen` op `/` en `/over-ons` bevat twee kaarten met de initialen "J" en "L", de voornamen als `h3`, links `tel:+31683351985` en `tel:+31652549539`, precies één link die begint met `https://wa.me/31683351985` en geen `img`. `#contactpersonen` op `/` linkt naar `/over-ons`. | E-04-06 |
+| AC-04-09 | `#contactpersonen` op `/` en `/over-ons` bevat één contactblok met een link `tel:+31683351985`, precies één link die begint met `https://wa.me/31683351985`, een `mailto:`-link en geen `img`; de namen Jimmy en Lorenzo en het nummer 06 52 54 95 39 staan nergens op de pagina (B-60). `#contactpersonen` op `/` linkt naar `/over-ons`. | E-04-06 |
 | AC-04-10 | In `#veelgestelde-vragen` zijn na het laden vijf `details` zichtbaar met de vragen voor werkzoekenden. Na een klik op het label "Werkgevers" zijn vijf andere `details` zichtbaar en de eerste vijf niet. Dit werkt ook met `javaScriptEnabled: false`. De HTML van `/` bevat alle tien vragen en antwoorden. | E-04-07 |
 | AC-04-11 | Met alleen het toetsenbord: Tab bereikt het gekozen keuzerondje "Werkzoekenden" met een zichtbare focusring, pijl rechts kiest "Werkgevers" en toont die set, Tab bereikt daarna de eerste werkgeversvraag en Enter klapt die open. | E-04-07 |
 | AC-04-12 | De JSON-LD van `/` bevat precies één `EmploymentAgency` (met `address.streetAddress` "Hugo Coenraadspad 6" en `telephone` "+31683351985"), één `FAQPage` met tien `Question`-items waarvan elke `name` letterlijk als vraag in de pagina staat, en één `Organization` en één `WebSite` (uit de layout). `/en` heeft dezelfde blokken met de Engelse vragen. | E-04-11 |

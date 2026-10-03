@@ -4,7 +4,7 @@
     "title": "Bedankt voor je sollicitatie",
     "intro": "Wij hebben je sollicitatie goed ontvangen. Je krijgt ook een bevestiging per e-mail.",
     "reference": "Je referentienummer is {reference}.",
-    "whoCalls": "{name} belt of appt je om kennis te maken. Houd je telefoon bij de hand.",
+    "whoCalls": "Ons team belt of appt je om kennis te maken. Houd je telefoon bij de hand.",
     "steps": {
       "title": "Zo gaat het",
       "accent": "verder",
@@ -20,7 +20,7 @@
     "title": "Bedankt voor je inschrijving",
     "intro": "Wij hebben je inschrijving goed ontvangen. Je krijgt ook een bevestiging per e-mail.",
     "reference": "Je referentienummer is {reference}.",
-    "whoCalls": "{name} belt of appt je om te horen welk werk je zoekt.",
+    "whoCalls": "Ons team belt of appt je om te horen welk werk je zoekt.",
     "steps": {
       "title": "Zo gaat het",
       "accent": "verder",
@@ -36,7 +36,7 @@
     "title": "Bedankt voor uw aanvraag",
     "intro": "Wij hebben uw aanvraag goed ontvangen. U krijgt ook een bevestiging per e-mail.",
     "reference": "Uw referentienummer is {reference}.",
-    "whoCalls": "{name} neemt contact met u op om de aanvraag door te nemen.",
+    "whoCalls": "Ons team neemt contact met u op om de aanvraag door te nemen.",
     "steps": {
       "title": "Zo gaat het",
       "accent": "verder",
@@ -52,7 +52,7 @@
     "metaTitle": "Bedankt voor uw bericht",
     "title": "Bedankt voor uw bericht",
     "intro": "Wij hebben uw bericht goed ontvangen. Heeft u een e-mailadres ingevuld, dan krijgt u ook een bevestiging per e-mail.",
-    "whoCalls": "{name} beantwoordt uw bericht. Heeft u om terugbellen gevraagd, dan bellen wij u op het nummer dat u heeft ingevuld.",
+    "whoCalls": "Ons team beantwoordt uw bericht. Heeft u om terugbellen gevraagd, dan bellen wij u op het nummer dat u heeft ingevuld.",
     "homeLink": "Naar de homepage"
   }
 }

@@ -7,9 +7,7 @@
     "register": "Register",
     "requestStaff": "Request staff",
     "call": "Call us",
-    "callPerson": "Call {name}",
     "whatsapp": "WhatsApp us",
-    "whatsappPerson": "WhatsApp {name}",
     "email": "Email us",
     "contact": "Contact us",
     "readMoreLink": "Read more about {subject}"
@@ -36,17 +34,12 @@
   "address": {
     "byAppointment": "Visits are by appointment only."
   },
-  "people": {
-    "jimmy": {
-      "role": "Contact person"
-    },
-    "lorenzo": {
-      "role": "Contact person"
-    }
+  "team": {
+    "title": "Get in touch with our team"
   },
   "loading": "Loading",
   "a11y": {
-    "callPerson": "Call {name} on {phone}",
+    "call": "Call us on {phone}",
     "emailAddress": "Email {email}"
   },
   "contact": {
@@ -54,7 +47,6 @@
     "whatsapp": "WhatsApp",
     "email": "Email",
     "address": "Address",
-    "contactPersons": "Contacts",
     "officeHours": "Office hours",
     "officeHoursValue": "Monday to Friday from {opens} to {closes}",
     "afterHours": "Outside office hours we can be reached for urgent requests."

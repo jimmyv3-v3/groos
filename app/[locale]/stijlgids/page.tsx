@@ -259,7 +259,7 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
         </form>
         <div className="mt-8 grid max-w-xl gap-3">
           <Alert tone="success" role="status">
-            Gelukt, wij hebben je gegevens ontvangen. Jimmy of Lorenzo belt je om kennis te maken.
+            Gelukt, wij hebben je gegevens ontvangen. Ons team belt je om kennis te maken.
           </Alert>
           <section aria-labelledby="sg-melding-kop">
             <Alert tone="warning" title="Deze vacature is gesloten" titleAs="h2" titleId="sg-melding-kop">

@@ -1,5 +1,5 @@
 // TODO (jurist): concepttekst versie 0.1, laten toetsen vóór livegang (spec 09 §12).
-// TODO (Jimmy en Lorenzo): termijnen van vijf werkdagen en vier weken bevestigen (B-10).
+// TODO (opdrachtgever): termijnen van vijf werkdagen en vier weken bevestigen (B-10).
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { contact } from "@/lib/site";
@@ -73,7 +73,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
       {
         id: "behandelaar",
         heading: "Wie uw klacht behandelt",
-        blocks: ["Jimmy of Lorenzo behandelt uw klacht. Gaat de klacht over een van hen, dan behandelt de ander hem."],
+        blocks: ["Ons team behandelt uw klacht. Gaat de klacht over een van onze medewerkers, dan behandelt een andere medewerker hem."],
       },
       {
         id: "vertrouwelijk",
@@ -172,7 +172,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
       {
         id: "behandelaar",
         heading: "Who handles your complaint",
-        blocks: ["Jimmy or Lorenzo handles your complaint. If the complaint concerns one of them, the other one handles it."],
+        blocks: ["Our team handles your complaint. If the complaint concerns one of our staff, another member of staff handles it."],
       },
       {
         id: "vertrouwelijk",

@@ -46,7 +46,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
                 ],
                 [
                   "sb-…-auth-token",
-                  "Houdt Jimmy en Lorenzo ingelogd in de beheeromgeving. Bezoekers van de website krijgen deze cookie niet.",
+                  "Houdt onze medewerkers ingelogd in de beheeromgeving. Bezoekers van de website krijgen deze cookie niet.",
                   "Tot het uitloggen; TODO maximale duur na waarneming invullen",
                   "Functioneel",
                 ],
@@ -133,7 +133,7 @@ const CONTENT: { nl: LegalContent; en: LegalContent } = {
                 ],
                 [
                   "sb-…-auth-token",
-                  "Keeps Jimmy and Lorenzo logged in to the admin environment. Visitors to the website do not receive this cookie.",
+                  "Keeps our staff logged in to the admin environment. Visitors to the website do not receive this cookie.",
                   "Until logging out; TODO fill in the maximum duration after observation",
                   "Functional",
                 ],
