@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { contact } from "@/lib/site";
 import { resolveLocale } from "@/i18n/locale";
-import { ROUTES } from "@/lib/routes";
 import { pageMetadata } from "@/lib/seo";
+import { getLegalDoc } from "@/lib/legal";
 import { LegalPage, pickLegal, type LegalContent } from "@/components/legal/legal-page";
 
 // Tekst uit spec 09 §6.6.
@@ -219,7 +219,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/klachten
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   const c = pickLegal(CONTENT, locale);
-  return pageMetadata({ locale, path: ROUTES.klachtenregeling, title: c.title, description: c.metaDescription });
+  return pageMetadata({ locale, path: getLegalDoc("complaints").path, title: c.title, description: c.metaDescription });
 }
 
 export default async function Page({ params }: PageProps<"/[locale]/klachtenregeling">) {

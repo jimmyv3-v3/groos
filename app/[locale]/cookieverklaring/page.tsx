@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { contact } from "@/lib/site";
 import { resolveLocale } from "@/i18n/locale";
-import { ROUTES } from "@/lib/routes";
 import { pageMetadata } from "@/lib/seo";
+import { getLegalDoc } from "@/lib/legal";
 import { LegalPage, pickLegal, type LegalContent } from "@/components/legal/legal-page";
 
 // Tekst uit spec 09 §6.5. De cookietabel volgt de waarneming in de browser
-// (spec 09 §10 blok B stap 4); die waarneming wordt herhaald op de eerste
+// (spec 09 §10 blok B stap 2); die waarneming wordt herhaald op de eerste
 // preview-deploy, omdat Analytics en BotID in ontwikkeling niet draaien.
 
 const MAIL = `[${contact.email}](${contact.emailHref})`;
@@ -193,7 +193,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/cookieve
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   const c = pickLegal(CONTENT, locale);
-  return pageMetadata({ locale, path: ROUTES.cookieverklaring, title: c.title, description: c.metaDescription });
+  return pageMetadata({ locale, path: getLegalDoc("cookies").path, title: c.title, description: c.metaDescription });
 }
 
 export default async function Page({ params }: PageProps<"/[locale]/cookieverklaring">) {

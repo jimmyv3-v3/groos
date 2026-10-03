@@ -3,8 +3,8 @@
 Claims-checklist van spec 09 §6.9 (R-12). Gebruik bij elke tekstronde
 (messages, `content/`, juridische pages, e-mails van spec 11, seed-vacatures):
 
-1. Draai `npm run check -- --warn` (TODO's) en, zodra het er is (spec 09 blok B),
-   `npm run check:claims` (claims en vacatureregels).
+1. Draai `npm run check -- --warn` (TODO's) en `npm run check:claims` (claims en
+   vacatureregels).
 2. Loop elke treffer langs de tabel hieronder en kies: laten staan (de claim is
    bevestigd en hier vastgelegd), herschrijven naar de toegestane vorm, of
    markeren met `TODO`.

@@ -1,6 +1,6 @@
 # Privacyprocedures (fase 1, handmatig)
 
-Opgesteld volgens spec 09 §5.6 tot en met §5.8. In fase 1 zijn er geen
+Opgesteld volgens spec 09 §5.6, §5.6a, §5.7 en §5.8. In fase 1 zijn er geen
 beheerschermen voor privacyverzoeken (B-19); alles loopt volgens deze werkwijze.
 Bewaartermijnen staan in [verwerkingsregister.md](verwerkingsregister.md), de
 verwerkers in [verwerkersovereenkomsten.md](verwerkersovereenkomsten.md).
@@ -69,6 +69,28 @@ lid 3 AVG).
 6. **Afsluiten.** Het register krijgt de datum van afhandeling en wat er is
    gedaan.
 
+## Authenticator kwijt
+
+Fase 1, handmatig (spec 09 §5.6a). Herstelcodes of passkeys volgen in fase 2
+(spec 15).
+
+1. **Melden.** De beheerder meldt het verlies bij Djulan. Djulan controleert de
+   identiteit via de andere eigenaar (Jimmy bevestigt Lorenzo en omgekeerd) via
+   een kanaal dat al bekend is, niet via het verloren toestel.
+2. **Factor verwijderen en sessies intrekken.** Djulan verwijdert in het
+   Supabase-dashboard van het juiste project (Authentication, Users, de
+   gebruiker, Multi-factor authentication) de TOTP-factor, of in de SQL-editor
+   `delete from auth.mfa_factors where user_id = '<id>';`, en trekt alle sessies
+   in met `delete from auth.sessions where user_id = '<id>';`. Een al uitgegeven
+   toegangstoken blijft hoogstens een uur geldig.
+3. **Mogelijk datalek.** Is het toestel gestolen of kwijt met een actieve
+   beheersessie, dan geldt ook de
+   [procedure bij een datalek](#procedure-bij-een-datalek), stap 1 tot en met 3.
+4. **Vastleggen.** Djulan voegt een regel toe:
+   `insert into audit_log (actor_type, action, entity_type, entity_id, changes) values ('system', 'admin.mfa_reset', 'admin_profile', '<id>', '{"factor":"totp","sessions":"revoked"}');`.
+5. **Opnieuw koppelen.** Bij de volgende login komt de beheerder op
+   `/beheer/mfa/koppelen` en koppelt een nieuwe authenticator-app.
+
 ## Procedure bij een datalek
 
 Een datalek is elke inbreuk waarbij persoonsgegevens verloren gaan of bij iemand
@@ -125,7 +147,7 @@ Lorenzo.
 ## Waarneming van cookies en opslag
 
 De cookietabel in de cookieverklaring berust op een waarneming in de browser
-(spec 09 §10 blok B stap 4). Vercel Web Analytics en BotID draaien niet in
+(spec 09 §10 blok B stap 2). Vercel Web Analytics en BotID draaien niet in
 ontwikkeling. Herhaal de waarneming daarom op de eerste preview-deploy (spec 13):
 
 1. Open `/`, `/vacatures`, een vacature, `/inschrijven`, `/contact` en

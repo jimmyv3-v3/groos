@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { getLegalDoc, type LegalDocId } from "@/lib/legal";
+import { ROUTES } from "@/lib/routes";
 import { Breadcrumbs } from "@/components/sections/breadcrumbs";
 import { Alert } from "@/components/ui/alert";
 import { CtaButton } from "@/components/ui/cta-button";
@@ -185,7 +186,7 @@ export async function LegalPage({
       {/* Contactblok */}
       <div className="mt-16 max-w-[68ch] rounded-xl border border-border bg-ice p-6 sm:p-8">
         <p className="text-base text-foreground">{t("contactQuestion")}</p>
-        <CtaButton href="/contact" className="mt-5">
+        <CtaButton href={ROUTES.contact} className="mt-5">
           {t("contactCta")}
         </CtaButton>
       </div>

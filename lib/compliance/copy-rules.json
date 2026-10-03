@@ -15,12 +15,12 @@
     { "id": "CL-14", "level": "review", "pattern": "heel Nederland|landelijk", "flags": "i", "note": "Werkgebied: Den Haag en omgeving." },
     { "id": "CL-15", "level": "block", "pattern": "Versseput", "flags": "i", "note": "Geen vermelding van J. Versseput (B-26)." },
     { "id": "CL-16", "level": "review", "pattern": "\\bbeste\\b|nummer 1|goedkoopste|grootste", "flags": "i", "note": "Geen superlatieven." },
-    { "id": "CL-18", "level": "review", "pattern": "detacher|werving en selectie|payroll", "flags": "i", "note": "Dienstvorm is uitzenden; andere vormen pas na claim serviceForms." },
+    { "id": "CL-18", "level": "review", "pattern": "detacher|werving en selectie|payrolling|payrollbedrijf|payroll services", "flags": "i", "note": "Dienstvorm is uitzenden; andere vormen pas na claim serviceForms." },
     { "id": "CL-19", "level": "review", "pattern": "huisvesting|woonruimte", "flags": "i", "note": "Huisvesting en vervoer alleen als bevestigd." },
     { "id": "CL-22", "level": "review", "pattern": "g-rekening|volledig verzekerd", "flags": "i", "note": "G-rekening en verzekeringen alleen als bevestigd." },
     { "id": "VR-01", "level": "review", "pattern": "\\bdame\\b|sterke? man|fit en gezond", "flags": "i", "note": "Geen eisen naar geslacht of gezondheid (VR-01, VR-04)." },
     { "id": "VR-02", "level": "review", "pattern": "\\bjonge?\\b|\\bstarters?\\b(?!\\??\\s*:)|\\bstudent(en)?\\b|max(imaal)?\\.? ?\\d{2} jaar", "flags": "i", "note": "Leeftijd alleen als minimumleeftijd 18 met arbo-reden (B-32)." },
-    { "id": "VR-03", "level": "review", "pattern": "native|moedertaal", "flags": "i", "note": "Taaleis als taal op het werk, niet als moedertaal." },
+    { "id": "VR-03", "level": "review", "pattern": "\\bnative[ -]speakers?\\b|\\bnative (Dutch|English)\\b|moedertaal", "flags": "i", "note": "Taaleis als taal op het werk, niet als moedertaal." },
     { "id": "VR-07", "level": "review", "pattern": "all-in|contant|netto per uur", "flags": "i", "note": "Loon altijd bruto per uur." },
     { "id": "VR-08", "level": "review", "pattern": "nuluren|0-uren|vaste baan|vast contract", "flags": "i", "note": "Contractvorm alleen zoals die echt is." },
     { "id": "VR-10", "level": "review", "pattern": "inschrijfgeld|kosten voor (kleding|werkkleding|cursus)", "flags": "i", "note": "Inschrijven en solliciteren is gratis (art. 9 Waadi)." },
@@ -35,6 +35,8 @@
     { "rule": "VR-13", "files": ["content/beroepen/hulpkracht-bouw-en-sloop.ts", "supabase/seed.sql"] },
     { "rule": "CL-22", "files": ["content/pages/wtta.ts"] },
     { "rule": "CL-03", "files": ["content/beroepen/glazenwasser.ts", "content/beroepen/schoonmaker.ts", "content/beroepen/logistiek-medewerker.ts", "content/beroepen/verhuizer.ts", "content/beroepen/hulpkracht-bouw-en-sloop.ts"] },
-    { "rule": "VR-11b", "files": ["content/pages/werkzoekenden.ts"] }
+    { "rule": "VR-11b", "files": ["content/pages/werkzoekenden.ts"] },
+    { "rule": "CL-05", "files": ["app/[locale]/privacyverklaring/page.tsx"] },
+    { "rule": "CL-02", "files": ["app/[locale]/klachtenregeling/page.tsx"] }
   ]
 }
