@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "title": "Contact",
+    "description": "Call, message or email the team of Groos Personeelsdiensten in The Hague. Send a message using the form or make an appointment to visit."
+  },
+  "title": "Contact Groos Personeelsdiensten",
+  "intro": "At Groos you always speak to someone from our team. Call or message us, or send a message using the form.",
+  "people": {
+    "title": "Get in touch with",
+    "accent": "our team",
+    "intro": "Our team can be reached on one number, also through WhatsApp. You can also send us an email."
+  },
+  "details": {
+    "title": "Details of",
+    "accent": "Groos Personeelsdiensten",
+    "phone": "Main number",
+    "kvk": "Chamber of Commerce (KvK) number"
+  },
+  "choice": {
+    "title": "How can we",
+    "accent": "help you?",
+    "jobseeker": {
+      "title": "I am looking for work",
+      "body": "View the jobs or register with us, even without a CV."
+    },
+    "employer": {
+      "title": "I am looking for staff",
+      "body": "Tell us who you need and from when. Submitting a request places you under no obligation."
+    }
+  },
+  "form": {
+    "title": "Send us",
+    "accent": "a message",
+    "intro": "Choose what your question is about. We reply by email or call you back."
+  }
+}

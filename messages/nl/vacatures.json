@@ -1,0 +1,285 @@
+{
+  "meta": {
+    "title": "Vacatures in Den Haag en omgeving",
+    "description": "Bekijk de open vacatures van Groos in Den Haag en omgeving, met uurloon en werktijden. Je solliciteert in een paar minuten, ook zonder cv.",
+    "titlePaged": "Vacatures in Den Haag en omgeving, pagina {page}",
+    "descriptionPaged": "Pagina {page} van de open vacatures van Groos in Den Haag en omgeving, met uurloon en werktijden. Je solliciteert in een paar minuten, ook zonder cv.",
+    "detailTitle": "{title} in {city}",
+    "detailDescription": "{title} in {city} voor {hours}, {wage}. {start} Solliciteer bij Groos, ook zonder cv.",
+    "detailDescriptionShort": "{title} in {city} voor {hours}, {wage}. Solliciteer bij Groos, ook zonder cv.",
+    "startAsapSentence": "Je kunt direct beginnen.",
+    "startDateSentence": "Je begint vanaf {date}.",
+    "closedTitleFilled": "{title} in {city} (vervuld)",
+    "closedTitleOther": "{title} in {city} (gesloten)",
+    "closedDescriptionFilled": "Deze vacature is vervuld. Bekijk vergelijkbaar werk als {occupation} of schrijf je in bij Groos.",
+    "closedDescriptionOther": "Deze vacature staat niet meer open. Bekijk vergelijkbaar werk als {occupation} of schrijf je in bij Groos.",
+    "ogAlt": "Vacature {title} in {city} bij Groos Personeelsdiensten, met uren en bruto uurloon"
+  },
+  "og": {
+    "label": "Vacature",
+    "closed": "Deze vacature is gesloten"
+  },
+  "overview": {
+    "title": "Vacatures in Den Haag en omgeving",
+    "intro": "Hier vind je het werk dat wij nu hebben voor glazenwassers, schoonmakers, logistiek medewerkers, verhuizers en hulpkrachten in de bouw en sloop. Bij elke vacature zie je meteen het bruto uurloon, de uren en de werktijden.",
+    "resultsHeading": "Gevonden vacatures",
+    "resultCount": "{count, plural, =0 {Geen vacatures gevonden} one {# vacature gevonden} other {# vacatures gevonden}}",
+    "resultCountQuery": "{count, plural, =0 {Geen vacatures gevonden voor “{query}”} one {# vacature gevonden voor “{query}”} other {# vacatures gevonden voor “{query}”}}",
+    "pageStatus": "Pagina {page} van {pageCount}",
+    "updating": "De lijst wordt bijgewerkt"
+  },
+  "search": {
+    "form": "Vacatures zoeken",
+    "label": "Zoek op functie of plaats",
+    "placeholder": "Bijvoorbeeld schoonmaker of Rijswijk",
+    "submit": "Zoeken"
+  },
+  "filters": {
+    "heading": "Filters",
+    "open": "Filters",
+    "openWithCount": "Filters ({count})",
+    "sheetTitle": "Filters",
+    "close": "Sluiten",
+    "showResults": "{count, plural, =0 {Geen vacatures} one {Toon # vacature} other {Toon # vacatures}}",
+    "apply": "Filters toepassen",
+    "clearAll": "Wis alle filters",
+    "activeList": "Actieve filters",
+    "removeChip": "Verwijder filter {label}",
+    "queryChip": "Zoekterm: {query}",
+    "optionCount": "{count, plural, =0 {geen vacatures} one {# vacature} other {# vacatures}}",
+    "beroep": {
+      "legend": "Beroep"
+    },
+    "plaats": {
+      "legend": "Plaats",
+      "more": "Toon alle plaatsen"
+    },
+    "uren": {
+      "legend": "Uren per week",
+      "options": {
+        "tot-20": "Tot en met 20 uur",
+        "20-32": "21 tot en met 31 uur",
+        "32-plus": "32 uur of meer"
+      }
+    },
+    "dienst": {
+      "legend": "Werktijden",
+      "options": {
+        "vroeg": "Vroege dienst",
+        "dag": "Dagdienst",
+        "avond": "Avonddienst",
+        "nacht": "Nachtdienst",
+        "weekend": "Weekend"
+      }
+    }
+  },
+  "sort": {
+    "label": "Sorteren",
+    "apply": "Sorteren",
+    "options": {
+      "nieuwste": "Nieuwste eerst",
+      "salaris": "Hoogste uurloon"
+    }
+  },
+  "pagination": {
+    "label": "Pagina's met vacatures",
+    "previous": "Vorige pagina",
+    "next": "Volgende pagina",
+    "page": "Pagina {page}"
+  },
+  "empty": {
+    "filtered": {
+      "title": "Geen vacatures met deze filters",
+      "body": "Met deze zoekterm of filters vinden wij nu geen werk. Wis een filter of schrijf je in, dan bellen wij je zodra er iets past."
+    },
+    "none": {
+      "title": "Er staan nu geen vacatures online",
+      "body": "Op dit moment hebben wij geen open vacatures op de site. Schrijf je in, dan bellen wij je zodra er werk is dat bij je past."
+    },
+    "occupationLink": "Lees over werken als {occupation}",
+    "occupationsLabel": "Werk per beroep"
+  },
+  "registerPrompt": {
+    "title": "Schrijf je in voor nieuw werk",
+    "body": "Je hoeft niet te wachten op de juiste vacature. Schrijf je in en vertel welk werk je zoekt, dan bellen wij je zodra er iets past."
+  },
+  "beroepIntro": {
+    "heading": "Werken als {occupation}",
+    "link": "Alles over werken als {occupation}",
+    "items": {
+      "glazenwasser": {
+        "paragraphs": [
+          "Als glazenwasser maak je ramen, kozijnen en gevels van kantoren en winkels schoon. Je werkt meestal overdag en begint vaak al om 07.00 uur.",
+          "Werk je op hoogte, dan is de minimumleeftijd 18 jaar. Bij elke vacature staat welk rijbewijs of certificaat je nodig hebt."
+        ]
+      },
+      "schoonmaker": {
+        "paragraphs": [
+          "Als schoonmaker houd je kantoren, scholen of woningen schoon en netjes. Veel werk is vroeg in de ochtend of in de avond, na kantoortijd.",
+          "Er is werk voor een paar uur per week en voor bijna een volle week. Bij elke vacature zie je de uren en werktijden meteen staan."
+        ]
+      },
+      "logistiek-medewerker": {
+        "paragraphs": [
+          "Als logistiek medewerker verzamel je bestellingen, laad je vrachtwagens en houd je het magazijn op orde. Je werkt vaak in vroege of late diensten, soms ook op zaterdag.",
+          "Heb je een certificaat voor heftruck, reachtruck of EPT, dan heb je meer keus. Bij elke vacature staat of je dat nodig hebt."
+        ]
+      },
+      "verhuizer": {
+        "paragraphs": [
+          "Als verhuizer pak je inboedels in, draag je meubels en zet je alles op het nieuwe adres weer neer. Je werkt in een ploeg en begint meestal vroeg.",
+          "Het meeste werk is aan het begin en het eind van de maand. Met rijbewijs B kun je ook de verhuisbus rijden."
+        ]
+      },
+      "hulpkracht-bouw-en-sloop": {
+        "paragraphs": [
+          "Als hulpkracht in de bouw en sloop help je vakmensen op de bouwplaats. Je ruimt op, voert afval af en zorgt dat het materiaal klaarstaat.",
+          "Op een bouw- of sloopplaats is de minimumleeftijd 18 jaar. Vraagt de opdrachtgever een VCA-diploma, dan staat dat bij de vacature."
+        ]
+      }
+    }
+  },
+  "card": {
+    "ariaLabel": "{title} in {city}. {wage}. {hours}. {start}.",
+    "cityLabel": "Plaats",
+    "wageLabel": "Uurloon",
+    "hoursLabel": "Uren",
+    "shiftsLabel": "Werktijden",
+    "startLabel": "Start",
+    "startAsap": "Per direct",
+    "startFrom": "Vanaf {date}",
+    "badges": {
+      "new": "Nieuw",
+      "urgent": "Spoed"
+    }
+  },
+  "latest": {
+    "empty": "Er staan nu geen vacatures online. Schrijf je in, dan bellen wij je zodra er werk is.",
+    "viewOccupation": "Bekijk alle vacatures als {occupation}"
+  },
+  "facts": {
+    "heading": "Kenmerken van deze vacature",
+    "labels": {
+      "city": "Plaats",
+      "wage": "Uurloon",
+      "hours": "Uren per week",
+      "contract": "Soort contract",
+      "shifts": "Werktijden",
+      "start": "Start",
+      "qualifications": "Rijbewijs en certificaten",
+      "language": "Taal op de werkvloer",
+      "experience": "Ervaring",
+      "positions": "Aantal plekken",
+      "number": "Vacaturenummer"
+    },
+    "contract": {
+      "temp_agency": "Uitzenden via Groos",
+      "secondment": "Detachering via Groos",
+      "recruitment": "In dienst bij de opdrachtgever"
+    },
+    "shiftsNone": "In overleg",
+    "qualifications": {
+      "required": "{name} nodig",
+      "preferred": "{name} is een pluspunt",
+      "training": "{name}: wij regelen de opleiding",
+      "none": "Geen rijbewijs of certificaat nodig"
+    },
+    "qualificationNames": {
+      "vca_basis": "VCA Basis",
+      "vca_vol": "VCA VOL",
+      "heftruck": "Heftruckcertificaat",
+      "reachtruck": "Reachtruckcertificaat",
+      "ept": "EPT-certificaat",
+      "ipaf": "IPAF (hoogwerker)",
+      "vog": "VOG",
+      "rijbewijs_b": "Rijbewijs B",
+      "rijbewijs_be": "Rijbewijs BE",
+      "rijbewijs_c": "Rijbewijs C",
+      "code_95": "Code 95",
+      "ras": "RAS-vakopleiding"
+    },
+    "experience": {
+      "none": "Geen ervaring nodig",
+      "nice_to_have": "Ervaring is mooi meegenomen",
+      "required": "Ervaring nodig",
+      "requiredMonths": "{months, plural, one {# maand ervaring nodig} other {# maanden ervaring nodig}}"
+    },
+    "languageOptions": {
+      "nl": "Nederlands",
+      "en": "Engels",
+      "nl_or_en": "Nederlands of Engels"
+    },
+    "positions": "{count, plural, one {# plek} other {# plekken}}"
+  },
+  "detail": {
+    "heading": "{title} in {city}",
+    "number": "Vacature {number}",
+    "postedOn": "Geplaatst op {date}",
+    "imageAlt": "{title} in {city}",
+    "actionsLabel": "Solliciteren of contact opnemen",
+    "onlyDutch": "Deze vacature is alleen in het Nederlands beschikbaar. Heb je vragen, bel of app ons gerust.",
+    "sections": {
+      "tasks": "Je werkdag",
+      "requirements": "Wat je meebrengt",
+      "offer": "Wat je van ons krijgt",
+      "extra": "Meer over dit werk",
+      "howTo": "Zo solliciteer je",
+      "contact": "Vragen over deze vacature",
+      "share": "Deel deze vacature"
+    },
+    "howTo": {
+      "steps": [
+        {
+          "title": "Je solliciteert",
+          "body": "Je vult het formulier in, stuurt een WhatsApp-bericht of belt ons. Een cv is niet nodig."
+        },
+        {
+          "title": "Wij bellen je",
+          "body": "Wij bellen je om kennis te maken en je vragen te beantwoorden. Samen kijken wij of het werk bij je past."
+        },
+        {
+          "title": "Je begint",
+          "body": "Past het werk, dan spreken wij samen je eerste werkdag af. Je hoort van ons waar en hoe laat je begint."
+        }
+      ]
+    },
+    "contact": {
+      "body": "Ons team beantwoordt je vragen over deze vacature. Bel of app gerust, ook als je twijfelt of het werk bij je past."
+    },
+    "share": {
+      "whatsapp": "Deel via WhatsApp",
+      "whatsappText": "Bekijk deze vacature van Groos: {title} in {city}. {url}",
+      "copy": "Kopieer link",
+      "copied": "Link gekopieerd",
+      "failed": "Kopiëren lukte niet. Selecteer de link en kopieer hem zelf.",
+      "linkLabel": "Link naar deze vacature",
+      "native": "Delen"
+    },
+    "aside": {
+      "heading": "In het kort"
+    },
+    "minAge": {
+      "work_at_height": "Omdat je op hoogte werkt, is de minimumleeftijd 18 jaar.",
+      "construction_demolition": "Omdat je op een bouw- of sloopplaats werkt, is de minimumleeftijd 18 jaar.",
+      "forklift": "Omdat je met een heftruck of reachtruck rijdt, is de minimumleeftijd 18 jaar.",
+      "night_work": "Omdat je ook 's nachts werkt, is de minimumleeftijd 18 jaar.",
+      "hazardous_substances": "Omdat je met gevaarlijke stoffen werkt, is de minimumleeftijd 18 jaar."
+    },
+    "closed": {
+      "filled": {
+        "title": "Deze vacature is vervuld",
+        "body": "Wij hebben voor dit werk iemand gevonden. Hieronder staat vergelijkbaar werk waarop je wel kunt solliciteren."
+      },
+      "other": {
+        "title": "Deze vacature staat niet meer open",
+        "body": "Op deze vacature kun je niet meer solliciteren. Hieronder staat vergelijkbaar werk dat nu wel openstaat."
+      },
+      "closedOn": "Gesloten op {date}",
+      "occupationLink": "Bekijk al het werk als {occupation}"
+    },
+    "similar": {
+      "title": "Vergelijkbare vacatures"
+    },
+    "occupationPageLink": "Lees meer over werken als {occupation}"
+  }
+}

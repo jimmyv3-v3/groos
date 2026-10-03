@@ -2,40 +2,27 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/motion/reveal";
 
-/**
- * Section title block. One h2 + an optional intro sentence. No eyebrows or
- * kicker labels, per the house copy rules.
- */
-export function SectionHeading({
-  title,
-  accent,
-  intro,
-  align = "left",
-  className,
-}: {
+export type SectionHeadingProps = {
   title: string;
   accent?: string;
   intro?: ReactNode;
   align?: "left" | "center";
   className?: string;
-}) {
+  /** id op de h2, voor aria-labelledby van de sectie (spec 04 §4.4). */
+  headingId?: string;
+};
+
+/**
+ * Section title block. One h2 + an optional intro sentence. No eyebrows or
+ * kicker labels, per the house copy rules.
+ */
+export function SectionHeading({ title, accent, intro, align = "left", className, headingId }: SectionHeadingProps) {
   return (
-    <Reveal
-      className={cn(
-        "max-w-2xl",
-        align === "center" && "mx-auto text-center",
-        className,
-      )}
-    >
-      <h2 className="font-display text-2xl font-light leading-tight tracking-tight text-foreground sm:text-3xl">
-        {title}{" "}
-        {accent && <span className="accent-text font-normal">{accent}</span>}
+    <Reveal className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)}>
+      <h2 id={headingId} className="text-h2">
+        {title} {accent && <span className="accent-text">{accent}</span>}
       </h2>
-      {intro && (
-        <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-          {intro}
-        </p>
-      )}
+      {intro && <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">{intro}</p>}
     </Reveal>
   );
 }

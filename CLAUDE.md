@@ -31,7 +31,8 @@
 ## Stack en commando's
 
 - Next.js 16.3 App Router (Turbopack), React 19, TypeScript strict,
-  Tailwind CSS 3.4, shadcn/ui (`components.json`), next-intl 4, framer-motion,
+  Tailwind CSS 4 (`@tailwindcss/postcss`, tokens via `@theme inline`), shadcn/ui
+  (`components.json`, stijl new-york), next-intl 4, framer-motion (tot stap 4),
   lucide-react (vast op 0.456: nieuwere versies missen de social-iconen),
   @vercel/analytics.
 - `npm run dev` (localhost:3000) · `npm run build` · `npm run lint` (ESLint-CLI;
@@ -46,16 +47,23 @@
 | Wat                                             | Waar                                    |
 | ----------------------------------------------- | --------------------------------------- |
 | Route / pagina                                   | `app/[locale]/<route>/page.tsx`          |
+| Vaste paden, padhelpers, doelgroep per pad       | `lib/routes.ts`                          |
+| Beroepenregister (id's, slugs, iconen, volgorde) | `content/beroepen/index.ts`              |
+| Header, footer, actiebalk, kruimelpad            | `components/sections/` (+ `header/*`)    |
 | Paginasectie (hero, raster, FAQ…)                | `components/sections/`                   |
-| Bouwstenen van detailpagina's                    | `components/service/`                    |
+| Bouwstenen van beroepspagina's                   | `components/service/`, `components/beroep/` |
+| Formulieren                                      | `components/forms/`, `app/actions/`      |
 | Primitive (knop, input…)                         | `components/ui/`                         |
-| Merk-CTA (alle offerte- en belknoppen)           | `components/ui/cta-button.tsx`           |
-| Logo (tijdelijk)                                 | `components/brand/`                      |
-| Bedrijfsgegevens, navigatie, iconen, cijfers     | `lib/site.ts`                            |
+| Merk-CTA (alle aanvraag- en belknoppen)          | `components/ui/cta-button.tsx`           |
+| Logo (`Logo`, `LogoMark`, paden in JSON)         | `components/brand/`                      |
+| Bedrijfsgegevens, personen, navigatie, footer    | `lib/site.ts`                            |
+| Opgelost navigatiemodel (server)                 | `lib/navigation.ts`                      |
 | Merk-hexwaarden (OG, favicon, themakleur)        | `lib/brand.ts`                           |
 | SEO-helpers en JSON-LD-builders                  | `lib/seo.ts`, `components/seo/json-ld.tsx` |
-| Korte UI-tekst en kaarttekst (NL/EN)             | `messages/nl.json`, `messages/en.json`   |
-| Lange paginatekst per dienst/stad (NL/EN)        | `content/services/`, `content/werkgebied/` |
+| Korte UI-tekst en kaarttekst (NL/EN)             | `messages/<taal>/<namespace>.json`       |
+| Lange paginatekst per beroep of vaste pagina     | `content/beroepen/<id>.ts`, `content/pages/` |
+| Datalaag, Supabase                               | `lib/data/`, `lib/supabase/`, `supabase/` |
+| Beheeromgeving                                   | `app/beheer/` (eigen root-layout)        |
 | Design tokens (kleur, radius, fonts)             | `app/globals.css`                        |
 | Afbeeldingen, logo-bestanden                     | `public/`                                |
 | Bedrijfscontext en research                      | `context/`                               |
@@ -66,26 +74,47 @@
 
 ## Design tokens: de enige plek om te thema's
 
-Kleur en radius zijn CSS-variabelen in `app/globals.css` (`:root` + `.dark`),
-gekoppeld in `tailwind.config.ts`. Componenten gebruiken alleen semantische
-klassen (`bg-background`, `text-foreground`, `bg-primary`,
-`text-muted-foreground`, `border-border`, `text-brand`, `text-brand-strong`,
-`text-brand-subtle`) en de signature-klassen `.accent-text`, `.glass-panel`,
-`.logo-mono`, `.bg-grid`, `.spotlight`. Nooit hex- of hsl-waarden in
-componenten. Fonts via `next/font` in `app/[locale]/layout.tsx`
-(`--font-sans`, `--font-display`). Houd `lib/brand.ts` gelijk aan de tokens.
+Kleur, radius, typografie, schaduw en beweging zijn tokens in `app/globals.css`
+(hexwaarden in `:root`, gekoppeld via `@theme inline`; spec 02). Er is geen
+`tailwind.config.ts` en geen `.dark`-thema; het standaardpalet van Tailwind
+staat uit, dus alleen tokenklassen werken (`bg-background`, `text-foreground`,
+`bg-primary`, `text-muted-foreground`, `border-border`, `bg-brand-tint`,
+`text-brand`, `text-brand-strong`, `bg-ice`, `text-h2`, `text-lead`, ...).
+Signature-klassen: `.accent-text`, `.surface-brand`, `.pattern-oo`,
+`.prose-groos`. Nooit hex- of hsl-waarden in componenten. Fonts via
+`next/font` in `lib/fonts.ts` (Onest `--font-onest`, Instrument Sans
+`--font-instrument`), op `<html>` gezet in `app/[locale]/layout.tsx`. Houd
+`lib/brand.ts` gelijk aan de tokens; `node scripts/check-contrast.mjs`
+controleert contrast en gelijkheid. Primitives en knoppen: `components/ui/*`
+en `CtaButton`/`ctaButtonVariants`; overzicht op `/stijlgids` (alleen dev).
 
-## Tekst en vertaling: drie mechanismen
+## Tekst en vertaling
 
-1. **UI- en kaarttekst** → `messages/<locale>.json` met gespiegelde sleutels
-   (`npm run check` bewaakt dat). Lezen met `useTranslations`/`getTranslations`.
+1. **UI- en kaarttekst** → `messages/<taal>/<namespace>.json`, één bestand per
+   namespace per taal (`common`, `meta`, `header`, `footer`, `notFound`,
+   `error`, `home`, `about`, `werkzoekenden`, `werkgevers`, `beroepen`,
+   `vacatures`, `forms`, `contact`, `bedankt`, `legal`). Elke spec werkt alleen
+   in zijn eigen namespaces (eigenaarschap in `docs/specs/00-overzicht.md`
+   §4.4a), zodat specs parallel kunnen werken. `messages/<taal>/index.ts` voegt
+   de bestanden samen met statische imports; `i18n/request.ts` laadt de juiste
+   taal. Een nieuwe namespace: JSON in `nl/` én `en/` plus een import in beide
+   `index.ts`-bestanden. `global.d.ts` typt de sleutels naar `messages/nl`, dus
+   `tsc` faalt bij een ontbrekende sleutel; `npm run check` bewaakt dat nl en
+   en dezelfde bestanden, sleutels en arraylengtes hebben. Lezen met
+   `getTranslations` (server) of `useTranslations` (client). Clientcomponenten
+   krijgen alleen de namespaces uit `CLIENT_NAMESPACES` in
+   `i18n/client-messages.ts`; geef tekst bij voorkeur als props door.
    Accentwoorden in koppen: `t.rich("key", { accent: (c) => <span className="accent-text">…</span> })`.
-2. **Lange paginatekst** → één bestand per dienst of stad in `content/` met een
-   `nl`- en `en`-blok. Alleen server-side importeren (houdt de client-bundle klein).
-3. **Structurele data** (iconen, cijfers, afbeeldingen) → `lib/site.ts`, op index
-   gekoppeld aan de tekst in messages. Arrays in nl en en houden dezelfde lengte.
+2. **Lange paginatekst** → `content/beroepen/<id>.ts` en `content/pages/*.ts`
+   met een `nl`- en `en`-blok. Alleen server-side importeren.
+3. **Structurele data** (NAW, personen, navigatie, iconen) → `lib/site.ts`,
+   paden → `lib/routes.ts`, beroepen → `content/beroepen/index.ts`. Geen tekst
+   in deze registers; labels komen uit messages.
+4. **Beheerteksten** → `app/beheer/_strings.ts` (alleen Nederlands, buiten de
+   spiegelcontrole).
 
-Juridische pagina's houden hun tekst in de page zelf (`CONTENT = { nl, en }`).
+Juridische pagina's houden hun tekst in de page zelf (`CONTENT = { nl, en }`),
+net als de inline teksten van `app/global-error.tsx` en `app/global-not-found.tsx`.
 
 ## SEO-afspraken
 
@@ -95,9 +124,11 @@ Juridische pagina's houden hun tekst in de page zelf (`CONTENT = { nl, en }`).
 - Structured data via `<JsonLd data={…} />` en de builders in `lib/seo.ts`.
 - `app/sitemap.ts` en `app/llms.txt/route.ts` worden afgeleid uit de registers;
   nieuwe routes die niet uit een register komen voeg je daar toe.
-- `proxy.ts` sluit API-routes, bestanden en metadata-routes uit. Nieuwe
-  niet-publieke paden (zoals `/beheer`, `/feeds`) moeten ook in de
-  uitsluiting. Crawlers krijgen nooit een geo-redirect.
+- `proxy.ts` sluit `api`, `beheer`, `feeds`, `monitoring`, bestanden en
+  metadata-routes uit de taalrouting. `/beheer` heeft een eigen matcher die
+  alleen de Supabase-sessie ververst. Crawlers krijgen nooit een geo-redirect.
+- Indexering: `pageMetadata({ noindex: true })` voor bedankpagina's en
+  ongepubliceerde routes (`published` in `lib/routes.ts`).
 
 ## Hoe je hier een goede pagina bouwt
 
@@ -108,8 +139,9 @@ Juridische pagina's houden hun tekst in de page zelf (`CONTENT = { nl, en }`).
 4. **Semantisch en toegankelijk.** Echte landmarks, één `h1` per pagina,
    alt-teksten, gelabelde velden, zichtbare focus.
 5. **Responsive.** Mobile-first; controleer op 390, 768, 1280 en 1440 px.
-6. **Beweging met mate.** framer-motion via `components/motion/*`; respecteer
-   `prefers-reduced-motion`; content nooit blokkeren op animatie.
+6. **Beweging met mate.** `Reveal` uit `components/motion/*` is scroll-gedreven
+   CSS zonder JavaScript; respecteer `prefers-reduced-motion`; content nooit
+   blokkeren op animatie.
 7. **Performance.** `next/image` voor nieuwe beelden, `next/font`, server
    components standaard; `"use client"` alleen bij interactie.
 8. **SEO.** Zie hierboven.
@@ -163,3 +195,13 @@ messages, en controleer server/client-grenzen. Zie docs/MIGRATIE.md §6.
 
 Vraag naar merk- en contentrichting in plaats van stil een permanente keuze te
 maken. Placeholders zijn prima; markeer ze met `TODO`.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

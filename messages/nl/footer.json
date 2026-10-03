@@ -1,0 +1,11 @@
+{
+  "description": "Groos Personeelsdiensten is een uitzendbureau uit Den Haag voor praktisch werk. Wij brengen werkzoekenden en opdrachtgevers in vijf beroepen bij elkaar.",
+  "navLabel": "Overzicht van de site",
+  "columns": {
+    "werkzoekenden": "Werkzoekenden",
+    "werkgevers": "Werkgevers",
+    "groos": "Groos",
+    "contact": "Contact"
+  },
+  "rights": "© {year} {name}"
+}

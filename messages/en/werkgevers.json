@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "title": "Hire staff in The Hague",
+    "description": "Groos provides workers for window cleaning, cleaning, logistics, removals, construction and demolition in The Hague. Request staff with no obligation."
+  },
+  "steps": {
+    "title": "From your request to",
+    "accent": "the first working day",
+    "intro": "At every step you deal with our team.",
+    "items": [
+      { "title": "You tell us who you need", "body": "You call us or fill in the request with the occupation, the number of people and the start date." },
+      { "title": "We discuss the work", "body": "We contact you about the tasks, the working hours and the requirements for the people." },
+      { "title": "We propose candidates", "body": "You receive candidates who suit the work, with their experience and their certificates." },
+      { "title": "The worker starts", "body": "Groos arranges the contract and the pay, and we stay in touch with you for as long as the assignment runs." }
+    ]
+  },
+  "wtta": {
+    "meta": {
+      "title": "Hiring and the Wtta",
+      "description": "From 2028 you may only hire staff from an admitted labour provider. Read what the Wtta means for your business and how to check the status of an agency."
+    },
+    "reviewed": "This page was last updated on {date}.",
+    "pastLabel": "This date has passed."
+  }
+}

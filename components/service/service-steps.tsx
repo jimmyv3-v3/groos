@@ -1,16 +1,12 @@
-import type { LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/sections/section-heading";
-import { RevealGroup, RevealItem } from "@/components/motion/reveal";
-
-export type ServiceStep = {
-  title: string;
-  description: string;
-  icon?: LucideIcon;
-};
+import { Reveal } from "@/components/motion/reveal";
+import type { StepItem } from "./types";
 
 /**
- * Numbered "werkwijze" steps with a hairline accent, on dark cards.
- * Adapted from the 21st.dev "How It Works" pattern; colours come from the brand tokens.
+ * Genummerde stappen als <ol> (spec 05 §4.4.1). Het cijfer staat los naast de
+ * kop en is aria-hidden; de lijst zelf geeft de volgorde aan schermlezers.
+ * Geen "Stap 1"-label (spec 03 §6.5 regel 7).
  */
 export function ServiceSteps({
   id,
@@ -18,44 +14,42 @@ export function ServiceSteps({
   accent,
   intro,
   steps,
+  className,
 }: {
   id?: string;
   heading: string;
   accent?: string;
   intro?: string;
-  steps: ServiceStep[];
+  steps: StepItem[];
+  className?: string;
 }) {
   return (
-    <section id={id} className="relative scroll-mt-24 py-16 sm:py-20">
+    <section id={id} className={cn("section scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
-        <RevealGroup className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {steps.map((s, i) => (
-            <RevealItem key={s.title} className="h-full">
-              <div className="group relative flex h-full flex-col rounded-lg border border-border/70 bg-card/40 p-6 transition-colors duration-500 hover:border-brand/40">
-                <div className="flex items-center gap-4">
-                  <span className="font-display text-sm font-medium tracking-brand text-brand-subtle">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+        <Reveal>
+          <ol
+            className={cn(
+              "mt-10 grid gap-x-8 gap-y-8 md:mt-12",
+              steps.length === 4 ? "md:grid-cols-2 lg:grid-cols-4" : "md:grid-cols-3",
+            )}
+          >
+            {steps.map((step, i) => (
+              <li key={step.title} className="flex gap-4 border-t border-border-strong pt-5 md:block">
+                <span
+                  aria-hidden="true"
+                  className="font-display text-h2 leading-none font-semibold text-brand tabular-nums md:block"
+                >
+                  {i + 1}
+                </span>
+                <div className="md:mt-4">
+                  <h3 className="text-h3">{step.title}</h3>
+                  <p className="mt-2 text-base text-muted-foreground">{step.body}</p>
                 </div>
-                {s.icon && (
-                  <s.icon
-                    className="mt-6 h-7 w-7 text-brand"
-                    strokeWidth={1.3}
-                    aria-hidden
-                  />
-                )}
-                <h3 className="mt-5 font-display text-lg font-medium text-foreground">
-                  {s.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {s.description}
-                </p>
-              </div>
-            </RevealItem>
-          ))}
-        </RevealGroup>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
       </div>
     </section>
   );

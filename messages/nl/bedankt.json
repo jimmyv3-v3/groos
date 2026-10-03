@@ -1,0 +1,58 @@
+{
+  "application": {
+    "metaTitle": "Bedankt voor je sollicitatie",
+    "title": "Bedankt voor je sollicitatie",
+    "intro": "Wij hebben je sollicitatie goed ontvangen. Je krijgt ook een bevestiging per e-mail.",
+    "reference": "Je referentienummer is {reference}.",
+    "whoCalls": "Ons team belt of appt je om kennis te maken. Houd je telefoon bij de hand.",
+    "steps": {
+      "title": "Zo gaat het",
+      "accent": "verder",
+      "items": [
+        { "title": "Wij bekijken je sollicitatie", "body": "Wij leggen je gegevens naast de vacature." },
+        { "title": "Wij bellen of appen je", "body": "Wij bespreken je ervaring, je uren en wanneer je kunt beginnen." },
+        { "title": "Je begint met werken", "body": "Past het werk, dan spreken wij je eerste werkdag af." }
+      ]
+    }
+  },
+  "registration": {
+    "metaTitle": "Bedankt voor je inschrijving",
+    "title": "Bedankt voor je inschrijving",
+    "intro": "Wij hebben je inschrijving goed ontvangen. Je krijgt ook een bevestiging per e-mail.",
+    "reference": "Je referentienummer is {reference}.",
+    "whoCalls": "Ons team belt of appt je om te horen welk werk je zoekt.",
+    "steps": {
+      "title": "Zo gaat het",
+      "accent": "verder",
+      "items": [
+        { "title": "Wij bellen je", "body": "Wij bespreken welk werk je zoekt en wanneer je kunt werken." },
+        { "title": "Wij zoeken passend werk", "body": "Wij kijken welk werk past bij je ervaring en waar je woont." },
+        { "title": "Je begint met werken", "body": "Is er passend werk, dan spreken wij je eerste werkdag af." }
+      ]
+    }
+  },
+  "staffRequest": {
+    "metaTitle": "Bedankt voor uw aanvraag",
+    "title": "Bedankt voor uw aanvraag",
+    "intro": "Wij hebben uw aanvraag goed ontvangen. U krijgt ook een bevestiging per e-mail.",
+    "reference": "Uw referentienummer is {reference}.",
+    "whoCalls": "Ons team neemt contact met u op om de aanvraag door te nemen.",
+    "steps": {
+      "title": "Zo gaat het",
+      "accent": "verder",
+      "items": [
+        { "title": "Wij bellen u", "body": "Wij bespreken de taken, de werktijden en de startdatum." },
+        { "title": "U krijgt een voorstel", "body": "Wij stellen medewerkers voor met een helder uurtarief." },
+        { "title": "De medewerker begint", "body": "Op de afgesproken dag begint de medewerker." }
+      ]
+    },
+    "employersLink": "Terug naar werkgevers"
+  },
+  "contact": {
+    "metaTitle": "Bedankt voor uw bericht",
+    "title": "Bedankt voor uw bericht",
+    "intro": "Wij hebben uw bericht goed ontvangen. Heeft u een e-mailadres ingevuld, dan krijgt u ook een bevestiging per e-mail.",
+    "whoCalls": "Ons team beantwoordt uw bericht. Heeft u om terugbellen gevraagd, dan bellen wij u op het nummer dat u heeft ingevuld.",
+    "homeLink": "Naar de homepage"
+  }
+}

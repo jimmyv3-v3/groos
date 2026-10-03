@@ -1,0 +1,58 @@
+{
+  "application": {
+    "metaTitle": "Thank you for your application",
+    "title": "Thank you for your application",
+    "intro": "We have received your application. You will also get a confirmation by email.",
+    "reference": "Your reference number is {reference}.",
+    "whoCalls": "Our team will call or message you to get to know you. Keep your phone close by.",
+    "steps": {
+      "title": "What happens",
+      "accent": "next",
+      "items": [
+        { "title": "We review your application", "body": "We compare your details with the job." },
+        { "title": "We call or message you", "body": "We discuss your experience, your hours and when you can start." },
+        { "title": "You start working", "body": "If the job suits you, we agree on your first working day." }
+      ]
+    }
+  },
+  "registration": {
+    "metaTitle": "Thank you for registering",
+    "title": "Thank you for registering",
+    "intro": "We have received your registration. You will also get a confirmation by email.",
+    "reference": "Your reference number is {reference}.",
+    "whoCalls": "Our team will call or message you to hear what work you are looking for.",
+    "steps": {
+      "title": "What happens",
+      "accent": "next",
+      "items": [
+        { "title": "We call you", "body": "We discuss what work you are looking for and when you can work." },
+        { "title": "We look for suitable work", "body": "We look at which work fits your experience and where you live." },
+        { "title": "You start working", "body": "When there is suitable work, we agree on your first working day." }
+      ]
+    }
+  },
+  "staffRequest": {
+    "metaTitle": "Thank you for your request",
+    "title": "Thank you for your request",
+    "intro": "We have received your request. You will also get a confirmation by email.",
+    "reference": "Your reference number is {reference}.",
+    "whoCalls": "Our team will contact you to go through the request.",
+    "steps": {
+      "title": "What happens",
+      "accent": "next",
+      "items": [
+        { "title": "We call you", "body": "We discuss the tasks, the working hours and the start date." },
+        { "title": "You receive a proposal", "body": "We put forward workers with a clear hourly rate." },
+        { "title": "The worker starts", "body": "On the agreed day the worker starts." }
+      ]
+    },
+    "employersLink": "Back to employers"
+  },
+  "contact": {
+    "metaTitle": "Thank you for your message",
+    "title": "Thank you for your message",
+    "intro": "We have received your message. If you entered an email address, you will also get a confirmation by email.",
+    "whoCalls": "Our team will answer your message. If you asked us to call you back, we will call the number you entered.",
+    "homeLink": "Go to the homepage"
+  }
+}

@@ -1,48 +1,57 @@
-import { Phone, ArrowRight } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { contact } from "@/lib/site";
-import { CtaButton } from "@/components/ui/cta-button";
-import { Reveal } from "@/components/motion/reveal";
+import { ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
+import { CtaLinks } from "./cta-links";
+import type { CtaLink } from "./types";
 
 /**
- * Mid-page call-to-action band. Used to keep the offerte/bel action visible
- * throughout a service page, not just in the hero and footer form.
+ * Afsluitende band (spec 05 §4.4.1, recept spec 02 §4.13): een blauw vlak met
+ * het oo-patroon in een witte sectie. Precies één per pagina; de kop is een
+ * vraagkop met het accent aan het slot.
  */
 export function ServiceCta({
+  id,
   title,
+  accent,
   subtitle,
+  ctas,
+  note,
+  link,
+  className,
 }: {
+  id?: string;
   title: string;
+  accent?: string;
   subtitle?: string;
+  ctas: CtaLink[];
+  note?: string;
+  link?: { label: string; href: string };
+  className?: string;
 }) {
-  const t = useTranslations();
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[24rem] w-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,hsl(var(--brand)/0.1),transparent_70%)] blur-2xl" />
-      <div className="container relative">
-        <Reveal className="mx-auto max-w-3xl rounded-xl border border-border/70 bg-card/40 px-8 py-12 text-center sm:px-12">
-          <h2 className="font-display text-2xl font-light leading-tight tracking-tight text-foreground sm:text-3xl">
-            {title}
-          </h2>
-          {subtitle && (
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-              {subtitle}
+    <section id={id} className={cn("section-tight scroll-mt-24", className)}>
+      <div className="container">
+        <div className="surface-brand pattern-oo rounded-2xl p-8 md:p-12 lg:p-14">
+          <div className="max-w-2xl">
+            <h2 className="text-h2">
+              {title} {accent && <span className="accent-text">{accent}</span>}
+            </h2>
+            {subtitle && <p className="mt-4 text-lead text-muted-foreground">{subtitle}</p>}
+          </div>
+          <CtaLinks ctas={ctas} className="mt-8" />
+          {note && <p className="mt-4 text-sm text-muted-foreground">{note}</p>}
+          {link && (
+            <p className="mt-5">
+              <Link
+                href={link.href}
+                className="inline-flex min-h-11 items-center gap-2 font-medium text-foreground underline underline-offset-4 decoration-border-strong hover:decoration-current"
+              >
+                {link.label}
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
             </p>
           )}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <CtaButton href="#offerte" size="default">
-              {t("common.cta.requestQuote")}
-              <ArrowRight className="h-4 w-4" />
-            </CtaButton>
-            <CtaButton href={contact.phoneHref} variant="secondary" size="default">
-              <Phone className="h-4 w-4" />
-              {t("common.cta.callDirect")}
-            </CtaButton>
-          </div>
-          <p className="mt-5 text-xs text-muted-foreground">
-            {t("service.ctaNote")}
-          </p>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

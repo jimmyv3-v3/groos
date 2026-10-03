@@ -1,48 +1,50 @@
-import type { LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/sections/section-heading";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { Card } from "@/components/ui/card";
+import { IconTile } from "@/components/ui/icon-tile";
+import type { FeatureItem } from "./types";
 
-export type ServiceFeature = {
-  icon: LucideIcon;
-  title: string;
-  body: string;
-};
-
-/** "Waarom kiezen voor"-raster met iconen op een detailpagina. */
+/**
+ * Kaartenraster met optioneel icoon (spec 05 §4.4.1). Itemtitels zijn h3; de
+ * achtergrond van de sectie zet de pagina met className.
+ */
 export function ServiceFeatureGrid({
   id,
   heading,
   accent,
   intro,
   features,
+  columns = 4,
+  className,
 }: {
   id?: string;
   heading: string;
   accent?: string;
   intro?: string;
-  features: ServiceFeature[];
+  features: FeatureItem[];
+  columns?: 3 | 4;
+  className?: string;
 }) {
   return (
-    <section
-      id={id}
-      className="relative scroll-mt-24 border-y border-border/60 bg-card/20 py-16 sm:py-20"
-    >
+    <section id={id} className={cn("section scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
-        <RevealGroup className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        <RevealGroup
+          className={cn(
+            "mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:gap-5",
+            columns === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4",
+          )}
+        >
           {features.map((f) => (
-            <RevealItem key={f.title}>
-              <f.icon
-                className="h-6 w-6 text-brand"
-                strokeWidth={1.4}
-                aria-hidden
-              />
-              <h3 className="mt-4 font-display text-base font-medium text-foreground">
-                {f.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {f.body}
-              </p>
+            <RevealItem key={f.title} className="h-full">
+              <Card className="h-full">
+                {f.icon && <IconTile icon={f.icon} />}
+                <div className="grid gap-2">
+                  <h3 className="text-h3">{f.title}</h3>
+                  <p className="text-base text-muted-foreground">{f.body}</p>
+                </div>
+              </Card>
             </RevealItem>
           ))}
         </RevealGroup>

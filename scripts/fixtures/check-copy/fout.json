@@ -1,0 +1,42 @@
+{
+  "C-01": { "home": { "intro": "Wij helpen u graag verder met personeel!" } },
+  "C-02": { "home": { "intro": "Wij leveren personeel – ook in het weekend." } },
+  "C-03": {
+    "werkgevers": {
+      "intro": "Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers en hulpkrachten bouw en sloop aan bedrijven in Den Haag en omgeving, voor een dag, een week of een langere periode, met vaste contactpersonen die u kent."
+    }
+  },
+  "C-04": {
+    "werkzoekenden": {
+      "a": "Je werkt bij een bedrijf in Den Haag en je begint meestal in de ochtend met een korte uitleg van je taken.",
+      "b": "Wij bellen je na je sollicitatie op en wij vertellen je dan meer over het werk en over de werktijden."
+    }
+  },
+  "C-05": { "about": { "intro": "Groos is een uitzendbureau. Het kantoor staat in Den Haag. Wij werken met vaste contactpersonen. Wij leveren vijf beroepen." } },
+  "C-06": { "about": { "intro": "Werkt Groos ook in het weekend? Zeker. Bel ons gerust voor een afspraak." } },
+  "C-07": { "about": { "intro": "Hier leveren we personeel in vijf beroepen." } },
+  "C-08": { "about": { "intro": "Hier leveren wij o.a. glazenwassers in Den Haag." } },
+  "C-09": { "home": { "intro": "Jij werkt bij een bedrijf en u krijgt de rekening." } },
+  "C-10": { "werkzoekenden": { "intro": "Wij bellen u terug over het werk." } },
+  "C-11": { "home": { "intro": "Wij ontzorgen bedrijven in Den Haag." } },
+  "C-12": { "home": { "intro": "Wij werken betrouwbaar voor bedrijven in Den Haag." } },
+  "C-13": { "werkzoekenden": { "intro": "Wij vragen naar je beschikbaarheid in de week." } },
+  "C-14": { "cta": { "apply": "Solliciteer direct bij Groos" } },
+  "C-15": { "home": { "about": { "title": "Over Groos in Den Haag." } } },
+  "C-16": { "faq": { "items": [{ "q": "Kan ik ook zonder cv solliciteren", "a": "Ja, dat kan zonder cv bij Groos." }] } },
+  "C-17": { "home": { "intro": "Het werk begint om 07:00 uur in Den Haag." } },
+  "C-18": { "home": { "intro": "Wij leveren <b>personeel</b> in Den Haag." } },
+  "C-19": {
+    "nl": { "home": { "slogan": "Groos Personeelsdiensten Den Haag Zuid" } },
+    "en": { "home": { "slogan": "Groos Personeelsdiensten Den Haag Zuid" } }
+  },
+  "C-20": { "home": { "intro": "Wij leveren personeel in Den Haag 👍" } },
+  "C-22": { "home": { "meta": { "description": "Personeel in Den Haag via Groos." } } },
+  "C-23": {
+    "common": {
+      "whatsapp": {
+        "algemeen": "Hallo Groos, ik heb een vraag over het werk als glazenwasser in Den Haag. Ik wil graag weten welke vacatures er zijn, welke uren ik kan werken en wat het bruto uurloon is voor een starter."
+      }
+    }
+  }
+}

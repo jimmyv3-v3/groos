@@ -7,7 +7,9 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "context/**"]),
+  // Playwright-fixtures heten `use`; die zijn geen React-hooks (spec 14 §4.2).
+  { files: ["tests/**"], rules: { "react-hooks/rules-of-hooks": "off" } },
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "context/**", ".claude/**"]),
 ]);
 
 export default eslintConfig;

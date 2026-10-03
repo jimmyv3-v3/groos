@@ -1,0 +1,62 @@
+{
+  "glazenwasser": {
+    "enkelvoud": "Glazenwasser",
+    "meervoud": "Glazenwassers",
+    "jobseeker": { "summary": "Je maakt ramen en gevels schoon, deels op hoogte. Je werkt meestal overdag in een vaste ploeg." },
+    "employer": { "summary": "Wij leveren glazenwassers voor uw routes en objecten. Wij bespreken vooraf welke certificaten het werk vraagt." }
+  },
+  "schoonmaker": {
+    "enkelvoud": "Schoonmaker",
+    "meervoud": "Schoonmakers",
+    "jobseeker": { "summary": "Je houdt kantoren, scholen of woningen schoon. Je werkt vroeg, in de avond of overdag." },
+    "employer": { "summary": "Wij leveren schoonmakers voor vaste objecten, vervanging en opleveringen. Wij stemmen de werktijden vooraf met u af." }
+  },
+  "logistiek-medewerker": {
+    "enkelvoud": "Logistiek medewerker",
+    "meervoud": "Logistiek medewerkers",
+    "jobseeker": { "summary": "Je pakt orders, laadt en lost, en houdt het magazijn op orde. Je werkt vaak in een vroege of late dienst." },
+    "employer": { "summary": "Wij leveren orderpickers, magazijnmedewerkers en heftruckchauffeurs voor uw ploegen. Wij bespreken vooraf de diensten en certificaten." }
+  },
+  "verhuizer": {
+    "enkelvoud": "Verhuizer",
+    "meervoud": "Verhuizers",
+    "jobseeker": { "summary": "Je pakt in, draagt en zet alles op het nieuwe adres weer neer. Je begint vroeg en werkt in een ploeg." },
+    "employer": { "summary": "Wij leveren verhuizers en bijrijders voor drukke dagen en de zomer. Wij zoeken mensen die netjes werken bij uw klanten thuis." }
+  },
+  "hulpkracht-bouw-en-sloop": {
+    "enkelvoud": "Hulpkracht bouw en sloop",
+    "meervoud": "Hulpkrachten bouw en sloop",
+    "jobseeker": { "summary": "Je helpt vakmensen op de bouwplaats of bij sloopwerk. Je werkt buiten in een ploeg, meestal vanaf 07.00 uur." },
+    "employer": { "summary": "Wij leveren hulpkrachten, oppermannen en slopers voor uw project. Wij bespreken vooraf welke certificaten nodig zijn." }
+  },
+  "og": {
+    "werkzoekende": "Werken als {occupation} in Den Haag",
+    "werkgever": "{occupationPlural} voor uw bedrijf in Den Haag"
+  },
+  "ui": {
+    "factsLabel": "Kort overzicht",
+    "wageFactLabel": "Uurloon (indicatie)",
+    "wage": {
+      "badge": "Indicatie",
+      "rangeLabel": "Bruto uurloon zonder ervaring, voor 21 jaar en ouder",
+      "experiencedLabel": "Met ervaring",
+      "source": "Bron: {source}. Gecontroleerd op {date}.",
+      "disclaimerJobseeker": "Dit is een indicatie en geen loonbelofte. Je uurloon staat altijd in de vacature."
+    },
+    "need": {
+      "always": "Altijd nodig",
+      "often": "Vaak gevraagd",
+      "sometimes": "Soms gevraagd",
+      "plus": "Een pluspunt"
+    },
+    "careerListLabel": "Groeipad",
+    "vacancies": {
+      "listLabel": "Vacatures als {occupation}",
+      "listLabelAll": "Nieuwste vacatures",
+      "count": "{count, plural, =0 {Er staan nu geen vacatures open.} one {Er staat # vacature open.} other {Er staan # vacatures open.}}",
+      "viewAllLink": "Alle vacatures voor dit beroep",
+      "viewAllLinkAll": "Bekijk alle vacatures",
+      "loadError": "De vacatures laden nu niet. Ze staan wel op de vacaturepagina."
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "glazenwasser": {
+    "enkelvoud": "Window cleaner",
+    "meervoud": "Window cleaners",
+    "jobseeker": { "summary": "You clean windows and facades, partly at height. You usually work during the day in a regular team." },
+    "employer": { "summary": "We provide window cleaners for your rounds and sites. We agree in advance which certificates the work requires." }
+  },
+  "schoonmaker": {
+    "enkelvoud": "Cleaner",
+    "meervoud": "Cleaners",
+    "jobseeker": { "summary": "You keep offices, schools or homes clean. You work early, in the evening or during the day." },
+    "employer": { "summary": "We provide cleaners for regular sites, cover and handovers. We agree the working hours with you in advance." }
+  },
+  "logistiek-medewerker": {
+    "enkelvoud": "Logistics worker",
+    "meervoud": "Logistics workers",
+    "jobseeker": { "summary": "You pick orders, load and unload, and keep the warehouse tidy. You often work an early or late shift." },
+    "employer": { "summary": "We provide order pickers, warehouse workers and forklift drivers for your teams. We discuss shifts and certificates in advance." }
+  },
+  "verhuizer": {
+    "enkelvoud": "Mover",
+    "meervoud": "Movers",
+    "jobseeker": { "summary": "You pack, carry and set everything up again at the new address. You start early and work in a team." },
+    "employer": { "summary": "We provide movers and drivers' mates for busy days and the summer. We look for people who work carefully in your customers' homes." }
+  },
+  "hulpkracht-bouw-en-sloop": {
+    "enkelvoud": "Construction and demolition labourer",
+    "meervoud": "Construction and demolition labourers",
+    "jobseeker": { "summary": "You help skilled workers on the building site or with demolition work. You work outside in a team, usually from 07:00." },
+    "employer": { "summary": "We provide labourers, bricklayers' mates and demolition workers for your project. We discuss in advance which certificates are needed." }
+  },
+  "og": {
+    "werkzoekende": "Work as a {occupation} in The Hague",
+    "werkgever": "{occupationPlural} for your business in The Hague"
+  },
+  "ui": {
+    "factsLabel": "At a glance",
+    "wageFactLabel": "Hourly wage (indication)",
+    "wage": {
+      "badge": "Indication",
+      "rangeLabel": "Gross hourly wage without experience, aged 21 and over",
+      "experiencedLabel": "With experience",
+      "source": "Source: {source}. Checked on {date}.",
+      "disclaimerJobseeker": "This is an indication, not a promised wage. Your hourly wage is always stated in the job."
+    },
+    "need": {
+      "always": "Always required",
+      "often": "Often asked for",
+      "sometimes": "Sometimes asked for",
+      "plus": "A plus"
+    },
+    "careerListLabel": "Career path",
+    "vacancies": {
+      "listLabel": "Jobs as a {occupation}",
+      "listLabelAll": "Latest jobs",
+      "count": "{count, plural, =0 {There are no open jobs right now.} one {There is # open job.} other {There are # open jobs.}}",
+      "viewAllLink": "All jobs in this occupation",
+      "viewAllLinkAll": "View all jobs",
+      "loadError": "The jobs are not loading right now. You can still find them on the jobs page."
+    }
+  }
+}

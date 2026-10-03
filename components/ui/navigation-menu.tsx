@@ -36,6 +36,12 @@ function NavigationMenuList({
         "group flex flex-1 list-none items-center justify-center gap-1",
         className,
       )}
+      // Base UI zet aria-orientation op de <ul>; dat attribuut hoort niet bij de rol list (axe aria-allowed-attr).
+      render={(listProps) => {
+        const rest = { ...listProps };
+        delete rest["aria-orientation"];
+        return <ul {...rest} />;
+      }}
       {...props}
     />
   );
@@ -55,7 +61,7 @@ function NavigationMenuItem({
 }
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md px-3 py-2 text-sm tracking-wide text-muted-foreground outline-none transition-colors hover:bg-card/40 hover:text-brand-strong focus-visible:ring-2 focus-visible:ring-ring data-[popup-open]:bg-card/40 data-[popup-open]:text-brand-strong",
+  "group relative inline-flex h-10 w-max items-center justify-center gap-1 rounded-lg px-3 text-sm font-medium text-foreground transition-colors duration-150 ease-brand hover:bg-muted hover:text-brand-strong data-[popup-open]:bg-muted data-[active]:text-brand-strong aria-[current=page]:text-brand-strong aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-3 aria-[current=page]:after:-bottom-px aria-[current=page]:after:h-0.5 aria-[current=page]:after:bg-brand",
 );
 
 function NavigationMenuTrigger({
@@ -71,7 +77,7 @@ function NavigationMenuTrigger({
     >
       {children}{" "}
       <ChevronDownIcon
-        className="relative top-[1px] ms-1 size-3 transition duration-300 group-data-[popup-open]:rotate-180"
+        className="relative top-px size-4 text-muted-foreground transition duration-200 group-data-[popup-open]:rotate-180"
         aria-hidden="true"
       />
     </NavigationMenuPrimitive.Trigger>
@@ -86,13 +92,13 @@ function NavigationMenuContent({
     <NavigationMenuPrimitive.Content
       data-slot="navigation-menu-content"
       className={cn(
-        "h-full w-[calc(100vw_-_40px)] p-2 xs:min-w-[400px] sm:w-max",
-        "transition-[opacity,transform,translate] duration-[var(--duration)] ease-[var(--easing)]",
-        "data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
-        "data-[starting-style]:data-[activation-direction=left]:translate-x-[-50%]",
-        "data-[starting-style]:data-[activation-direction=right]:translate-x-[50%]",
-        "data-[ending-style]:data-[activation-direction=left]:translate-x-[50%]",
-        "data-[ending-style]:data-[activation-direction=right]:translate-x-[-50%]",
+        "h-full w-[calc(100vw-40px)] sm:w-max",
+        "transition-[opacity,transform,translate] duration-(--duration) ease-(--easing)",
+        "data-starting-style:opacity-0 data-ending-style:opacity-0",
+        "data-starting-style:data-[activation-direction=left]:translate-x-[-50%]",
+        "data-starting-style:data-[activation-direction=right]:translate-x-[50%]",
+        "data-ending-style:data-[activation-direction=left]:translate-x-[50%]",
+        "data-ending-style:data-[activation-direction=right]:translate-x-[-50%]",
         className,
       )}
       {...props}
@@ -121,7 +127,7 @@ function NavigationMenuPositioner({
         collisionPadding={{ top: 5, bottom: 5, left: 20, right: 20 }}
         collisionAvoidance={{ side: "none" }}
         className={cn(
-          "z-[60] box-border h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)] transition-[top,left,right,bottom] duration-[var(--duration)] ease-[var(--easing)] before:absolute before:content-[''] data-[instant]:transition-none data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0 data-[side=bottom]:before:h-2.5",
+          "z-60 box-border h-(--positioner-height) w-(--positioner-width) max-w-(--available-width) transition-[top,left,right,bottom] duration-(--duration) ease-(--easing) before:absolute before:content-[''] data-instant:transition-none data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0 data-[side=bottom]:before:h-2.5",
           className,
         )}
         style={
@@ -146,7 +152,7 @@ function NavigationMenuPopup({
   return (
     <NavigationMenuPrimitive.Popup
       className={cn(
-        "relative h-[var(--popup-height)] w-[var(--popup-width)] origin-[var(--transform-origin)] rounded-lg bg-popover shadow-xl shadow-black/40 outline-1 -outline-offset-1 outline-border transition-[opacity,transform,width,height,scale,translate] duration-[var(--duration)] ease-[var(--easing)] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 xs:w-[var(--popup-width)]",
+        "relative h-(--popup-height) w-(--popup-width) origin-(--transform-origin) rounded-xl border border-border bg-popover p-2 text-popover-foreground shadow-lg transition-[opacity,transform,width,height,scale,translate] duration-(--duration) ease-(--easing) data-[ending-style]:scale-[0.98] data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-[0.98] data-[starting-style]:opacity-0",
         className,
       )}
       {...props}
@@ -177,7 +183,7 @@ function NavigationMenuLink({
     <NavigationMenuPrimitive.Link
       data-slot="navigation-menu-link"
       className={cn(
-        "flex flex-col gap-1 rounded-md p-2 text-sm outline-none transition-colors hover:bg-card/50 hover:text-brand-strong focus-visible:ring-2 focus-visible:ring-ring data-[active]:bg-card/50 data-[active]:text-brand-strong",
+        "flex flex-col gap-1 rounded-lg p-2 text-sm transition-colors duration-150 ease-brand hover:bg-muted hover:text-brand-strong data-[active]:bg-muted data-[active]:text-brand-strong",
         className,
       )}
       {...props}

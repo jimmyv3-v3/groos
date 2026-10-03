@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "title": "Over ons",
+    "description": "Groos Personeelsdiensten is een Haags uitzendbureau voor praktisch werk in vijf beroepen. Lees wie wij zijn en hoe ons team werkt."
+  },
+  "hero": {
+    "title": "Groos is een oud woord voor <accent>trots</accent>",
+    "intro": "Wij zijn een uitzendbureau uit Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Ons team kent het werk en regelt elke aanvraag zelf."
+  },
+  "story": {
+    "title": "Wat trots betekent in",
+    "accent": "ons werk",
+    "paragraphs": [
+      "Groos is een oud Nederlands woord voor trots, dat in Zeeland en Rotterdam nog wordt gebruikt. Wij kozen die naam omdat het werk van onze mensen vaak onzichtbaar blijft, terwijl iedereen er elke dag op rekent.",
+      "Schone ramen, een opgeruimd magazijn en een verhuizing die op tijd klaar is, vallen pas op als ze ontbreken. Wij vinden dat dit werk respect verdient, in het loon, in de planning en in hoe wij met mensen omgaan.",
+      "Voor opdrachtgevers betekent trots dat wij mensen voorstellen die hun werk goed willen doen. Voor werkzoekenden betekent het dat wij eerlijk zijn over het loon, de uren en het werk zelf."
+    ]
+  },
+  "people": {
+    "title": "Kom in contact met",
+    "accent": "ons team",
+    "intro": "Bij Groos heeft u steeds contact met hetzelfde kleine team. Bel of app ons gerust met een vraag over werk of personeel."
+  },
+  "area": {
+    "title": "Een Haags bureau voor",
+    "accent": "Den Haag en omgeving",
+    "paragraphs": [
+      "Groos is gevestigd aan het Hugo Coenraadspad in Den Haag. Langskomen kan alleen op afspraak, dus bel of app ons even van tevoren.",
+      "Wij zoeken werk en personeel in Den Haag en de gemeenten eromheen. Bij elke vacature staat precies waar het werk is."
+    ],
+    "placesIntro": "Wij werken onder meer in deze plaatsen:",
+    "places": [
+      "Den Haag",
+      "Delft",
+      "Leidschendam-Voorburg",
+      "Midden-Delfland",
+      "Pijnacker-Nootdorp",
+      "Rijswijk",
+      "Wassenaar",
+      "Westland",
+      "Zoetermeer"
+    ]
+  },
+  "approach": {
+    "title": "Zo werken wij met",
+    "accent": "werkzoekenden en opdrachtgevers",
+    "intro": "Een klein bureau werkt anders dan een grote keten. Dit zijn de vier gewoontes die bij Groos altijd gelden.",
+    "items": {
+      "kennismaken": {
+        "title": "Eerst kennismaken",
+        "body": "Wij bellen werkzoekenden om kennis te maken en bespreken elke aanvraag met de opdrachtgever. Zo weten wij wat iemand zoekt en wat het werk vraagt."
+      },
+      "afspraken": {
+        "title": "Afspraken vooraf",
+        "body": "Uurloon, uren en werktijden zijn bekend voordat iemand begint. Bij elke vacature staat het bruto uurloon al vermeld."
+      },
+      "contact": {
+        "title": "Contact tijdens het werk",
+        "body": "Wij houden contact met de medewerker en de opdrachtgever zolang het werk loopt. Gaat er iets mis, dan zoeken wij samen een oplossing."
+      },
+      "kosten": {
+        "title": "Nooit geld voor werk",
+        "body": "Groos vraagt nooit geld voor werk, een contract of een sollicitatie. Wie zo'n verzoek uit onze naam krijgt, kan het direct bij ons melden."
+      }
+    }
+  },
+  "cta": {
+    "title": "Een vraag over",
+    "accent": "werk of personeel?",
+    "body": "Bel of app ons op <link>{phone}</link>, of mail naar {email}. Via de contactpagina kunt u ook een bericht sturen."
+  }
+}

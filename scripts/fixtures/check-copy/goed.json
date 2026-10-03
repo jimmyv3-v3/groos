@@ -1,0 +1,162 @@
+{
+  "common": {
+    "cta": {
+      "viewJobs": "Bekijk vacatures",
+      "viewJob": "Bekijk vacature",
+      "viewAllJobs": "Bekijk alle vacatures",
+      "apply": "Solliciteer direct",
+      "register": "Schrijf je in",
+      "requestStaff": "Personeel aanvragen",
+      "call": "Bel ons",
+      "whatsapp": "App ons",
+      "email": "Mail ons",
+      "contact": "Neem contact op",
+      "readMoreLink": "Lees meer over {subject}"
+    },
+    "whatsapp": {
+      "algemeen": "Hallo Groos, ik heb een vraag.",
+      "werkzoekende": "Hallo Groos, ik zoek werk en wil graag meer weten.",
+      "werkzoekendeBeroep": "Hallo Groos, ik zoek werk als {occupation}.",
+      "werkgever": "Hallo Groos, ik zoek personeel en wil graag een aanvraag bespreken.",
+      "werkgeverBeroep": "Hallo Groos, ik zoek {occupationPlural} en wil graag een aanvraag bespreken.",
+      "vacatureSolliciteren": "Hallo Groos, ik wil graag solliciteren op de vacature {title} (nummer {number}).",
+      "vacatureVraag": "Hallo Groos, ik heb een vraag over de vacature {title} (nummer {number})."
+    },
+    "opensInNewTab": "(opent in een nieuw venster)",
+    "languageSwitcher": {
+      "label": "Taal kiezen",
+      "nl": "Nederlands",
+      "en": "English"
+    },
+    "breadcrumbs": {
+      "label": "Kruimelpad",
+      "home": "Home"
+    },
+    "address": {
+      "byAppointment": "Langskomen kan alleen op afspraak."
+    },
+    "team": {
+      "title": "Kom in contact met ons team"
+    },
+    "loading": "Bezig met laden",
+    "a11y": {
+      "call": "Bel ons op {phone}",
+      "emailAddress": "Mail naar {email}"
+    },
+    "contact": {
+      "phone": "Telefoon",
+      "whatsapp": "WhatsApp",
+      "email": "E-mail",
+      "address": "Adres",
+      "officeHours": "Kantoortijden",
+      "officeHoursValue": "Maandag tot en met vrijdag van {opens} tot {closes} uur",
+      "afterHours": "Buiten kantoortijden zijn wij bereikbaar voor spoed."
+    },
+    "notes": {
+      "freeJobseeker": "Solliciteren en inschrijven kost je niets.",
+      "cvOptionalJobseeker": "Je kunt ook zonder cv solliciteren.",
+      "responseJobseeker": "Je hoort binnen één werkdag van ons.",
+      "noObligationEmployer": "Een aanvraag doen is vrijblijvend.",
+      "responseEmployer": "U hoort binnen één werkdag van ons.",
+      "urgentEmployer": "Heeft u snel mensen nodig? Bel ons dan direct."
+    },
+    "labels": {
+      "faq": "Veelgestelde vragen"
+    },
+    "format": {
+      "wagePerHour": "{amount} bruto per uur",
+      "wageRange": "{min} tot {max} bruto per uur",
+      "hoursPerWeek": "{hours} uur per week",
+      "hoursRange": "{min} tot {max} uur per week",
+      "time": "{time} uur",
+      "timeRange": "{start} tot {end} uur"
+    }
+  },
+  "header": {
+    "skipLink": "Ga direct naar de inhoud",
+    "homeAria": "Groos Personeelsdiensten, naar de homepage",
+    "mainMenu": "Hoofdmenu",
+    "openMenu": "Menu openen",
+    "closeMenu": "Menu sluiten",
+    "mobileMenu": "Menu",
+    "callAria": "Bel ons op {phone}",
+    "actionBar": "Snel contact",
+    "nav": {
+      "vacatures": "Vacatures",
+      "werkzoekenden": "Werkzoekenden",
+      "werkgevers": "Werkgevers",
+      "overOns": "Over ons",
+      "contact": "Contact",
+      "inschrijven": "Inschrijven",
+      "alleWerkzoekenden": "Alles voor werkzoekenden",
+      "personeelAanvragen": "Personeel aanvragen",
+      "wtta": "Inlenen en de Wtta",
+      "alleWerkgevers": "Alles voor werkgevers"
+    },
+    "menu": {
+      "beroepenWerkzoekenden": "Werken als",
+      "beroepenWerkgevers": "Personeel per beroep"
+    }
+  },
+  "footer": {
+    "description": "Groos Personeelsdiensten is een uitzendbureau uit Den Haag voor praktisch werk. Wij brengen werkzoekenden en opdrachtgevers in vijf beroepen bij elkaar.",
+    "navLabel": "Overzicht van de site",
+    "columns": {
+      "werkzoekenden": "Werkzoekenden",
+      "werkgevers": "Werkgevers",
+      "groos": "Groos",
+      "contact": "Contact"
+    },
+    "rights": "© {year} {name}"
+  },
+  "notFound": {
+    "metaTitle": "Pagina niet gevonden",
+    "title": "Deze pagina bestaat niet of niet meer",
+    "body": "Misschien is de link verouderd of is de vacature al vervuld. Hieronder staan de pagina's die bezoekers het vaakst zoeken.",
+    "linksLabel": "Veelgezochte pagina's",
+    "links": {
+      "vacatures": "Bekijk vacatures",
+      "personeel": "Personeel aanvragen",
+      "contact": "Neem contact op"
+    },
+    "home": "Ga naar de homepage"
+  },
+  "error": {
+    "metaTitle": "Er ging iets mis",
+    "title": "Er ging iets mis bij het laden van deze pagina",
+    "body": "Probeer het over een paar seconden opnieuw. Lukt het dan nog niet, bel ons dan op {phone}.",
+    "retry": "Probeer opnieuw",
+    "home": "Ga naar de homepage",
+    "code": "Foutcode {digest}"
+  },
+  "meta": {
+    "titleDefault": "Uitzendbureau in Den Haag | Groos Personeelsdiensten",
+    "titleTemplate": "%s | Groos Personeelsdiensten",
+    "description": "Groos is een uitzendbureau in Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen, bouw en sloop. Bekijk de vacatures of vraag personeel aan.",
+    "organizationDescription": "Groos Personeelsdiensten B.V. is een uitzendbureau in Den Haag. Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers en hulpkrachten bouw en sloop aan opdrachtgevers.",
+    "keywords": [
+      "uitzendbureau Den Haag",
+      "vacatures Den Haag",
+      "glazenwasser vacature Den Haag",
+      "schoonmaak vacature Den Haag",
+      "orderpicker vacature Den Haag",
+      "verhuizer vacature Den Haag",
+      "opperman vacature Den Haag",
+      "personeel inhuren Den Haag",
+      "uitzendkrachten Den Haag"
+    ],
+    "ogHeadline": "Werk en personeel in Den Haag, met vaste contactpersonen",
+    "ogSubline": "Wij helpen werkzoekenden en bedrijven in vijf praktische beroepen."
+  },
+  "home": {
+    "cta": {
+      "title": "Eén telefoontje is genoeg",
+      "body": "Bel ons, dan bespreken wij samen welk werk of welk personeel u zoekt."
+    }
+  },
+  "forms": {
+    "common": {
+      "submitting": "Bezig met het versturen"
+    }
+  }
+}

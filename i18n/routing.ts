@@ -1,23 +1,23 @@
 import { defineRouting } from "next-intl/routing";
 
-// Nederlands is de standaardtaal en krijgt geen URL-prefix (schone root-URL's).
-// Engels leeft onder /en. Door "as-needed" blijven Nederlandse paden ongewijzigd
-// en is alleen de Engelse variant herkenbaar aan de prefix.
-// Eentalige site? Zet locales op ["nl"]: de taalknop, de geo-redirect en de
+// Nederlands is de standaardtaal en krijgt geen URL-prefix; Engels leeft onder
+// /en met dezelfde (Nederlandse) paden (B-03, spec 01 §4.11.1).
+// Eentalige site? Zet locales op ["nl"]: taalknop, geo-redirect en
 // hreflang-alternates verdwijnen dan vanzelf.
 export const routing = defineRouting({
   locales: ["nl", "en"],
   defaultLocale: "nl",
   localePrefix: "as-needed",
-  // Taaldetectie regelen we volledig zelf in proxy.ts (IP-geo + cookie), zodat
-  // het IP-signaal voorrang heeft op de browsertaal.
+  // De taal bepaalt proxy.ts zelf (cookie en IP-land), niet de browsertaal.
   localeDetection: false,
+  // NEXT_LOCALE beheren proxy.ts en LanguageToggle; next-intl raakt de cookie niet aan.
+  localeCookie: false,
+  // hreflang alleen via pageMetadata(); de Link-header van next-intl zou
+  // ook een EN-alternatief melden voor vacatures die alleen in het Nederlands bestaan.
+  alternateLinks: false,
 });
 
 export type Locale = (typeof routing.locales)[number];
 
-/**
- * Landen waarvoor bezoekers standaard de standaardtaal zien. Bezoekers van
- * elders krijgen bij hun eerste bezoek de tweede taal (zie proxy.ts).
- */
-export const DEFAULT_LOCALE_COUNTRIES: string[] = ["NL", "BE"];
+/** Landen waar een eerste bezoek de standaardtaal krijgt (zie proxy.ts). */
+export const DEFAULT_LOCALE_COUNTRIES: readonly string[] = ["NL", "BE"];

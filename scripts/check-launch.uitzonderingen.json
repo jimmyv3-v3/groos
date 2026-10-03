@@ -1,0 +1,26 @@
+[
+  {
+    "regel": "K4",
+    "bestand": "messages/en/forms.json",
+    "patroon": "name@example.com",
+    "reden": "Voorbeeld van een geldig e-mailadres in de foutmelding emailInvalid (spec 07, B-36); example.com is daarvoor gereserveerd.",
+    "bevestigdDoor": "spec 07",
+    "datum": "2026-10-02"
+  },
+  {
+    "regel": "K4",
+    "bestand": "emails/previews.ts",
+    "patroon": "example.com",
+    "reden": "Voorbeeldprops voor de e-mailpreviews gebruiken alleen adressen op example.com (spec 11 §4.1).",
+    "bevestigdDoor": "spec 11",
+    "datum": "2026-10-02"
+  },
+  {
+    "regel": "K4",
+    "bestand": "emails/previews.ts",
+    "patroon": "00000000-0000-4000-8000-",
+    "reden": "Vaste voorbeeld-uuid in de beheerlink van een preview (spec 11); geen echt record.",
+    "bevestigdDoor": "spec 11",
+    "datum": "2026-10-02"
+  }
+]

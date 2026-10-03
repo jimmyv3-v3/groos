@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "title": "Contact",
+    "description": "Bel, app of mail het team van Groos Personeelsdiensten in Den Haag. Stuur een bericht via het formulier of maak een afspraak om langs te komen."
+  },
+  "title": "Contact met Groos Personeelsdiensten",
+  "intro": "Bij Groos spreekt u altijd iemand van ons team. Bel of app ons, of stuur een bericht via het formulier.",
+  "people": {
+    "title": "Kom in contact met",
+    "accent": "ons team",
+    "intro": "Ons team is bereikbaar op één nummer, ook via WhatsApp. U kunt ons ook een e-mail sturen."
+  },
+  "details": {
+    "title": "Gegevens van",
+    "accent": "Groos Personeelsdiensten",
+    "phone": "Algemeen nummer",
+    "kvk": "KvK-nummer"
+  },
+  "choice": {
+    "title": "Waar kunnen wij",
+    "accent": "u mee helpen?",
+    "jobseeker": {
+      "title": "Ik zoek werk",
+      "body": "Bekijk de vacatures of schrijf je in, ook zonder cv."
+    },
+    "employer": {
+      "title": "Ik zoek personeel",
+      "body": "Vertel ons wie u zoekt en vanaf wanneer. Een aanvraag doen is vrijblijvend."
+    }
+  },
+  "form": {
+    "title": "Stuur ons",
+    "accent": "een bericht",
+    "intro": "Kies waar uw vraag over gaat. Wij antwoorden per e-mail of bellen u terug."
+  }
+}

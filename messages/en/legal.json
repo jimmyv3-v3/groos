@@ -1,0 +1,38 @@
+{
+  "versionLine": "Version {version}, updated on {date}.",
+  "draftNotice": "This is a draft. A lawyer will review it before this website goes live.",
+  "contactQuestion": "Is something in this text unclear? Call or email us and we will explain it.",
+  "contactCta": "Contact us",
+  "download": "Download the PDF",
+  "toc": {
+    "title": "Contents",
+    "ariaLabel": "Contents of this page"
+  },
+  "nav": {
+    "privacy": "Privacy statement",
+    "cookies": "Cookie statement",
+    "complaints": "Complaints procedure",
+    "terms": "Terms and conditions"
+  },
+  "footer": {
+    "ariaLabel": "Legal information",
+    "kvk": "Chamber of Commerce {number}",
+    "vat": "VAT {number}"
+  },
+  "wtta": {
+    "footer": {
+      "preparing": "We are preparing our admission under the Dutch Wtta act.",
+      "transition": "We have registered for the Wtta transitional arrangement.",
+      "provisional": "We hold a provisional admission from the Nederlandse Autoriteit Uitleenmarkt.",
+      "admitted": "We are admitted by the Nederlandse Autoriteit Uitleenmarkt under register number {number}."
+    },
+    "block": {
+      "preparing": "Groos Personeelsdiensten is preparing its admission under the Dutch act on the admission of labour providers (Wtta). As soon as we have registered or been admitted, you will see it here with a link to the public register.",
+      "transition": "Groos Personeelsdiensten has registered for the transitional arrangement of the Wtta. From 1 July 2027 you can check our status in the public register of the Nederlandse Autoriteit Uitleenmarkt.",
+      "provisional": "Groos Personeelsdiensten holds a provisional admission from the Nederlandse Autoriteit Uitleenmarkt. You can check this yourself in the public register.",
+      "admitted": "Groos Personeelsdiensten is admitted to the labour provider market under register number {number}. The public register of the Nederlandse Autoriteit Uitleenmarkt shows whether the admission is valid."
+    },
+    "infoLink": "What the Wtta means for hirers",
+    "registerLink": "View our registration in the register"
+  }
+}

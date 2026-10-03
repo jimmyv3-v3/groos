@@ -1,30 +1,28 @@
 import type { Metadata } from "next";
+import { ClipboardList, Briefcase } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { SiteHeader } from "@/components/sections/site-header";
-import { Hero } from "@/components/sections/hero";
-import { Clients } from "@/components/sections/clients";
-import { SegmentAccordion } from "@/components/sections/segment-accordion";
-import { Metrics } from "@/components/sections/metrics";
-import { TrustBar } from "@/components/sections/trust-bar";
-import { ServiceTicker } from "@/components/sections/service-ticker";
-import { Services } from "@/components/sections/services";
-import { Process } from "@/components/sections/process";
-import { Projects } from "@/components/sections/projects";
-import { Proof } from "@/components/sections/proof";
-import { Assurance } from "@/components/sections/assurance";
-import { About } from "@/components/sections/about";
-import Faq from "@/components/sections/faq";
-import { OfferteForm } from "@/components/sections/offerte-form";
-import { SiteFooter } from "@/components/sections/site-footer";
+import { resolveLocale } from "@/i18n/locale";
+import { ROUTES } from "@/lib/routes";
+import { contact } from "@/lib/site";
+import { employmentAgencyLd, faqLd, pageMetadata } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
-import { faqLd, localBusinessLd, localizedPath, pageMetadata } from "@/lib/seo";
+import { CtaBand } from "@/components/sections/cta-band";
+import { HomeHero } from "@/components/sections/home/home-hero";
+import { HomeVacancies } from "@/components/sections/home/home-vacancies";
+import { HomeBeroepen } from "@/components/sections/home/home-beroepen";
+import { HowItWorks } from "@/components/sections/home/how-it-works";
+import { WhyGroos } from "@/components/sections/home/why-groos";
+import { HomePeople } from "@/components/sections/home/home-people";
+import { HomeFaq } from "@/components/sections/home/home-faq";
+import { getHomeFaqItems } from "@/components/sections/home/faq-items";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
+// Homepage (spec 04 §4.2). ISR: de vacaturesectie ververst via de tag
+// `vacatures` (B-35) en anders elk uur.
+export const revalidate = 3600;
+
+export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
   const t = await getTranslations({ locale, namespace: "meta" });
   return pageMetadata({
     locale,
@@ -36,51 +34,51 @@ export async function generateMetadata({
   });
 }
 
-// De volgorde van de secties is de blauwdruk van J. Versseput. Zie
-// docs/MIGRATIE.md voor de rol van elke sectie en welke optioneel zijn.
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
+export default async function HomePage({ params }: PageProps<"/[locale]">) {
+  const { locale: raw } = await params;
+  const locale = resolveLocale(raw);
   setRequestLocale(locale);
-  const t = await getTranslations("home");
-  const tMeta = await getTranslations("meta");
-  const faqItems = t.raw("faq.items") as { q: string; a: string }[];
+  const [tMeta, t, tCommon, faqItems] = await Promise.all([
+    getTranslations({ locale, namespace: "meta" }),
+    getTranslations({ locale, namespace: "home.cta" }),
+    getTranslations({ locale, namespace: "common" }),
+    getHomeFaqItems(locale),
+  ]);
 
   return (
     <>
-      <JsonLd
-        data={localBusinessLd({
-          description: tMeta("description"),
-          path: localizedPath(locale, "/"),
-        })}
-      />
+      <JsonLd data={employmentAgencyLd({ locale, description: tMeta("organizationDescription") })} />
       <JsonLd data={faqLd(faqItems)} />
-      <SiteHeader />
-      <main>
-        <Hero />
-        <Clients />
-        {/* Doelgroepen onder de logo's op mobiel; op desktop staan ze in de hero */}
-        <section aria-label={t("segments.ariaLabel")} className="lg:hidden">
-          <div className="container pb-2">
-            <SegmentAccordion />
-          </div>
-        </section>
-        <Metrics />
-        <TrustBar />
-        <ServiceTicker />
-        <Services />
-        <Process />
-        <Projects />
-        <Proof />
-        <Assurance />
-        <About />
-        <Faq />
-        <OfferteForm />
-      </main>
-      <SiteFooter />
+      <HomeHero />
+      <HomeVacancies locale={locale} />
+      <HomeBeroepen />
+      <HowItWorks />
+      <WhyGroos />
+      <HomePeople locale={locale} />
+      <HomeFaq />
+      <CtaBand
+        id="aan-de-slag"
+        headingId="home-cta-titel"
+        title={t("title")}
+        accent={t("accent")}
+        body={t.rich("body", {
+          phone: contact.phone,
+          link: (chunks) => (
+            <a href={contact.phoneHref} className="font-semibold whitespace-nowrap text-foreground underline underline-offset-4">
+              {chunks}
+            </a>
+          ),
+        })}
+        actions={[
+          {
+            href: ROUTES.personeelAanvragen,
+            label: tCommon("cta.requestStaff"),
+            variant: "primary",
+            icon: <ClipboardList aria-hidden />,
+          },
+          { href: ROUTES.vacatures, label: tCommon("cta.viewJobs"), variant: "secondary", icon: <Briefcase aria-hidden /> },
+        ]}
+      />
     </>
   );
 }

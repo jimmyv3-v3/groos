@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Find work through Groos",
+    "description": "This is how you find hands-on work in and around The Hague through Groos. Read how applying works, what you earn and what your rights are."
+  },
+  "steps": {
+    "title": "From your application to",
+    "accent": "your first working day",
+    "intro": "At every step you know what happens and who you can call.",
+    "items": [
+      { "title": "You apply or register", "body": "You can use the form, send us a WhatsApp message or call us, also without a CV." },
+      { "title": "We call you", "body": "Our team calls you to get to know you and to hear what work you are looking for." },
+      { "title": "You hear what the work is", "body": "Before you start, you hear the tasks, the working hours, the gross hourly wage and what to bring." },
+      { "title": "You start working", "body": "On your first day you know where to go and who to call if you have a question." }
+    ]
+  }
+}

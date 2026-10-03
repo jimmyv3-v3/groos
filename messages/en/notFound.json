@@ -1,0 +1,12 @@
+{
+  "metaTitle": "Page not found",
+  "title": "This page does not exist or no longer exists",
+  "body": "The link may be out of date, or the job may already be filled. Below are the pages visitors look for most often.",
+  "linksLabel": "Popular pages",
+  "links": {
+    "vacatures": "View jobs",
+    "personeel": "Request staff",
+    "contact": "Contact us"
+  },
+  "home": "Go to the homepage"
+}

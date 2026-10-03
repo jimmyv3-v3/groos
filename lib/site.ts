@@ -1,182 +1,149 @@
 import type { LucideIcon } from "lucide-react";
-import {
-  Award,
-  Building2,
-  CalendarRange,
-  ClipboardCheck,
-  FileCheck2,
-  HardHat,
-  Home,
-  KeyRound,
-  Landmark,
-  Leaf,
-  MapPin,
-  ShieldCheck,
-  Sparkles,
-  Users,
-} from "lucide-react";
+import { ArrowRight, ClipboardList, Scale, UserPlus } from "lucide-react";
+import type { Perspectief } from "@/content/beroepen";
+import { ROUTES, type StaticPath } from "@/lib/routes";
 
 /**
- * Centrale bedrijfsconfiguratie. Alles wat per bedrijf verschilt en géén
- * vertaalbare tekst is, staat hier: NAW, contactkanalen, socials, navigatie en
- * de iconen, cijfers en afbeeldingen per homepage-sectie. Vertaalbare tekst
- * staat in messages/<locale>.json, lange paginacontent in content/.
- *
- * Placeholders herken je aan TODO, example.nl of 00000000. `npm run check`
- * somt ze op en moet vóór livegang schoon zijn.
+ * Centrale bedrijfsconfiguratie (vorm: spec 01 §5.1). Alles wat geen
+ * vertaalbare tekst is: site en vindbaarheid, NAW, navigatie
+ * en footerkolommen. Juridische links komen uit publishedLegalDocs() in
+ * lib/legal.ts via FooterLegal (spec 09). Tekst staat in messages/<locale>/*.json,
+ * lange paginatekst in content/. Onbevestigde gegevens dragen een TODO;
+ * `npm run check` somt ze op.
  */
 
-export const site = {
-  /** Productiedomein inclusief www, zonder slash aan het eind. */
-  url: "https://www.example.nl", // TODO: definitieve domeinnaam
-  /** Logo voor de Organization-JSON-LD (vierkant PNG, minimaal 512×512). */
-  logo: "/brand/logo.png", // TODO: bestand toevoegen in public/brand
-  /**
-   * Schema.org-type voor de bedrijfs-JSON-LD. Kies het meest specifieke type dat
-   * past, bijvoorbeeld "HomeAndConstructionBusiness", "ProfessionalService",
-   * "RoofingContractor" of "Store". "LocalBusiness" is altijd geldig.
-   */
-  schemaType: "LocalBusiness", // TODO: specifieker type kiezen
-  /** Plaatsen of regio's voor `areaServed` in de JSON-LD. */
-  areaServed: ["TODO Plaats", "Nederland"],
-} as const;
+/* Site en vindbaarheid ----------------------------------------------------- */
 
-const PHONE_DISPLAY = "+31 6 00000000"; // TODO: telefoonnummer zoals getoond
-const PHONE_E164 = "+31600000000"; // TODO: zelfde nummer, internationaal zonder spaties
-const EMAIL = "info@example.nl"; // TODO: e-mailadres voor aanvragen
+export type AreaServed = { "@type": "City" | "AdministrativeArea"; name: string };
+export type Site = {
+  url: `https://${string}`;
+  logo: `/${string}`;
+  schemaType: "EmploymentAgency";
+  region: string;
+  areaServed: readonly AreaServed[];
+};
+
+export const site = {
+  url: "https://www.groospersoneelsdiensten.nl", // TODO bevestigen door Jimmy (B-02)
+  logo: "/brand/logo.png", // PNG van minimaal 512 bij 512 (spec 02)
+  schemaType: "EmploymentAgency",
+  region: "Haaglanden",
+  // Haaglanden komt er pas bij via employmentAgencyLd/serviceLd als isClaimConfirmed("workArea") waar is (B-43).
+  areaServed: [{ "@type": "City", name: "Den Haag" }],
+} as const satisfies Site;
+
+/* Contact (NAW volgens B-23, e-mail B-02). Eén nummer voor de hele publieke
+   site, ook voor WhatsApp, en geen persoonsnamen (B-60). ------------------- */
+
+export type Phone = { display: string; e164: `+31${string}` };
+export type OpeningHours = {
+  days: "ma-vr";
+  opens: `${number}:${number}`;
+  closes: `${number}:${number}`;
+};
+
+const HOOFDNUMMER: Phone = { display: "06 83 35 19 85", e164: "+31683351985" };
+const EMAIL = "info@groospersoneelsdiensten.nl"; // TODO bevestigen door Jimmy (B-02)
 
 export const contact = {
   /** Statutaire naam zoals bij de KvK. */
-  name: "TODO Bedrijfsnaam B.V.",
+  name: "Groos Personeelsdiensten B.V.",
   /** Merknaam voor logo, titels en OG-afbeelding. */
-  shortName: "TODO Bedrijfsnaam",
-  phone: PHONE_DISPLAY,
-  phoneHref: `tel:${PHONE_E164}`,
-  whatsapp: PHONE_DISPLAY,
-  whatsappHref:
-    `https://wa.me/${PHONE_E164.replace("+", "")}?text=` +
-    encodeURIComponent(
-      "Hallo, ik wil graag een vrijblijvende offerte aanvragen voor ",
-    ),
+  shortName: "Groos Personeelsdiensten",
+  phone: HOOFDNUMMER.display,
+  phoneE164: HOOFDNUMMER.e164,
+  phoneHref: `tel:${HOOFDNUMMER.e164}`,
+  whatsapp: HOOFDNUMMER.display,
+  /** Zonder vooringevulde tekst; tekst gaat via whatsappLink(text) uit messages. */
+  whatsappHref: `https://wa.me/${HOOFDNUMMER.e164.slice(1)}`,
   email: EMAIL,
   emailHref: `mailto:${EMAIL}`,
-  kvk: "00000000", // TODO
-  btw: undefined as string | undefined, // TODO: btw-nummer, verschijnt dan in de footer
-  street: undefined as string | undefined, // TODO: straat + huisnummer (optioneel tonen)
-  postalCode: undefined as string | undefined,
-  city: "TODO Plaats",
+  street: "Hugo Coenraadspad 6",
+  postalCode: "2553 ER", // TODO postcode bevestigen door Jimmy (B-23)
+  city: "Den Haag",
+  country: "NL",
+  visitByAppointment: true,
+  kvk: undefined as string | undefined, // TODO KvK-nummer (Jimmy)
+  btw: undefined as string | undefined, // TODO btw-nummer (Jimmy)
+  openingHours: undefined as OpeningHours | undefined, // TODO kantoortijden bevestigen (B-22)
 } as const;
 
-export type Social = {
-  platform: "linkedin" | "instagram" | "facebook";
-  href: string;
-};
+/** WhatsApp-link met optionele vooringevulde tekst uit messages (common.whatsapp.*). */
+export function whatsappLink(text?: string): string {
+  const base = contact.whatsappHref;
+  return text ? `${base}?text=${encodeURIComponent(text)}` : base;
+}
 
-/** Alleen ingevulde kanalen verschijnen in de footer en in de JSON-LD (`sameAs`). */
-export const socials: Social[] = [
-  // { platform: "linkedin", href: "https://www.linkedin.com/company/..." },
-  // { platform: "instagram", href: "https://www.instagram.com/..." },
-];
+/* Navigatie (labels in messages header.nav.<key>) ---------------------------- */
 
-// Ankers beginnen met "/" zodat de navigatie ook vanaf subpagina's werkt (eerst
-// naar home, dan naar de sectie). `key` verwijst naar messages onder
-// "common.nav". De eerste entry (Diensten) rendert de header als uitklapmenu.
+export type NavKey = "vacatures" | "werkzoekenden" | "werkgevers" | "overOns" | "contact";
+export type NavLinkKey = "inschrijven" | "alleWerkzoekenden" | "personeelAanvragen" | "wtta" | "alleWerkgevers";
+export type NavChild =
+  | { kind: "beroepen"; perspectief: Perspectief }
+  | { kind: "link"; key: NavLinkKey; href: StaticPath; icon: LucideIcon; emphasis?: boolean };
+export type NavItem = { key: NavKey; href: StaticPath; children?: readonly NavChild[] };
+
 export const nav = [
-  { key: "services", href: "/#diensten" },
-  { key: "method", href: "/#werkwijze" },
-  { key: "projects", href: "/#projecten" },
-  { key: "about", href: "/#over-ons" },
-  { key: "contact", href: "/#contact" },
-] as const;
+  { key: "vacatures", href: ROUTES.vacatures },
+  {
+    key: "werkzoekenden",
+    href: ROUTES.werkzoekenden,
+    children: [
+      { kind: "beroepen", perspectief: "werkzoekende" },
+      { kind: "link", key: "inschrijven", href: ROUTES.inschrijven, icon: UserPlus, emphasis: true },
+      { kind: "link", key: "alleWerkzoekenden", href: ROUTES.werkzoekenden, icon: ArrowRight },
+    ],
+  },
+  {
+    key: "werkgevers",
+    href: ROUTES.werkgevers,
+    children: [
+      { kind: "beroepen", perspectief: "werkgever" },
+      { kind: "link", key: "personeelAanvragen", href: ROUTES.personeelAanvragen, icon: ClipboardList, emphasis: true },
+      { kind: "link", key: "wtta", href: ROUTES.wtta, icon: Scale },
+      { kind: "link", key: "alleWerkgevers", href: ROUTES.werkgevers, icon: ArrowRight },
+    ],
+  },
+  { key: "overOns", href: ROUTES.overOns },
+  { key: "contact", href: ROUTES.contact },
+] as const satisfies readonly NavItem[];
 
-/**
- * Cijferband. `value` is numeriek zodat hij kan optellen. Labels staan in
- * messages `home.metricLabels`, in dezelfde volgorde.
- */
-export type Metric = { value: number; prefix?: string; suffix?: string };
+/* Footer (kolomkoppen in messages footer.columns.<key>) ---------------------- */
 
-export const metrics: Metric[] = [
-  { value: 10, suffix: "+" }, // TODO: echte, verdedigbare cijfers
-  { value: 100, suffix: "+" },
-  { value: 5 },
-];
+export type FooterColumnKey = "werkzoekenden" | "werkgevers" | "groos";
+export type FooterLink =
+  | { kind: "beroepen"; perspectief: Perspectief }
+  | { kind: "route"; key: NavKey | NavLinkKey; href: StaticPath };
 
-/** Iconen van de TrustBar. Tekst in messages `home.trustBar.items` (zelfde volgorde). */
-export const usps: { icon: LucideIcon }[] = [
-  { icon: Award },
-  { icon: ShieldCheck },
-  { icon: Sparkles },
-  { icon: MapPin },
-];
+export const footerColumns = [
+  {
+    key: "werkzoekenden",
+    links: [
+      { kind: "route", key: "vacatures", href: ROUTES.vacatures },
+      { kind: "beroepen", perspectief: "werkzoekende" },
+      { kind: "route", key: "inschrijven", href: ROUTES.inschrijven },
+      { kind: "route", key: "alleWerkzoekenden", href: ROUTES.werkzoekenden },
+    ],
+  },
+  {
+    key: "werkgevers",
+    links: [
+      { kind: "beroepen", perspectief: "werkgever" },
+      { kind: "route", key: "personeelAanvragen", href: ROUTES.personeelAanvragen },
+      { kind: "route", key: "wtta", href: ROUTES.wtta },
+      { kind: "route", key: "alleWerkgevers", href: ROUTES.werkgevers },
+    ],
+  },
+  {
+    key: "groos",
+    links: [
+      { kind: "route", key: "overOns", href: ROUTES.overOns },
+      { kind: "route", key: "contact", href: ROUTES.contact },
+    ],
+  },
+] as const satisfies readonly { key: FooterColumnKey; links: readonly FooterLink[] }[];
 
-/**
- * Doelgroepen voor de beeldaccordion in de hero (desktop) en de kaarten onder
- * de logo's (mobiel). Titel en blurb in messages `home.segments.<id>`. Zonder
- * `image` valt de kaart terug op een kleurverloop.
- */
-export type Segment = {
-  id: string;
-  icon: LucideIcon;
-  image?: string;
-  /** CSS object-position voor de uitsnede (standaard "center"). */
-  focus?: string;
-};
+/* Socials: alleen ingevulde kanalen verschijnen in footer en sameAs --------- */
 
-export const segments: Segment[] = [
-  { id: "doelgroep-1", icon: Building2 }, // TODO: foto in /public/segments
-  { id: "doelgroep-2", icon: KeyRound },
-  { id: "doelgroep-3", icon: Landmark },
-  { id: "doelgroep-4", icon: Home },
-];
-
-/** Werkwijze-stappen. Tekst in messages `home.process.steps` (zelfde volgorde). */
-export const steps: { n: string; icon: LucideIcon }[] = [
-  { n: "01", icon: ClipboardCheck },
-  { n: "02", icon: CalendarRange },
-  { n: "03", icon: HardHat },
-  { n: "04", icon: FileCheck2 },
-];
-
-/** Kwaliteitsbeloftes. Tekst in messages `home.assurance.items` (zelfde volgorde). */
-export const assurances: { icon: LucideIcon }[] = [
-  { icon: ShieldCheck },
-  { icon: HardHat },
-  { icon: Users },
-  { icon: Leaf },
-];
-
-/** Keurmerk in de kwaliteitssectie. Zonder `src` toont de sectie een icoon. */
-export const certification: { src?: string } = {
-  // src: "/certifications/keurmerk.png", // TODO: alleen een écht behaald keurmerk
-};
-
-/**
- * Opdrachtgevers in de logoband. Zonder `src` verschijnt de naam als tekst.
- * Toon alleen klanten die daar toestemming voor hebben gegeven.
- */
-export type Client = { name: string; src?: string };
-
-export const clients: Client[] = [
-  { name: "TODO Klant 1" },
-  { name: "TODO Klant 2" },
-  { name: "TODO Klant 3" },
-  { name: "TODO Klant 4" },
-  { name: "TODO Klant 5" },
-];
-
-/**
- * Projectgalerij. `altKey` verwijst naar messages `home.projects.<altKey>`.
- * Zonder `src` toont de tegel een placeholder. Foto's in /public/projects.
- */
-export type ProjectPhoto = { src?: string; altKey: string };
-
-export const projectPhotos: ProjectPhoto[] = [
-  { altKey: "altDefault" }, // TODO: echte projectfoto's
-  { altKey: "altDefault" },
-  { altKey: "altDefault" },
-  { altKey: "altDefault" },
-  { altKey: "altDefault" },
-  { altKey: "altDefault" },
-  { altKey: "altDefault" },
-  { altKey: "altDefault" },
-];
+export type Social = { platform: "linkedin" | "instagram" | "facebook"; href: `https://${string}` };
+export const socials: readonly Social[] = [];

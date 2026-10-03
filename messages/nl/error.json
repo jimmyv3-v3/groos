@@ -1,0 +1,8 @@
+{
+  "metaTitle": "Er ging iets mis",
+  "title": "Er ging iets mis bij het laden van deze pagina",
+  "body": "Probeer het over een paar seconden opnieuw. Lukt het dan nog niet, bel ons dan op {phone}.",
+  "retry": "Probeer opnieuw",
+  "home": "Ga naar de homepage",
+  "code": "Foutcode {digest}"
+}
