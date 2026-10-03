@@ -56,7 +56,7 @@ function BreadcrumbSeparator({ className, ...props }: React.ComponentProps<"li">
       className={cn("text-brand-subtle [&>svg]:size-3.5", className)}
       {...props}
     >
-      <ChevronRight />
+      <ChevronRight aria-hidden="true" />
     </li>
   );
 }

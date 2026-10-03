@@ -1,6 +1,7 @@
 import { createElement as h } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
+import { Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
@@ -79,6 +80,12 @@ describe("Badge", () => {
     const out = html(h(Badge, { tone: "success", children: "Geplaatst" }));
     expect(out).toMatch(/<span data-slot="badge-dot"[^>]*aria-hidden="true"[^>]*><\/span>Geplaatst/);
     expect(out).toContain("bg-success-tint");
+  });
+
+  it("toont met een icoon het icoon in plaats van de stip", () => {
+    const out = html(h(Badge, { tone: "brand", icon: Briefcase, children: "Fulltime" }));
+    expect(out).not.toContain("badge-dot");
+    expect(out).toContain("lucide-briefcase");
   });
 });
 

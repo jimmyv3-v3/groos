@@ -436,7 +436,8 @@
     transform: none;
   }
 }
-@media (prefers-reduced-motion: no-preference) {
+/* scripting: enabled houdt de inhoud zonder JavaScript direct zichtbaar (AC-02-16). */
+@media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
   @supports (animation-timeline: view()) {
     .reveal {
       animation: reveal-in linear both;

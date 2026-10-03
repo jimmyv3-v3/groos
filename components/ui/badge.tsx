@@ -36,13 +36,19 @@ type BadgeProps = {
   className?: string;
 } & Omit<React.ComponentProps<"span">, "children">;
 
-/** Statuslabel met een stip vóór de tekst; altijd met tekst, kleur is nooit de enige drager. */
+/**
+ * Statuslabel met een stip vóór de tekst (met icon het icoon in plaats van de
+ * stip, spec 02 §12); altijd met tekst, kleur is nooit de enige drager.
+ */
 function Badge({ tone, size, dot, icon: Icon, children, className, ...props }: BadgeProps) {
   void dot; // niet doorgeven aan de <span>
   return (
     <span data-slot="badge" className={cn(badgeVariants({ tone, size }), className)} {...props}>
-      <span data-slot="badge-dot" className="size-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />
-      {Icon && <Icon aria-hidden="true" />}
+      {Icon ? (
+        <Icon aria-hidden="true" />
+      ) : (
+        <span data-slot="badge-dot" className="size-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />
+      )}
       {children}
     </span>
   );
