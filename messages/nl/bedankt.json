@@ -13,8 +13,7 @@
         { "title": "Wij bellen of appen je", "body": "Wij bespreken je ervaring, je uren en wanneer je kunt beginnen." },
         { "title": "Je begint met werken", "body": "Past het werk, dan spreken wij je eerste werkdag af." }
       ]
-    },
-    "cta": { "jobs": "Bekijk vacatures", "whatsapp": "App ons" }
+    }
   },
   "registration": {
     "metaTitle": "Bedankt voor je inschrijving",
@@ -30,8 +29,7 @@
         { "title": "Wij zoeken passend werk", "body": "Wij kijken welk werk past bij je ervaring en waar je woont." },
         { "title": "Je begint met werken", "body": "Is er passend werk, dan spreken wij je eerste werkdag af." }
       ]
-    },
-    "cta": { "jobs": "Bekijk vacatures", "whatsapp": "App ons" }
+    }
   },
   "staffRequest": {
     "metaTitle": "Bedankt voor uw aanvraag",
@@ -48,13 +46,13 @@
         { "title": "De medewerker begint", "body": "Op de afgesproken dag begint de medewerker." }
       ]
     },
-    "cta": { "call": "Bel ons", "employers": "Terug naar werkgevers" }
+    "employersLink": "Terug naar werkgevers"
   },
   "contact": {
     "metaTitle": "Bedankt voor uw bericht",
     "title": "Bedankt voor uw bericht",
     "intro": "Wij hebben uw bericht goed ontvangen. Heeft u een e-mailadres ingevuld, dan krijgt u ook een bevestiging per e-mail.",
     "whoCalls": "{name} beantwoordt uw bericht. Heeft u om terugbellen gevraagd, dan bellen wij u op het nummer dat u heeft ingevuld.",
-    "cta": { "home": "Naar de homepage", "jobs": "Bekijk vacatures", "requestStaff": "Personeel aanvragen" }
+    "homeLink": "Naar de homepage"
   }
 }

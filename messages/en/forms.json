@@ -78,7 +78,7 @@
       "cvUploading": "Your CV is still uploading. Wait a moment and then send again.",
       "vacancyClosed": "This job has just closed. Look at our other jobs or register with us.",
       "blocked": "We could not send the form. Try again in a minute, or call or message us.",
-      "generic": "Something went wrong while sending. Please try again, or call or message us."
+      "generic": "Sending did not work. Please try again, or call or message us."
     }
   },
   "apply": {
@@ -98,8 +98,6 @@
       "title": "Register or apply openly",
       "description": "Register with Groos and tell us what work you are looking for and when you can start. Registering is free and you do not need a CV."
     },
-    "breadcrumbParent": "Job seekers",
-    "breadcrumb": "Register",
     "title": "Register for work",
     "intro": "Can you not find a job that suits you? Register once and we will call you as soon as there is suitable work.",
     "benefits": [
@@ -135,10 +133,8 @@
   "staffRequest": {
     "meta": {
       "title": "Request staff",
-      "description": "Tell Groos in The Hague which people you need, from when and for how long. We will then contact you to discuss your request."
+      "description": "Tell us which people you need, from when and for how long. We will then contact you to discuss your request and the start date of the work."
     },
-    "breadcrumbParent": "Employers",
-    "breadcrumb": "Request staff",
     "title": "Request staff",
     "intro": "Tell us which people you need, from when and for how long. We will then contact you to go through the request.",
     "formTitle": "Tell us",
@@ -195,7 +191,7 @@
       "workCityInvalid": "A place name has 2 to 80 characters.",
       "descriptionTooLong": "Your details are too long. Use at most 2,000 characters.",
       "blocked": "We could not send your request. Try again in a minute or call us.",
-      "generic": "Something went wrong while sending. Please try again or call us."
+      "generic": "Sending did not work. Please try again or call us."
     },
     "submit": "Send request",
     "submitting": "Sending",
@@ -227,7 +223,7 @@
           "other": "Something else"
         }
       },
-      "message": { "label": "Your message", "hintCallback": "This field is optional. Let us know a good time to call you." }
+      "message": { "label": "Your message", "hintCallback": "This field is optional. Let us know what time suits you for a call." }
     },
     "topicHints": {
       "jobseeker": "Looking for work? You can also <link>register</link> straight away.",
@@ -246,7 +242,7 @@
       "messageRequired": "Briefly describe what your question is about.",
       "messageTooLong": "Your message is too long. Use at most 2,000 characters.",
       "blocked": "We could not send your message. Try again in a minute or call us.",
-      "generic": "Something went wrong while sending. Please try again or call us."
+      "generic": "Sending did not work. Please try again or call us."
     },
     "submit": "Send message",
     "submitting": "Sending"

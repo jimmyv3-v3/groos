@@ -3,9 +3,9 @@ import { Phone } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ContactAside } from "@/components/forms/contact-aside";
 import { FormErrorBoundary } from "@/components/forms/form-error-boundary";
-import { FormSteps } from "@/components/forms/page-parts";
 import { StaffRequestForm } from "@/components/forms/staff-request-form";
 import { Breadcrumbs } from "@/components/sections/breadcrumbs";
+import { ServiceSteps } from "@/components/service/service-steps";
 import { CtaButton } from "@/components/ui/cta-button";
 import { resolveLocale } from "@/i18n/locale";
 import { isClaimConfirmed } from "@/lib/claims";
@@ -33,10 +33,11 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/p
   const { locale: raw } = await params;
   const locale = resolveLocale(raw);
   setRequestLocale(locale);
-  const [t, tc, tb] = await Promise.all([
+  const [t, tc, tb, th] = await Promise.all([
     getTranslations({ locale, namespace: "forms" }),
     getTranslations({ locale, namespace: "common" }),
     getTranslations({ locale, namespace: "beroepen" }),
+    getTranslations({ locale, namespace: "header" }),
   ]);
   const occupationOptions = OCCUPATION_SLUGS.map((id) => ({ value: id, label: tb(`${id}.meervoud`) }));
   const either = new Intl.ListFormat(locale, { type: "disjunction" }).format(people.map((p) => p.firstName));
@@ -57,8 +58,8 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/p
         <div className="container">
           <Breadcrumbs
             items={[
-              { label: t("staffRequest.breadcrumbParent"), href: ROUTES.werkgevers },
-              { label: t("staffRequest.breadcrumb"), href: ROUTES.personeelAanvragen },
+              { label: th("nav.werkgevers"), href: ROUTES.werkgevers },
+              { label: th("nav.personeelAanvragen"), href: ROUTES.personeelAanvragen },
             ]}
             className="mb-8"
           />
@@ -110,7 +111,7 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/p
         </div>
       </section>
 
-      <FormSteps heading={t("staffRequest.steps.title")} accent={t("staffRequest.steps.accent")} items={steps} />
+      <ServiceSteps id="zo-gaat-het" heading={t("staffRequest.steps.title")} accent={t("staffRequest.steps.accent")} steps={steps} />
     </>
   );
 }

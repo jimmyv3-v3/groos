@@ -13,8 +13,7 @@
         { "title": "We call or message you", "body": "We discuss your experience, your hours and when you can start." },
         { "title": "You start working", "body": "If the job suits you, we agree on your first working day." }
       ]
-    },
-    "cta": { "jobs": "View jobs", "whatsapp": "WhatsApp us" }
+    }
   },
   "registration": {
     "metaTitle": "Thank you for registering",
@@ -30,8 +29,7 @@
         { "title": "We look for suitable work", "body": "We look at which work fits your experience and where you live." },
         { "title": "You start working", "body": "When there is suitable work, we agree on your first working day." }
       ]
-    },
-    "cta": { "jobs": "View jobs", "whatsapp": "WhatsApp us" }
+    }
   },
   "staffRequest": {
     "metaTitle": "Thank you for your request",
@@ -48,13 +46,13 @@
         { "title": "The worker starts", "body": "On the agreed day the worker starts." }
       ]
     },
-    "cta": { "call": "Call us", "employers": "Back to employers" }
+    "employersLink": "Back to employers"
   },
   "contact": {
     "metaTitle": "Thank you for your message",
     "title": "Thank you for your message",
     "intro": "We have received your message. If you entered an email address, you will also get a confirmation by email.",
     "whoCalls": "{name} will answer your message. If you asked us to call you back, we will call the number you entered.",
-    "cta": { "home": "Go to homepage", "jobs": "View jobs", "requestStaff": "Request staff" }
+    "homeLink": "Go to the homepage"
   }
 }

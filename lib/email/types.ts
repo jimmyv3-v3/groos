@@ -25,9 +25,12 @@ export type SendEmailInput = {
   subject: string;
   /** Een template uit emails/. */
   react: ReactElement;
-  entity: EmailEntity;
-  /** Standaard `${template}/${entity.id}`. */
+  /** null: mail zonder record; entity_type en entity_id blijven dan leeg in email_log. */
+  entity: EmailEntity | null;
+  /** Standaard `${template}/${entity.id}`, bij entity null `${template}/${crypto.randomUUID()}`. */
   idempotencyKey?: string;
+  /** Alleen List-Unsubscribe en List-Unsubscribe-Post, nooit met persoonsgegevens. */
+  headers?: Record<string, string>;
 };
 
 export type SendEmailResult =

@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { CircleCheck, MessageCircle, Phone } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { BedanktReference } from "@/components/forms/bedankt-reference";
-import { FormSteps } from "@/components/forms/page-parts";
+import { ServiceSteps } from "@/components/service/service-steps";
+import type { StepItem } from "@/components/service/types";
 import { CtaButton } from "@/components/ui/cta-button";
 import { resolveLocale } from "@/i18n/locale";
 import { isClaimConfirmed } from "@/lib/claims";
@@ -87,22 +88,18 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
               )}
               <p className="text-base font-medium text-foreground">{tc("notes.urgentEmployer")}</p>
               <div>
-                <CtaButton
-                  variant="secondary"
-                  href={contact.phoneHref}
-                  ariaLabel={tc("a11y.callPerson", { name: people[0].firstName, phone: contact.phone })}
-                >
+                <CtaButton variant="secondary" href={contact.phoneHref}>
                   <Phone aria-hidden="true" />
-                  {tc("cta.callPerson", { name: people[0].firstName })}
+                  {tc("cta.call")}
                 </CtaButton>
               </div>
             </div>
           )}
 
           <div className="mt-8 flex flex-wrap gap-3">
-            {key === "application" || key === "registration" ? (
+            {jobseeker && (
               <>
-                <CtaButton href={ROUTES.vacatures}>{t(`${key}.cta.jobs`)}</CtaButton>
+                <CtaButton href={ROUTES.vacatures}>{tc("cta.viewJobs")}</CtaButton>
                 <CtaButton
                   variant="secondary"
                   href={whatsappLink(tc("whatsapp.werkzoekende"))}
@@ -110,15 +107,12 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
                   newTabLabel={tc("opensInNewTab")}
                 >
                   <MessageCircle aria-hidden="true" />
-                  {t(`${key}.cta.whatsapp`)}
+                  {tc("cta.whatsapp")}
                 </CtaButton>
               </>
-            ) : key === "staffRequest" ? (
+            )}
+            {staff && (
               <>
-                <CtaButton href={contact.phoneHref}>
-                  <Phone aria-hidden="true" />
-                  {t("staffRequest.cta.call")}
-                </CtaButton>
                 <CtaButton
                   variant="secondary"
                   href={whatsappLink(tc("whatsapp.werkgever"))}
@@ -128,18 +122,19 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
                   <MessageCircle aria-hidden="true" />
                   {tc("cta.whatsapp")}
                 </CtaButton>
-                <CtaButton variant="ghost" href={ROUTES.werkgevers}>
-                  {t("staffRequest.cta.employers")}
+                <CtaButton variant="link" href={ROUTES.werkgevers}>
+                  {t("staffRequest.employersLink")}
                 </CtaButton>
               </>
-            ) : (
+            )}
+            {key === "contact" && (
               <>
-                <CtaButton href={ROUTES.home}>{t("contact.cta.home")}</CtaButton>
+                <CtaButton href={ROUTES.home}>{t("contact.homeLink")}</CtaButton>
                 <CtaButton variant="secondary" href={ROUTES.vacatures}>
-                  {t("contact.cta.jobs")}
+                  {tc("cta.viewJobs")}
                 </CtaButton>
                 <CtaButton variant="secondary" href={ROUTES.personeelAanvragen}>
-                  {t("contact.cta.requestStaff")}
+                  {tc("cta.requestStaff")}
                 </CtaButton>
               </>
             )}
@@ -148,10 +143,11 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
       </section>
 
       {key !== "contact" && (
-        <FormSteps
+        <ServiceSteps
+          id="zo-gaat-het"
           heading={t(`${key}.steps.title`)}
           accent={t(`${key}.steps.accent`)}
-          items={t.raw(`${key}.steps.items`) as { title: string; body: string }[]}
+          steps={t.raw(`${key}.steps.items`) as StepItem[]}
         />
       )}
     </>

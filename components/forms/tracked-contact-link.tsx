@@ -9,7 +9,8 @@ import type { FormId } from "@/lib/validation/shared";
 type TrackedContactLinkProps = {
   href: string;
   label: string;
-  ariaLabel: string;
+  /** Begint met het zichtbare label (B-54); de WhatsApp-knop heeft er geen. */
+  ariaLabel?: string;
   kind: "call" | "whatsapp";
   form: FormId;
   beroep?: OccupationSlug;

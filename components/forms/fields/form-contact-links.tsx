@@ -15,7 +15,6 @@ export function FormContactLinks({ form, whatsappText }: { form: FormId; whatsap
         form={form}
         href={contact.phoneHref}
         label={t("cta.call")}
-        ariaLabel={t("a11y.callPerson", { name: contact.shortName, phone: contact.phone })}
         className="h-11 px-4 text-sm"
       />
       <TrackedContactLink
@@ -23,7 +22,6 @@ export function FormContactLinks({ form, whatsappText }: { form: FormId; whatsap
         form={form}
         href={whatsappLink(whatsappText)}
         label={t("cta.whatsapp")}
-        ariaLabel={t("cta.whatsapp")}
         external
         newTabLabel={t("opensInNewTab")}
         className="h-11 px-4 text-sm"

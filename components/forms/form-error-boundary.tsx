@@ -41,7 +41,7 @@ function BoundaryFallback({ onRetry }: { onRetry: () => void }) {
           <CtaButton variant="primary" size="sm" onClick={onRetry}>
             {t("retry")}
           </CtaButton>
-          <CtaButton variant="secondary" size="sm" href={contact.phoneHref} ariaLabel={tc("a11y.callPerson", { name: contact.shortName, phone: contact.phone })}>
+          <CtaButton variant="secondary" size="sm" href={contact.phoneHref}>
             <Phone aria-hidden="true" />
             {tc("cta.call")}
           </CtaButton>

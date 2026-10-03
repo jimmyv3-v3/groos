@@ -26,7 +26,7 @@ const STATUS: Record<SendEmailResult["status"], "sent" | "queued" | "failed"> = 
 export async function writeEmailLog(row: {
   template: EmailTemplateName;
   to: string[];
-  entity: EmailEntity;
+  entity: EmailEntity | null;
   result: SendEmailResult;
 }): Promise<void> {
   const { result } = row;
@@ -35,8 +35,8 @@ export async function writeEmailLog(row: {
     .insert({
       template: row.template,
       to_hash: hashRecipients(row.to),
-      entity_type: row.entity.type,
-      entity_id: row.entity.id,
+      entity_type: row.entity?.type ?? null,
+      entity_id: row.entity?.id ?? null,
       provider_message_id: result.status === "sent" ? result.providerId : result.status === "console" ? "console" : null,
       status: STATUS[result.status],
       error: result.status === "failed" ? cleanError(result.error) : null,

@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
+import { resolveVacancyContact } from "@/components/vacatures/vacancy-format";
 import type { VacancyDetail } from "@/lib/data/types";
-import { people, type Phone } from "@/lib/site";
-import { formatPhoneDisplay } from "@/lib/validation/phone";
+import type { Phone } from "@/lib/site";
 import { ApplyForm, type ApplyFormVacancy } from "./apply-form";
 import { ContactAside } from "./contact-aside";
 import { FormErrorBoundary } from "./form-error-boundary";
@@ -19,18 +19,16 @@ export async function ApplySection({ vacancy, locale }: ApplySectionProps) {
     getTranslations({ locale, namespace: "forms.apply" }),
     getTranslations({ locale, namespace: "common" }),
   ]);
-  const either = new Intl.ListFormat(locale, { type: "disjunction" }).format(people.map((p) => p.firstName));
-  const contactPerson = vacancy.contact;
-  const persons: { name: string; phone: Phone; whatsapp: boolean }[] =
-    contactPerson && contactPerson.phoneE164
-      ? [
-          {
-            name: contactPerson.name,
-            phone: { display: formatPhoneDisplay(contactPerson.phoneE164), e164: contactPerson.phoneE164 as Phone["e164"] },
-            whatsapp: vacancy.allowWhatsappApply && contactPerson.whatsappE164 !== null,
-          },
-        ]
-      : people.map((p) => ({ name: p.firstName, phone: p.phone, whatsapp: vacancy.allowWhatsappApply && p.whatsapp }));
+  // Naam, nummer en WhatsApp-nummer komen uit spec 06, ook de terugval zonder
+  // contactpersoon; deze module heeft daarvoor geen eigen terugval.
+  const c = resolveVacancyContact(vacancy);
+  const persons: { name: string; phone: Phone; whatsapp: boolean }[] = [
+    {
+      name: c.name,
+      phone: { display: c.phoneDisplay, e164: c.phoneE164 as Phone["e164"] },
+      whatsapp: vacancy.allowWhatsappApply && c.whatsappE164 !== null,
+    },
+  ];
 
   const applyVacancy: ApplyFormVacancy = {
     number: vacancy.number,
@@ -56,7 +54,7 @@ export async function ApplySection({ vacancy, locale }: ApplySectionProps) {
             {t("title")} <span className="accent-text">{t("accent")}</span>
           </h2>
           <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">
-            {t("intro", { name: contactPerson?.name ?? either })}
+            {t("intro", { name: c.name })}
           </p>
           <p className="mt-2 text-base text-muted-foreground">
             {t("vacancyLine", { title: vacancy.title, number: vacancy.number })}

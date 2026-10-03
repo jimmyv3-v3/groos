@@ -39,7 +39,7 @@ const COPY = {
     received: "Wij hebben uw aanvraag voor personeel goed ontvangen. Uw referentienummer is {reference}.",
     next: "Jimmy of Lorenzo neemt contact met u op om de aanvraag door te nemen. Wij bespreken dan de taken, de werktijden en de startdatum.",
     nextResponse:
-      "Jimmy of Lorenzo neemt binnen één werkdag contact met u op om de aanvraag door te nemen. Wij bespreken dan de taken, de werktijden en de startdatum.",
+      "Jimmy of Lorenzo belt u binnen één werkdag om de aanvraag door te nemen. Wij bespreken dan de taken, de werktijden en de startdatum.",
     urgent: "Heeft u snel mensen nodig? Bel ons dan direct op {companyPhone}.",
     urgentAfterHours: "Heeft u snel mensen nodig? Bel ons dan direct op {companyPhone}, ook buiten kantoortijden.",
     factsTitle: "Uw aanvraag in het kort",
@@ -69,7 +69,7 @@ const COPY = {
     received: "We have received your request for staff. Your reference number is {reference}.",
     next: "Jimmy or Lorenzo will contact you to go through the request. We will then discuss the tasks, the working hours and the start date.",
     nextResponse:
-      "Jimmy or Lorenzo will contact you within one working day to go through the request. We will then discuss the tasks, the working hours and the start date.",
+      "Jimmy or Lorenzo will call you within one working day to go through the request. We will then discuss the tasks, the working hours and the start date.",
     urgent: "Do you need people at short notice? Then call us directly on {companyPhone}.",
     urgentAfterHours: "Do you need people at short notice? Then call us directly on {companyPhone}, also outside office hours.",
     factsTitle: "Your request in brief",
