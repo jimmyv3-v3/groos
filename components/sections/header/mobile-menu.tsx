@@ -59,7 +59,7 @@ export function MobileMenu({ items, ctas, phone, whatsapp, logo, labels }: Mobil
         href="#footermenu"
         aria-label={labels.open}
         data-slot="cta-button"
-        className={ctaButtonVariants({ variant: "ghost", size: "icon", className: "-mr-2 hidden noscript:inline-flex lg:hidden lg:noscript:hidden" })}
+        className={cn(ctaButtonVariants({ variant: "ghost", size: "icon" }), "-mr-2 hidden noscript:inline-flex lg:noscript:hidden")}
       >
         <Menu aria-hidden />
       </a>
