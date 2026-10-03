@@ -24,10 +24,12 @@ import type {
  * Alles leest via de view public_vacancies met de publishable key, dus door
  * RLS heen.
  *
- * Fouten (bijvoorbeeld zolang de migraties nog niet op het project staan)
- * worden gelogd en geven een leeg resultaat; ze worden niet gecachet, zodat
- * de eerstvolgende aanroep het opnieuw probeert. Spec 10 §4.3 punt 10 gooide
- * hier een Error; de bouwopdracht van stap 1 vraagt om zacht falen.
+ * Fouten (spec 10 §4.3 punt 10, B-56): geeft Supabase een fout, dan gooien
+ * alle publieke leesfuncties een Error met de plek en de Supabase-code. Het
+ * resultaat wordt niet gecachet; error.tsx toont de foutpagina en een
+ * ISR-verversing houdt de vorige versie. Alleen zonder Supabase-variabelen
+ * (hasSupabaseEnv() onwaar) geven ze een leeg resultaat met één console.warn,
+ * zodat `npm run build` zonder .env.local slaagt.
  */
 
 type PublicVacancyRow = Database["public"]["Views"]["public_vacancies"]["Row"];
@@ -79,9 +81,16 @@ const SHIFT_ID_BY_SLUG = new Map<string, ShiftId>(SHIFTS.map((s) => [s.slug, s.i
 // Hulpfuncties
 // ---------------------------------------------------------------------------
 
-function logFailure(where: string, error: unknown): void {
-  const message = error instanceof Error ? error.message : JSON.stringify(error);
-  console.error(`[lib/data/vacancies] ${where} mislukt, leeg resultaat: ${message}`);
+let warnedNoEnv = false;
+
+/** True als Supabase geconfigureerd is; anders één waarschuwing per proces (B-56). */
+export function supabaseConfiguredOrWarn(): boolean {
+  if (hasSupabaseEnv()) return true;
+  if (!warnedNoEnv) {
+    warnedNoEnv = true;
+    console.warn("[lib/data] Supabase is niet geconfigureerd; vacatures en beroepen blijven leeg.");
+  }
+  return false;
 }
 
 function supabaseError(where: string, error: { message: string; code?: string }): Error {
@@ -270,18 +279,10 @@ const loadOpenVacanciesCached = unstable_cache(
   { tags: [VACANCIES_TAG], revalidate: REVALIDATE_SECONDS },
 );
 
-/** Alle open vacatures; [] als Supabase niet geconfigureerd is of de query faalt. */
+/** Alle open vacatures; [] alleen als Supabase niet geconfigureerd is. Gooit bij een Supabase-fout. */
 async function loadOpenVacancies(): Promise<OpenVacancy[]> {
-  if (!hasSupabaseEnv()) {
-    console.warn("[lib/data/vacancies] Supabase is niet geconfigureerd; geen vacatures.");
-    return [];
-  }
-  try {
-    return await loadOpenVacanciesCached();
-  } catch (error) {
-    logFailure("open vacatures laden", error);
-    return [];
-  }
+  if (!supabaseConfiguredOrWarn()) return [];
+  return loadOpenVacanciesCached();
 }
 
 function loadVacancyByNumberCached(number: number): Promise<PublicVacancyRow | null> {
@@ -393,7 +394,7 @@ export async function getVacancyList(input: {
 }
 
 export async function getVacancyFacets(filters: VacancyFilters = {}): Promise<VacancyFacets> {
-  const [all, occupations] = await Promise.all([loadOpenVacancies(), loadOccupationsSafe()]);
+  const [all, occupations] = await Promise.all([loadOpenVacancies(), loadOccupations()]);
   const total = applyFilters(all, filters).length;
 
   const forBeroep = applyFilters(all, filters, "beroep");
@@ -429,17 +430,9 @@ export async function getVacancyFacets(filters: VacancyFilters = {}): Promise<Va
 /** Open of gesloten (tot 30 dagen); anders null. Eén lezing per request dankzij cache(). */
 export const getVacancyByNumber = cache(async (number: number): Promise<VacancyDetail | null> => {
   if (!Number.isInteger(number) || number < 1001) return null;
-  if (!hasSupabaseEnv()) {
-    console.warn("[lib/data/vacancies] Supabase is niet geconfigureerd; geen vacature.");
-    return null;
-  }
-  try {
-    const row = await loadVacancyByNumberCached(number);
-    return row ? toDetail(row) : null;
-  } catch (error) {
-    logFailure(`vacature ${number} laden`, error);
-    return null;
-  }
+  if (!supabaseConfiguredOrWarn()) return null;
+  const row = await loadVacancyByNumberCached(number);
+  return row ? toDetail(row) : null;
 });
 
 export async function getLatestVacancies(
@@ -472,7 +465,7 @@ export async function getSimilarVacancies(
   const fill = options.fill ?? true;
   const all = await loadOpenVacancies();
   const self =
-    all.find((v) => v.number === number) ?? (await getVacancyByNumber(number).catch(() => null)) ?? null;
+    all.find((v) => v.number === number) ?? (await getVacancyByNumber(number)) ?? null;
   const others = all.filter((v) => v.number !== number);
   const score = (v: OpenVacancy) =>
     self ? (v.occupation.slug === self.occupation.slug ? 2 : 0) + (v.citySlug === self.citySlug ? 1 : 0) : 0;
@@ -513,14 +506,10 @@ export async function getOpenVacancyCount(): Promise<number> {
 // Intern voor occupations.ts
 // ---------------------------------------------------------------------------
 
-async function loadOccupationsSafe() {
-  if (!hasSupabaseEnv()) return [];
-  try {
-    return await loadActiveOccupations();
-  } catch (error) {
-    logFailure("beroepen laden", error);
-    return [];
-  }
+/** Actieve beroepen; [] alleen als Supabase niet geconfigureerd is. Gooit bij een Supabase-fout. */
+async function loadOccupations() {
+  if (!supabaseConfiguredOrWarn()) return [];
+  return loadActiveOccupations();
 }
 
 /** Aantal open vacatures per beroep, voor listOccupations(). */
