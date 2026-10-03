@@ -14,5 +14,6 @@ initBotId({
     ]),
     { path: "/api/upload/*", method: "POST" },
     { path: "/beheer/inloggen", method: "POST" },
+    { path: "/beheer/wachtwoord-vergeten", method: "POST" },
   ],
 });

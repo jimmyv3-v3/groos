@@ -19,6 +19,8 @@
     "db:push": "supabase db push --linked",
     "db:types": "supabase gen types typescript --linked --schema public > lib/database.types.ts",
     "db:admin": "node scripts/supabase/create-admin.mjs",
+    "db:seed:reset": "node scripts/supabase/seed-reset.mjs",
+    "db:dev:opzetten": "node scripts/supabase/dev-opzetten.mjs",
     "db:test": "psql \"$SUPABASE_DB_URL\" -v ON_ERROR_STOP=1 -f supabase/tests/rls_smoke.sql",
     "config:check": "npx @vercel/config validate",
     "test": "vitest run --project unit --passWithNoTests",
@@ -29,7 +31,10 @@
     "test:e2e:ro": "playwright test --project=chromium --grep @readonly",
     "test:e2e:opruimen": "node scripts/e2e-opruimen.mjs",
     "test:a11y": "node scripts/e2e-voorbereiden.mjs && playwright test --project=chromium --project=mobiel --grep @a11y",
-    "test:visueel": "playwright test --project=visueel"
+    "test:visueel": "playwright test --project=visueel",
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "check:bundles": "node scripts/check-bundles.mjs",
+    "check:acceptatie": "node scripts/check-acceptatie.mjs"
   },
   "dependencies": {
     "@base-ui-components/react": "1.0.0-rc.0",

@@ -10,7 +10,7 @@ export type ActiveOccupation = VacancyOccupation & { sortOrder: number };
 
 /**
  * Actieve beroepen op sort_order (spec 10 §4.3 punt 11). Gooit bij een fout,
- * zodat die niet gecachet wordt; de aanroepers vangen hem op.
+ * zodat die niet gecachet wordt (B-56).
  */
 export const loadActiveOccupations = unstable_cache(
   async (): Promise<ActiveOccupation[]> => {

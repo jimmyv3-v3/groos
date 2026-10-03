@@ -6,6 +6,11 @@ const isDev = process.env.NODE_ENV === "development";
 // upgrade-insecure-requests alleen op Vercel; lokaal draait `next start` op http.
 const onVercel = process.env.VERCEL === "1";
 
+// Alleen op previews: de Vercel-toolbar (opmerkingen, kijklinks) laadt van
+// vercel.live. Productie houdt de strenge CSP (spec 13 §4.2, AC-13-27).
+const isPreview = process.env.VERCEL_ENV === "preview";
+const toolbar = isPreview ? " https://vercel.live" : "";
+
 // Herkomst van het Supabase-project van deze omgeving (dev, preview of
 // productie). Nodig voor de cv-upload vanuit de browser (signed upload URL),
 // de Supabase-client in /beheer en beelden uit de bucket public-media.
@@ -19,18 +24,19 @@ const supabaseSrc = supabaseOrigin ? ` ${supabaseOrigin}` : "";
 // op statische pagina's en unstable_cache (B-35), dus 'unsafe-inline' voor scripts.
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ""}`,
-  "style-src 'self' 'unsafe-inline'",
-  `img-src 'self' data: blob:${supabaseSrc}`,
-  "font-src 'self'",
-  `connect-src 'self'${supabaseSrc}${isDev ? " ws://localhost:* https://va.vercel-scripts.com" : ""}`,
-  "frame-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ""}${toolbar}`,
+  `style-src 'self' 'unsafe-inline'${toolbar}`,
+  `img-src 'self' data: blob:${supabaseSrc}${isPreview ? " https://vercel.live https://vercel.com" : ""}`,
+  `font-src 'self'${isPreview ? " https://vercel.live https://assets.vercel.com" : ""}`,
+  `connect-src 'self'${supabaseSrc}${isDev ? " ws://localhost:* https://va.vercel-scripts.com" : ""}${isPreview ? " https://vercel.live wss://ws-us3.pusher.com" : ""}`,
+  `frame-src 'self'${toolbar}`,
   "worker-src 'self' blob:",
   "manifest-src 'self'",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
+  // Alleen op Vercel (https); next start op localhost draait over http.
   ...(!isDev && onVercel ? ["upgrade-insecure-requests"] : []),
 ].join("; ");
 
@@ -84,6 +90,7 @@ const nextConfig = {
 };
 
 // withBotId als buitenste laag. BotID voegt eigen rewrites en headers toe voor
-// zijn eigen pad; die komen na de onze en winnen daar (bij gelijke sleutel telt
-// de laatste, zie de Next.js-docs over headers).
+// zijn pad (/149e9513-01fa-4fb0-aad4-566afd725d1b/...); die komen na de onze en
+// winnen daar (bij gelijke sleutel telt de laatste, zie de Next.js-docs over
+// headers). Zo krijgt alleen dat pad frame-ancestors 'self'.
 export default withBotId(withNextIntl(nextConfig));

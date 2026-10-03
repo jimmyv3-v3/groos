@@ -2,7 +2,7 @@
  * Parsen en opbouwen van de filterparameters van /vacatures (spec 10 §4.3,
  * B-16). Client-veilig. Onbekende waarden worden genegeerd.
  */
-import { HOURS_BUCKETS, OCCUPATION_SLUGS, SHIFTS } from "./options";
+import { HOURS_BUCKETS, OCCUPATION_SLUGS, SHIFTS, VACANCY_SORTS } from "./options";
 import type { HoursBucketId, OccupationSlug, ShiftSlug } from "./options";
 import type { VacancyFilters, VacancySort } from "./types";
 
@@ -15,8 +15,6 @@ export type VacancySearchState = {
 
 type RawParams = Record<string, string | string[] | undefined>;
 
-const SORT_PARAM: Record<string, VacancySort> = { nieuwste: "newest", salaris: "salary", sluitdatum: "closing" };
-const SORT_VALUE: Record<VacancySort, string> = { newest: "nieuwste", salary: "salaris", closing: "sluitdatum" };
 const Q_MAX = 80;
 const CITY_SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
@@ -59,7 +57,8 @@ export function parseVacancySearchParams(sp: RawParams): VacancySearchState {
   const dienst = values(sp.dienst).filter((v): v is ShiftSlug => SHIFT_SLUGS.has(v));
   if (dienst.length) filters.dienst = dienst;
 
-  const sort = SORT_PARAM[first(sp.sortering)?.trim().toLowerCase() ?? ""] ?? "newest";
+  const sortSlug = first(sp.sortering)?.trim().toLowerCase();
+  const sort: VacancySort = VACANCY_SORTS.find((s) => s.slug === sortSlug)?.id ?? "newest";
 
   const pageNumber = Number.parseInt(first(sp.pagina) ?? "", 10);
   const page = Number.isFinite(pageNumber) && pageNumber >= 1 ? pageNumber : 1;
@@ -77,7 +76,8 @@ export function buildVacancySearchParams(state: Partial<VacancySearchState>): UR
   for (const v of f.plaats ?? []) params.append("plaats", v);
   for (const v of f.uren ?? []) params.append("uren", v);
   for (const v of f.dienst ?? []) params.append("dienst", v);
-  if (state.sort && state.sort !== "newest") params.set("sortering", SORT_VALUE[state.sort]);
+  const sortSlug = VACANCY_SORTS.find((s) => s.id === state.sort)?.slug;
+  if (state.sort && state.sort !== "newest" && sortSlug) params.set("sortering", sortSlug);
   if (state.page && state.page > 1) params.set("pagina", String(state.page));
   return params;
 }

@@ -147,4 +147,14 @@ export const RETENTION_DAYS = {
   auditLog: 730,
   pendingUploadHours: 24,
 } as const; // B-07
-export const MINIMUM_WAGE_21_PLUS = 14.99; // per 1 juli 2026; jaarlijks bijwerken (waarschuwing in spec 08)
+// Wettelijk minimumuurloon 21+, geldig vanaf 2026-07-01; bijwerken per 1 januari en 1 juli
+// (rijksoverheid.nl). Enige constante voor het minimumloon (B-42); spec 08 waarschuwt eronder.
+export const MINIMUM_WAGE_21_PLUS = 14.99;
+
+/** id = VacancySort, slug = waarde van ?sortering (B-16). */
+export const VACANCY_SORTS = [
+  { id: "newest", slug: "nieuwste" },
+  { id: "salary", slug: "salaris" },
+  { id: "closing", slug: "sluitdatum" },
+] as const;
+export type VacancySortSlug = (typeof VACANCY_SORTS)[number]["slug"];

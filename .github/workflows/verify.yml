@@ -19,5 +19,7 @@ jobs:
       - run: npx next typegen
       - run: npm run typecheck
       - run: npm run lint
+      # Eenheidstests (spec 14 §10.5): geen geheimen of database nodig.
+      - run: npm run test
       - run: npm run config:check
       - run: npm run check -- --warn

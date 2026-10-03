@@ -50,7 +50,9 @@ const role = values.role;
 if (!email || !email.includes("@")) fail("--email ontbreekt of is ongeldig.");
 if (!fullName) fail("--full-name ontbreekt.");
 if (!displayName || displayName.length > 40) fail("--display-name ontbreekt of is langer dan 40 tekens.");
-if (phone && !E164.test(phone)) fail("--phone moet in E.164 staan, bijvoorbeeld +31683351985.");
+// Een publiceerbare vacature heeft een contactpersoon met telefoonnummer (B-48).
+if (!phone) fail("--phone ontbreekt. Elke beheerder krijgt een telefoonnummer in E.164, bijvoorbeeld +31683351985 (B-48).");
+if (!E164.test(phone)) fail("--phone moet in E.164 staan, bijvoorbeeld +31683351985.");
 if (whatsapp && !E164.test(whatsapp)) fail("--whatsapp moet in E.164 staan, bijvoorbeeld +31683351985.");
 if (role !== "owner" && role !== "recruiter") fail("--role is owner of recruiter.");
 if (values.password && values.password.length < 12) fail("--password moet minimaal 12 tekens hebben.");

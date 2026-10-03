@@ -1,6 +1,8 @@
 -- Seed voor groos-dev (spec 10 §5.11). Draait nooit op productie.
 -- Idempotent: vaste nummers en on conflict do nothing. Vraagt eerst een
--- beheerder (npm run db:admin), omdat elke vacature een contactpersoon heeft.
+-- actieve beheerder met telefoonnummer (npm run db:admin -- ... --phone), omdat
+-- een publiceerbare vacature een contactpersoon met telefoonnummer heeft (B-48).
+-- Opnieuw laden met verse relatieve datums: npm run db:seed:reset (B-46).
 -- Alle teksten zijn testteksten; er zit geen echte opdrachtgever of persoon achter.
 
 begin;
@@ -22,14 +24,16 @@ declare
   d constant interval := interval '1 day';
   v_extra constant text := 'Dit is een testvacature voor de ontwikkelomgeving. Er zit geen echte opdrachtgever achter.';
 begin
-  select id into v_a from public.admin_profiles where is_active order by created_at limit 1;
+  select id into v_a from public.admin_profiles where is_active and phone_e164 is not null order by created_at limit 1;
   if v_a is null then
-    raise exception 'Maak eerst een beheerder aan met npm run db:admin (spec 10, bouwopdracht stap 10).';
+    raise exception 'Maak eerst een beheerder met telefoonnummer aan met npm run db:admin -- ... --phone <E.164> (spec 10, bouwopdracht stap 10).';
   end if;
-  select id into v_b from public.admin_profiles where is_active and id <> v_a order by created_at limit 1;
+  select id into v_b from public.admin_profiles
+  where is_active and phone_e164 is not null and id <> v_a order by created_at limit 1;
   v_b := coalesce(v_b, v_a);
 
-  -- 2. Vacatures (tabel A). Alle contract_type temp_agency, education_level none.
+  -- 2. Vacatures (tabel A). Alle contract_type temp_agency, education_level none;
+  --    experience_level nice_to_have bij 1001, anders none.
   insert into public.vacancies (
     number, status, occupation_slug, city, contract_type, hours_min, hours_max, shifts, salary_min, salary_max,
     education_level, experience_level, required_qualifications, preferred_qualifications, training_offered,
@@ -37,7 +41,7 @@ begin
     is_featured, is_urgent, contact_admin_id)
   values
     (1001, 'published', 'glazenwasser', 'Den Haag', 'temp_agency', 32, 40, '{early,day}', 16.08, 17.50,
-     'none', 'none', '{rijbewijs_b}', '{vca_basis,ipaf}', '{ipaf}',
+     'none', 'nice_to_have', '{rijbewijs_b}', '{vca_basis,ipaf}', '{}',
      true, 'work_at_height', now() - 5 * d, now() - 5 * d, now() + 40 * d, null, null,
      true, false, v_a),
     (1002, 'published', 'schoonmaker', 'Rijswijk', 'temp_agency', 12, 20, '{evening}', 15.52, 16.08,
@@ -45,7 +49,7 @@ begin
      false, null, now() - 2 * d, now() - 2 * d, now() + 43 * d, null, null,
      false, false, v_b),
     (1003, 'published', 'logistiek-medewerker', 'Naaldwijk', 'temp_agency', 32, 40, '{early,weekend}', 14.99, 16.20,
-     'none', 'none', '{}', '{ept}', '{ept}',
+     'none', 'none', '{}', '{ept}', '{}',
      false, null, now() - 1 * d, now() - 1 * d, now() + 44 * d, null, null,
      false, true, v_a),
     (1004, 'published', 'logistiek-medewerker', 'Zoetermeer', 'temp_agency', 36, 40, '{early,evening}', 15.60, 17.80,
@@ -57,7 +61,7 @@ begin
      false, null, now() - 3 * d, now() - 3 * d, now() + 42 * d, null, null,
      true, false, v_a),
     (1006, 'published', 'hulpkracht-bouw-en-sloop', 'Den Haag', 'temp_agency', 40, 40, '{day}', 15.98, 17.00,
-     'none', 'none', '{vca_basis}', '{}', '{vca_basis}',
+     'none', 'none', '{vca_basis}', '{}', '{}',
      true, 'construction_demolition', now() - 7 * d, now() - 7 * d, now() + 38 * d, null, null,
      false, false, v_b),
     (1007, 'closed', 'schoonmaker', 'Delft', 'temp_agency', 32, 38, '{day}', 16.08, 16.70,
@@ -89,21 +93,21 @@ begin
            'Werken vanaf een hoogwerker als dat nodig is', 'De bus netjes achterlaten aan het eind van de dag'],
      array['Je hebt rijbewijs B', 'Je kunt goed tegen werken op hoogte'],
      array['Een bruto uurloon tussen € 16,08 en € 17,50', '8 procent vakantiegeld bovenop je loon',
-           'Wij regelen de IPAF-training als je die nog niet hebt']),
+           'Een vaste contactpersoon bij Groos']),
     (1002, 'Schoonmaker kantoren',
      'Testvacature. Je maakt ''s avonds kantoren schoon in Rijswijk, 12 tot 20 uur per week.',
      'Je maakt na kantoortijd werkplekken, keukens en toiletten schoon. Je werkt op maandag tot en met vrijdag tussen 18.00 en 22.00 uur.',
      array['Bureaus en vloeren schoonmaken', 'Keukens en toiletten schoonmaken en bijvullen', 'Afval scheiden en wegbrengen'],
      array['Je bent betrouwbaar en werkt graag zelfstandig'],
      array['Een bruto uurloon tussen € 15,52 en € 16,08',
-           'Een toeslag voor uren na 21.30 uur volgens de cao van de opdrachtgever', 'Een vaste contactpersoon bij Groos']),
+           'Een toeslag voor uren na 21.30 uur gelijk aan die van vaste collega''s', 'Een vaste contactpersoon bij Groos']),
     (1003, 'Orderpicker',
      'Testvacature. Je verzamelt bestellingen in een magazijn in Naaldwijk, ook op zaterdag.',
      'Je verzamelt orders met een scanner en zet ze klaar voor de vrachtwagen. Je begint vroeg, meestal om 06.00 uur, en werkt ook op zaterdag.',
      array['Orders verzamelen met een scanner', 'Rijden met een elektrische pallettruck',
            'Karren klaarzetten voor transport', 'Het magazijn opgeruimd houden'],
      array['Je kunt vroeg beginnen en op zaterdag werken'],
-     array['Een bruto uurloon tussen € 14,99 en € 16,20', 'Wij regelen je EPT-certificaat als je dat nog niet hebt',
+     array['Een bruto uurloon tussen € 14,99 en € 16,20', '8 procent vakantiegeld bovenop je loon',
            'Werkschoenen en handschoenen krijg je kosteloos']),
     (1004, 'Heftruckchauffeur',
      'Testvacature. Je rijdt heftruck in een distributiecentrum in Zoetermeer, in vroege en late diensten.',
@@ -111,7 +115,7 @@ begin
      array['Vrachtwagens laden en lossen', 'Pallets in de stellingen zetten', 'Voorraad tellen', 'Schade aan goederen melden'],
      array['Je hebt een geldig heftruckcertificaat', 'Je kunt in wisselende diensten werken'],
      array['Een bruto uurloon tussen € 15,60 en € 17,80',
-           'Een toeslag voor late diensten volgens de cao van de opdrachtgever', '8 procent vakantiegeld bovenop je loon']),
+           'Een toeslag voor late diensten gelijk aan die van vaste collega''s', '8 procent vakantiegeld bovenop je loon']),
     (1005, 'Verhuizer',
      'Testvacature. Je helpt bij verhuizingen van gezinnen en kantoren in Den Haag en omgeving.',
      'Je pakt inboedels in, draagt meubels naar buiten en zet alles op het nieuwe adres weer neer. Je werkt in een ploeg en begint meestal om 07.30 uur.',
@@ -125,7 +129,7 @@ begin
      'Je haalt keukens, plafonds en vloeren uit woningen die worden gerenoveerd. Je werkt van 07.00 tot 16.00 uur in een vaste ploeg.',
      array['Keukens en plafonds verwijderen', 'Sloopafval scheiden en afvoeren', 'De werkplek veilig en opgeruimd houden'],
      array['Je hebt VCA Basis of wilt het halen', 'Je stopt en meldt het als je asbest vermoedt'],
-     array['Een bruto uurloon tussen € 15,98 en € 17,00', 'Wij regelen de VCA-cursus als je die nog niet hebt',
+     array['Een bruto uurloon tussen € 15,98 en € 17,00', '8 procent vakantiegeld bovenop je loon',
            'Beschermingsmiddelen krijg je kosteloos']),
     (1007, 'Opleveringsschoonmaker',
      'Testvacature. Je maakt nieuwbouwwoningen in Delft schoon voor de oplevering.',
@@ -139,7 +143,7 @@ begin
      array['Karren laden met bloemen en planten', 'Labels controleren', 'Fust sorteren'],
      array['Je kunt vroeg beginnen'],
      array['Een bruto uurloon tussen € 14,99 en € 16,04',
-           'Een toeslag voor vroege uren volgens de cao van de opdrachtgever']),
+           'Een toeslag voor vroege uren gelijk aan die van vaste collega''s']),
     (1009, 'Opperman',
      'Testvacature. Je helpt metselaars op een bouwplaats in Leidschendam.',
      'Je zorgt dat metselaars altijd stenen en specie bij de hand hebben. Je werkt buiten, van 07.00 tot 16.00 uur.',
