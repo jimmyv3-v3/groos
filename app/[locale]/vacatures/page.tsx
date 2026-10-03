@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { resolveLocale } from "@/i18n/locale";
 import type { Locale } from "@/i18n/routing";
 import { getVacancyFacets, getVacancyList } from "@/lib/data/vacancies";
-import { HOURS_BUCKETS, SHIFTS } from "@/lib/data/options";
+import { HOURS_BUCKETS, SHIFTS, VACANCY_SORTS } from "@/lib/data/options";
 import type { VacancyFacets } from "@/lib/data/types";
 import {
   buildVacancySearchParams,
@@ -28,7 +28,7 @@ import { VacancyNavigationProvider, VacancyResultsRegion } from "@/components/va
 import { VacancyPagination } from "@/components/vacatures/vacancy-pagination";
 import { VacancyRegisterPrompt } from "@/components/vacatures/vacancy-register-prompt";
 import { VacancySearchForm } from "@/components/vacatures/vacancy-search-form";
-import { VacancySort } from "@/components/vacatures/vacancy-sort";
+import { VacancySortSelect } from "@/components/vacatures/vacancy-sort-select";
 
 // Dynamisch door searchParams; de data heeft haar eigen vangnet van 3600 s (spec 10, B-35).
 // Geen loading.tsx in dit segment: streamen breekt notFound() (spec 06 §4.1).
@@ -130,6 +130,8 @@ export default async function VacanciesPage({ params, searchParams }: PageProps<
     getVacancyFacets(state.filters),
   ]);
   if (list.outOfRange) notFound(); // vóór elke Suspense-grens (spec 01 §4.13)
+  const sortSlug = VACANCY_SORTS.find((s) => s.id === state.sort)?.slug;
+  const sortValue = sortSlug === "salaris" ? "salaris" : "nieuwste"; // "sluitdatum" toont in de select "nieuwste"
 
   const [t, tb, tn] = await Promise.all([
     getTranslations({ locale, namespace: "vacatures" }),
@@ -214,9 +216,9 @@ export default async function VacanciesPage({ params, searchParams }: PageProps<
               <p role="status" aria-live="polite" className="me-auto font-medium tabular-nums text-foreground">
                 {resultCount}
               </p>
-              <VacancySort
+              <VacancySortSelect
                 action={action}
-                value={state.sort}
+                value={sortValue}
                 hidden={hiddenFieldsFor(state, ["sortering"])}
                 labels={{
                   label: t("sort.label"),

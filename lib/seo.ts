@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { routing, type Locale } from "@/i18n/routing";
-import { contact, site, socials } from "@/lib/site";
+import { isClaimConfirmed } from "@/lib/claims";
+import { contact, site, socials, type AreaServed } from "@/lib/site";
 import type { ContractType, EducationLevel } from "@/lib/data/options";
 import type { VacancyDetail } from "@/lib/data/types";
 
@@ -8,13 +9,15 @@ import type { VacancyDetail } from "@/lib/data/types";
  * SEO-helpers (spec 12 §4.2 en §4.4). Elke pagina bouwt haar metadata met
  * `pageMetadata()` en haar structured data met de `*Ld()`-builders, zodat
  * canonical, hreflang, robots, de OG-afbeelding en de JSON-LD overal gelijk zijn.
- * Spec 12 voegt in bouwstap 5 de vacaturehelpers en `jobPostingLd` toe.
+ * Pure functies zonder next-imports buiten typen, zodat Vitest ze kan testen.
  */
 
 export const SITE_URL: string = site.url;
 export const ORGANIZATION_ID = `${SITE_URL}/#organization` as const;
 export const OG_SIZE = { width: 1200, height: 630 } as const;
 export const TITLE_MAX = 60;
+/** Eigen deel van een titel: hoogstens 52 tekens, zodat " | Groos" er altijd achter past (B-44). */
+export const OWN_TITLE_MAX = 52;
 export const BRAND_SUFFIX = ` | ${contact.shortName}`;
 export const BRAND_SUFFIX_SHORT = " | Groos";
 export const ADDRESS_REGION = "Zuid-Holland";
@@ -117,8 +120,12 @@ export function pageMetadata(input: PageMetadataInput): Metadata {
   const fullTitle = absoluteTitle ? title : brandedTitle(title);
   const alternates = alternatesFor(locale, path, { languages, canonical });
 
-  if (process.env.NODE_ENV === "development") {
-    if (fullTitle.length > TITLE_MAX) console.warn(`[seo] titel langer dan ${TITLE_MAX} tekens op ${path}: ${fullTitle}`);
+  // Alleen buiten productie (B-44, spec 12 §4.2 punt 6); in productie geen controle.
+  if (process.env.NODE_ENV !== "production") {
+    if (!absoluteTitle && title.length > OWN_TITLE_MAX) {
+      console.warn(`[seo] eigen deel van de titel is ${title.length} tekens op ${path} (hoogstens ${OWN_TITLE_MAX}): ${title}`);
+    }
+    if (fullTitle.length > TITLE_MAX) console.warn(`[seo] titel van ${fullTitle.length} tekens op ${path} (hoogstens ${TITLE_MAX}): ${fullTitle}`);
     if (!noindex && (description.length < 120 || description.length > 160) && !description.startsWith("TODO")) {
       console.warn(`[seo] beschrijving van ${description.length} tekens op ${path} (doel 120 tot 160)`);
     }
@@ -151,6 +158,17 @@ export function pageMetadata(input: PageMetadataInput): Metadata {
 /* JSON-LD ------------------------------------------------------------------ */
 
 const sameAs = socials.map((s) => s.href);
+
+const HAAGLANDEN: AreaServed = { "@type": "AdministrativeArea", name: "Haaglanden" };
+
+/**
+ * areaServed volgens B-43: de plaatsen (City) uit site.areaServed, en Haaglanden
+ * pas als de claim workArea bevestigd is (lib/claims.ts, spec 03).
+ */
+export function areaServed(): AreaServed[] {
+  const cities = site.areaServed.filter((a) => a["@type"] === "City");
+  return isClaimConfirmed("workArea") ? [...cities, HAAGLANDEN] : [...cities];
+}
 
 function postalAddress(): JsonLdObject {
   return {
@@ -210,7 +228,7 @@ export function employmentAgencyLd({ locale, description }: { locale: Locale; de
     telephone: contact.phoneE164,
     email: contact.email,
     address: postalAddress(),
-    areaServed: site.areaServed,
+    areaServed: areaServed(),
     knowsLanguage: [...routing.locales],
     contactPoint: {
       "@type": "ContactPoint",
@@ -258,7 +276,7 @@ export function serviceLd({
     serviceType,
     description,
     url: absoluteUrl(localizedPath(locale, path)),
-    areaServed: site.areaServed,
+    areaServed: areaServed(),
     audience: { "@type": "BusinessAudience" },
     availableLanguage: [...routing.locales],
     provider: { "@type": site.schemaType, "@id": ORGANIZATION_ID, name: contact.name },

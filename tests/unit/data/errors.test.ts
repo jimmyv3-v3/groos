@@ -19,43 +19,43 @@ vi.mock("@/lib/supabase/public", () => ({
   createSupabasePublicClient: () => mockSupabaseClient((table) => state.answer(table)).client,
 }));
 
-const PGRST205: MockAnswer = { data: null, error: { message: "x", code: "PGRST205" } };
+const PGRST301: MockAnswer = { data: null, error: { message: "x", code: "PGRST301" } };
 
 describe("leesfuncties bij een Supabase-fout (AC-10-33)", () => {
   beforeEach(() => {
     state.configured = true;
-    state.answer = () => PGRST205;
+    state.answer = () => PGRST301;
   });
   afterEach(() => vi.restoreAllMocks());
 
   it("getVacancyList gooit met de Supabase-code", async () => {
     const { getVacancyList } = await import("@/lib/data/vacancies");
-    await expect(getVacancyList()).rejects.toThrow(/PGRST205/);
+    await expect(getVacancyList()).rejects.toThrow(/PGRST301/);
   });
 
   it("getVacancyByNumber gooit met de Supabase-code en geeft geen null", async () => {
     const { getVacancyByNumber } = await import("@/lib/data/vacancies");
-    await expect(getVacancyByNumber(1001)).rejects.toThrow(/PGRST205/);
+    await expect(getVacancyByNumber(1001)).rejects.toThrow(/PGRST301/);
   });
 
   it("getLatestVacancies gooit met de Supabase-code", async () => {
     const { getLatestVacancies } = await import("@/lib/data/vacancies");
-    await expect(getLatestVacancies()).rejects.toThrow(/PGRST205/);
+    await expect(getLatestVacancies()).rejects.toThrow(/PGRST301/);
   });
 
   it("listOccupations gooit met de Supabase-code", async () => {
     const { listOccupations } = await import("@/lib/data/occupations");
-    await expect(listOccupations()).rejects.toThrow(/PGRST205/);
+    await expect(listOccupations()).rejects.toThrow(/PGRST301/);
   });
 
   it("de overige publieke leesfuncties gooien ook", async () => {
     const data = await import("@/lib/data/vacancies");
-    await expect(data.getVacancyFacets()).rejects.toThrow(/PGRST205/);
-    await expect(data.getVacanciesByOccupation("schoonmaker")).rejects.toThrow(/PGRST205/);
-    await expect(data.getSimilarVacancies(1001)).rejects.toThrow(/PGRST205/);
-    await expect(data.listOpenVacancyParams()).rejects.toThrow(/PGRST205/);
-    await expect(data.getVacancySitemapEntries()).rejects.toThrow(/PGRST205/);
-    await expect(data.getOpenVacancyCount()).rejects.toThrow(/PGRST205/);
+    await expect(data.getVacancyFacets()).rejects.toThrow(/PGRST301/);
+    await expect(data.getVacanciesByOccupation("schoonmaker")).rejects.toThrow(/PGRST301/);
+    await expect(data.getSimilarVacancies(1001)).rejects.toThrow(/PGRST301/);
+    await expect(data.listOpenVacancyParams()).rejects.toThrow(/PGRST301/);
+    await expect(data.getVacancySitemapEntries()).rejects.toThrow(/PGRST301/);
+    await expect(data.getOpenVacancyCount()).rejects.toThrow(/PGRST301/);
   });
 
   it("een mislukte fetch gooit ook", async () => {

@@ -21,11 +21,7 @@ import { VacancyBody } from "@/components/vacatures/vacancy-body";
 import { VacancyClosedNotice } from "@/components/vacatures/vacancy-closed-notice";
 import { VacancyContactCard } from "@/components/vacatures/vacancy-contact-card";
 import { VacancyFacts } from "@/components/vacatures/vacancy-facts";
-import {
-  getVacancyMetaValues,
-  lowerFirst,
-  resolveVacancyContact,
-} from "@/components/vacatures/vacancy-format";
+import { getVacancySeoParts, lowerFirst, resolveVacancyContact } from "@/components/vacatures/vacancy-format";
 import { VacancyHeader } from "@/components/vacatures/vacancy-header";
 import { VacancyHowTo } from "@/components/vacatures/vacancy-how-to";
 import { VacancyListSkeleton } from "@/components/vacatures/vacancy-list-skeleton";
@@ -49,19 +45,9 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/vacature
   const number = parseVacancySlug(slug);
   const vacancy = number ? await getVacancyByNumber(number) : null;
   if (!vacancy) return {};
-  const [t, values] = await Promise.all([
-    getTranslations({ locale, namespace: "vacatures.meta" }),
-    getVacancyMetaValues(vacancy, locale),
-  ]);
-  return vacancyMetadata({
-    locale,
-    vacancy,
-    t: (key, v) => t(key, v),
-    city: values.city,
-    hours: values.hours,
-    wage: values.wage,
-    startDate: values.startDate,
-  });
+  const t = await getTranslations({ locale, namespace: "vacatures.meta" });
+  const { city, hours, wage, startDate } = await getVacancySeoParts(vacancy, locale);
+  return vacancyMetadata({ locale, vacancy, t: (key, v) => t(key, v), city, hours, wage, startDate });
 }
 
 export default async function VacancyPage({ params }: PageProps<"/[locale]/vacatures/[slug]">) {
@@ -100,7 +86,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
         <article aria-labelledby="vacature-titel" className="mt-6 grid max-w-4xl gap-6 sm:mt-8">
           <VacancyHeader vacancy={vacancy} locale={locale} closed />
           <VacancyClosedNotice vacancy={vacancy} locale={locale} />
-          <VacancyFacts vacancy={vacancy} locale={locale} variant="compact" />
+          <VacancyFacts vacancy={vacancy} locale={locale} variant="compact" workplaceLanguage={vacancy.workplaceLanguage} />
         </article>
         <div id="solliciteren" className="mt-14 grid scroll-mt-24 gap-12">
           {similar}
@@ -119,7 +105,9 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
     );
   }
 
-  const [values, contact] = [await getVacancyMetaValues(vacancy, locale), resolveVacancyContact(vacancy)];
+  const { city, hours, wage, start } = await getVacancySeoParts(vacancy, locale);
+  const contact = resolveVacancyContact(vacancy);
+  // JobPosting alleen op een open vacature in het Nederlands (spec 06 §7.4); deze tak is altijd open.
   const ld =
     locale === "nl"
       ? jobPostingLd({
@@ -130,7 +118,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
             offer: t("sections.offer"),
             extra: t("sections.extra"),
           },
-          facts: [values.hours, values.wage, values.startSentence],
+          facts: [hours, wage, start],
           minAgeSentence: vacancy.minAge18 && vacancy.minAgeReason ? t(`minAge.${vacancy.minAgeReason}`) : null,
         })
       : null;
@@ -147,7 +135,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
       <article aria-labelledby="vacature-titel" className="mt-6 sm:mt-8">
         <div className="grid max-w-4xl gap-6">
           <VacancyHeader vacancy={vacancy} locale={locale} />
-          <VacancyFacts vacancy={vacancy} locale={locale} variant="full" />
+          <VacancyFacts vacancy={vacancy} locale={locale} variant="full" workplaceLanguage={vacancy.workplaceLanguage} />
           <VacancyActions vacancy={vacancy} locale={locale} contact={contact} />
         </div>
         <div className="mt-10 lg:grid lg:grid-cols-12 lg:gap-10">
@@ -159,7 +147,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
               {vacancy.imageUrl && (
                 <Image
                   src={vacancy.imageUrl}
-                  alt={t("imageAlt", { title: vacancy.title, city: values.city })}
+                  alt={t("imageAlt", { title: vacancy.title, city })}
                   width={1280}
                   height={720}
                   sizes="(min-width: 1024px) 66vw, 100vw"
@@ -169,7 +157,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
               <VacancyBody vacancy={vacancy} locale={locale} />
             </div>
             <VacancyHowTo locale={locale} />
-            <ApplySection vacancy={vacancy} locale={locale} />
+            {vacancy.state === "open" && <ApplySection vacancy={vacancy} locale={locale} />}
             <VacancyContactCard vacancy={vacancy} locale={locale} contact={contact} />
             <VacancyShare vacancy={vacancy} locale={locale} url={shareUrl} />
           </div>

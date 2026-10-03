@@ -51,8 +51,13 @@ export const getVacancyFormatters = cache(async (locale: Locale): Promise<Vacanc
   };
 });
 
-/** Uren, uurloon en startzin zoals metadata, JobPosting en OG ze delen (spec 12 §10 stap 4). */
-export async function getVacancyMetaValues(vacancy: VacancyDetail, locale: Locale) {
+export type VacancySeoParts = { city: string; hours: string; wage: string; startDate: string | null; start: string };
+
+/**
+ * Plaats, uren, uurloon en startzin zoals metadata, JobPosting en OG ze delen
+ * (spec 06 §4.5, spec 12 §10 stap 4), zodat ze overal dezelfde tekst hebben.
+ */
+export async function getVacancySeoParts(vacancy: VacancyDetail, locale: Locale): Promise<VacancySeoParts> {
   const [f, tm] = await Promise.all([
     getVacancyFormatters(locale),
     getTranslations({ locale, namespace: "vacatures.meta" }),
@@ -64,7 +69,7 @@ export async function getVacancyMetaValues(vacancy: VacancyDetail, locale: Local
     hours: f.hours(vacancy.hoursMin, vacancy.hoursMax),
     wage: f.wage(vacancy.salaryMin, vacancy.salaryMax),
     startDate,
-    startSentence: startDate ? tm("startDateSentence", { date: startDate }) : tm("startAsapSentence"),
+    start: startDate ? tm("startDateSentence", { date: startDate }) : tm("startAsapSentence"),
   };
 }
 

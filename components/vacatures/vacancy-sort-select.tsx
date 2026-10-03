@@ -1,7 +1,6 @@
 "use client";
 
 import type { ChangeEvent } from "react";
-import type { VacancySort as VacancySortValue } from "@/lib/data/types";
 import { CtaButton } from "@/components/ui/cta-button";
 import { Label } from "@/components/ui/label";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
@@ -11,15 +10,15 @@ import { useVacancyNavigation } from "./vacancy-navigation";
 
 type Props = {
   action: string;
-  value: VacancySortValue;
+  /** Waarde van ?sortering in de keuzelijst; "sluitdatum" werkt alleen in de URL en toont "nieuwste" (spec 06 §5.1). */
+  value: "nieuwste" | "salaris";
   hidden: HiddenField[];
   labels: { label: string; apply: string; options: { nieuwste: string; salaris: string } };
 };
 
-/** Sorteren met een native keuzelijst (spec 06 §4.4); "sluitdatum" werkt alleen in de URL en toont "Nieuwste eerst". */
-export function VacancySort({ action, value, hidden, labels }: Props) {
+/** Sorteren met een native keuzelijst (spec 06 §4.4). Zonder JavaScript met de knop in <noscript>. */
+export function VacancySortSelect({ action, value, hidden, labels }: Props) {
   const { navigate } = useVacancyNavigation();
-  const selected = value === "salary" ? "salaris" : "nieuwste";
 
   function onChange(event: ChangeEvent<HTMLSelectElement>) {
     const form = event.currentTarget.form;
@@ -33,10 +32,10 @@ export function VacancySort({ action, value, hidden, labels }: Props) {
         {labels.label}
       </Label>
       <NativeSelect
-        key={selected}
+        key={value}
         id="vacatures-sortering"
         name="sortering"
-        defaultValue={selected}
+        defaultValue={value}
         onChange={onChange}
         className="h-11 min-w-44"
       >

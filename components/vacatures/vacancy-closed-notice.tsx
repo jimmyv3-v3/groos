@@ -9,8 +9,9 @@ type Props = { vacancy: VacancyDetail; locale: Locale };
 
 /**
  * Melding bij een gesloten vacature (spec 06 §4.10): tekst en icoon, nooit
- * alleen kleur. De h2 staat in de inhoud van de Alert, omdat de titel van de
- * Alert een <p> is.
+ * alleen kleur. De h2 staat in de inhoud van de Alert, omdat de Alert van
+ * spec 02 (nog) geen titleAs kent; de section met aria-labelledby is al een
+ * regio, dus geen role="region".
  */
 export async function VacancyClosedNotice({ vacancy, locale }: Props) {
   const [f, t] = await Promise.all([
@@ -20,9 +21,9 @@ export async function VacancyClosedNotice({ vacancy, locale }: Props) {
   const variant = vacancy.closeReason === "filled" ? "filled" : "other";
 
   return (
-    <section role="region" aria-labelledby="vacature-gesloten">
+    <section aria-labelledby="vacature-gesloten-titel">
       <Alert tone="warning" icon={CircleOff} className="px-5 py-4">
-        <h2 id="vacature-gesloten" className="text-h3 text-warning-strong">
+        <h2 id="vacature-gesloten-titel" className="text-h3 text-warning-strong">
           {t(`${variant}.title`)}
         </h2>
         <p className="mt-1 text-foreground">{t(`${variant}.body`)}</p>
