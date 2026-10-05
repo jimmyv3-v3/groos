@@ -35,8 +35,12 @@ export type JobseekerCopy = {
   work: SectionHead & { tasks: string[]; placesTitle: string; places: string[] };
   /** items 3..6 */
   requirements: SectionHead & { items: string[]; minAgeNote?: string };
-  /** extra: toeslagen in één zin */
-  wage: SectionHead & { sourceLabel: string; extra?: string };
+  /**
+   * extra: toeslagen in één zin. rangeLabel en experiencedLabel vervangen de
+   * vaste labels uit beroepen.ui.wage als "zonder ervaring" niet bij het beroep
+   * past, zoals bij een vakfunctie waarvoor ervaring of een diploma nodig is.
+   */
+  wage: SectionHead & { sourceLabel: string; extra?: string; rangeLabel?: string; experiencedLabel?: string };
   schedule: SectionHead & { items: Tuple3<TextItem> };
   /** 2..4 */
   certificates: SectionHead & { items: CertificateEntry[] };

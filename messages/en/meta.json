@@ -1,8 +1,8 @@
 {
   "titleDefault": "Employment agency in The Hague | Groos Personeelsdiensten",
   "titleTemplate": "%s | Groos Personeelsdiensten",
-  "description": "Groos is an employment agency in The Hague for window cleaning, cleaning, logistics, removals, construction and demolition. View our jobs or request staff.",
-  "organizationDescription": "Groos Personeelsdiensten B.V. is an employment agency in The Hague. We provide window cleaners, cleaners, logistics workers, movers and construction and demolition labourers to clients.",
+  "description": "Groos is an employment agency in The Hague for window cleaning, cleaning, logistics, removals, construction and groundworks. View our jobs or request staff.",
+  "organizationDescription": "Groos Personeelsdiensten B.V. is an employment agency in The Hague. We provide window cleaners, cleaners, logistics workers, movers, construction and demolition labourers, groundworkers, demolition workers, construction site cleaners, excavator operators and street pavers to clients.",
   "keywords": [
     "employment agency The Hague",
     "jobs in The Hague",
@@ -11,9 +11,13 @@
     "warehouse jobs The Hague",
     "mover jobs The Hague",
     "construction labourer jobs The Hague",
+    "groundworker jobs The Hague",
+    "demolition worker jobs The Hague",
+    "excavator operator jobs The Hague",
+    "street paver jobs The Hague",
     "hire staff The Hague",
     "temporary workers The Hague"
   ],
   "ogHeadline": "Work and staff in The Hague, with dedicated contacts",
-  "ogSubline": "We help job seekers and businesses in five hands-on occupations."
+  "ogSubline": "We help job seekers and businesses in ten hands-on occupations."
 }

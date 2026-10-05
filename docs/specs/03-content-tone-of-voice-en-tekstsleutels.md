@@ -857,8 +857,8 @@ staan onder het blok.
   "meta": {
     "titleDefault": "Uitzendbureau in Den Haag | Groos Personeelsdiensten",
     "titleTemplate": "%s | Groos Personeelsdiensten",
-    "description": "Groos is een uitzendbureau in Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen, bouw en sloop. Bekijk de vacatures of vraag personeel aan.",
-    "organizationDescription": "Groos Personeelsdiensten B.V. is een uitzendbureau in Den Haag. Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers en hulpkrachten bouw en sloop aan opdrachtgevers.",
+    "description": "Groos is een uitzendbureau in Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen, bouw, sloop en infra. Bekijk de vacatures of vraag personeel aan.",
+    "organizationDescription": "Groos Personeelsdiensten B.V. is een uitzendbureau in Den Haag. Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers, hulpkrachten bouw en sloop, grondwerkers, slopers, bouwopruimers, machinisten en stratenmakers aan opdrachtgevers.",
     "keywords": [
       "uitzendbureau Den Haag",
       "vacatures Den Haag",
@@ -867,11 +867,15 @@ staan onder het blok.
       "orderpicker vacature Den Haag",
       "verhuizer vacature Den Haag",
       "opperman vacature Den Haag",
+      "grondwerker vacature Den Haag",
+      "sloper vacature Den Haag",
+      "machinist grondverzet vacature Den Haag",
+      "stratenmaker vacature Den Haag",
       "personeel inhuren Den Haag",
       "uitzendkrachten Den Haag"
     ],
     "ogHeadline": "Werk en personeel in Den Haag, met vaste contactpersonen",
-    "ogSubline": "Wij helpen werkzoekenden en bedrijven in vijf praktische beroepen."
+    "ogSubline": "Wij helpen werkzoekenden en bedrijven in tien praktische beroepen."
   },
   "header": {
     "skipLink": "Ga direct naar de inhoud",
@@ -900,7 +904,7 @@ staan onder het blok.
     }
   },
   "footer": {
-    "description": "Groos Personeelsdiensten is een uitzendbureau uit Den Haag voor praktisch werk. Wij brengen werkzoekenden en opdrachtgevers in vijf beroepen bij elkaar.",
+    "description": "Groos Personeelsdiensten is een uitzendbureau uit Den Haag voor praktisch werk. Wij brengen werkzoekenden en opdrachtgevers in tien beroepen bij elkaar.",
     "navLabel": "Overzicht van de site",
     "columns": {
       "werkzoekenden": "Werkzoekenden",
@@ -1003,7 +1007,7 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
     "whatsapp": {
       "algemeen": "Hello Groos, I have a question.",
       "werkzoekende": "Hello Groos, I am looking for work and would like to know more.",
-      "werkzoekendeBeroep": "Hello Groos, I am looking for work as a {occupation}.",
+      "werkzoekendeBeroep": "Hello Groos, I am looking for work as {occupation}.",
       "werkgever": "Hello Groos, I am looking for staff and would like to discuss a request.",
       "werkgeverBeroep": "Hello Groos, I am looking for {occupationPlural} and would like to discuss a request.",
       "vacatureSolliciteren": "Hello Groos, I would like to apply for the job {title} (number {number}).",
@@ -1062,8 +1066,8 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
   "meta": {
     "titleDefault": "Employment agency in The Hague | Groos Personeelsdiensten",
     "titleTemplate": "%s | Groos Personeelsdiensten",
-    "description": "Groos is an employment agency in The Hague for window cleaning, cleaning, logistics, removals, construction and demolition. View our jobs or request staff.",
-    "organizationDescription": "Groos Personeelsdiensten B.V. is an employment agency in The Hague. We provide window cleaners, cleaners, logistics workers, movers and construction and demolition labourers to clients.",
+    "description": "Groos is an employment agency in The Hague for window cleaning, cleaning, logistics, removals, construction and groundworks. View our jobs or request staff.",
+    "organizationDescription": "Groos Personeelsdiensten B.V. is an employment agency in The Hague. We provide window cleaners, cleaners, logistics workers, movers, construction and demolition labourers, groundworkers, demolition workers, construction site cleaners, excavator operators and street pavers to clients.",
     "keywords": [
       "employment agency The Hague",
       "jobs in The Hague",
@@ -1072,11 +1076,15 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
       "warehouse jobs The Hague",
       "mover jobs The Hague",
       "construction labourer jobs The Hague",
+      "groundworker jobs The Hague",
+      "demolition worker jobs The Hague",
+      "excavator operator jobs The Hague",
+      "street paver jobs The Hague",
       "hire staff The Hague",
       "temporary workers The Hague"
     ],
     "ogHeadline": "Work and staff in The Hague, with dedicated contacts",
-    "ogSubline": "We help job seekers and businesses in five hands-on occupations."
+    "ogSubline": "We help job seekers and businesses in ten hands-on occupations."
   },
   "header": {
     "skipLink": "Skip to content",
@@ -1105,7 +1113,7 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
     }
   },
   "footer": {
-    "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work. We bring job seekers and clients together in five occupations.",
+    "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work. We bring job seekers and clients together in ten occupations.",
     "navLabel": "Site overview",
     "columns": {
       "werkzoekenden": "Job seekers",

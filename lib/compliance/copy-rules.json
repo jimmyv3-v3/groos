@@ -32,9 +32,9 @@
     { "rule": "VR-11a", "files": ["app/[locale]/privacyverklaring/page.tsx"] },
     { "rule": "VR-11b", "files": ["app/[locale]/privacyverklaring/page.tsx"] },
     { "rule": "CL-04", "files": ["lib/legal.ts", "components/legal/wtta-status.tsx", "content/pages/wtta.ts", "messages/nl/legal.json", "messages/en/legal.json"] },
-    { "rule": "VR-13", "files": ["content/beroepen/hulpkracht-bouw-en-sloop.ts", "supabase/seed.sql"] },
+    { "rule": "VR-13", "files": ["content/beroepen/hulpkracht-bouw-en-sloop.ts", "content/beroepen/sloper.ts", "content/beroepen/machinist.ts", "supabase/seed.sql", "messages/nl/beroepen.json", "messages/en/beroepen.json", "messages/nl/vacatures.json", "messages/en/vacatures.json", "lib/data/options.ts", "lib/database.types.ts"] },
     { "rule": "CL-22", "files": ["content/pages/wtta.ts"] },
-    { "rule": "CL-03", "files": ["content/beroepen/glazenwasser.ts", "content/beroepen/schoonmaker.ts", "content/beroepen/logistiek-medewerker.ts", "content/beroepen/verhuizer.ts", "content/beroepen/hulpkracht-bouw-en-sloop.ts"] },
+    { "rule": "CL-03", "files": ["content/beroepen/glazenwasser.ts", "content/beroepen/schoonmaker.ts", "content/beroepen/logistiek-medewerker.ts", "content/beroepen/verhuizer.ts", "content/beroepen/hulpkracht-bouw-en-sloop.ts", "content/beroepen/grondwerker.ts", "content/beroepen/sloper.ts", "content/beroepen/bouwopruimer.ts", "content/beroepen/machinist.ts", "content/beroepen/stratenmaker.ts"] },
     { "rule": "VR-11b", "files": ["content/pages/werkzoekenden.ts"] },
     { "rule": "CL-05", "files": ["app/[locale]/privacyverklaring/page.tsx"] },
     { "rule": "CL-02", "files": ["app/[locale]/klachtenregeling/page.tsx"] }

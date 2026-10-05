@@ -8,7 +8,7 @@ export const werkzoekendenPage = {
   nl: {
     hero: {
       title: "Praktisch werk in Den Haag, met een vaste contactpersoon",
-      lead: "Wij helpen je aan werk als glazenwasser, schoonmaker, logistiek medewerker, verhuizer of hulpkracht in de bouw en sloop. Solliciteren is gratis en kan ook zonder cv.",
+      lead: "Wij helpen je aan werk in schoonmaak en glasbewassing, logistiek en verhuizen, en bouw, sloop en infra. Solliciteren is gratis en kan ook zonder cv.",
     },
     beroepen: {
       title: "Kies het werk",
@@ -154,7 +154,7 @@ export const werkzoekendenPage = {
   en: {
     hero: {
       title: "Practical work in The Hague, with one regular contact person",
-      lead: "We help you find work as a window cleaner, cleaner, logistics worker, mover or construction and demolition labourer. Applying is free and you can apply without a CV.",
+      lead: "We help you find work in cleaning and window cleaning, logistics and removals, and construction, demolition and groundworks. Applying is free and you can apply without a CV.",
     },
     beroepen: {
       title: "Choose the work",

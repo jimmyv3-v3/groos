@@ -13,7 +13,7 @@ export const registrationSchema = jobseekerBaseSchema.extend({
     .array(z.enum(OCCUPATION_SLUGS, { error: "occupationsInvalid" }), { error: "occupationsInvalid" })
     .optional()
     .transform((list) => [...new Set(list ?? [])])
-    .pipe(z.array(z.enum(OCCUPATION_SLUGS)).max(5, { error: "occupationsInvalid" })),
+    .pipe(z.array(z.enum(OCCUPATION_SLUGS)).max(OCCUPATION_SLUGS.length, { error: "occupationsInvalid" })),
   retentionConsent: z
     .string()
     .optional()

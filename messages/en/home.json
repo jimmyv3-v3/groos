@@ -16,13 +16,27 @@
     "title": "The latest jobs",
     "accent": "in The Hague and the surrounding area",
     "intro": "Every job shows the gross hourly wage, the hours and the location. Applying takes a few minutes, even without a CV.",
-    "emptyJobseeker": "There are no jobs online right now. Register with us and we will call you as soon as there is work that suits you."
+    "emptyJobseeker": "There are no jobs online right now. Register with us and we will call you as soon as there is work that suits you.",
+    "visual": {
+      "label": "Diagram of how Groos works. Requests come in by phone, through the request form and through WhatsApp. Groos arranges selection, the contract, scheduling and pay. We supply window cleaners, cleaners, logistics workers, movers, construction and demolition labourers, groundworkers, demolition workers, construction site cleaners, excavator operators and street pavers.",
+      "channels": {
+        "phone": "Phone",
+        "form": "Request form",
+        "whatsapp": "WhatsApp"
+      },
+      "steps": {
+        "contract": "Contract",
+        "selection": "Selection",
+        "planning": "Scheduling",
+        "payroll": "Pay"
+      }
+    }
   },
   "beroepen": {
     "title": "Work and staff in",
-    "accent": "five hands-on occupations",
+    "accent": "ten hands-on occupations",
     "intro": "Choose an occupation and read what the work involves. Job seekers will find jobs and hourly wages, clients can read how to request people.",
-    "jobseekerLink": "Work as a {occupation}",
+    "jobseekerLink": "Work as {occupation}",
     "employerLink": "Hire {occupationPlural}",
     "items": {
       "glazenwasser": {
@@ -39,6 +53,21 @@
       },
       "hulpkracht-bouw-en-sloop": {
         "body": "Construction and demolition labourers help skilled workers on site with carrying, clearing up and demolition work."
+      },
+      "grondwerker": {
+        "body": "Groundworkers dig trenches, expose cables and pipes and backfill the ground in layers."
+      },
+      "sloper": {
+        "body": "Demolition workers strip out buildings, demolish with breaker and grinder and sort the waste for reuse."
+      },
+      "bouwopruimer": {
+        "body": "Construction site cleaners keep the site clean and safe, sort the waste and leave it broom clean."
+      },
+      "machinist": {
+        "body": "Excavator operators run the excavator, mini excavator or wheel loader on groundworks, paving and demolition."
+      },
+      "stratenmaker": {
+        "body": "Street pavers lay clay pavers and paving slabs, set kerbs and gullies and work more and more often by machine."
       }
     }
   },
@@ -92,7 +121,7 @@
       },
       "beroepen": {
         "title": "Five hands-on occupations",
-        "body": "Groos focuses on window cleaning, cleaning, logistics, removals and construction and demolition. For each occupation this site explains what the work involves."
+        "body": "Groos focuses on window cleaning, cleaning, logistics, removals, construction, demolition and groundworks. For each occupation this site explains what the work involves."
       },
       "loon": {
         "title": "Honest about pay",

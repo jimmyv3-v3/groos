@@ -16,11 +16,25 @@
     "title": "De nieuwste vacatures",
     "accent": "in Den Haag en omgeving",
     "intro": "Bij elke vacature staan het bruto uurloon, de uren en de plaats. Solliciteren kan in een paar minuten, ook zonder cv.",
-    "emptyJobseeker": "Er staan nu geen vacatures online. Schrijf je in, dan bellen wij je zodra er werk is dat bij je past."
+    "emptyJobseeker": "Er staan nu geen vacatures online. Schrijf je in, dan bellen wij je zodra er werk is dat bij je past.",
+    "visual": {
+      "label": "Schema van de werkwijze van Groos. Aanvragen komen binnen per telefoon, via het aanvraagformulier en via WhatsApp. Groos regelt de selectie, het contract, de planning en het loon. Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers, hulpkrachten voor bouw en sloop, grondwerkers, slopers, bouwopruimers, machinisten en stratenmakers.",
+      "channels": {
+        "phone": "Telefoon",
+        "form": "Aanvraagformulier",
+        "whatsapp": "WhatsApp"
+      },
+      "steps": {
+        "contract": "Contract",
+        "selection": "Selectie",
+        "planning": "Planning",
+        "payroll": "Loon"
+      }
+    }
   },
   "beroepen": {
     "title": "Werk en personeel in",
-    "accent": "vijf praktische beroepen",
+    "accent": "tien praktische beroepen",
     "intro": "Kies een beroep en lees wat het werk inhoudt. Werkzoekenden vinden er vacatures en uurlonen, opdrachtgevers lezen hoe zij mensen aanvragen.",
     "jobseekerLink": "Werken als {occupation}",
     "employerLink": "Huur {occupationPlural} in",
@@ -39,6 +53,21 @@
       },
       "hulpkracht-bouw-en-sloop": {
         "body": "Hulpkrachten bouw en sloop helpen vakmensen op de bouwplaats met sjouwen, opruimen en sloopwerk."
+      },
+      "grondwerker": {
+        "body": "Grondwerkers graven sleuven, leggen kabels en leidingen vrij en vullen de grond in lagen weer aan."
+      },
+      "sloper": {
+        "body": "Slopers strippen panden, slopen met hamer en slijptol en scheiden het afval voor hergebruik."
+      },
+      "bouwopruimer": {
+        "body": "Bouwopruimers houden de bouwplaats schoon en veilig, scheiden het afval en leveren bezemschoon op."
+      },
+      "machinist": {
+        "body": "Machinisten bedienen de graafmachine, minigraver of shovel bij grondwerk, straatwerk en sloop."
+      },
+      "stratenmaker": {
+        "body": "Stratenmakers leggen klinkers en tegels, stellen banden en kolken en werken steeds vaker machinaal."
       }
     }
   },
@@ -92,7 +121,7 @@
       },
       "beroepen": {
         "title": "Vijf praktische beroepen",
-        "body": "Groos richt zich op glasbewassing, schoonmaak, logistiek, verhuizen en bouw en sloop. Per beroep staat op deze site wat het werk inhoudt."
+        "body": "Groos richt zich op glasbewassing, schoonmaak, logistiek, verhuizen, bouw, sloop en infra. Per beroep staat op deze site wat het werk inhoudt."
       },
       "loon": {
         "title": "Eerlijk over loon",

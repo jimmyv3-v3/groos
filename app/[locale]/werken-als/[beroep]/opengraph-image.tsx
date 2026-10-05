@@ -4,8 +4,8 @@ import { beroepen, findBeroepBySlug } from "@/content/beroepen";
 import { contact } from "@/lib/site";
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgCard } from "@/lib/og";
 import nlMeta from "@/messages/nl/meta.json";
-import { lowerFirst } from "@/components/vacatures/vacancy-helpers";
 import SiteOgImage from "@/app/opengraph-image";
+import { occupationPhrase } from "@/i18n/occupation-phrase";
 
 /**
  * OG-afbeelding per beroep, perspectief werkzoekende (spec 12 §4.6): label
@@ -32,7 +32,7 @@ export default async function BeroepOgImage({ params }: { params: Promise<{ loca
     getTranslations({ locale, namespace: "header.nav" }),
     getTranslations({ locale, namespace: "meta" }),
   ]);
-  const occupation = lowerFirst(t(`${item.id}.enkelvoud`), locale);
+  const occupation = occupationPhrase(t(`${item.id}.enkelvoud`), locale);
   const occupationPlural = t(`${item.id}.meervoud`);
   return renderOgCard({
     label: tNav("werkzoekenden"),

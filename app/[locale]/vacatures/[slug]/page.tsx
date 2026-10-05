@@ -21,13 +21,14 @@ import { VacancyBody } from "@/components/vacatures/vacancy-body";
 import { VacancyClosedNotice } from "@/components/vacatures/vacancy-closed-notice";
 import { VacancyContactCard } from "@/components/vacatures/vacancy-contact-card";
 import { VacancyFacts } from "@/components/vacatures/vacancy-facts";
-import { getVacancySeoParts, lowerFirst } from "@/components/vacatures/vacancy-format";
+import { getVacancySeoParts } from "@/components/vacatures/vacancy-format";
 import { VacancyHeader } from "@/components/vacatures/vacancy-header";
 import { VacancyHowTo } from "@/components/vacatures/vacancy-how-to";
 import { VacancyListSkeleton } from "@/components/vacatures/vacancy-list-skeleton";
 import { VacancyRegisterPrompt } from "@/components/vacatures/vacancy-register-prompt";
 import { VacancyShare } from "@/components/vacatures/vacancy-share";
 import { SIMILAR_LIMIT } from "@/components/vacatures/constants";
+import { occupationPhrase } from "@/i18n/occupation-phrase";
 
 // ISR (B-35): open vacatures worden per taal voorgebouwd, nieuwe bij het eerste bezoek.
 // Geen loading.tsx en geen searchParams: notFound() en de 308 moeten vóór elke stream vallen.
@@ -65,7 +66,7 @@ export default async function VacancyPage({ params }: PageProps<"/[locale]/vacat
     getTranslations({ locale, namespace: "header.nav" }),
     getTranslations({ locale, namespace: "beroepen" }),
   ]);
-  const occupationName = lowerFirst(tb(`${vacancy.occupation.slug}.enkelvoud`), locale);
+  const occupationName = occupationPhrase(tb(`${vacancy.occupation.slug}.enkelvoud`), locale);
   const crumbs = [
     { label: tn("vacatures"), href: ROUTES.vacatures },
     { label: vacancy.title, href: vacancy.path },

@@ -21,7 +21,7 @@
   },
   "overview": {
     "title": "Vacatures in Den Haag en omgeving",
-    "intro": "Hier vind je het werk dat wij nu hebben voor glazenwassers, schoonmakers, logistiek medewerkers, verhuizers en hulpkrachten in de bouw en sloop. Bij elke vacature zie je meteen het bruto uurloon, de uren en de werktijden.",
+    "intro": "Hier vind je het werk dat wij nu hebben in schoonmaak en glasbewassing, logistiek en verhuizen, en bouw, sloop en infra. Bij elke vacature zie je meteen het bruto uurloon, de uren en de werktijden.",
     "resultsHeading": "Gevonden vacatures",
     "resultCount": "{count, plural, =0 {Geen vacatures gevonden} one {# vacature gevonden} other {# vacatures gevonden}}",
     "resultCountQuery": "{count, plural, =0 {Geen vacatures gevonden voor “{query}”} one {# vacature gevonden voor “{query}”} other {# vacatures gevonden voor “{query}”}}",
@@ -136,6 +136,36 @@
           "Als hulpkracht in de bouw en sloop help je vakmensen op de bouwplaats. Je ruimt op, voert afval af en zorgt dat het materiaal klaarstaat.",
           "Op een bouw- of sloopplaats is de minimumleeftijd 18 jaar. Vraagt de opdrachtgever een VCA-diploma, dan staat dat bij de vacature."
         ]
+      },
+      "grondwerker": {
+        "paragraphs": [
+          "Als grondwerker graaf je sleuven en leg je kabels en leidingen met de schop vrij. Je werkt buiten in een kleine ploeg en begint meestal om 07.00 uur.",
+          "Op een bouwplaats is de minimumleeftijd 18 jaar. Bij elke vacature staat of je een VCA-diploma en rijbewijs B nodig hebt."
+        ]
+      },
+      "sloper": {
+        "paragraphs": [
+          "Als sloper strip je panden en sloop je muren, vloeren en plafonds met sloophamer en slijptol. Het afval scheid je per soort.",
+          "Op een sloopplaats is de minimumleeftijd 18 jaar. Zie je materiaal dat op asbest lijkt, dan stop je en meld je het."
+        ]
+      },
+      "bouwopruimer": {
+        "paragraphs": [
+          "Als bouwopruimer houd je de bouwplaats schoon en veilig. Je ruimt afval op, scheidt het per soort en brengt materiaal naar de goede plek.",
+          "Op een bouwplaats is de minimumleeftijd 18 jaar. Een diploma heb je niet nodig, maar veel bedrijven vragen wel een VCA-diploma."
+        ]
+      },
+      "machinist": {
+        "paragraphs": [
+          "Als machinist bedien je een graafmachine, minigraver of shovel bij grondwerk, straatwerk of sloop. Je begint meestal om 07.00 uur.",
+          "Voor dit werk heb je ervaring of een diploma nodig, en de minimumleeftijd is 18 jaar. Bij elke vacature staat welke machine en welke certificaten erbij horen."
+        ]
+      },
+      "stratenmaker": {
+        "paragraphs": [
+          "Als stratenmaker leg je klinkers en tegels en stel je banden en kolken. Je werkt buiten en steeds vaker met een machine die het zware tillen overneemt.",
+          "Op een bouwplaats of aan de weg is de minimumleeftijd 18 jaar. Zonder ervaring begin je als opperman en leer je het vak in de ploeg."
+        ]
       }
     }
   },
@@ -187,16 +217,23 @@
     "qualificationNames": {
       "vca_basis": "VCA Basis",
       "vca_vol": "VCA VOL",
+      "gpi": "GPI (poortinstructie)",
       "heftruck": "Heftruckcertificaat",
       "reachtruck": "Reachtruckcertificaat",
       "ept": "EPT-certificaat",
       "ipaf": "IPAF (hoogwerker)",
+      "machinist_diploma": "Diploma of certificaat machinist",
+      "tcvt": "TCVT-registratie (hijsen)",
       "vog": "VOG",
       "rijbewijs_b": "Rijbewijs B",
       "rijbewijs_be": "Rijbewijs BE",
       "rijbewijs_c": "Rijbewijs C",
+      "rijbewijs_t": "Rijbewijs T",
       "code_95": "Code 95",
-      "ras": "RAS-vakopleiding"
+      "ras": "RAS-vakopleiding",
+      "werken_langs_de_weg": "Cursus veilig werken langs de weg",
+      "zorgvuldig_graven": "Instructie zorgvuldig graven (CROW 500)",
+      "asbestherkenning": "Cursus asbestherkenning"
     },
     "experience": {
       "none": "Geen ervaring nodig",

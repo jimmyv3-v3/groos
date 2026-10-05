@@ -18,8 +18,9 @@ import {
 
 /**
  * Hoofdmenu vanaf lg (spec 01 §4.4): Vacatures, Werkzoekenden (paneel),
- * Werkgevers (paneel), Over ons, Contact. Panelen in twee kolommen: links de
- * vijf beroepen met icoon, rechts twee of drie acties, zonder beschrijvingen.
+ * Werkgevers (paneel), Over ons, Contact. Panelen in twee delen: links de
+ * beroepen met icoon (bij meer dan zes in twee kolommen, per kolom van boven
+ * naar beneden), rechts twee of drie acties, zonder beschrijvingen.
  * Zonder JavaScript (`noscript:`, media query `scripting: none`) zijn
  * Werkzoekenden en Werkgevers gewone links naar /werkzoekenden en /werkgevers.
  */
@@ -50,6 +51,7 @@ export function DesktopNav({ items, ariaLabel }: { items: ResolvedNavItem[]; ari
             );
           }
           const { panel } = item;
+          const twoColumns = panel.beroepen.length > 6;
           return (
             <NavigationMenuItem key={item.key}>
               <NavigationMenuTrigger data-active={active ? "" : undefined} className={cn(ACTIVE, "noscript:hidden")}>
@@ -65,8 +67,12 @@ export function DesktopNav({ items, ariaLabel }: { items: ResolvedNavItem[]; ari
                 {item.label}
               </Link>
               <NavigationMenuContent>
-                <div className="grid w-[37rem] grid-cols-[1fr_15.5rem] gap-2">
-                  <ul aria-label={panel.beroepenLabel} className="grid content-start gap-0.5 p-1">
+                <div className={cn("grid grid-cols-[1fr_15.5rem] gap-2", twoColumns ? "w-[55rem]" : "w-[37rem]")}>
+                  <ul
+                    aria-label={panel.beroepenLabel}
+                    className={cn("grid content-start gap-0.5 p-1", twoColumns && "grid-flow-col grid-cols-2 gap-x-1")}
+                    style={twoColumns ? { gridTemplateRows: `repeat(${Math.ceil(panel.beroepen.length / 2)}, auto)` } : undefined}
+                  >
                     {panel.beroepen.map((link) => (
                       <li key={link.href}>
                         <NavigationMenuLink

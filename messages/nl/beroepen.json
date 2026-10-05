@@ -29,6 +29,36 @@
     "jobseeker": { "summary": "Je helpt vakmensen op de bouwplaats of bij sloopwerk. Je werkt buiten in een ploeg, meestal vanaf 07.00 uur." },
     "employer": { "summary": "Wij leveren hulpkrachten, oppermannen en slopers voor uw project. Wij bespreken vooraf welke certificaten nodig zijn." }
   },
+  "grondwerker": {
+    "enkelvoud": "Grondwerker",
+    "meervoud": "Grondwerkers",
+    "jobseeker": { "summary": "Je graaft sleuven, legt kabels en leidingen vrij en werkt buiten in een kleine ploeg." },
+    "employer": { "summary": "Wij leveren grondwerkers voor riolering, kabels en leidingen en bouwrijp maken. Wij bespreken vooraf welke instructies uw werk vraagt." }
+  },
+  "sloper": {
+    "enkelvoud": "Sloper",
+    "meervoud": "Slopers",
+    "jobseeker": { "summary": "Je stript panden, sloopt met hamer en slijptol en scheidt het afval in een ploeg." },
+    "employer": { "summary": "Wij leveren slopers voor stripwerk, renovatiesloop en totaalsloop. Wij bespreken vooraf de ervaring en de instructie over asbest." }
+  },
+  "bouwopruimer": {
+    "enkelvoud": "Bouwopruimer",
+    "meervoud": "Bouwopruimers",
+    "jobseeker": { "summary": "Je houdt de bouwplaats schoon, scheidt afval en zet materiaal klaar, meestal vanaf 07.00 uur." },
+    "employer": { "summary": "Wij leveren bouwopruimers die uw bouwplaats opgeruimd houden, afval scheiden en bezemschoon opleveren. Wij stemmen de dagen af op uw planning." }
+  },
+  "machinist": {
+    "enkelvoud": "Machinist",
+    "meervoud": "Machinisten",
+    "jobseeker": { "summary": "Je bedient een graafmachine, minigraver of shovel. Daarvoor heb je ervaring of een diploma nodig." },
+    "employer": { "summary": "Wij leveren machinisten voor graafmachine, minigraver en shovel. Wij bespreken vooraf de machine, het hijswerk en de certificaten die daarbij horen." }
+  },
+  "stratenmaker": {
+    "enkelvoud": "Stratenmaker",
+    "meervoud": "Stratenmakers",
+    "jobseeker": { "summary": "Je legt klinkers en tegels, stelt banden en werkt buiten, steeds vaker met een machine." },
+    "employer": { "summary": "Wij leveren stratenmakers en oppermannen voor aanleg en herstel van bestrating. Wij bespreken vooraf of het werk machinaal of met de hand gebeurt." }
+  },
   "og": {
     "werkzoekende": "Werken als {occupation} in Den Haag",
     "werkgever": "{occupationPlural} voor uw bedrijf in Den Haag"

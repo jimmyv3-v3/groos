@@ -7,6 +7,11 @@ import { schoonmaker } from "./schoonmaker";
 import { logistiekMedewerker } from "./logistiek-medewerker";
 import { verhuizer } from "./verhuizer";
 import { hulpkrachtBouwEnSloop } from "./hulpkracht-bouw-en-sloop";
+import { grondwerker } from "./grondwerker";
+import { sloper } from "./sloper";
+import { bouwopruimer } from "./bouwopruimer";
+import { machinist } from "./machinist";
+import { stratenmaker } from "./stratenmaker";
 
 /** Loader van de lange tekst per beroep (spec 05 §5.3). Alleen op de server. */
 export const beroepContent: Record<BeroepId, BeroepContent> = {
@@ -15,6 +20,11 @@ export const beroepContent: Record<BeroepId, BeroepContent> = {
   "logistiek-medewerker": logistiekMedewerker,
   verhuizer,
   "hulpkracht-bouw-en-sloop": hulpkrachtBouwEnSloop,
+  grondwerker,
+  sloper,
+  bouwopruimer,
+  machinist,
+  stratenmaker,
 };
 
 export function getBeroepCopy(id: BeroepId, locale: Locale): { content: BeroepContent; copy: BeroepCopy } {

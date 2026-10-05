@@ -8,7 +8,7 @@ import { paths, ROUTES } from "@/lib/routes";
 import { contact } from "@/lib/site";
 import { CtaButton } from "@/components/ui/cta-button";
 import { IconTile } from "@/components/ui/icon-tile";
-import { lowerFirst } from "./vacancy-format";
+import { occupationPhrase } from "@/i18n/occupation-phrase";
 
 type Props = { variant: "filtered" | "none"; locale: Locale; occupation?: OccupationSlug; clearHref: string };
 
@@ -23,7 +23,7 @@ export async function VacancyEmptyState({ variant, locale, occupation, clearHref
     getTranslations({ locale, namespace: "common.cta" }),
     getTranslations({ locale, namespace: "beroepen" }),
   ]);
-  const name = (id: OccupationSlug) => lowerFirst(tb(`${id}.enkelvoud`), locale);
+  const name = (id: OccupationSlug) => occupationPhrase(tb(`${id}.enkelvoud`), locale);
 
   return (
     <section aria-labelledby="vacatures-leeg-titel" className="rounded-2xl border border-border p-6 sm:p-8">
