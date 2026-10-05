@@ -247,7 +247,7 @@ proxy.ts  global.d.ts   (01)
   <DesktopNav>                alleen lg en breder; aria-label header.mainMenu
      Vacatures | Werkzoekenden ▾ | Werkgevers ▾ | Over ons | Contact
   <div ml-auto>
-     <a href="tel:+31683351985">   lg: icoon met aria-label header.callAria; xl: icoon plus "06 83 35 19 85"
+     <a href="tel:+31652549539">   lg: icoon met aria-label header.callAria; xl: icoon plus "06 52 54 95 39"
      <LanguageToggle />            alleen lg en breder
      <HeaderCta />                 alleen lg en breder, CtaButton size "sm"
      <MobileMenu />                alleen de trigger, onder lg zichtbaar
@@ -314,7 +314,7 @@ De base-ui-wrappers in `components/ui/navigation-menu.tsx` (spec 02) blijven de 
 
 | Variant (`actionBarVariantFor`) | Paden | Links | Rechts |
 |---|---|---|---|
-| `werkzoekende` | `/vacatures`, `/werkzoekenden`, `/werken-als/*`, `/inschrijven`, `/bedankt/sollicitatie`, `/bedankt/inschrijving` | Bellen (`tel:+31683351985`) | WhatsApp met `common.whatsapp.werkzoekende` |
+| `werkzoekende` | `/vacatures`, `/werkzoekenden`, `/werken-als/*`, `/inschrijven`, `/bedankt/sollicitatie`, `/bedankt/inschrijving` | Bellen (`tel:+31652549539`) | WhatsApp met `common.whatsapp.werkzoekende` |
 | `vacature` | `/vacatures/<slug>` | Bellen | Solliciteren, anker `#solliciteren` op de vacaturepagina (spec 06) |
 | `werkgever` | `/werkgevers`, `/werkgevers/*` behalve het aanvraagformulier, `/bedankt/aanvraag`, `/algemene-voorwaarden` | Bellen | Personeel aanvragen (`/werkgevers/personeel-aanvragen`) |
 | `aanvraag` | `/werkgevers/personeel-aanvragen` | Bellen | WhatsApp met `common.whatsapp.werkgever` |
@@ -353,7 +353,7 @@ De base-ui-wrappers in `components/ui/navigation-menu.tsx` (spec 02) blijven de 
     contactblok (lg 3 kolommen): <h2> footer.columns.contact plus <address>
        Groos Personeelsdiensten B.V. / Hugo Coenraadspad 6 / 2553 ER Den Haag
        common.address.byAppointment ("Langskomen kan alleen op afspraak." / "Visits are by appointment only.", B-23)
-       telefoon (hoofdnummer), WhatsApp, e-mail
+       telefoon (hoofdnummer), planningsnummer (footer.planningPhone, alleen hier, B-66), WhatsApp, e-mail
        openingstijden (common.contact.officeHoursValue), alleen als contact.openingHours gevuld is (B-22)
   onderbalk: `© {year} Groos Personeelsdiensten B.V.` | `<FooterLegal />` (spec 09: registratieregel met KvK en btw, Wtta-regel en juridische links uit `publishedLegalDocs()`) | `LanguageToggle`
 ```
@@ -840,7 +840,7 @@ export const site = {
 /* Contact (NAW volgens B-23, hoofdnummer B-21, e-mail B-02) */
 export type Phone = { display: string; e164: `+31${string}` };
 export type OpeningHours = { days: "ma-vr"; opens: `${number}:${number}`; closes: `${number}:${number}` };
-const HOOFDNUMMER: Phone = { display: "06 83 35 19 85", e164: "+31683351985" };
+const HOOFDNUMMER: Phone = { display: "06 52 54 95 39", e164: "+31652549539" };
 const EMAIL = "info@groospersoneelsdiensten.nl"; // TODO bevestigen door Jimmy (B-02)
 
 export const contact = {
@@ -1143,7 +1143,7 @@ Tekst: spec 03 §6.14 (nl) en §6.15 (en); beroepsnamen: spec 05 (`beroepen.<id>
 
 **`footer`** (eigenaar spec 03)
 
-- `footer.description`, `footer.navLabel`
+- `footer.description`, `footer.navLabel`, `footer.planningPhone` (met `{phone}`, B-66)
 - `footer.columns.werkzoekenden`, `footer.columns.werkgevers`, `footer.columns.groos`, `footer.columns.contact`
 - `footer.rights` (met `{year}` en `{name}`)
 
@@ -1158,7 +1158,7 @@ Tekst: spec 03 §6.14 (nl) en §6.15 (en); beroepsnamen: spec 05 (`beroepen.<id>
 
 **`meta`** (eigenaar spec 03): de layout leest `meta.titleDefault`, `meta.titleTemplate` en `meta.description`. Het scheidingsteken in titels is `|` (context/10 §6); spec 03 en spec 12 stemmen af of `pageMetadata()` de merknaam toevoegt of de template.
 
-**Inline tekst (uitzondering op messages)**: `global-error.tsx` met NL "Er ging iets mis" en "De site laadt nu niet goed. Probeer het opnieuw of bel ons op 06 83 35 19 85." plus de EN-tegenhanger; `global-not-found.tsx` met "Deze pagina bestaat niet" en "Ga naar de homepage of bel ons op 06 83 35 19 85.", plus "This page does not exist." met `lang="en"`.
+**Inline tekst (uitzondering op messages)**: `global-error.tsx` met NL "Er ging iets mis" en "De site laadt nu niet goed. Probeer het opnieuw of bel ons op 06 52 54 95 39." plus de EN-tegenhanger; `global-not-found.tsx` met "Deze pagina bestaat niet" en "Ga naar de homepage of bel ons op 06 52 54 95 39.", plus "This page does not exist." met `lang="en"`.
 
 **Structurele data**: `lib/site.ts` (§5.1), `lib/routes.ts` (§5.3), `content/beroepen/index.ts` (§5.2).
 
@@ -1214,7 +1214,7 @@ Tekst: spec 03 §6.14 (nl) en §6.15 (en); beroepsnamen: spec 05 (`beroepen.<id>
 - Doelgrootte: menuknop, actiebalkknoppen en menuregels minimaal 44 bij 44 px, actiebalk 48 px hoog (context/12).
 - Zichtbare focus volgens spec 02 §4.5; geen eigen ring-klassen.
 - Links die een nieuw venster openen, melden dat aan schermlezers (`common.opensInNewTab`).
-- Telefoonnummers als `tel:`-link met `aria-label` "Bel ons op 06 83 35 19 85"; `formatDetection` staat uit, zodat iOS geen tweede link maakt.
+- Telefoonnummers als `tel:`-link met `aria-label` "Bel ons op 06 52 54 95 39"; `formatDetection` staat uit, zodat iOS geen tweede link maakt.
 
 **Contrast en beweging**
 
@@ -1375,13 +1375,13 @@ Alle criteria gelden op localhost met de productieserver (`npm run build && npm 
 | AC-01-10 | Op 1280 px bevat `nav[aria-label="Hoofdmenu"]` in deze volgorde Vacatures, Werkzoekenden, Werkgevers, Over ons, Contact. Het paneel Werkzoekenden bevat precies de links `/werken-als/glazenwasser`, `/werken-als/schoonmaker`, `/werken-als/logistiek-medewerker`, `/werken-als/verhuizer`, `/werken-als/hulpkracht-bouw-en-sloop`, `/inschrijven`, `/werkzoekenden`; het paneel Werkgevers de vijf meervoudspaden plus `/werkgevers/personeel-aanvragen`, `/werkgevers/wtta`, `/werkgevers`. | E-01-07 |
 | AC-01-11 | Met alleen het toetsenbord: Tab naar de trigger Werkzoekenden, Enter opent het paneel, Tab bereikt de eerste link, Escape sluit en de focus staat weer op de trigger. | E-01-07 |
 | AC-01-12 | De headerknop is "Schrijf je in" naar `/inschrijven` op `/werken-als/verhuizer`, "Bekijk vacatures" naar `/vacatures` op `/inschrijven`, "Personeel aanvragen" naar `/werkgevers/personeel-aanvragen` op `/` en `/werkgevers/verhuizers`, en "Neem contact op" naar `/contact` op `/werkgevers/personeel-aanvragen`. De test leest de verwachte tekst uit messages (`common.cta.*`), zoals spec 14 §6.1. | E-01-07 |
-| AC-01-13 | Op 1280 px staat in de header een link met `href="tel:+31683351985"` en de tekst "06 83 35 19 85". | E-01-04, E-01-07 |
+| AC-01-13 | Op 1280 px staat in de header een link met `href="tel:+31652549539"` en de tekst "06 52 54 95 39". | E-01-04, E-01-07 |
 | AC-01-14 | Op 390 px is het hoofdmenu niet zichtbaar en is de menuknop minimaal 44 bij 44 px. Na een klik is een `[role="dialog"]` zichtbaar, staat de focus erin, blijft Tab binnen het venster, sluit Escape het venster en keert de focus terug naar de menuknop; tijdens het open venster scrollt de pagina niet mee. | E-01-08 |
 | AC-01-15 | Op `/werkgevers/schoonmakers` staat bij openen van het mobiele menu de groep Werkgevers open; een klik op "Verhuizers" opent `/werkgevers/verhuizers` en sluit het venster. | E-01-08 |
-| AC-01-16 | Op 390 px toont `nav[aria-label="Snel contact"]` op `/werken-als/schoonmaker` "Bel ons" en "App ons" (href begint met `https://wa.me/31683351985?text=`), op `/werkgevers/schoonmakers` "Bel ons" en "Personeel aanvragen", op `/werkgevers/personeel-aanvragen` "Bel ons" en "App ons", op `/` "Bel ons" en "App ons"; op 1280 px is de balk niet zichtbaar. Vanaf stap 5 toont `/vacatures/<seed-slug>` "Bel ons" en "Solliciteer direct" naar `#solliciteren`. De test leest de verwachte tekst uit messages (`common.cta.*`). | E-01-09 |
+| AC-01-16 | Op 390 px toont `nav[aria-label="Snel contact"]` op `/werken-als/schoonmaker` "Bel ons" en "App ons" (href begint met `https://wa.me/31652549539?text=`), op `/werkgevers/schoonmakers` "Bel ons" en "Personeel aanvragen", op `/werkgevers/personeel-aanvragen` "Bel ons" en "App ons", op `/` "Bel ons" en "App ons"; op 1280 px is de balk niet zichtbaar. Vanaf stap 5 toont `/vacatures/<seed-slug>` "Bel ons" en "Solliciteer direct" naar `#solliciteren`. De test leest de verwachte tekst uit messages (`common.cta.*`). | E-01-09 |
 | AC-01-17 | Vanaf stap 6: op `/inschrijven` krijgt de actiebalk `inert` en schuift hij weg zodra het eerste invoerveld focus heeft, en komt hij terug na het verlaten van het veld. | E-01-09 |
 | AC-01-18 | Op 390 px overlapt de laatste regel van de footer na doorscrollen niet met de actiebalk (de rechthoeken snijden elkaar niet). | E-01-09, E-01-11 |
-| AC-01-19 | Op `/`, `/werkgevers/glazenwassers` en `/en/contact` bevat de footer "Hugo Coenraadspad 6", "2553 ER Den Haag", "Langskomen kan alleen op afspraak." (EN "Visits are by appointment only."), `tel:+31683351985`, `mailto:info@groospersoneelsdiensten.nl`, `https://wa.me/31683351985`, de tien beroepslinks en links naar privacyverklaring, cookieverklaring en klachtenregeling, en geen link naar `/algemene-voorwaarden`. | E-01-11, E-01-04 |
+| AC-01-19 | Op `/`, `/werkgevers/glazenwassers` en `/en/contact` bevat de footer "Hugo Coenraadspad 6", "2553 ER Den Haag", "Langskomen kan alleen op afspraak." (EN "Visits are by appointment only."), `tel:+31652549539`, precies één link `tel:+31683351985` met de tekst van `footer.planningPhone` (B-66), `mailto:info@groospersoneelsdiensten.nl`, `https://wa.me/31652549539`, de tien beroepslinks en links naar privacyverklaring, cookieverklaring en klachtenregeling, en geen link naar `/algemene-voorwaarden`. | E-01-11, E-01-04 |
 | AC-01-20 | Op `/werkgevers/glazenwassers` bevat `nav[aria-label="Kruimelpad"] ol` drie items: Home (`/`), Werkgevers (`/werkgevers`) en Glazenwassers met `aria-current="page"` zonder link. De pagina bevat één `BreadcrumbList` met drie `itemListElement` en absolute URL's op `https://www.groospersoneelsdiensten.nl`; op `/en/werkgevers/glazenwassers` beginnen die met `https://www.groospersoneelsdiensten.nl/en`. | E-01-12 |
 | AC-01-21 | Op `/werken-als/verhuizer` leidt een klik op EN naar `/en/werken-als/verhuizer` met `<html lang="en">` en cookie `NEXT_LOCALE=en`; een daarop volgend bezoek aan `/` wordt `/en`; een klik op NL leidt naar `/werken-als/verhuizer` met cookie `NEXT_LOCALE=nl`. Op `/vacatures?beroep=verhuizer` leidt EN naar `/en/vacatures?beroep=verhuizer`. Beide taallinks hebben een `hreflang`-attribuut. | E-01-10 |
 | AC-01-22 | Vanaf stap 5, met een seedvacature: `/en/vacatures/<slug>` heeft `<link rel="canonical" href="https://www.groospersoneelsdiensten.nl/vacatures/<slug>">`, geen `<link rel="alternate" hreflang>`, een zichtbaar element met `role="note"`, de vacaturetekst in een element met `lang="nl"` en geen JSON-LD met `"@type":"JobPosting"`. `/vacatures/<slug>` heeft geen hreflang-alternatieven. | E-01-14 |

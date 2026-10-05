@@ -1308,7 +1308,7 @@ mee. Bing Places later vanuit het Bedrijfsprofiel importeren.
 | Categorie | primair "Uitzendbureau" |
 | Adres | Hugo Coenraadspad 6, 2553 ER Den Haag invoeren voor verificatie, daarna verbergen (B-23) |
 | Servicegebied | Den Haag, tot de claim `workArea` bevestigd is (B-43); daarna ook Rijswijk, Delft, Westland, Zoetermeer, Leidschendam-Voorburg en Wassenaar |
-| Telefoon | 06 83 35 19 85 (B-21) |
+| Telefoon | 06 52 54 95 39 (B-66) |
 | Website | `https://www.groospersoneelsdiensten.nl/?utm_source=google&utm_medium=organic&utm_campaign=bedrijfsprofiel` |
 | Openingstijden | pas invullen als B-22 bevestigd is |
 | Diensten | de vijf beroepen in het meervoud uit spec 00 §4.2 |

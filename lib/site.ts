@@ -32,8 +32,9 @@ export const site = {
   areaServed: [{ "@type": "City", name: "Den Haag" }],
 } as const satisfies Site;
 
-/* Contact (NAW volgens B-23, e-mail B-02). Eén nummer voor de hele publieke
-   site, ook voor WhatsApp, en geen persoonsnamen (B-60). ------------------- */
+/* Contact (NAW volgens B-23, e-mail B-02). Eén hoofdnummer voor de hele publieke
+   site, ook voor WhatsApp, en geen persoonsnamen (B-60). Het planningsnummer
+   staat alleen in de footer (B-66). ---------------------------------------- */
 
 export type Phone = { display: string; e164: `+31${string}` };
 export type OpeningHours = {
@@ -42,7 +43,8 @@ export type OpeningHours = {
   closes: `${number}:${number}`;
 };
 
-const HOOFDNUMMER: Phone = { display: "06 83 35 19 85", e164: "+31683351985" };
+const HOOFDNUMMER: Phone = { display: "06 52 54 95 39", e164: "+31652549539" };
+const PLANNINGNUMMER: Phone = { display: "06 83 35 19 85", e164: "+31683351985" };
 const EMAIL = "info@groospersoneelsdiensten.nl"; // TODO bevestigen door Jimmy (B-02)
 
 export const contact = {
@@ -56,6 +58,9 @@ export const contact = {
   whatsapp: HOOFDNUMMER.display,
   /** Zonder vooringevulde tekst; tekst gaat via whatsappLink(text) uit messages. */
   whatsappHref: `https://wa.me/${HOOFDNUMMER.e164.slice(1)}`,
+  /** Planning, administratie en infra. Alleen in de footer (B-66). */
+  planningPhone: PLANNINGNUMMER.display,
+  planningPhoneHref: `tel:${PLANNINGNUMMER.e164}`,
   email: EMAIL,
   emailHref: `mailto:${EMAIL}`,
   street: "Hugo Coenraadspad 6",

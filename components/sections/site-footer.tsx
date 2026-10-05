@@ -104,6 +104,10 @@ export async function SiteFooter() {
                 <Phone aria-hidden />
                 {contact.phone}
               </a>
+              <a href={contact.planningPhoneHref} className={`${CONTACT_LINK} tabular-nums`}>
+                <Phone aria-hidden />
+                {t("planningPhone", { phone: contact.planningPhone })}
+              </a>
               <a
                 href={whatsappLink(tc("whatsapp.algemeen"))}
                 target="_blank"

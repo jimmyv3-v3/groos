@@ -7,5 +7,6 @@
     "groos": "Groos",
     "contact": "Contact"
   },
+  "planningPhone": "Planning: {phone}",
   "rights": "© {year} {name}"
 }

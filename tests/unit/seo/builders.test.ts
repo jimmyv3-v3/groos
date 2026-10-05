@@ -78,7 +78,7 @@ describe("employmentAgencyLd (AC-12-05)", () => {
     const address = ld.address as Record<string, unknown>;
     assert.equal(address.streetAddress, "Hugo Coenraadspad 6");
     assert.equal(address.postalCode, "2553 ER");
-    assert.equal(ld.telephone, "+31683351985");
+    assert.equal(ld.telephone, "+31652549539");
     assert.equal(ld.geo, undefined);
     assert.equal(ld.aggregateRating, undefined);
     if (!contact.openingHours) assert.equal(ld.openingHoursSpecification, undefined);
