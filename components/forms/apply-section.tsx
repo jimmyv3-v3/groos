@@ -11,6 +11,9 @@ type ApplySectionProps = { vacancy: VacancyDetail; locale: Locale };
  * Het sollicitatieblok op de vacaturepagina (spec 07 §4.4). Spec 06 plaatst
  * het alleen bij vacancy.state === "open"; dit is het enige blok met
  * section#solliciteren. Bellen en appen gaat naar ons team op het hoofdnummer (B-60).
+ * Het blok staat in de tekstkolom van de vacaturepagina, die zelf al in een
+ * container staat: geen eigen container, anders krijgt een telefoon twee keer
+ * de zijmarge en blijft er te weinig breedte voor de velden over.
  */
 export async function ApplySection({ vacancy, locale }: ApplySectionProps) {
   const [t, tc] = await Promise.all([
@@ -35,7 +38,7 @@ export async function ApplySection({ vacancy, locale }: ApplySectionProps) {
 
   return (
     <section id="solliciteren" aria-labelledby="solliciteren-titel" className="scroll-mt-24 py-12 sm:py-16">
-      <div className="container">
+      <div className="min-w-0">
         <div className="max-w-3xl">
           <h2 id="solliciteren-titel" className="text-h2">
             {t("title")} <span className="accent-text">{t("accent")}</span>

@@ -1,9 +1,14 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
  * Statustabbladen als links met tellers (spec 08 §4.3). Opmaak naar 21st.dev
- * 24959 (lijnstijl, teller als pil); geen tabs-rol, want het zijn links.
+ * 24959 (lijnstijl, teller als pil); geen tabs-rol, want het zijn links. Op
+ * een telefoon schuift de rij binnen zijn eigen kader; het actieve tabblad
+ * schuift daarbij in beeld, zodat je ziet welke lijst je bekijkt.
  */
 export function StatusTabs({
   tabs,
@@ -14,8 +19,24 @@ export function StatusTabs({
   activeKey: string;
   label: string;
 }) {
+  const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const nav = navRef.current;
+    const active = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!nav || !active || nav.scrollWidth <= nav.clientWidth) return;
+    const navBox = nav.getBoundingClientRect();
+    const box = active.getBoundingClientRect();
+    // Alleen de rij zelf verschuiven, nooit de pagina.
+    nav.scrollLeft += box.left - navBox.left - (navBox.width - box.width) / 2;
+  }, [activeKey]);
+
   return (
-    <nav aria-label={label} className="-mx-4 mb-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+    <nav
+      ref={navRef}
+      aria-label={label}
+      className="-mx-4 mb-4 overflow-x-auto overscroll-x-contain px-4 sm:mx-0 sm:px-0"
+    >
       <ul className="flex min-w-max gap-1 border-b border-border">
         {tabs.map((tab) => {
           const active = tab.key === activeKey;

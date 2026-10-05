@@ -5,6 +5,12 @@ import { ROUTES } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 
 const LINK = "underline underline-offset-4 hover:text-brand-strong";
+/**
+ * Tikvlak van minstens 44 px. In de footer staat de link onder lg op een eigen
+ * regel onder de zin, net als de andere footerlinks; in het blok op de
+ * Wtta-pagina staat hij al in een eigen alinea.
+ */
+const TAP = { footer: "max-lg:block max-lg:py-3", block: "inline-block py-2" } as const;
 
 /**
  * Wtta-status per fase (spec 09 §4.6, B-24). De enige plek op de site die een
@@ -25,13 +31,13 @@ export async function WttaStatus({ variant, className }: { variant: "footer" | "
   let link: React.ReactNode = null;
   if (registerUrl) {
     link = (
-      <a href={registerUrl} rel="noopener noreferrer" className={LINK}>
+      <a href={registerUrl} rel="noopener noreferrer" className={cn(LINK, TAP[variant])}>
         {t("registerLink")}
       </a>
     );
   } else if (variant === "footer") {
     link = (
-      <Link href={ROUTES.wtta} className={LINK}>
+      <Link href={ROUTES.wtta} className={cn(LINK, TAP[variant])}>
         {t("infoLink")}
       </Link>
     );

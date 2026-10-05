@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 const chipBase =
-  "inline-flex h-11 items-center gap-2 rounded-full border border-border-strong bg-background px-4 text-sm font-medium text-foreground transition-colors duration-150 ease-brand hover:border-brand hover:text-brand-strong md:h-10 [&_svg]:size-4 [&_svg]:shrink-0";
+  "inline-flex h-11 items-center gap-2 rounded-full border border-border-strong bg-background px-4 text-sm font-medium text-foreground transition-colors duration-150 ease-brand hover:border-brand hover:text-brand-strong lg:h-10 [&_svg]:size-4 [&_svg]:shrink-0";
 const chipSelected = "border-brand bg-brand-tint text-brand-strong";
 
 type ChipProps = {

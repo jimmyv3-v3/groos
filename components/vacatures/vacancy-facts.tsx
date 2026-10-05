@@ -34,7 +34,9 @@ const isNamed = (q: string): q is Qualification => (QUALIFICATIONS as readonly s
 
 /**
  * Kenmerkenblok (spec 06 §4.9): een <dl> in vaste volgorde; een rij zonder
- * waarde vervalt. Telefoon: één kolom, label links; vanaf sm twee kolommen.
+ * waarde vervalt. Telefoon: één kolom met het label boven de waarde; vanaf sm
+ * twee kolommen. Label links naast de waarde past niet op een telefoon: een
+ * lang label als "Vacaturenummer" liep dan over de waarde heen.
  */
 export async function VacancyFacts({ vacancy: v, locale, variant = "full", workplaceLanguage, headingId = "kenmerken" }: Props) {
   const language = workplaceLanguage === undefined ? v.workplaceLanguage : workplaceLanguage;
@@ -116,12 +118,12 @@ export async function VacancyFacts({ vacancy: v, locale, variant = "full", workp
       <Card variant="muted" className="p-5 md:p-6">
         <dl className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
           {rows.map((row) => (
-            <div key={row.key} className="grid grid-cols-[minmax(0,2fr)_minmax(0,3fr)] content-start gap-3 sm:grid-cols-1 sm:gap-1">
+            <div key={row.key} className="grid min-w-0 content-start gap-0.5 sm:gap-1">
               <dt className="flex items-start gap-2 text-sm text-muted-foreground">
                 <row.icon className="mt-0.5 size-4 shrink-0 text-brand" strokeWidth={2} aria-hidden="true" />
-                <span>{row.label}</span>
+                <span className="min-w-0">{row.label}</span>
               </dt>
-              <dd className="min-w-0 font-medium text-foreground sm:pl-6">{row.value}</dd>
+              <dd className="min-w-0 pl-6 font-medium text-foreground [overflow-wrap:anywhere]">{row.value}</dd>
             </div>
           ))}
         </dl>

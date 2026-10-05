@@ -60,7 +60,8 @@ export type OgCardProps = {
 
 const DEFAULT_FOOTER = new URL(site.url).hostname.replace(/^www\./, "");
 const TITLE_MAX = 90;
-const LOGO_HEIGHT = 48;
+// Kader inclusief de marge van het logo; het beeldmerk zelf is 48 px hoog.
+const LOGO_HEIGHT = 54;
 
 function fitTitle(title: string): string {
   return title.length > TITLE_MAX ? `${title.slice(0, TITLE_MAX - 1).trimEnd()}…` : title;

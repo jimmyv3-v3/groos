@@ -17,7 +17,7 @@ export function SourceList({
   className?: string;
 }) {
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} intro={intro} />
         <ul className="mt-8 grid max-w-3xl gap-2">

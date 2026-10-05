@@ -30,7 +30,7 @@ export async function AboutArea() {
                 <p>{t("placesIntro")}</p>
                 <ul role="list" className="flex flex-wrap gap-2">
                   {places.map((place) => (
-                    <li key={place} className="rounded-full bg-muted px-3 py-1 text-sm">
+                    <li key={place} className="rounded-full border border-border px-3 py-1 text-sm">
                       {place}
                     </li>
                   ))}
@@ -40,9 +40,9 @@ export async function AboutArea() {
           </div>
         </div>
         <Reveal className="mt-10 lg:mt-0">
-          <Card variant="tint" className="pattern-oo">
+          <Card>
             <div className="flex items-center gap-3">
-              <IconTile icon={MapPin} tone="brand" />
+              <IconTile icon={MapPin} />
               <CardTitle as="h3">{tCommon("contact.address")}</CardTitle>
             </div>
             <address className="text-base not-italic">

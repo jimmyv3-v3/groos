@@ -7,7 +7,7 @@ import { getNavCounts } from "../_data/nav";
 import { requireAdmin } from "../_lib/auth";
 import { S } from "../_strings";
 
-/** Shell van het beheer: aal2 en een actief profiel (spec 08 §4.4). */
+/** Shell van het beheer: een beheersessie en een actief profiel (spec 08 §4.4, B-62). */
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const ctx = await requireAdmin();
   const counts = await getNavCounts(ctx);
@@ -21,11 +21,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         {S.app.skipLink}
       </a>
       <TopBar withBack />
-      <div className="lg:grid lg:grid-cols-[16rem_minmax(0,1fr)]">
+      {/* 19rem: het langste item, "Personeelsaanvragen" met teller, past dan op één regel. */}
+      <div className="lg:grid lg:grid-cols-[19rem_minmax(0,1fr)]">
         <aside className="sticky top-14 hidden h-[calc(100dvh-3.5rem)] border-r border-border bg-ice lg:block">
           <SidebarNav counts={counts} profile={{ displayName: ctx.profile.displayName, role: ctx.profile.role }} />
         </aside>
-        <main id="inhoud" tabIndex={-1} className="mx-auto w-full max-w-[72rem] px-4 pt-6 pb-28 focus:outline-none lg:px-8 lg:pt-8 lg:pb-10">
+        <main id="inhoud" tabIndex={-1} className="mx-auto w-full max-w-[72rem] pt-6 pr-[max(1rem,env(safe-area-inset-right))] pb-[calc(7rem+env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))] focus:outline-none lg:px-8 lg:pt-8 lg:pb-10">
           {children}
         </main>
       </div>

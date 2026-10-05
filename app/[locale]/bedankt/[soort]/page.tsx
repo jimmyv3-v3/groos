@@ -95,7 +95,7 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
             </div>
           )}
 
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             {jobseeker && (
               <>
                 <CtaButton href={ROUTES.vacatures}>{tc("cta.viewJobs")}</CtaButton>
@@ -121,7 +121,7 @@ export default async function Page({ params }: PageProps<"/[locale]/bedankt/[soo
                   <MessageCircle aria-hidden="true" />
                   {tc("cta.whatsapp")}
                 </CtaButton>
-                <CtaButton variant="link" href={ROUTES.werkgevers}>
+                <CtaButton variant="link" href={ROUTES.werkgevers} className="max-sm:self-start">
                   {t("staffRequest.employersLink")}
                 </CtaButton>
               </>

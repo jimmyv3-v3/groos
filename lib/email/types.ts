@@ -11,6 +11,10 @@ export const EMAIL_TEMPLATE_NAMES = [
   "staff-request-notification",
   "contact-confirmation",
   "contact-notification",
+  "application-invitation",
+  "application-rejection",
+  "application-placement",
+  "delivery-failure-notification",
 ] as const;
 export type EmailTemplateName = (typeof EMAIL_TEMPLATE_NAMES)[number];
 

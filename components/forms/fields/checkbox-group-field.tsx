@@ -36,7 +36,7 @@ export function CheckboxGroupField({
     <FieldSet
       aria-invalid={error ? true : undefined}
       aria-describedby={described}
-      className="gap-3"
+      className="min-w-0 gap-3"
       onChange={(e) => {
         const form = (e.target as unknown as HTMLInputElement).form;
         if (!form || (e.target as unknown as HTMLInputElement).name !== name) return;

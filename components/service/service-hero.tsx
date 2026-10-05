@@ -38,12 +38,17 @@ export function ServiceHero({
             <h1 className="text-h1">{title}</h1>
             <p className="mt-5 max-w-[60ch] text-lead text-muted-foreground">{lead}</p>
 
+            {/* Telefoon: één blok met een regel per feit, want een lange waarde
+                loopt in een ronde chip over drie regels. Vanaf sm losse chips. */}
             {facts && facts.length > 0 && (
-              <ul aria-label={factsLabel} className="mt-7 flex flex-wrap gap-2">
+              <ul
+                aria-label={factsLabel}
+                className="mt-6 grid divide-y divide-border rounded-xl border border-border bg-ice sm:mt-7 sm:flex sm:flex-wrap sm:gap-2 sm:divide-y-0 sm:rounded-none sm:border-0 sm:bg-transparent"
+              >
                 {facts.map((fact) => (
                   <li
                     key={fact.label}
-                    className="inline-flex flex-wrap items-baseline gap-x-1.5 rounded-full border border-border bg-ice px-4 py-2 text-sm"
+                    className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 px-4 py-2.5 text-sm sm:inline-flex sm:justify-start sm:gap-x-1.5 sm:rounded-full sm:border sm:border-border sm:bg-ice sm:py-2"
                   >
                     <span className="text-muted-foreground">{fact.label}</span>{" "}
                     <strong className="font-semibold text-foreground tabular-nums">{fact.value}</strong>
@@ -52,7 +57,7 @@ export function ServiceHero({
               </ul>
             )}
 
-            <CtaLinks ctas={ctas} className="mt-8" />
+            <CtaLinks ctas={ctas} className="mt-6 sm:mt-8" />
             {note && <p className="mt-4 text-sm text-muted-foreground">{note}</p>}
           </div>
 

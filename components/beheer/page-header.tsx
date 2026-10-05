@@ -15,7 +15,7 @@ export function PageHeader({
   return (
     <div className="flex flex-col gap-4 pb-6 lg:flex-row lg:items-end lg:justify-between">
       <div className="grid min-w-0 gap-2">
-        <h1 className="text-[1.75rem] leading-tight break-words lg:text-[2.125rem]">{title}</h1>
+        <h1 className="text-[1.75rem] leading-tight wrap-anywhere hyphens-auto lg:text-[2.125rem]">{title}</h1>
         {meta && <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted-foreground">{meta}</div>}
         {description && <p className="text-base text-muted-foreground">{description}</p>}
       </div>

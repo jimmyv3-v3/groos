@@ -28,7 +28,7 @@ function RadioGroup({
       data-slot="radio-group"
       aria-invalid={error ? true : undefined}
       aria-describedby={error && errorId ? errorId : undefined}
-      className={cn("grid gap-3", className)}
+      className={cn("grid min-w-0 gap-3", className)}
     >
       <FieldLegend variant="label" className="mb-1">
         {legend}
@@ -99,7 +99,7 @@ function RadioCard({
         aria-describedby={describedBy}
         className="control-radio mt-0.5 focus-visible:outline-hidden"
       />
-      <span className="grid gap-0.5">
+      <span className="flex min-w-0 flex-col gap-0.5">
         <span className="text-base font-medium text-foreground">{label}</span>
         {description && <span className="text-sm text-muted-foreground">{description}</span>}
       </span>

@@ -3,6 +3,7 @@
 import { Toast } from "@base-ui-components/react/toast";
 import { CircleAlert, CircleCheck, X } from "lucide-react";
 import { ctaButtonVariants } from "@/components/ui/cta-button";
+import { cn } from "@/lib/utils";
 
 /** Meldingen in het beheer (base-ui Toast). De publieke site gebruikt Alert. */
 const ToastProvider = Toast.Provider;
@@ -35,7 +36,7 @@ function ToastList({ closeLabel }: { closeLabel: string }) {
       ) : (
         <CircleCheck className="mt-0.5 size-5 shrink-0 text-success" aria-hidden="true" />
       )}
-      <div className="grid flex-1 gap-0.5">
+      <div className="grid min-w-0 flex-1 grid-cols-1 gap-0.5">
         <Toast.Title className="text-base font-semibold" />
         <Toast.Description className="text-sm text-muted-foreground" />
       </div>
@@ -50,12 +51,15 @@ function ToastList({ closeLabel }: { closeLabel: string }) {
   ));
 }
 
-function Toaster({ closeLabel }: { closeLabel: string }) {
+function Toaster({ closeLabel, className }: { closeLabel: string; className?: string }) {
   return (
     <Toast.Portal>
       <Toast.Viewport
         aria-live="polite"
-        className="fixed inset-x-4 bottom-4 z-[60] mx-auto grid max-w-sm gap-3 md:inset-x-auto md:right-6 md:bottom-6"
+        className={cn(
+          "fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-[60] mx-auto grid max-w-sm gap-3 md:inset-x-auto md:right-6 md:bottom-6",
+          className,
+        )}
       >
         <ToastList closeLabel={closeLabel} />
       </Toast.Viewport>

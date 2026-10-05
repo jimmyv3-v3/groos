@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { Mail, MessageCircle, Phone, type LucideIcon } from "lucide-react";
 import { logContactAttempt } from "@/app/beheer/_actions/activities";
 import { formatPhoneNl, mailtoHref, telHref, whatsappHref } from "@/app/beheer/_lib/format";
@@ -9,6 +10,35 @@ import { ctaButtonVariants } from "@/components/ui/cta-button";
 import { cn } from "@/lib/utils";
 
 type Channel = "call" | "whatsapp" | "email";
+
+/**
+ * Telefoonnummer of e-mailadres als tel:- of mailto:-link in een gegevenslijst,
+ * zodat je op een telefoon met één tik belt of mailt. Legt de contactpoging
+ * vast, net als de knoppen van ContactActions.
+ */
+export function ContactLink({
+  entityType,
+  entityId,
+  channel,
+  href,
+  children,
+}: {
+  entityType: Exclude<EntityType, "vacancy">;
+  entityId: string;
+  channel: "call" | "email";
+  href: string;
+  children: ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      onClick={() => void logContactAttempt({ entityType, entityId, channel }).catch(() => undefined)}
+      className="link -my-2 inline-flex min-h-11 max-w-full items-center wrap-anywhere"
+    >
+      {children}
+    </a>
+  );
+}
 
 /**
  * Bellen, WhatsApp en e-mailen als gewone links (spec 08 §4.3). onClick legt

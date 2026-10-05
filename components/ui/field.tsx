@@ -27,7 +27,7 @@ function Field({
 
 function FieldSet({ className, ...props }: React.ComponentProps<"fieldset">) {
   return (
-    <fieldset data-slot="field-set" className={cn("grid gap-4", className)} {...props} />
+    <fieldset data-slot="field-set" className={cn("grid min-w-0 gap-4", className)} {...props} />
   );
 }
 

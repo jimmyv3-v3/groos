@@ -10,6 +10,9 @@
    reageren shadcn-klassen met dark: niet op de systeeminstelling. */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* short: een laag scherm, in de praktijk een telefoon in liggende stand. */
+@custom-variant short (@media (max-height: 30rem));
+
 :root {
   color-scheme: light;
 
@@ -140,7 +143,10 @@
   --text-h2--line-height: 1.15;
   --text-h2--letter-spacing: -0.015em;
   --text-h2--font-weight: 600;
-  --text-h1: clamp(2rem, 1.5rem + 2.4vw, 3.25rem);
+  /* Onder 356 px loopt de h1 sneller terug (30 px op 320 px), zodat
+     "Personeelsdiensten" op de smalste telefoons op één regel past. Vanaf
+     356 px geldt dezelfde lijn als voorheen. */
+  --text-h1: clamp(1.75rem, min(0.5rem + 6.9vw, 1.5rem + 2.4vw), 3.25rem);
   --text-h1--line-height: 1.08;
   --text-h1--letter-spacing: -0.02em;
   --text-h1--font-weight: 600;
@@ -178,6 +184,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Vangnet: een woord dat nergens past, breekt in plaats van de pagina
+       breder te maken. Verandert niets zolang het woord op de regel past. */
+    overflow-wrap: break-word;
   }
   h1,
   h2,
@@ -204,6 +213,31 @@
   }
   p {
     text-wrap: pretty;
+  }
+  /* E-mailadressen hebben geen breekpunt en duwen een smalle kolom anders open. */
+  a[href^="mailto:"] {
+    overflow-wrap: anywhere;
+  }
+  /* Telefoon: lange samenstellingen in koppen ("Schoonmaakpersoneel",
+     "glazenwassersbedrijf") passen op 320 tot 390 px niet op één regel. Daar
+     afbreken met een streepje (lang="nl" of "en" staat op <html>), alleen bij
+     woorden vanaf 14 letters en met minstens 7 letters aan elke kant. Zonder
+     woordenboek breekt het woord zonder streepje. Vanaf 640 px verandert er
+     niets. */
+  @media (width < 40rem) {
+    h1,
+    h2,
+    h3,
+    h4,
+    summary,
+    legend {
+      overflow-wrap: anywhere;
+      -webkit-hyphens: auto;
+      hyphens: auto;
+      hyphenate-limit-chars: 14 7 7;
+      -webkit-hyphenate-limit-before: 7;
+      -webkit-hyphenate-limit-after: 7;
+    }
   }
   :focus-visible {
     outline: 2px solid var(--ring);
@@ -250,26 +284,79 @@
     color: #ffffff;
   }
 
-  /* Patroon afgeleid van het beeldmerk (twee o's). Alleen op .surface-brand
-     of op een blauwtint-vlak, nooit achter lopende tekst. */
-  .pattern-oo {
+  /* Decoratie achter inhoud: altijd flauw, altijd uitlopend, nooit een gekleurd
+     vlak. De lijnkleur is het border-token, dus binnen .surface-brand wordt
+     alles vanzelf wit op lage dekking.
+
+     ColumnLines (components/ui/column-lines.tsx): een veld van dunne
+     verticale kolomlijnen, gecentreerd, met een radiale uitloop. De wrapper
+     isoleert, zodat het veld achter de inhoud maar boven de eigen achtergrond
+     ligt. --cl-at verplaatst het middelpunt van de uitloop. */
+  .column-lines {
     position: relative;
     isolation: isolate;
   }
-  .pattern-oo::before {
+  .column-lines-field {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: inherit;
+    -webkit-mask-image: radial-gradient(ellipse at var(--cl-at, 50% 50%), #000 var(--cl-fade-start, 30%), transparent var(--cl-fade-end, 70%));
+    mask-image: radial-gradient(ellipse at var(--cl-at, 50% 50%), #000 var(--cl-fade-start, 30%), transparent var(--cl-fade-end, 70%));
+  }
+  .column-lines-field::before {
     content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 50%;
+    width: calc(var(--cl-width, 80px) * var(--cl-count, 14) + 1px);
+    translate: -50% 0;
+    background-image:
+      repeating-linear-gradient(to right, var(--border) 0 1px, transparent 1px var(--cl-width, 80px)),
+      repeating-linear-gradient(
+        to right,
+        color-mix(in oklab, var(--border) 34%, transparent) 0,
+        transparent calc(var(--cl-width, 80px) * 0.8),
+        transparent var(--cl-width, 80px)
+      );
+  }
+
+  /* GridPattern (components/ui/grid-pattern.tsx): fijn ruitjesraster of
+     stippenraster met een radiale uitloop. De ouder is relative en isolate. */
+  .deco {
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
     border-radius: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cg fill='none' stroke='%232741c9' stroke-opacity='0.08' stroke-width='2.5'%3E%3Ccircle cx='21.5' cy='28' r='6.5'/%3E%3Ccircle cx='34.5' cy='28' r='6.5'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse 60% 80% at 100% 0%, #000 20%, transparent 75%);
-    mask-image: radial-gradient(ellipse 60% 80% at 100% 0%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse var(--deco-shape, 70% 80%) at var(--deco-at, 50% 0%), #000 8%, transparent 72%);
+    mask-image: radial-gradient(ellipse var(--deco-shape, 70% 80%) at var(--deco-at, 50% 0%), #000 8%, transparent 72%);
   }
-  .surface-brand.pattern-oo::before {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='2.5'%3E%3Ccircle cx='21.5' cy='28' r='6.5'/%3E%3Ccircle cx='34.5' cy='28' r='6.5'/%3E%3C/g%3E%3C/svg%3E");
+  .deco-grid {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: var(--deco-size, 40px) var(--deco-size, 40px);
+    background-position: center top;
+  }
+  .deco-dots {
+    background-image: radial-gradient(circle, var(--border-strong) 1px, transparent 1.5px);
+    background-size: var(--deco-size, 20px) var(--deco-size, 20px);
+    background-position: center top;
+  }
+
+  /* Zachte gloed in de blauwtint rechts: twee grote radiale verlopen die
+     binnen het vlak aan alle kanten tot niets uitlopen, dus zonder rand of band. */
+  .deco-glow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(ellipse 46% 50% at 90% 46%, var(--brand-tint), transparent 72%),
+      radial-gradient(ellipse 26% 32% at 70% 34%, color-mix(in oklab, var(--brand-subtle) 14%, transparent), transparent 70%);
   }
 
   /* Lange tekst: juridische pagina's en vacatureteksten. */
@@ -374,9 +461,11 @@
   }
 }
 
+/* viewport-fit is "cover": in liggende stand blijft de inhoud naast de
+   inkeping en de afgeronde hoeken (env() is elders 0). */
 @utility container {
   margin-inline: auto;
-  padding-inline: 1.25rem;
+  padding-inline: max(1.25rem, env(safe-area-inset-left), env(safe-area-inset-right));
   max-width: 80rem;
   @media (width >= 64rem) {
     padding-inline: 2rem;
@@ -386,7 +475,7 @@
 @utility container-narrow {
   width: 100%;
   margin-inline: auto;
-  padding-inline: 1.25rem;
+  padding-inline: max(1.25rem, env(safe-area-inset-left), env(safe-area-inset-right));
   max-width: 48rem;
 }
 
@@ -394,8 +483,26 @@
   max-width: 66ch;
 }
 
+/* Eén witte pagina: secties scheiden met ruimte, haarlijnen en kaarten. */
 @utility section {
-  padding-block: clamp(4rem, 3rem + 4vw, 7rem);
+  padding-block: clamp(3.25rem, 2.5rem + 3vw, 5rem);
+}
+
+/* Haarlijn op containerbreedte boven een sectie: de scheiding tussen secties
+   op de beroeps- en dienstpagina's, in plaats van een achtergrondband. */
+@utility section-rule {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline: max(1.25rem, env(safe-area-inset-left), env(safe-area-inset-right));
+    height: 1px;
+    background-color: var(--border);
+    @media (width >= 64rem) {
+      inset-inline: max(2rem, calc((100% - 80rem) / 2 + 2rem));
+    }
+  }
 }
 
 @utility section-tight {
@@ -452,5 +559,37 @@
     .reveal-group > :nth-child(4) { --reveal-index: 3; }
     .reveal-group > :nth-child(5) { --reveal-index: 4; }
     .reveal-group > :nth-child(n + 6) { --reveal-index: 5; }
+  }
+}
+
+/* Visual op de homepage (StaffingFlow): stippenraster, lopende streepjes over
+   de lijnen en een puls om het beeldmerk. Bij reduced motion blijven alleen
+   de stilstaande lijnen over. */
+.flow-canvas {
+  background-image: radial-gradient(circle, var(--border-strong) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.flow-dash,
+.flow-pulse {
+  display: none;
+}
+@keyframes flow-dash {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes flow-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0; transform: scale(1.18); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .flow-dash {
+    display: inline;
+    stroke-dasharray: 12 88;
+    opacity: 0.75;
+    animation: flow-dash 4s linear infinite;
+  }
+  .flow-pulse {
+    display: block;
+    animation: flow-pulse 3s ease-in-out infinite;
   }
 }

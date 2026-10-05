@@ -44,9 +44,12 @@ export function VacancySearchForm({ action, defaultQuery, hidden, labels }: Prop
             defaultValue={defaultQuery}
             maxLength={80}
             autoComplete="off"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
             enterKeyHint="search"
             placeholder={labels.placeholder}
-            className="pl-11"
+            className="pl-11 text-ellipsis"
           />
         </div>
         <CtaButton type="submit" className="sm:w-auto">

@@ -46,7 +46,7 @@ export async function SiteFooter() {
           {/* Merkblok */}
           <div className="flex flex-col gap-5 lg:col-span-4">
             <Link href="/" aria-label={th("homeAria")} className="self-start rounded-sm">
-              <Wordmark idSuffix="footer" showDescriptor className="h-11" />
+              <Wordmark idSuffix="footer" showDescriptor />
             </Link>
             <p className="max-w-xs text-sm text-muted-foreground">{t("description")}</p>
             {socials.length > 0 && (

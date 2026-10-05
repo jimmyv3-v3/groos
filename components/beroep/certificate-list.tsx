@@ -21,7 +21,7 @@ export function CertificateList({
   className?: string;
 }) {
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
         <RevealGroup className="mt-10 grid gap-4 md:mt-12 md:grid-cols-2 lg:gap-5">

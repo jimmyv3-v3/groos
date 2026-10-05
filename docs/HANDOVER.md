@@ -163,8 +163,9 @@ De backlog per module staat in BOUWINSTRUCTIE §4.
   wijzig niets in `context/` zonder overleg.
 - **Toegang.** Zonder Jimmy's GitHub- en Vercel-toegang loopt fase E vast;
   vraag dit vroeg.
-- **E-maildomein.** `groospersoneeldiensten.nl` (zonder "s") in de briefing
-  wijkt af van de bedrijfsnaam. Verifiëren vóór DNS, e-mail en Resend.
+- **E-maildomein.** Het domein is `groospersoneelsdiensten.nl`, met "s" na
+  "personeel" (besluit B-02). In de briefing stond het zonder die "s"; gebruik
+  die spelling nergens voor DNS, e-mail of Resend.
 - **Compliance.** Uitzendbureaus vallen onder registratie- of toelatingsregels;
   claims over cao en keurmerk alleen als ze kloppen (context/09).
 - **Privacy.** Cv's zijn persoonsgegevens: EU-opslag, bewaartermijn, grondslag,

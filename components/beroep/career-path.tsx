@@ -27,7 +27,7 @@ export function CareerPath({
   className?: string;
 }) {
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
         <Reveal>

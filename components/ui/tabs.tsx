@@ -43,7 +43,7 @@ function TabsTrigger({ className, ...props }: React.ComponentProps<typeof TabsPr
         "cursor-pointer font-medium whitespace-nowrap transition-colors duration-150 ease-brand",
         variant === "underline"
           ? "relative -mb-px h-12 border-b-2 border-transparent text-base text-muted-foreground hover:text-foreground data-[active]:border-brand data-[active]:text-foreground"
-          : "h-10 rounded-md px-4 text-sm text-muted-foreground hover:text-foreground data-[active]:bg-background data-[active]:text-foreground data-[active]:shadow-xs",
+          : "h-11 rounded-md px-4 text-sm lg:h-10 text-muted-foreground hover:text-foreground data-[active]:bg-background data-[active]:text-foreground data-[active]:shadow-xs",
         className,
       )}
       {...props}

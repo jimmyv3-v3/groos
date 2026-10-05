@@ -21,6 +21,12 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<"li">) {
   return <li data-slot="breadcrumb-item" className={cn("inline-flex items-center gap-1.5", className)} {...props} />;
 }
 
+/**
+ * Onder lg is het raakvlak van een kruimel 44 px hoog en iets breder dan de
+ * tekst. De negatieve marge (de helft van 44 px min de regelhoogte van
+ * text-sm) houdt de regel even hoog als de tekst: het vlak steekt boven en
+ * onder uit, de opmaak verschuift niet.
+ */
 function BreadcrumbLink({
   href,
   className,
@@ -30,7 +36,10 @@ function BreadcrumbLink({
     <Link
       href={href}
       data-slot="breadcrumb-link"
-      className={cn("underline-offset-4 transition-colors hover:text-brand-strong hover:underline", className)}
+      className={cn(
+        "-mx-1.5 inline-flex items-center px-1.5 underline-offset-4 transition-colors hover:text-brand-strong hover:underline max-lg:-my-[0.671875rem] max-lg:min-h-11",
+        className,
+      )}
       {...props}
     />
   );

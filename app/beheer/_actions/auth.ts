@@ -13,7 +13,7 @@ import { S } from "../_strings";
 
 /**
  * Auth-acties van spec 08 §5.3 tabel 1. Zonder withAdmin: ze werken juist
- * voordat er een aal2-sessie is.
+ * voordat er een beheersessie is.
  */
 
 const str = (fd: FormData, key: string) => {
@@ -63,7 +63,11 @@ export async function signIn(_prev: ActionResult | null, formData: FormData): Pr
   const verified = (factors?.totp ?? []).some((f) => f.status === "verified");
   const next = safeNext(parsed.data.volgende);
   if (verified) redirect(`${beheerPaths.mfa}?volgende=${encodeURIComponent(next)}`);
-  redirect(beheerPaths.mfaEnroll);
+
+  // Zonder gekoppelde app is het wachtwoord de hele aanmelding (B-62).
+  await supabase.from("admin_profiles").update({ last_seen_at: new Date().toISOString() }).eq("id", data.user.id);
+  await writeAdminAudit({ actorId: data.user.id, action: "admin.signed_in" });
+  redirect(next);
 }
 
 export async function verifyMfa(_prev: ActionResult | null, formData: FormData): Promise<ActionResult> {
@@ -79,7 +83,7 @@ export async function verifyMfa(_prev: ActionResult | null, formData: FormData):
   const { data: factors, error: listError } = await supabase.auth.mfa.listFactors();
   if (listError) return mapDbError(listError);
   const factor = (factors?.totp ?? []).find((f) => f.status === "verified");
-  if (!factor) redirect(beheerPaths.mfaEnroll);
+  if (!factor) redirect(safeNext(str(formData, "volgende")));
 
   const { error } = await supabase.auth.mfa.challengeAndVerify({ factorId: factor.id, code: parsed.data.code });
   if (error) {
@@ -181,10 +185,6 @@ export async function setPassword(_prev: ActionResult | null, formData: FormData
       : mapped;
   }
   await writeAdminAudit({ actorId: userId, action: "admin.password_changed" });
-
-  const { data: factors } = await supabase.auth.mfa.listFactors();
-  const verified = (factors?.totp ?? []).some((f) => f.status === "verified");
-  if (!verified) redirect(beheerPaths.mfaEnroll);
   redirect(`${beheerPaths.home}?melding=wachtwoord`);
 }
 

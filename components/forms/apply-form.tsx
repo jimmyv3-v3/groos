@@ -68,7 +68,7 @@ export function ApplyForm({ vacancy, locale }: ApplyFormProps) {
       onFocus={onFirstInteraction}
       noValidate
       aria-labelledby="solliciteren-titel"
-      className="relative grid max-w-[36rem] gap-6"
+      className="relative grid max-w-[36rem] grid-cols-[minmax(0,1fr)] gap-6"
     >
       <ErrorSummary count={errorCount} text={t("common.errorSummary", { count: errorCount })} />
       <JobseekerPersonalFields {...common} />

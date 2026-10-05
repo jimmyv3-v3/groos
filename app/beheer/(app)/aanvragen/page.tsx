@@ -124,7 +124,7 @@ export default async function StaffRequestsPage({ searchParams }: PageProps<"/be
         card={(r) => (
           <div className="grid gap-2">
             <div className="flex items-start justify-between gap-3">
-              <h3 className="text-[1.0625rem] leading-snug">
+              <h3 className="min-w-0 text-[1.0625rem] leading-snug wrap-anywhere">
                 <Link href={beheerPaths.request(r.reference)} className={rowLinkClass(true)}>
                   {r.companyName}
                 </Link>

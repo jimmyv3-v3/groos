@@ -12,11 +12,11 @@ export async function HomePeople({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: "home.people" });
 
   return (
-    <section id="contactpersonen" aria-labelledby="home-mensen-titel" className="bg-ice">
+    <section id="contactpersonen" aria-labelledby="home-mensen-titel">
       <div className="container section">
         <SectionHeading headingId="home-mensen-titel" title={t("title")} accent={t("accent")} intro={t("intro")} />
         <Reveal>
-          <div className="mt-10 lg:max-w-4xl">
+          <div className="mt-10">
             <TeamContactCard locale={locale} />
           </div>
         </Reveal>

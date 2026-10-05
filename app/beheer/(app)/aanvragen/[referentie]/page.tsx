@@ -6,7 +6,7 @@ import { STAFF_REQUEST_STATUSES } from "@/lib/data/options";
 import { formatDate } from "@/lib/format";
 import { ActivityFeed } from "@/components/beheer/activity-feed";
 import { AssignForm } from "@/components/beheer/assign-form";
-import { ContactActions } from "@/components/beheer/contact-actions";
+import { ContactActions, ContactLink } from "@/components/beheer/contact-actions";
 import { DefinitionList } from "@/components/beheer/definition-list";
 import { DetailActionBar } from "@/components/beheer/detail-action-bar";
 import { NoteForm } from "@/components/beheer/note-form";
@@ -18,7 +18,7 @@ import { ctaButtonVariants } from "@/components/ui/cta-button";
 import { getStaffRequest } from "../../../_data/staff-requests";
 import { listAdminOptions, listOccupationOptions } from "../../../_data/vacancies";
 import { requireAdmin } from "../../../_lib/auth";
-import { formatDateNl, formatPhoneNl } from "../../../_lib/format";
+import { formatDateNl, formatPhoneNl, mailtoHref, telHref } from "../../../_lib/format";
 import { beheerPaths } from "../../../_lib/paths";
 import { STAFF_REQUEST_REFERENCE } from "../../../_lib/validation/application";
 import { S, fill } from "../../../_strings";
@@ -80,8 +80,22 @@ export default async function StaffRequestDetailPage({ params }: PageProps<"/beh
             <DefinitionList
               items={[
                 { term: S.requests.columns.contact, value: r.contactName },
-                { term: S.applications.detail.phone, value: formatPhoneNl(r.phoneE164) },
-                { term: S.applications.detail.email, value: r.email },
+                {
+                  term: S.applications.detail.phone,
+                  value: (
+                    <ContactLink entityType="staff_request" entityId={r.id} channel="call" href={telHref(r.phoneE164)}>
+                      {formatPhoneNl(r.phoneE164)}
+                    </ContactLink>
+                  ),
+                },
+                {
+                  term: S.applications.detail.email,
+                  value: (
+                    <ContactLink entityType="staff_request" entityId={r.id} channel="email" href={mailtoHref(r.email, mailSubject)}>
+                      {r.email}
+                    </ContactLink>
+                  ),
+                },
               ]}
             />
             <ContactActions

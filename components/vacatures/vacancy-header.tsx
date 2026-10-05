@@ -34,9 +34,12 @@ export async function VacancyHeader({ vacancy, locale, closed = false }: Props) 
       <h1 id="vacature-titel" lang={locale === "en" ? "nl" : undefined}>
         {t("heading", { title: vacancy.title, city: f.city(vacancy.city) })}
       </h1>
-      <p className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted-foreground">
+      <p className="flex flex-col gap-x-3 gap-y-1 text-sm text-muted-foreground sm:flex-row sm:flex-wrap">
         <span className="tabular-nums">{t("number", { number: vacancy.number })}</span>
-        <span aria-hidden="true">·</span>
+        {/* Het scheidingsteken alleen als beide delen op één regel staan. */}
+        <span aria-hidden="true" className="max-sm:hidden">
+          ·
+        </span>
         <span>{t("postedOn", { date: f.date(vacancy.publishedAt) })}</span>
       </p>
     </header>

@@ -82,7 +82,7 @@ Fase 2 of later: fotografie (vult de fotoslots), Pantone- en folieproef voor dru
 | Achtergrond | Wit | `#FFFFFF` | standaardachtergrond |
 | Tekst en koppen | Nacht (inkt) | `#0B0F2E` | alle tekst, koppen, woordmerk |
 | Hulptekst | Leigrijs | `#4B5170` | intro's, meta, labels; haalt 7,75:1 dus ook voor lopende tekst |
-| Merk | Groos-kobalt | `#2741C9` | primaire knop, links, iconen, focusring, de sikkel en de twee o's in het logo |
+| Merk | Groos-kobalt | `#2741C9` | primaire knop, links, iconen, focusring en de sikkel in het logo |
 | Merk sterk | Diep kobalt | `#1C2F9E` | hover, nadruk, tekst op blauwtint |
 | Merk subtiel | Lichtkobalt | `#7C8AE0` | alleen decoratief of groot (3,20:1), alleen op wit |
 | Blauwtint | IJsblauw | `#EEF1FD` | rustige blauwe vlakken, icoontegels, selectie |
@@ -147,7 +147,7 @@ Tokens in het kort (naam van de utility tussen haakjes):
 | tekst | `text-xs` 13 px, `text-sm` 15 px, `text-base` 17 px, `text-lead`, `text-h3`, `text-h2`, `text-h1`, `text-hero` (zie §4.4) |
 | schaduw | `shadow-xs`, `shadow-sm`, `shadow-md`, `shadow-lg`, getint met nacht |
 | beweging | `ease-brand` (`cubic-bezier(0.22, 1, 0.36, 1)`) |
-| hulpklassen | `container`, `container-narrow`, `measure`, `section`, `section-tight`, `link`, `.surface-brand`, `.pattern-oo`, `.prose-groos`, `.accent-text`, `.control-check`, `.control-radio`, `.accordion-item`, `.reveal`, `.reveal-group` |
+| hulpklassen | `container`, `container-narrow`, `measure`, `section`, `section-tight`, `link`, `.surface-brand`, `.column-lines`, `.deco`, `.deco-grid`, `.deco-dots`, `.deco-glow`, `section-rule`, `.prose-groos`, `.accent-text`, `.control-check`, `.control-radio`, `.accordion-item`, `.reveal`, `.reveal-group` |
 
 Volledige inhoud van `app/globals.css` (gecompileerd en getest met Tailwind 4.3.3 en `tw-animate-css` 1.4.0 op 2 oktober 2026):
 
@@ -407,26 +407,79 @@ Volledige inhoud van `app/globals.css` (gecompileerd en getest met Tailwind 4.3.
     color: #ffffff;
   }
 
-  /* Patroon afgeleid van het beeldmerk (twee o's). Alleen op .surface-brand
-     of op een blauwtint-vlak, nooit achter lopende tekst. */
-  .pattern-oo {
+  /* Decoratie achter inhoud: altijd flauw, altijd uitlopend, nooit een gekleurd
+     vlak. De lijnkleur is het border-token, dus binnen .surface-brand wordt
+     alles vanzelf wit op lage dekking.
+
+     ColumnLines (components/ui/column-lines.tsx): een veld van dunne
+     verticale kolomlijnen, gecentreerd, met een radiale uitloop. De wrapper
+     isoleert, zodat het veld achter de inhoud maar boven de eigen achtergrond
+     ligt. --cl-at verplaatst het middelpunt van de uitloop. */
+  .column-lines {
     position: relative;
     isolation: isolate;
   }
-  .pattern-oo::before {
+  .column-lines-field {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    border-radius: inherit;
+    -webkit-mask-image: radial-gradient(ellipse at var(--cl-at, 50% 50%), #000 var(--cl-fade-start, 30%), transparent var(--cl-fade-end, 70%));
+    mask-image: radial-gradient(ellipse at var(--cl-at, 50% 50%), #000 var(--cl-fade-start, 30%), transparent var(--cl-fade-end, 70%));
+  }
+  .column-lines-field::before {
     content: "";
+    position: absolute;
+    inset-block: 0;
+    left: 50%;
+    width: calc(var(--cl-width, 80px) * var(--cl-count, 14) + 1px);
+    translate: -50% 0;
+    background-image:
+      repeating-linear-gradient(to right, var(--border) 0 1px, transparent 1px var(--cl-width, 80px)),
+      repeating-linear-gradient(
+        to right,
+        color-mix(in oklab, var(--border) 34%, transparent) 0,
+        transparent calc(var(--cl-width, 80px) * 0.8),
+        transparent var(--cl-width, 80px)
+      );
+  }
+
+  /* GridPattern (components/ui/grid-pattern.tsx): fijn ruitjesraster of
+     stippenraster met een radiale uitloop. De ouder is relative en isolate. */
+  .deco {
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
     border-radius: inherit;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cg fill='none' stroke='%232741c9' stroke-opacity='0.08' stroke-width='2.5'%3E%3Ccircle cx='21.5' cy='28' r='6.5'/%3E%3Ccircle cx='34.5' cy='28' r='6.5'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse 60% 80% at 100% 0%, #000 20%, transparent 75%);
-    mask-image: radial-gradient(ellipse 60% 80% at 100% 0%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse var(--deco-shape, 70% 80%) at var(--deco-at, 50% 0%), #000 8%, transparent 72%);
+    mask-image: radial-gradient(ellipse var(--deco-shape, 70% 80%) at var(--deco-at, 50% 0%), #000 8%, transparent 72%);
   }
-  .surface-brand.pattern-oo::before {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='0.12' stroke-width='2.5'%3E%3Ccircle cx='21.5' cy='28' r='6.5'/%3E%3Ccircle cx='34.5' cy='28' r='6.5'/%3E%3C/g%3E%3C/svg%3E");
+  .deco-grid {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: var(--deco-size, 40px) var(--deco-size, 40px);
+    background-position: center top;
+  }
+  .deco-dots {
+    background-image: radial-gradient(circle, var(--border-strong) 1px, transparent 1.5px);
+    background-size: var(--deco-size, 20px) var(--deco-size, 20px);
+    background-position: center top;
+  }
+
+  /* Zachte gloed in de blauwtint rechts: twee grote radiale verlopen die
+     binnen het vlak aan alle kanten tot niets uitlopen, dus zonder rand of band. */
+  .deco-glow {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(ellipse 46% 50% at 90% 46%, var(--brand-tint), transparent 72%),
+      radial-gradient(ellipse 26% 32% at 70% 34%, color-mix(in oklab, var(--brand-subtle) 14%, transparent), transparent 70%);
   }
 
   /* Lange tekst: juridische pagina's en vacatureteksten. */
@@ -551,8 +604,26 @@ Volledige inhoud van `app/globals.css` (gecompileerd en getest met Tailwind 4.3.
   max-width: 66ch;
 }
 
+/* Eén witte pagina: secties scheiden met ruimte, haarlijnen en kaarten. */
 @utility section {
-  padding-block: clamp(4rem, 3rem + 4vw, 7rem);
+  padding-block: clamp(3.25rem, 2.5rem + 3vw, 5rem);
+}
+
+/* Haarlijn op containerbreedte boven een sectie: de scheiding tussen secties
+   op de beroeps- en dienstpagina's, in plaats van een achtergrondband. */
+@utility section-rule {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    inset-inline: 1.25rem;
+    height: 1px;
+    background-color: var(--border);
+    @media (width >= 64rem) {
+      inset-inline: max(2rem, calc((100% - 80rem) / 2 + 2rem));
+    }
+  }
 }
 
 @utility section-tight {
@@ -939,9 +1010,9 @@ Regels:
 | Spatiëring | Tailwind 4-schaal (0,25 rem per stap). Binnen een kaart `gap-4`, tussen kop en tekst `mt-4`, tussen sectiekop en inhoud `mt-10 md:mt-14`. |
 | Containers | `container`: volle breedte, gecentreerd, maximaal 80 rem (1280 px inclusief marge), zijmarge 20 px en vanaf 1024 px 32 px. `container-narrow`: maximaal 48 rem voor bedankpagina's en formulieren. Juridische pagina's gebruiken `container` met `prose-groos` (spec 09). |
 | Grid | Kaarten: 1 kolom, vanaf `md` 2, vanaf `lg` 3, `gap-4 md:gap-6`. Detailpagina's: hoofdkolom en zijkolom `lg:grid-cols-[minmax(0,1fr)_22rem] gap-10`. |
-| Sectieritme | `section`: verticale ruimte `clamp(4rem, 3rem + 4vw, 7rem)` (64 tot 112 px). `section-tight` voor korte banden: 40 tot 64 px. Secties wisselen wit en ijs (`bg-ice`); hooguit één `.surface-brand` per pagina. |
+| Sectieritme | Eén achtergrond: elke publieke pagina staat op wit, zonder afwisselende grijze of getinte banden; alleen de footer is een grijs vlak (`bg-ice`). `section`: verticale ruimte `clamp(3.25rem, 2.5rem + 3vw, 5rem)` (52 tot 80 px). `section-tight` voor korte blokken: 40 tot 64 px. Secties scheiden met ruimte, kaarten en haarlijnen: de sectiecomponenten van spec 05 dragen `section-rule`, een haarlijn op containerbreedte boven de sectie. Hooguit één `.surface-brand` per pagina, als kaart op wit. |
 | Radius | Knoppen en velden `rounded-lg` (10 px); kaarten, panelen en sheets `rounded-2xl` (18 px); icoontegels `rounded-lg` of `rounded-xl`; badges en chips `rounded-full`. Geen pilvormige hoofdknoppen meer. |
-| Schaduw | Kaarten standaard zonder schaduw, alleen rand. `shadow-xs` op primaire knop en velden, `shadow-md` op een interactieve kaart bij hover, `shadow-lg` op popovers, sheets en toasts. |
+| Schaduw | Kaarten standaard zonder schaduw, alleen een rand van 1 px in `border-border`. `shadow-xs` op primaire knop, velden en de deuren van de hero, `shadow-md` op een kaart bij hover (met `motion-safe:hover:-translate-y-0.5`), `shadow-lg` op popovers, sheets en toasts. |
 | Randen | 1 px. Decoratief `border-border`; knoppen en chips `border-border-strong`; velden `border-input`; tabelregels `border-border`. |
 | Focus | Overal `:focus-visible` met een omlijning van 2 px in `--ring` (kobalt) op 2 px afstand. Velden tonen focus met een kobaltrand en een ring van 4 px op 15 % dekking. Binnen `.surface-brand` wordt de ring wit. |
 | Doelgrootte | Elke knop, elk veld, elke keuzelijst en elk element met `data-slot="cta-button"` is op 390 px minstens 44 px hoog. Keuzevakjes en keuzerondjes zijn 20 px, maar hun klikbare label is minstens 44 px hoog. Links in lopende tekst zijn uitgezonderd. |
@@ -963,7 +1034,9 @@ Regels:
 | Verloop via `hsl(var(--muted))` | vervalt | `projects.tsx:43` en `segment-accordion.tsx:36,90`: `bg-muted` |
 | Gloed-hoverschaduw | vervalt | `button.tsx:13` (bestand verdwijnt), `trust-bar.tsx:36`: `hover:shadow-[…]` weghalen |
 | Nieuw: `.surface-brand` | het enige blauwe vlak, zet tokens lokaal om | CTA-band van spec 04 en 05 |
-| Nieuw: `.pattern-oo` | heel licht patroon van twee ringen, afgeleid van de twee o's in het woordmerk, alleen in een hoek | op `.surface-brand` of een blauwtintvlak, nooit achter lopende tekst |
+| `.pattern-oo` | vervallen (3 oktober 2026): het patroon kwam uit een logoconcept dat is afgevallen | vervangen door `ColumnLines` of `GridPattern`, of door niets |
+| Nieuw: decoratie (`.column-lines`, `.deco`, `.deco-grid`, `.deco-dots`, `.deco-glow`) | dunne kolomlijnen, een fijn ruitjesraster, een stippenraster of een zachte gloed, altijd in het border-token of de blauwtint op lage dekking en altijd radiaal uitlopend, nooit een gekleurd vlak | `ColumnLines` (`components/ui/column-lines.tsx`) op de blauwe afsluiter; `GridPattern` (`components/ui/grid-pattern.tsx`) in de twee brede beroepskaarten en in `PhotoSlot`; de hero heeft drie achtergronden ter keuze (`none`, `grid`, `glow`, standaard `none`). Hooguit twee of drie per pagina, nooit achter lopende tekst op volle sterkte |
+| Nieuw: `section-rule` | haarlijn op containerbreedte boven een sectie | de sectiecomponenten van spec 05 en de formuliersectie van `/contact` |
 | Nieuw: `.prose-groos` | opmaak voor lange tekst | juridische pagina's (09), vacaturetekst (06) |
 
 `Marquee` (`components/ui/marquee.tsx`) en `CountUp` (`components/motion/count-up.tsx`) vervallen; ze worden verwijderd in dezelfde stap waarin spec 04 `Clients` en `Metrics` verwijdert (stap 4). Er komt geen ticker, marquee of telanimatie terug.
@@ -1043,12 +1116,14 @@ export const ctaButtonVariants: (opts: { variant?: …; size?: …; className?: 
 |---|---|---|---|---|
 | `Badge` | `components/ui/badge.tsx` (eigen) | S | `export type BadgeTone = "neutral" \| "brand" \| "info" \| "success" \| "warning" \| "danger"`; `{ tone?: BadgeTone; size?: "sm" \| "md"; icon?: LucideIcon; children; className? } & ComponentProps<"span">` | `inline-flex items-center gap-1.5 rounded-full font-medium whitespace-nowrap`; `sm` `h-6 px-2.5 text-xs`, `md` `h-7 px-3 text-sm`; tonen: neutral `bg-neutral-tint text-muted-foreground`, brand `bg-brand-tint text-brand-strong`, info `bg-info-tint text-info-strong`, success `bg-success-tint text-success-strong`, warning `bg-warning-tint text-warning-strong`, danger `bg-destructive-tint text-destructive-strong`. Elke badge heeft altijd een stip (`dot`): `size-1.5 rounded-full bg-current` met `aria-hidden`, vóór de tekst. Altijd met tekst. |
 | `Chip` | `components/ui/chip.tsx` (eigen) | S | `Chip`: `{ children; href?: string; selected?: boolean; count?: number; removeLabel?: string; className? }` (link via `Link` met `scroll={false}`, anders `<span>`) | `inline-flex h-11 items-center gap-2 rounded-full border border-border-strong bg-background px-4 text-sm font-medium text-foreground transition-colors hover:border-brand hover:text-brand-strong md:h-10`; geselecteerd `border-brand bg-brand-tint text-brand-strong` met `Check` `size-4` en `aria-current="true"` op een link; met `removeLabel` een `X` en `<span className="sr-only">{removeLabel}</span>`; `count` in `tabular-nums text-muted-foreground`. Er is geen `ChipCheckbox`. |
-| `Card` en delen | `components/ui/card.tsx` (shadcn, aangepast) | S | `Card`: `{ variant?: "default" \| "muted" \| "tint" \| "interactive" } & ComponentProps<"div">`; `CardHeader`, `CardContent`, `CardFooter`, `CardDescription`; `CardTitle`: `{ as?: "h2" \| "h3" \| "p" }`, standaard `h3` (B-05) | basis `flex flex-col gap-4 rounded-2xl border p-6 md:p-7 bg-card text-card-foreground`; default `border-border`; muted `border-transparent bg-muted`; tint `border-transparent bg-brand-tint`; interactive `relative border-border transition-[border-color,box-shadow] duration-150 hover:border-brand/40 hover:shadow-md has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-ring`. Bij een klikbare kaart krijgt de hoofdlink `after:absolute after:inset-0` (één link per kaart, geen geneste links). `CardTitle` `text-h3`; `CardDescription` `text-base text-muted-foreground`; `CardFooter` `mt-auto`. |
-| `IconTile` | `components/ui/icon-tile.tsx` (eigen) | S | `{ icon: LucideIcon; size?: "md" \| "lg"; tone?: "tint" \| "brand" \| "plain"; className? }` | `md` `size-11 rounded-lg` met icoon `size-5`; `lg` `size-14 rounded-xl` met icoon `size-6`; tint `bg-brand-tint text-brand`, brand `bg-primary text-primary-foreground`, plain `text-brand`. Icoon `strokeWidth={2}` en `aria-hidden`. |
+| `Card` en delen | `components/ui/card.tsx` (shadcn, aangepast) | S | `Card`: `{ variant?: "default" \| "muted" \| "tint" \| "interactive" } & ComponentProps<"div">`; `CardHeader`, `CardContent`, `CardFooter`, `CardDescription`; `CardTitle`: `{ as?: "h2" \| "h3" \| "p" }`, standaard `h3` (B-05) | basis `flex flex-col gap-4 rounded-2xl border p-6 md:p-7 bg-card text-card-foreground`; default `border-border`; muted `border-transparent bg-muted`; tint `border-transparent bg-brand-tint`; interactive `relative border-border transition-[border-color,box-shadow,translate] duration-200 hover:border-brand/40 hover:shadow-md motion-safe:hover:-translate-y-0.5 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-ring`. Bij een klikbare kaart krijgt de hoofdlink `after:absolute after:inset-0` (één link per kaart, geen geneste links). `CardTitle` `text-h3`; `CardDescription` `text-base text-muted-foreground`; `CardFooter` `mt-auto`. |
+| `IconTile` | `components/ui/icon-tile.tsx` (eigen) | S | `{ icon: LucideIcon; size?: "md" \| "lg"; tone?: "tint" \| "brand" \| "plain"; className? }` | `md` `size-11 rounded-lg` met icoon `size-5`; `lg` `size-14 rounded-xl` met icoon `size-6`; tint `bg-brand-tint text-brand ring-1 ring-inset ring-brand/10`, brand `bg-primary text-primary-foreground`, plain `text-brand`. Icoon `strokeWidth={2}` en `aria-hidden`. |
+| `ColumnLines` | `components/ui/column-lines.tsx` (eigen, naar 21st.dev 29768) | S | `{ columnWidth?: number; columnCount?: number; radialFadeStart?: number; radialFadeEnd?: number; className?: string; children?: ReactNode }` (standaard 80, 14, 30, 70) | Wrapper `.column-lines` (`relative`, `isolate`) met een `aria-hidden` veld `.column-lines-field` achter de kinderen: lijnen van 1 px in `--border` via `repeating-linear-gradient`, gecentreerd, `columnWidth` maal `columnCount` breed, met een radiale `mask-image` van `radialFadeStart` tot `radialFadeEnd` procent. Geen JavaScript. `--cl-at` in `className` verplaatst het middelpunt van de uitloop (bijvoorbeeld `[--cl-at:100%_0%]`). Binnen `.surface-brand` worden de lijnen wit op lage dekking. |
+| `GridPattern` | `components/ui/grid-pattern.tsx` (eigen) | S | `{ variant?: "grid" \| "dots"; fade?: "top" \| "center" \| "top-right" \| "top-left" \| "right"; size?: number; className?: string }` | `aria-hidden` laag `.deco` met `.deco-grid` (ruitjes in `--border`) of `.deco-dots` (stippen in `--border-strong`), radiaal uitlopend vanaf `fade`. De ouder is `relative isolate`. Hooguit twee of drie per pagina. |
 | `Accordion`, `AccordionItem` | `components/ui/accordion.tsx` (eigen, native `<details>`) | S | `Accordion`: `{ children; className? }`; `AccordionItem`: `{ title: ReactNode; children; name?: string; defaultOpen?: boolean; headingLevel?: "h2" \| "h3"; id?: string; className? }` | lijst `divide-y divide-border border-y border-border`; item `<details className="accordion-item group" name={name}>`; `<summary>` `flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-left font-display text-h3 [&::-webkit-details-marker]:hidden`; rechts `span.grid.size-8.place-items-center.rounded-full.bg-brand-tint.text-brand` met `Plus` `size-4` die bij openen 45 graden draait (`group-open:rotate-45 motion-reduce:transition-none`); inhoud `pb-5 pr-12 text-base`. Met dezelfde `name` gaat steeds één item open. Zonder `headingLevel` staat de titel in een `<span>`, omdat `summary` de rol knop heeft; met `headingLevel` komt er een kop in de `summary`. Antwoorden staan in de DOM, zodat FAQPage-tekst (spec 12) zichtbaar is. |
 | `Skeleton` | `components/ui/skeleton.tsx` (shadcn) | S | `ComponentProps<"div">` | `animate-pulse rounded-lg bg-muted`; zonder animatie bij reduced motion (globale regel). |
 | `Alert` | `components/ui/alert.tsx` (eigen, naar shadcn `alert`) | S | `{ tone?: "neutral" \| "info" \| "success" \| "warning" \| "danger"; icon?: LucideIcon \| false; title?: ReactNode; titleAs?: "p" \| "h2" \| "h3"; titleId?: string; children; className? } & ComponentProps<"div">` (de aanroeper zet `role="status"` of `role="alert"`). De titel rendert als `<{titleAs} id={titleId} className="font-semibold">` met `titleAs` standaard `"p"`. Is de titel een kop van de sectie, dan geeft de aanroeper `titleAs="h2"` en een `titleId` voor `aria-labelledby` mee; een kop gaat nooit als `title` binnen een `<p>`. | `flex gap-3 rounded-xl border px-4 py-3.5 text-base`; info `border-info/25 bg-info-tint text-info-strong` met `Info`; success `border-success/25 bg-success-tint text-success-strong` met `CircleCheck`; warning `border-warning/25 bg-warning-tint text-warning-strong` met `TriangleAlert`; danger `border-destructive/25 bg-destructive-tint text-destructive-strong` met `CircleAlert`; neutral `border-border bg-muted text-foreground` met `Info`. Voor formulierfeedback, de melding bij een gesloten vacature en de melding dat vacaturetekst Nederlands is (B-03). |
-| `PhotoSlot` | `components/ui/photo-slot.tsx` (eigen) | S | `{ src?: string; alt: string; ratio?: "4/5" \| "3/2" \| "1/1" \| "16/9"; sizes: string; priority?: boolean; fallback?: ReactNode; className? }` | `relative overflow-hidden rounded-2xl bg-brand-tint` met de gekozen `aspect-[…]`. Met `src` een `next/image` met `fill`, `object-cover` en `sizes`; zonder `src` het `fallback` (bijvoorbeeld initialen) gecentreerd op `.pattern-oo`, en dan `aria-hidden` op het vlak. |
+| `PhotoSlot` | `components/ui/photo-slot.tsx` (eigen) | S | `{ src?: string; alt: string; ratio?: "4/5" \| "3/2" \| "1/1" \| "16/9"; sizes: string; priority?: boolean; fallback?: ReactNode; className? }` | `relative overflow-hidden rounded-2xl bg-brand-tint` met de gekozen `aspect-[…]`. Met `src` een `next/image` met `fill`, `object-cover` en `sizes`; zonder `src` het `fallback` (bijvoorbeeld initialen) gecentreerd op een uitlopend stippenraster (`GridPattern`), en dan `aria-hidden` op het vlak. |
 
 #### Navigatie en overlays
 
@@ -1092,10 +1167,10 @@ Op de publieke site: spec 06 gebruikt `Badge` voor Nieuw (brand) en Spoed (warni
 
 Er zijn geen foto's en er komen geen stockfoto's. De site oogt toch verzorgd door:
 1. **Typografie als beeld.** Een grote hero-kop (`text-hero`) met veel lucht eromheen, korte intro in `text-lead` en ruime secties.
-2. **Witruimte en ritme.** Secties wisselen wit en ijs; elke sectie heeft één kop, één intro en één blok inhoud.
-3. **Rustige blauwe vlakken.** Panelen in `bg-brand-tint` (bijvoorbeeld de lijst met vijf beroepen naast de hero) en hooguit één `.surface-brand` per pagina voor de afsluitende oproep.
-4. **Lijniconen in tegels.** `IconTile` bij beroepen, stappen en kenmerken; stappen krijgen een groot cijfer in `font-display text-h1 text-brand-subtle` (decoratief, groot genoeg voor 3:1).
-5. **Het patroon van de twee o's.** `.pattern-oo`: twee ringen in een raster van 56 px, op 8 tot 12 % dekking, zichtbaar in één hoek, nooit achter lopende tekst.
+2. **Witruimte en ritme.** De hele pagina staat op wit; secties scheiden met ruimte, haarlijnen en kaarten. Elke sectie heeft één kop, één intro en één blok inhoud.
+3. **Kaarten met een rand.** Kaarten zijn wit met een rand van 1 px; een blauwtint blijft voor icoontegels en een enkele accentkaart (loonindicatie, inschrijfoproep). Hooguit één `.surface-brand` per pagina voor de afsluitende oproep, als kaart op wit.
+4. **Lijniconen in tegels.** `IconTile` bij beroepen, stappen en kenmerken; stappen krijgen een cijfer in een cirkel met rand (`size-9` of `size-10`, `border-border-strong`, cijfer in `text-brand`), verbonden door een haarlijn.
+5. **Uitlopende rasters.** `ColumnLines` en `GridPattern` (§4.6): kolomlijnen, een ruitjesraster of een stippenraster in het border-token, radiaal uitlopend, hooguit twee of drie per pagina en nooit als vlak.
 6. **Mensen zonder foto.** Jimmy en Lorenzo als initialen ("J" en "L") in een cirkel van 56 px `bg-brand-tint text-brand-strong font-display text-h3`, met voornaam en telefoonnummer ernaast.
 
 Fotoslots: `PhotoSlot` met `ratio` 4/5 voor portretten en 3/2 voor werkfoto's. Komen er foto's, dan alleen eigen beelden met correcte beschermingsmiddelen (context/12 §3.2), in `public/` en via `next/image`.
@@ -1111,7 +1186,7 @@ Fotoslots: `PhotoSlot` met `ratio` 4/5 voor portretten en 3/2 voor werkfoto's. K
 
 ### 4.11 Logo (R-06)
 
-**Het logo van de klant (B-61).** De klant heeft zijn logo gekozen: een beeldmerk in de vorm van een G met links een sikkel. De site neemt alleen de vorm van dat beeldmerk over, één op één, en zet die vlak. Het zilver, het reliëf, de schaduw en het zwarte vlak van het aangeleverde beeld vervallen, en de letters van dat beeld zijn niet overgenomen. Het woordmerk "groos" en de beschrijver "Personeelsdiensten" blijven staan in het lettertype van de site. Er zijn geen andere logo-ontwerpen meer; eerdere concepten en varianten zijn verwijderd.
+**Het logo van de klant (B-61).** De klant heeft zijn logo gekozen: een beeldmerk in de vorm van een G met links een sikkel. De site neemt alleen de vorm van dat beeldmerk over, één op één, en zet die vlak. Het zilver, het reliëf, de schaduw en het zwarte vlak van het aangeleverde beeld vervallen, en de letters van dat beeld zijn niet overgenomen. Het beeldmerk is de hoofdletter van het woord: het logo leest als G (het beeldmerk) plus de letters "roos", met de beschrijver "Personeelsdiensten" als tweede regel. Een beeldmerk naast het volledige woord bestaat niet meer. Er zijn geen andere logo-ontwerpen meer; eerdere concepten en varianten zijn verwijderd.
 
 **Het beeldmerk** (`docs/specs/assets/logo/logo-mark.svg`, vak van 90,55 bij 100 eenheden) bestaat uit vier delen:
 
@@ -1124,66 +1199,77 @@ Fotoslots: `PhotoSlot` met `ratio` 4/5 voor portretten en 3/2 voor werkfoto's. K
 
 Constructie: de vorm is overgetrokken van het aangeleverde beeld (voorvlak van de letter, zonder de schaduw) en daarna opnieuw opgebouwd als schone geometrie. Rechte randen zijn rechte lijnen, horizontaal en verticaal precies langs de assen; elke boog is één kubische curve; de overgang van balk naar boog is vloeiend; punten en hoeken zijn scherp. De kom en het rechterblok delen één basislijn. De tussenruimtes tussen de delen zijn die van het aangeleverde beeld. Gemeten afwijking ten opzichte van het beeld: langs de randen hooguit 0,2 procent van de breedte van het beeldmerk, bij de vier scherpe punten naar schatting 0,3 procent. Het beeldmerk wordt niet hertekend, vereenvoudigd of "verbeterd"; wie de vorm wijzigt, doet dat alleen in `logo-mark.svg`.
 
-**Woordmerk en beschrijver** (ongewijzigd).
-- Woordmerk "groos" in kleine letters uit Instrument Sans, gewicht 640, breedte 100, korpsgrootte 50 eenheden, spatiëring -0,012 em, omgezet naar contouren (Instrument Sans valt onder de SIL Open Font License, die gebruik in een logo toestaat). De tweede "o" schuift 0,16 em naar links, zodat de twee o's één stam delen. Kleur: "gr" en "s" in nacht, de twee o's in kobalt.
-- Beschrijver "Personeelsdiensten" in Onest Medium op een kwart van de korpsgrootte, spatiëring 0,045 em, kleur leigrijs, linksuitgelijnd met de "g", basislijn 0,52 korps onder die van het woordmerk.
+**Optische versie voor kleine maten** (`logo-mark-klein.svg`). Onder ongeveer 48 px beeldmerkhoogte (header, footer, tegel, favicon) lopen de tussenruimtes van het beeldmerk dicht en gaan de punten rafelen. Daarvoor is er een tweede tekening met hetzelfde silhouet en dezelfde verhoudingen:
+- de rechte randen van de G staan op het raster van de referentiemaat (beeldmerk 38 px hoog, één pixel is 100/38 = 2,63 eenheden): de balken zijn 6, 5 en 7 px hoog en de stam is 7 px breed, het beeldmerk is 34 px breed;
+- de spitse staarten van de bovenboog en de kom en de punt van de stam zijn stomp gemaakt;
+- de sikkel houdt zijn vorm en staat op 90 procent, naar zijn buitenrand toe, zodat beide tussenruimtes minstens 5,4 eenheden zijn (2 px op de referentiemaat; in het beeldmerk één op één 3,4 tot 4,6 eenheden).
 
-**Opbouw.**
+Het beeldmerk één op één blijft de meester voor grote toepassingen: de OG-afbeelding, `public/brand/logo.png`, `logo.svg`, het e-maillogo, drukwerk en het overzicht. De componenten kiezen met de prop `optical` (standaard `true`).
+
+**Letters en beschrijver.**
+- De letters "roos" staan in kleine letters uit Onest, gewicht 575, omgezet naar contouren (Onest valt onder de SIL Open Font License, die gebruik in een logo toestaat). Onest is gekozen boven Instrument Sans na vergelijking op header-maat en op vier keer die maat: de ronde o sluit aan bij de ronde kom van de G, waar de ovale o van Instrument Sans de G breed laat lijken. Alles in nacht; alleen de sikkel is kobalt.
+- Verhouding: de x-hoogte is 27 px op een beeldmerk van 38 px (1,41, zoals een hoofdletter naast kleine letters). De letters staan op de basislijn van het beeldmerk (de onderkant van de kom en van de stam). De stam van de r is 6 px, gelijk aan de bovenbalk van de G. Tussen het beeldmerk en de r zit 2 px wit, optisch gelijk aan het wit tussen r en o.
+- Beschrijver "Personeelsdiensten" in Onest 500, kapitaalhoogte 10 px, basislijn 15 px onder die van het woord, kleur leigrijs, uitgevuld over de volle breedte van het woord (spatiëring 0,039 em) en links gelijk met het beeldmerk.
+
+**Opbouw.** Elk kader heeft een marge van 2 px (5,26 eenheden, ruim 5 procent van de hoogte) links, rechts en boven en 3 px onder, zodat geen rand van het logo op de rand van het kader valt en wordt afgesneden. De maten in px gelden op de referentiemaat.
 
 | Opbouw | Bestand | Regel |
 |---|---|---|
-| Horizontaal met beschrijver | `logo-horizontaal.svg` (185,51 bij 52,08) | Beeldmerk links, even hoog als het tekstblok (bovenkant van de kleine letters tot de basislijn van de beschrijver); tussenruimte een kwart van de hoogte van het beeldmerk. |
-| Horizontaal zonder beschrijver | afgeleid (166,18 bij 36,75) | Zelfde regel: beeldmerk even hoog als het woordmerk met de staart van de "g"; tussenruimte een kwart van die hoogte. Dit is het logo in de header. |
-| Gestapeld | `logo-gestapeld.svg` (125,33 bij 126,08; zonder beschrijver 123,72 bij 110,75) | Beeldmerk van 60 eenheden hoog, gecentreerd boven het tekstblok, met 14 eenheden tussenruimte. |
-| Icoon | `icoon.svg` (48 bij 48) | Kobalt tegel met hoekstraal 12 en het beeldmerk in wit op twee derde van de hoogte, gecentreerd. |
+| Met beschrijver | `logo-horizontaal.svg` (kader 143 bij 58 px) | G plus "roos" op één regel, de beschrijver eronder. Footer, e-mail, offertes. |
+| Zonder beschrijver | afgeleid (kader 143 bij 43 px) | Alleen de regel G plus "roos". Dit is het logo in de header; in een header van 64 px met een rand van 1 px staat het beeldmerk op y 12 tot 50. |
+| Gestapeld | `logo-gestapeld.svg` | Dezelfde opbouw met 16 eenheden extra vrije ruimte rondom, voor plaatsing op een vlak. Er is geen aparte opbouw met het beeldmerk boven het woord meer. |
+| Icoon | `icoon.svg` (64 bij 64) | Kobalt tegel met hoekstraal 16 en het beeldmerk (optische versie) in wit van 34 bij 38, dus 59 procent van de hoogte, gecentreerd op hele pixels. Scherp op 1x zijn de maten 64 en 32 px. |
 
 **Varianten** (overzicht in `docs/specs/assets/logo/overzicht.svg` en `overzicht.png`).
 
 | Variant | Gebruik |
 |---|---|
-| Kleur op wit: G en letters in nacht, sikkel en de twee o's in kobalt | standaard: header, footer, documenten |
+| Kleur op wit: G en letters in nacht, alleen de sikkel in kobalt | standaard: header, footer, documenten |
 | Wit op kobalt: alles wit, ook de sikkel | `.surface-brand`, social banners, bus in kobalt |
 | Eén kleur nacht of zwart | stempel, fax, gravure, hesje op fluorgeel of oranje |
 | Eén kleur wit | donkere jassen, folie op donkere ruiten |
 | Icoon (kobalt tegel met wit beeldmerk) | favicon, apple-icon, app-iconen van het beheer, socialprofielen, WhatsApp-profiel, borst van het hesje |
 | Met beschrijver (lockup) | footer, e-mail, offertes, bus |
-| Gestapeld | vierkante plekken: `public/brand/logo.png`, profielbeelden met naam, drukwerk |
+| Gestapeld (met vrije ruimte) | plaatsing op een vlak, drukwerk |
+| Alleen het beeldmerk op de tegel | alle vierkante plekken: favicon, apple-icon, app-iconen, `public/brand/logo-mark.svg`, `public/brand/logo.png` (512 bij 512, voor JSON-LD), profielbeelden, de visual op de homepage |
 
 Op kobalt is alles wit, ook de sikkel. Een sikkel in de lichte tint `#DCE1FF` leest op kleine maten als een drukfout, en de tussenruimtes houden de sikkel al los van de G. De witte tegel met het beeldmerk in kleur bestaat alleen in het overzicht: op 16 px valt de sikkel daar weg en op een donkere tabbalk is het een wit vlak. De kobalt tegel houdt op 16 en 32 px een gesloten, herkenbare G.
 
 **Maten en vrije ruimte.**
-- Horizontaal logo zonder beschrijver minimaal 24 px hoog op scherm (circa 109 px breed), in druk 8 mm.
-- Lockup met beschrijver minimaal 44 px hoog op scherm (beschrijver dan ongeveer 10,5 px, circa 157 px breed), in druk 15 mm.
+- Logo zonder beschrijver: op de site altijd op de referentiemaat (beeldmerk 38 px, kader 143 bij 43 px), op mobiel en op desktop. Minimaal 24 px beeldmerkhoogte op scherm, in druk 8 mm.
+- Logo met beschrijver: op de site op de referentiemaat (kader 143 bij 58 px, kapitaalhoogte van de beschrijver 10 px); niet kleiner dan dat, in druk 15 mm hoog.
 - Los beeldmerk minimaal 24 px hoog; tegel minimaal 16 px (alleen favicon), verder 24 px.
-- Vrije ruimte rondom het logo: de hoogte van de "o" (x-hoogte); rondom het losse beeldmerk en de tegel: een kwart van de breedte.
-- Niet doen: het beeldmerk hertekenen, spiegelen of draaien, de delen losmaken of de tussenruimtes dichtzetten, de sikkel anders kleuren dan kobalt of de logokleur, het woordmerk vervormen of uitrekken, schaduw, verloop of reliëf toevoegen, de beschrijver los zetten van het woordmerk, het logo op een foto zonder rustig vlak plaatsen.
+- Vrije ruimte rondom het logo: de hoogte van de "o" (x-hoogte), gemeten vanaf het logo zelf en niet vanaf het kader; rondom het losse beeldmerk en de tegel: een kwart van de breedte.
+- Hele pixels: het logo is een blokelement met vaste breedte en hoogte in hele pixels en staat met flex-centrering in zijn link, zodat x, y, breedte en hoogte hele getallen zijn en de balken van de G op 1x scherpe randen van één pixel hebben.
+- Niet doen: het beeldmerk los naast het volledige woord "Groos" zetten, het beeldmerk hertekenen, spiegelen of draaien, de delen losmaken of de tussenruimtes dichtzetten, de sikkel anders kleuren dan kobalt of de logokleur, het woordmerk vervormen of uitrekken, schaduw, verloop of reliëf toevoegen, de beschrijver los zetten van het woordmerk, het logo op een foto zonder rustig vlak plaatsen.
 
 **Hesje en bus.**
 - Hesje (EN ISO 20471): borst links de tegel van 50 mm of het horizontale logo van 80 mm breed in één kleur nacht; rug de lockup met beschrijver van 250 mm breed in één kleur nacht. Nooit over de reflecterende banden, en binnen het maximale bedrukte oppervlak dat de leverancier per klasse opgeeft.
 - Bus (wit): zijkant de lockup in kleur, 600 tot 900 mm breed, met daaronder het domein en het hoofdnummer in Onest Medium; achterkant het horizontale logo en het nummer. Optioneel één kobaltband van 150 mm onderlangs. De foliekleur voor `#2741C9` wordt met een proef bepaald.
 
 **Implementatie.**
-1. `components/brand/logo-paths.json`: gegenereerd uit de vier bronbestanden met `node scripts/extract-logo.mjs`. Velden: `mark { viewBox: "0 0 90.55 100", g, crescent }`, `wordmark { transform, grs, oo }`, `descriptor { transform, d }`, `horizontal { wordmark, lockup }` en `stacked { wordmark, lockup }` met elk `{ viewBox, mark, text }` (de twee `transform`-waarden van beeldmerk en tekstblok), en `tile { viewBox: "0 0 48 48", rx: 12, mark }`. De opbouw zonder beschrijver leidt het script af met de regels uit de tabel hierboven.
+1. `components/brand/logo-paths.json`: gegenereerd uit de vijf bronbestanden met `node scripts/extract-logo.mjs`. Velden: `mark { viewBox, width, height, g, crescent }` (één op één), `markSmall { viewBox, g, crescent }` (optische versie), `wordmark { transform, roos }`, `descriptor { transform, d }`, `text { optical, master }` (de verschuiving van het tekstblok: bij het beeldmerk één op één 1,07 eenheid naar rechts, omdat de stam van de G in de optische versie op het raster staat), `horizontal { wordmark, lockup }` en `stacked { wordmark, lockup }` met elk `{ viewBox, width, height }` (het kader met marge en de maat in px op de referentiemaat) en `tile { viewBox: "0 0 64 64", size: 64, rx: 16, mark }`.
 2. `components/brand/logo.tsx` (S):
 
 ```ts
 type LogoProps = {
-  variant?: "wordmark" | "lockup";     // standaard "wordmark"; "lockup" zet de beschrijver eronder
-  layout?: "horizontal" | "stacked";   // standaard "horizontal": beeldmerk links; "stacked": beeldmerk boven
-  tone?: "brand" | "mono";             // brand: sikkel en "oo" in fill-brand, de rest currentColor; mono: alles currentColor
-  className?: string;                  // hoogte via h-*, breedte volgt (w-auto)
+  variant?: "wordmark" | "lockup";     // standaard "wordmark": G plus "roos"; "lockup" zet de beschrijver eronder
+  layout?: "horizontal" | "stacked";   // standaard "horizontal"; "stacked": dezelfde opbouw met extra vrije ruimte
+  tone?: "brand" | "mono";             // brand: sikkel in fill-brand, de rest currentColor; mono: alles currentColor
+  optical?: boolean;                   // standaard true: optische versie van het beeldmerk; false: één op één, voor groot gebruik
+  className?: string;                  // zonder: de referentiemaat (143 bij 43 of 58 px); anders "h-… w-auto"
   title?: string;                      // standaard contact.shortName
   decorative?: boolean;                // true: aria-hidden, voor een logo in een link met eigen aria-label
 };
 ```
 
-Rendert `<svg viewBox=… role="img" aria-label={title} focusable="false" className={cn("h-7 w-auto shrink-0 text-foreground", className)}>` met een groep voor het beeldmerk (de G `fill-current`, de sikkel `fill-brand` of `fill-current`) en een groep voor het tekstblok (woordmerk, en bij `lockup` de beschrijver in `fill-muted-foreground` of `fill-current`). Binnen `.surface-brand` wordt het logo vanzelf wit, omdat `--brand` daar wit is en de tekstkleur ook. Elk logo bevat het beeldmerk; een woordmerk zonder beeldmerk bestaat niet.
+Rendert `<svg viewBox=… width height overflow="visible" shape-rendering="geometricPrecision" role="img" aria-label={title} focusable="false" className={cn("block shrink-0 text-foreground", className)}>` met de twee paden van het beeldmerk (de G `fill-current`, de sikkel `fill-brand` of `fill-current`) en een groep voor het tekstblok (de letters "roos" in `fill-current`, en bij `lockup` de beschrijver in `fill-muted-foreground` of `fill-current`). De letters zijn paden; de toegankelijke naam "Groos Personeelsdiensten" komt uit `aria-label`. Binnen `.surface-brand` wordt het logo vanzelf wit, omdat `--brand` daar wit is en de tekstkleur ook.
 
-3. `components/brand/logo-mark.tsx` (S): `LogoMark({ variant?: "mark" | "tile"; tone?: "brand" | "mono"; className?; title?; decorative? })`. `mark`: de G `fill-current` (standaard `text-foreground`) en de sikkel `fill-brand`; `tile`: `<rect rx="12" className="fill-current">` (standaard `text-brand`) met het beeldmerk in `fill-background`.
+3. `components/brand/logo-mark.tsx` (S): `LogoMark({ variant?: "mark" | "tile"; tone?: "brand" | "mono"; optical?: boolean; className?; title?; decorative? })`. `mark`: de G `fill-current` (standaard `text-foreground`) en de sikkel `fill-brand`, kader 39 bij 43 px; `tile`: `<rect rx="16" className="fill-current">` (standaard `text-brand`) van 64 px met het beeldmerk in `fill-background`. `optical` is standaard `true`.
 4. Compatibiliteit: `components/brand/wordmark.tsx` houdt `Wordmark({ className?, idSuffix?, showDescriptor? })`, rendert `<Logo variant={showDescriptor ? "lockup" : "wordmark"} decorative />` en heeft `showDescriptor = false` als standaard (header zonder beschrijver, footer met `showDescriptor`). `components/brand/monogram.tsx` houdt `Monogram({ className?, idSuffix?, title? })` en rendert `<LogoMark variant="mark" />`. Beide wrappers blijven zolang andere specs ze aanroepen.
-5. `scripts/brand-assets.mjs` maakt met `sharp` (devDependency `sharp@^0.35.5`, dezelfde versie die Next al meebrengt) uit `logo-paths.json` en de kleuren uit `lib/brand.ts`, die het leest met dezelfde reguliere expressie als `check-contrast.mjs` (een `.mjs`-script kan `lib/brand.ts` in deze repo niet importeren, omdat Node `.ts` hier als CommonJS behandelt): `public/brand/logo.png` (512 bij 512, wit, gestapelde lockup in kleur gecentreerd op 352 px breed; voor `site.logo` en `organizationLd`), `public/brand/logo-email.png` (480 bij 200, wit, horizontale lockup in kleur met 24 px marge; voor spec 11, weergave op 160 px breed), `public/brand/logo.svg` (horizontale lockup in kleur), `public/brand/logo-mark.svg` (kobalt tegel met wit beeldmerk) en het overzicht `docs/specs/assets/logo/overzicht.svg` en `overzicht.png`. Draaien met `node scripts/brand-assets.mjs`; de bestanden worden gecommit.
-6. `components/brand/logo-svg.ts` levert de SVG-data-URI's voor plekken zonder CSS: `tileDataUri({ rounded? })`, `markDataUri({ g?, crescent? })`, `logoDataUri()` en de verhoudingen `markRatio` en `logoRatio`. `app/icon.tsx` (64 bij 64) en `app/apple-icon.tsx` (180 bij 180) gebruiken `tileDataUri` in een `ImageResponse` uit `next/og`. Favicon: kobalt tegel met hoekstraal 12/48 en het witte beeldmerk; apple-icon: volle kobalt vierkant zonder hoekstraal (iOS rondt zelf af). `app/beheer/icon.tsx` zet het witte beeldmerk op 60 procent van een kobalt vlak (192 en 512, maskable). Geen `app/icon.png` of `favicon.ico` ernaast.
-7. Het beeldmerk wijzigen: alleen de paden `mark-g` en `mark-crescent` in `logo-mark.svg` aanpassen (en in de drie andere bronbestanden, die dezelfde paden bevatten), daarna `node scripts/extract-logo.mjs` en `node scripts/brand-assets.mjs`.
+5. `scripts/brand-assets.mjs` maakt met `sharp` (devDependency `sharp@^0.35.5`, dezelfde versie die Next al meebrengt) uit `logo-paths.json` en de kleuren uit `lib/brand.ts`, die het leest met dezelfde reguliere expressie als `check-contrast.mjs` (een `.mjs`-script kan `lib/brand.ts` in deze repo niet importeren, omdat Node `.ts` hier als CommonJS behandelt): `public/brand/logo.png` (512 bij 512, alleen het beeldmerk één op één op de kobalt tegel; voor `site.logo` en `organizationLd`), `public/brand/logo-email.png` (480 bij 200, wit, het logo met beschrijver in kleur; voor spec 11, weergave op 160 px breed), `public/brand/logo.svg` (het logo met beschrijver in kleur, kader met marge), `public/brand/logo-mark.svg` (kobalt tegel met wit beeldmerk, optische versie) en het overzicht `docs/specs/assets/logo/overzicht.svg` en `overzicht.png`. Draaien met `node scripts/brand-assets.mjs`; de bestanden worden gecommit.
+6. `components/brand/logo-svg.ts` levert de SVG-data-URI's voor plekken zonder CSS: `tileDataUri({ rounded?, optical? })` (standaard optisch), `markDataUri({ g?, crescent?, optical? })`, `logoDataUri({ optical? })` (standaard één op één) en de verhoudingen `markRatio` en `logoRatio` van de kaders inclusief marge. `app/icon.tsx` (64 bij 64) en `app/apple-icon.tsx` (180 bij 180) gebruiken `tileDataUri` in een `ImageResponse` uit `next/og`. Favicon: kobalt tegel met hoekstraal 16/64 en het witte beeldmerk van 34 bij 38 px op hele pixels; apple-icon: volle kobalt vierkant zonder hoekstraal (iOS rondt zelf af). `app/beheer/icon.tsx` zet het witte beeldmerk op ongeveer 58 procent van een kobalt vlak (192 optisch, 512 één op één, maskable). Geen `app/icon.png` of `favicon.ico` ernaast.
+7. Het beeldmerk wijzigen: de paden `mark-g` en `mark-crescent` in `logo-mark.svg` aanpassen (en in `logo-horizontaal.svg` en `logo-gestapeld.svg`, die dezelfde paden bevatten) en de optische versie in `logo-mark-klein.svg` en `icoon.svg` opnieuw afleiden; daarna `node scripts/extract-logo.mjs` en `node scripts/brand-assets.mjs`. De letters wijzigen: de paden `wordmark-roos` en `descriptor-text` in `logo-horizontaal.svg` en `logo-gestapeld.svg`; de regels voor lettertype, gewicht, raster en marge staan in het commentaar van `scripts/extract-logo.mjs`.
 
 
 ### 4.12 Fonts voor de OG-afbeelding
@@ -1205,15 +1291,15 @@ Gecontroleerd op 2 oktober 2026: deze aanroep geeft volledige statische TTF's (I
 
 De structuur (onderdelen, volgorde, gedrag) is van spec 01; dit is het uiterlijk.
 
-**Header.** `sticky top-0 z-50 h-16 bg-background` met `border-b border-transparent` die na 8 px scrollen `border-border` wordt. Geen transparantie, geen blur, geen schaduw. Inhoud in `container flex h-full items-center justify-between gap-6`. Logo: `Wordmark` zonder beschrijver, `h-6.5 lg:h-7`, in een link met `aria-label` `header.homeAria`. Hoofdmenu (vanaf `lg`): items volgens `navigationMenuTriggerStyle` (§4.7); een actief item krijgt `text-brand-strong` en een streep van 2 px `bg-brand` onder de tekst. Rechts: vanaf `lg` de telefoonlink als `CtaButton variant="ghost" size="icon"` met `Phone` in `text-brand` en `aria-label` `header.callAria`; vanaf `xl` `variant="ghost" size="sm"` met `Phone` en het nummer. Daarna `LanguageToggle` en `CtaButton size="sm"` als primaire knop. Menuknop op mobiel: `CtaButton variant="ghost" size="icon"`.
+**Header.** `sticky top-0 z-50 h-16 bg-background` met `border-b border-transparent` die na 8 px scrollen `border-border` wordt. Geen transparantie, geen blur, geen schaduw. Inhoud in `container flex h-full items-center justify-between gap-4`. Logo: `Wordmark` zonder beschrijver op de referentiemaat (kader 143 bij 43 px, beeldmerk 38 px, op mobiel en desktop gelijk), in een link `flex items-center` met `aria-label` `header.homeAria`. Hoofdmenu (vanaf `lg`): items volgens `navigationMenuTriggerStyle` (§4.7); een actief item krijgt `text-brand-strong` en een streep van 2 px `bg-brand` onder de tekst. Rechts: vanaf `lg` de telefoonlink als `CtaButton variant="ghost" size="icon"` met `Phone` in `text-brand` en `aria-label` `header.callAria`; vanaf `xl` `variant="ghost" size="sm"` met `Phone` en het nummer. Daarna `LanguageToggle` en `CtaButton size="sm"` als primaire knop. Menuknop op mobiel: `CtaButton variant="ghost" size="icon"`.
 
 **Mobiel menu.** Schermvullend `bg-background`, eigen kopregel van 64 px met logo en sluitknop (`ghost`, `icon`). Hoofditems `font-display text-h3 py-4 border-b border-border`; uitklapgroepen met `ChevronDown` die 180 graden draait; subitems `text-base py-3 pl-1` met het beroepsicoon in `text-brand`. Onderaan, vast binnen het venster: twee `CtaButton`'s van volle breedte (`secondary` en `primary`, maat `default`), daaronder de belregel, de WhatsApp-link en `LanguageToggle` in `text-sm`. Openen met een fade van 150 ms.
 
 **Actiebalk (mobiel).** `fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden`, `grid grid-cols-2 gap-3`; links `CtaButton variant="secondary"`, rechts `CtaButton variant="primary"`, beide maat `default` (48 px) met icoon. De ruimte voor de actiebalk onderaan de pagina komt van de spacer in spec 01 §4.22.
 
-**Footer.** `border-t border-border bg-ice`, binnen `container pt-14 lg:pt-20`. Raster `grid gap-10 lg:grid-cols-12`. Merkblok `lg:col-span-4`: `Wordmark showDescriptor` op `h-11`, de omschrijving in `text-sm text-muted-foreground max-w-xs` en de socials. Navigatie `grid gap-10 sm:grid-cols-3 lg:col-span-5`. Contactblok `lg:col-span-3` met `<address>` en de regels met `Phone`, `MessageCircle` en `Mail` in `text-brand`; de contactregels staan niet meer in het merkblok. Kolomkoppen zijn `h2` met `font-sans text-sm font-semibold text-foreground mb-3` (geen hoofdletters, geen spatiëring). Links `inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-brand-strong lg:min-h-0 lg:py-1`. Adres in `<address className="not-italic text-sm text-muted-foreground">`. Socials (alleen als ze er zijn) als `CtaButton variant="ghost" size="icon"` met rand `border border-border-strong`. Onderbalk: `mt-12 flex flex-col gap-3 border-t border-border pt-6 pb-8 text-xs text-muted-foreground md:flex-row md:justify-between`.
+**Footer.** `border-t border-border bg-ice` (het enige grijze vlak van de site), binnen `container pt-14 lg:pt-20`. Raster `grid gap-10 lg:grid-cols-12`. Merkblok `lg:col-span-4`: `Wordmark showDescriptor` op de referentiemaat (kader 143 bij 58 px), de omschrijving in `text-sm text-muted-foreground max-w-xs` en de socials. Navigatie `grid gap-10 sm:grid-cols-3 lg:col-span-5`. Contactblok `lg:col-span-3` met `<address>` en de regels met `Phone`, `MessageCircle` en `Mail` in `text-brand`; de contactregels staan niet meer in het merkblok. Kolomkoppen zijn `h2` met `font-sans text-sm font-semibold text-foreground mb-3` (geen hoofdletters, geen spatiëring). Links `inline-flex min-h-11 items-center text-sm text-muted-foreground hover:text-brand-strong lg:min-h-0 lg:py-1`. Adres in `<address className="not-italic text-sm text-muted-foreground">`. Socials (alleen als ze er zijn) als `CtaButton variant="ghost" size="icon"` met rand `border border-border-strong`. Onderbalk: `mt-12 flex flex-col gap-3 border-t border-border pt-6 pb-8 text-xs text-muted-foreground md:flex-row md:justify-between`.
 
-**Blauwe afsluiter (recept voor spec 04 en 05).** `<section className="section-tight"><div className="container"><div className="surface-brand pattern-oo rounded-2xl p-8 md:p-12">` met een h2, een `text-lead`-alinea (kleur volgt `muted-foreground`, op blauw `#DCE1FF`) en twee `CtaButton`'s (`primary` wordt wit, `secondary` wordt wit omlijnd).
+**Blauwe afsluiter (recept voor spec 04 en 05).** `<section className="section-tight"><div className="container"><ColumnLines columnWidth={56} columnCount={40} radialFadeStart={0} radialFadeEnd={62} className="surface-brand rounded-2xl p-8 [--cl-at:100%_0%] md:p-12 lg:p-14">` (witte kolomlijnen op lage dekking die vanuit de rechterbovenhoek uitlopen) met een h2, een `text-lead`-alinea (kleur volgt `muted-foreground`, op blauw `#DCE1FF`) en twee `CtaButton`'s (`primary` wordt wit, `secondary` wordt wit omlijnd).
 
 ### 4.14 Stijlgids (alleen ontwikkeling)
 

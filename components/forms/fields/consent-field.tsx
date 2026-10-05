@@ -20,7 +20,7 @@ type ConsentFieldProps = {
 export function ConsentField({ formId, name, label, hint, error, required, defaultChecked, onChange }: ConsentFieldProps) {
   const ids = fieldIds(formId, name);
   return (
-    <div className="grid gap-1" onChange={onChange}>
+    <div data-slot="field" className="grid min-w-0 gap-1" onChange={onChange}>
       <CheckboxField
         id={ids.id}
         name={name}
@@ -31,6 +31,8 @@ export function ConsentField({ formId, name, label, hint, error, required, defau
         required={required}
         invalid={Boolean(error)}
         describedBy={error ? ids.errorId : undefined}
+        // Een e-mailadres in de hint is één lang woord: laat het breken in plaats van het formulier op te rekken.
+        className="[overflow-wrap:anywhere]"
       />
       <FieldError id={ids.errorId}>{error}</FieldError>
     </div>

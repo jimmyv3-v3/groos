@@ -1,4 +1,5 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
+import { sendDeliveryFailureAlerts } from "@/lib/email/alerts";
 import { applyWebhookEvent, verifyResendWebhook } from "@/lib/email/webhook";
 
 /** Resend-webhook voor bezorgstatussen (spec 11 §4.11). */
@@ -25,7 +26,9 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { updated } = await applyWebhookEvent(event);
+    const { updated, failures } = await applyWebhookEvent(event);
+    // Interne melding bij een mail die niet aankwam; na het antwoord, zodat Resend niet hoeft te wachten.
+    if (failures.length > 0) after(() => sendDeliveryFailureAlerts(failures));
     return NextResponse.json({ ok: true, updated });
   } catch (error) {
     console.error("[e-mail] webhook verwerken mislukt", { pgCode: (error as { pgCode?: string }).pgCode });

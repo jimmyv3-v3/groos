@@ -107,6 +107,6 @@ if (generatedPassword) {
 }
 console.log("");
 console.log(
-  "Bij de eerste keer inloggen op /beheer koppelt de beheerder een authenticator-app. " +
-    "Zonder aal2 geeft de database geen beheerdata.",
+  "Inloggen op /beheer gaat met e-mailadres en wachtwoord. Een authenticator-app koppelen is " +
+    "optioneel en kan op /beheer/mfa/koppelen (B-62).",
 );

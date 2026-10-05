@@ -3,8 +3,10 @@ import { cronErrorResponse, verifyCronRequest } from "@/lib/cron/auth";
 import { revalidateVacancies } from "@/lib/data/revalidate";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 
-// Vercel Cron, elk kwartier (spec 10 §4.6): gepland naar online, verlopen naar
-// gesloten, langer dan 30 dagen gesloten naar gearchiveerd. Idempotent.
+// Vercel Cron, één keer per dag (B-65, spec 10 §4.6): gepland naar online,
+// verlopen naar gesloten, langer dan 30 dagen gesloten naar gearchiveerd.
+// Idempotent. De publieke staat volgt uit publish_at en closes_at in de view
+// public_vacancies en wacht dus niet op deze taak.
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 

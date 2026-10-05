@@ -33,7 +33,11 @@ export default function BeheerRootLayout({ children }: { children: React.ReactNo
       <body className="min-h-dvh bg-background font-sans text-foreground antialiased">
         <ToastProvider>
           {children}
-          <Toaster closeLabel={S.common.close} />
+          {/* Tot lg staat er een vaste balk onderaan (tabbalk of actiebalk); de melding blijft daarboven. */}
+          <Toaster
+            closeLabel={S.common.close}
+            className="bottom-[calc(5.5rem+env(safe-area-inset-bottom))] md:bottom-[calc(5.5rem+env(safe-area-inset-bottom))] lg:bottom-6"
+          />
         </ToastProvider>
       </body>
     </html>

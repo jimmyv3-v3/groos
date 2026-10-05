@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { CalendarClock, Eye, Send } from "lucide-react";
+import { CalendarClock, Eye, LoaderCircle, Send } from "lucide-react";
 import { saveVacancy } from "@/app/beheer/_actions/vacancies";
 import { formatDateTimeNl } from "@/app/beheer/_lib/format";
 import { beheerPaths } from "@/app/beheer/_lib/paths";
@@ -27,6 +27,7 @@ import {
   type VacancyStatus,
 } from "@/lib/data/options";
 import { isClaimConfirmed } from "@/lib/claims";
+import { cn } from "@/lib/utils";
 import { BeheerField } from "@/components/beheer/beheer-field";
 import { ConfirmDialog } from "@/components/beheer/confirm-dialog";
 import { ErrorSummary } from "@/components/beheer/error-summary";
@@ -127,6 +128,8 @@ export function VacancyForm({
   const [experience, setExperience] = useState(initial.experience_level);
   const [warnings, setWarnings] = useState(() => vacancyWarnings(initial));
   const [dialog, setDialog] = useState<VacancyDialogKey | null>(null);
+  // Welke verzendknop is ingedrukt, voor de laadstaat op die knop.
+  const [intent, setIntent] = useState<"save" | "publish" | null>(null);
 
   const errors = state && !state.ok ? (state.fieldErrors ?? {}) : {};
   const e = (field: string) => errors[field];
@@ -201,6 +204,9 @@ export function VacancyForm({
   const isDraft = !status || status === "draft";
   const isClosed = status === "closed";
   const isArchived = status === "archived";
+  // Zonder verzendknop (archief) houdt de voorbeeldlink in de actiebalk zijn tekst.
+  const hasSubmit = !isArchived;
+  const busy = (which: "save" | "publish") => pending && intent === which;
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_13rem] lg:items-start">
@@ -212,7 +218,7 @@ export function VacancyForm({
           setWarnings(vacancyWarnings(vacancyValuesFromFormData(new FormData(ev.currentTarget))));
         }}
         noValidate
-        className="grid min-w-0 gap-6 pb-36 lg:pb-0"
+        className="grid min-w-0 gap-6"
       >
         <fieldset disabled={isArchived} className="contents">
         <input type="hidden" name="id" value={id ?? ""} />
@@ -445,21 +451,21 @@ export function VacancyForm({
 
         <div
           data-actiebalk
-          className="fixed inset-x-0 bottom-0 z-40 flex flex-wrap items-center gap-2 border-t border-border bg-background px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] lg:sticky lg:bottom-0 lg:-mx-1 lg:rounded-xl lg:border lg:px-4 lg:pb-3 lg:shadow-md"
+          className="fixed inset-x-0 bottom-0 z-40 flex flex-wrap items-center gap-2 border-t border-border bg-background pt-3 pr-[max(1rem,env(safe-area-inset-right))] pb-[calc(0.75rem+env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))] lg:sticky lg:bottom-0 lg:-mx-1 lg:rounded-xl lg:border lg:px-4 lg:pb-3 lg:shadow-md"
         >
           {isDraft && (
             <>
-              <IntentButton intent="save" variant="secondary" disabled={pending} className="flex-1 sm:flex-none">
+              <IntentButton intent="save" variant="secondary" disabled={pending} busy={busy("save")} onPress={setIntent}>
                 {S.vacancies.form.saveDraft}
               </IntentButton>
-              <IntentButton intent="publish" disabled={pending} className="flex-1 sm:flex-none">
+              <IntentButton intent="publish" disabled={pending} busy={busy("publish")} onPress={setIntent}>
                 {S.vacancies.form.publish}
               </IntentButton>
             </>
           )}
           {status === "scheduled" && (
             <>
-              <IntentButton intent="save" variant="secondary" disabled={pending} className="flex-1 sm:flex-none">
+              <IntentButton intent="save" variant="secondary" disabled={pending} busy={busy("save")} onPress={setIntent}>
                 {S.vacancies.form.save}
               </IntentButton>
               {/* Nu publiceren is de actie publishVacancy (met dialoog), geen intent publish (§4.7). */}
@@ -468,7 +474,7 @@ export function VacancyForm({
                   type="button"
                   onClick={() => setDialog("publish")}
                   disabled={pending}
-                  className={ctaButtonVariants({ className: "flex-1 sm:flex-none" })}
+                  className={ctaButtonVariants({ className: BAR_BUTTON })}
                 >
                   <Send aria-hidden="true" />
                   {S.vacancies.form.publishNow}
@@ -477,14 +483,27 @@ export function VacancyForm({
             </>
           )}
           {(status === "published" || status === "closed") && (
-            <IntentButton intent="save" disabled={pending} className="flex-1 sm:flex-none">
+            <IntentButton intent="save" disabled={pending} busy={busy("save")} onPress={setIntent}>
               {S.vacancies.form.publishChanges}
             </IntentButton>
           )}
           {mode === "edit" && number !== null && (
-            <Link href={beheerPaths.vacancyPreview(number)} className={ctaButtonVariants({ variant: "ghost", className: "w-full sm:w-auto" })}>
+            <Link
+              href={beheerPaths.vacancyPreview(number)}
+              className={ctaButtonVariants({
+                variant: "ghost",
+                // Naast een verzendknop op een telefoon alleen het icoon. Met twee verzendknoppen past dat pas
+                // vanaf 375 px; daaronder staat het voorbeeld in het menu Acties bovenaan.
+                className: hasSubmit
+                  ? cn(
+                      "max-sm:size-12 max-sm:shrink-0 max-sm:border max-sm:border-border-strong max-sm:px-0",
+                      (isDraft || status === "scheduled") && "max-[374px]:hidden",
+                    )
+                  : "w-full sm:w-auto",
+              })}
+            >
               <Eye aria-hidden="true" />
-              {S.vacancies.form.preview}
+              <span className={hasSubmit ? "max-sm:sr-only" : undefined}>{S.vacancies.form.preview}</span>
             </Link>
           )}
         </div>
@@ -525,23 +544,41 @@ export function VacancyForm({
   );
 }
 
-/** Verzendknop met name="intent"; de FormData neemt de waarde via de submitter mee. */
+/** Knop in de actiebalk: op een telefoon compact en even breed verdeeld, zodat de balk één regel blijft. */
+const BAR_BUTTON = "flex-1 max-sm:px-3 max-sm:text-sm sm:flex-none";
+
+/**
+ * Verzendknop met name="intent"; de FormData neemt de waarde via de submitter
+ * mee. busy toont de laadstaat op de knop die is ingedrukt.
+ */
 function IntentButton({
   intent,
   children,
   variant = "primary",
   disabled,
-  className,
+  busy = false,
+  onPress,
 }: {
   intent: "save" | "publish";
   children: React.ReactNode;
   variant?: "primary" | "secondary";
   disabled?: boolean;
-  className?: string;
+  busy?: boolean;
+  onPress?: (intent: "save" | "publish") => void;
 }) {
   return (
-    <button type="submit" name="intent" value={intent} disabled={disabled} className={ctaButtonVariants({ variant, className })}>
+    <button
+      type="submit"
+      name="intent"
+      value={intent}
+      disabled={disabled}
+      aria-busy={busy || undefined}
+      onClick={() => onPress?.(intent)}
+      className={ctaButtonVariants({ variant, className: BAR_BUTTON })}
+    >
+      {busy && <LoaderCircle className="motion-safe:animate-spin" aria-hidden="true" />}
       {children}
+      {busy && <span className="sr-only">{S.common.saving}</span>}
     </button>
   );
 }

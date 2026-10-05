@@ -40,8 +40,8 @@ export async function NotFoundView() {
             </li>
           ))}
         </ul>
-        <p className="mt-8">
-          <Link href="/" className="text-sm font-medium text-brand underline-offset-4 hover:underline">
+        <p className="mt-6">
+          <Link href="/" className="inline-flex min-h-11 items-center text-sm font-medium text-brand underline-offset-4 hover:underline">
             {t("home")}
           </Link>
         </p>

@@ -42,7 +42,7 @@ function Paragraphs({
   className?: string;
 }) {
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
         <div className="mt-8 grid max-w-prose gap-4 text-base">
@@ -66,8 +66,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/w
   // Statische pagina: "voorbij" wordt bij elke build opnieuw bepaald.
   const buildDate = new Date();
   const showStatus = WTTA.phase !== "none";
-  // Valt de statussectie weg, dan schuift de afwisseling van de achtergronden op (§4.7).
-  const bg = (withStatus: boolean) => (withStatus === showStatus ? "bg-ice" : undefined);
 
   return (
     <>
@@ -87,7 +85,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/w
 
       <Paragraphs
         id="wat-is-de-wtta"
-        className="bg-ice"
         heading={c.about.title}
         accent={c.about.accent}
         intro={c.about.intro}
@@ -112,7 +109,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/w
 
       <ListSection
         id="wat-u-regelt"
-        className="bg-ice"
         heading={c.hirer.title}
         accent={c.hirer.accent}
         intro={c.hirer.intro}
@@ -129,7 +125,7 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/w
       />
 
       {showStatus && (
-        <section id="status-groos" className="section scroll-mt-24 bg-ice">
+        <section id="status-groos" className="section section-rule scroll-mt-24">
           <div className="container">
             <SectionHeading title={c.status.title} accent={c.status.accent} intro={c.status.intro} />
             <WttaStatus variant="block" className="mt-8" />
@@ -139,17 +135,16 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/w
 
       <Paragraphs
         id="aansprakelijkheid"
-        className={bg(false)}
         heading={c.liability.title}
         accent={c.liability.accent}
         intro={c.liability.intro}
         paragraphs={c.liability.paragraphs}
       />
 
-      <ServiceFaq className={bg(true)} heading={c.faq.title} accent={c.faq.accent} intro={c.faq.intro} items={faq} />
+      <ServiceFaq heading={c.faq.title} accent={c.faq.accent} intro={c.faq.intro} items={faq} />
       <JsonLd data={faqLd(faq.map(({ q, a }) => ({ q, a })))} />
 
-      <SourceList id="bronnen" className={bg(false)} heading={c.sources.title} intro={c.sources.intro} items={c.sources.items} />
+      <SourceList id="bronnen" heading={c.sources.title} intro={c.sources.intro} items={c.sources.items} />
 
       <ServiceCta
         title={c.cta.title}

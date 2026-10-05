@@ -63,7 +63,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkzoekende
 
       <BeroepGrid
         id="beroepen"
-        className="bg-ice"
         heading={c.beroepen.title}
         accent={c.beroepen.accent}
         intro={c.beroepen.intro}
@@ -86,7 +85,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkzoekende
 
       <ServiceFeatureGrid
         id="wat-je-krijgt"
-        className="bg-ice"
         heading={c.promises.title}
         accent={c.promises.accent}
         intro={c.promises.intro}
@@ -105,7 +103,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkzoekende
 
       <BeroepVacancies
         id="vacatures"
-        className="bg-ice"
         locale={locale}
         heading={c.vacancies.title}
         accent={c.vacancies.accent}
@@ -127,7 +124,7 @@ export default async function Page({ params }: PageProps<"/[locale]/werkzoekende
         rows={c.compare.rows.map((r) => ({ label: r.label, values: [r.jobseeker, r.employer] }))}
       />
 
-      <ServiceFaq className="bg-ice" heading={c.faq.title} accent={c.faq.accent} intro={c.faq.intro} items={faq} />
+      <ServiceFaq heading={c.faq.title} accent={c.faq.accent} intro={c.faq.intro} items={faq} />
       <JsonLd data={faqLd(faq.map(({ q, a }) => ({ q, a })))} />
 
       <ServiceCta

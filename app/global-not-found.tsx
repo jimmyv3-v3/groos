@@ -24,11 +24,11 @@ export default function GlobalNotFound() {
           <p lang="en" className="mt-2 text-muted-foreground">
             This page does not exist.
           </p>
-          <p className="mt-8 flex gap-6 text-sm font-medium">
-            <Link href="/" className="text-brand underline-offset-4 hover:underline">
+          <p className="mt-6 flex flex-wrap gap-x-6 text-sm font-medium">
+            <Link href="/" className="inline-flex min-h-11 items-center text-brand underline-offset-4 hover:underline">
               Naar de homepage
             </Link>
-            <Link href="/en" lang="en" className="text-brand underline-offset-4 hover:underline">
+            <Link href="/en" lang="en" className="inline-flex min-h-11 items-center text-brand underline-offset-4 hover:underline">
               English homepage
             </Link>
           </p>

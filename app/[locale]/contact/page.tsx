@@ -33,7 +33,8 @@ function Detail({ icon: Icon, label, children }: { icon: typeof Phone; label: st
         </span>
         {label}
       </dt>
-      <dd className="text-base text-foreground">{children}</dd>
+      {/* min-w-0: een lang e-mailadres mag de kolom niet breder maken dan het scherm. */}
+      <dd className="min-w-0 text-base text-foreground">{children}</dd>
     </div>
   );
 }
@@ -51,6 +52,7 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
     getTranslations({ locale, namespace: "header" }),
   ]);
   const hours = contact.openingHours;
+  const [emailLocal, emailDomain] = contact.email.split("@");
 
   return (
     <>
@@ -80,7 +82,7 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
 
       <section aria-labelledby="gegevens-titel" className="py-10 sm:py-14">
         <div className="container grid gap-10 lg:grid-cols-2 lg:gap-12">
-          <div>
+          <div className="min-w-0">
             <h2 id="gegevens-titel" className="text-h2">
               {t("details.title")} <span className="accent-text">{t("details.accent")}</span>
             </h2>
@@ -92,12 +94,14 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
                 <span className="mt-1 block text-sm text-muted-foreground">{tc("address.byAppointment")}</span>
               </Detail>
               <Detail icon={Mail} label={tc("contact.email")}>
-                <a href={contact.emailHref} className={linkClasses}>
-                  {contact.email}
+                {/* Tikvlak van 44 px zonder de regelafstand te veranderen; het adres breekt zo nodig na het apenstaartje. */}
+                <a href={contact.emailHref} className={`-my-2 inline-block py-2 ${linkClasses}`}>
+                  {emailLocal}@<wbr />
+                  {emailDomain}
                 </a>
               </Detail>
               <Detail icon={Phone} label={t("details.phone")}>
-                <a href={contact.phoneHref} className={`tabular-nums ${linkClasses}`}>
+                <a href={contact.phoneHref} className={`-my-2 inline-block py-2 tabular-nums ${linkClasses}`}>
                   {contact.phone}
                 </a>
               </Detail>
@@ -123,7 +127,7 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
             )}
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h2 className="text-h2">
               {t("choice.title")} <span className="accent-text">{t("choice.accent")}</span>
             </h2>
@@ -160,7 +164,7 @@ export default async function Page({ params }: PageProps<"/[locale]/contact">) {
         </div>
       </section>
 
-      <section id="contactformulier" aria-labelledby="contactformulier-titel" className="scroll-mt-24 bg-ice py-12 sm:py-16">
+      <section id="contactformulier" aria-labelledby="contactformulier-titel" className="section-rule scroll-mt-24 py-12 sm:py-16">
         <div className="container">
           <div className="max-w-3xl">
             <h2 id="contactformulier-titel" className="text-h2">

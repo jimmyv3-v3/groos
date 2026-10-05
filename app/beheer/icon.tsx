@@ -12,9 +12,11 @@ export function generateImageMetadata() {
 
 export default async function Icon({ id }: { id: Promise<string | number> }) {
   const size = Number(await id) === 512 ? 512 : 192;
-  const inner = Math.round(size * 0.6);
+  // Het kader van het beeldmerk heeft een marge; 0,66 houdt het beeldmerk zelf op ongeveer 58 procent.
+  const inner = Math.round(size * 0.66);
   const white = brand.colors.background;
-  const src = markDataUri({ g: white, crescent: white });
+  // 192 staat klein op een beginscherm: de optische versie. 512 is het beeldmerk één op één.
+  const src = markDataUri({ g: white, crescent: white, optical: size === 192 });
   const markWidth = markRatio >= 1 ? inner : Math.round(inner * markRatio);
   const markHeight = markRatio >= 1 ? Math.round(inner / markRatio) : inner;
   return new ImageResponse(

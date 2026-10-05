@@ -22,9 +22,9 @@ export function SidebarNav({
 }) {
   const pathname = usePathname();
   return (
-    <div className="flex h-full flex-col gap-6 p-4">
+    <div className="flex h-full flex-col gap-6 p-3">
       <nav aria-label={S.nav.label}>
-        <ul className="grid gap-1">
+        <ul className="grid grid-cols-[minmax(0,1fr)] gap-1">
           {SIDEBAR_ITEMS.map((item) => {
             const active = isActive(pathname, item.href);
             const count = countFor(item, counts);
@@ -42,9 +42,9 @@ export function SidebarNav({
                   )}
                 >
                   <Icon aria-hidden="true" />
-                  <span className="flex-1">{item.label}</span>
+                  <span className="min-w-0 flex-1 truncate">{item.label}</span>
                   {count > 0 && (
-                    <span className="rounded-full bg-primary px-2 py-0.5 text-xs font-semibold tabular-nums text-primary-foreground">
+                    <span className="shrink-0 rounded-full bg-primary px-2 py-0.5 text-xs font-semibold tabular-nums text-primary-foreground">
                       <span aria-hidden="true">{count}</span>
                       <span className="sr-only">{fill(S.nav.newBadge, { aantal: count })}</span>
                     </span>

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { GridPattern } from "@/components/ui/grid-pattern";
 
 const RATIOS = { "4/5": "aspect-[4/5]", "3/2": "aspect-[3/2]", "1/1": "aspect-square", "16/9": "aspect-video" };
 
@@ -14,7 +15,7 @@ type PhotoSlotProps = {
   className?: string;
 };
 
-/** Optionele fotoplek (B-25): zonder src een rustig vlak met het oo-patroon. */
+/** Optionele fotoplek (B-25): zonder src een rustig vlak met een uitlopend stippenraster. */
 function PhotoSlot({ src, alt, ratio = "3/2", sizes, priority, fallback, className }: PhotoSlotProps) {
   return (
     <div
@@ -23,14 +24,17 @@ function PhotoSlot({ src, alt, ratio = "3/2", sizes, priority, fallback, classNa
       className={cn(
         "relative overflow-hidden rounded-2xl bg-brand-tint",
         RATIOS[ratio],
-        !src && "pattern-oo grid place-items-center",
+        !src && "isolate grid place-items-center",
         className,
       )}
     >
       {src ? (
         <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className="object-cover" />
       ) : (
-        fallback
+        <>
+          <GridPattern variant="dots" fade="top-right" />
+          {fallback}
+        </>
       )}
     </div>
   );

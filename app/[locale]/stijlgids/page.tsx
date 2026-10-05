@@ -28,6 +28,8 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckboxField } from "@/components/ui/checkbox";
+import { ColumnLines } from "@/components/ui/column-lines";
+import { GridPattern } from "@/components/ui/grid-pattern";
 import { Chip } from "@/components/ui/chip";
 import { CtaButton } from "@/components/ui/cta-button";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet } from "@/components/ui/field";
@@ -127,7 +129,7 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
   return (
     <main className="container pb-24">
       <header className="section-tight">
-        <Logo className="h-7" />
+        <Logo />
         <h1 className="mt-10">Stijlgids van Groos</h1>
         <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">
           Alle tokens, lettergroottes en bouwstenen op één pagina. Deze pagina bestaat alleen in ontwikkeling.
@@ -465,36 +467,58 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
 
       <Block title="Logo">
         <div className="grid gap-4 md:grid-cols-2">
-          <div className="grid place-items-center gap-6 rounded-2xl border border-border p-10">
-            <Logo className="h-10" />
-            <Logo variant="lockup" className="h-14" />
+          <div className="grid place-items-center gap-6 rounded-2xl border border-border p-6 sm:p-10">
+            <Logo />
+            <Logo variant="lockup" />
           </div>
-          <div className="surface-brand grid place-items-center gap-6 rounded-2xl p-10" data-testid="logo-on-brand">
-            <Logo className="h-10" />
-            <Logo variant="lockup" className="h-14" />
+          <div className="surface-brand grid place-items-center gap-6 rounded-2xl p-6 sm:p-10" data-testid="logo-on-brand">
+            <Logo />
+            <Logo variant="lockup" />
           </div>
-          <div className="grid place-items-center gap-6 rounded-2xl bg-ice p-10">
-            <Logo tone="mono" className="h-10 text-ink" />
-            <Logo tone="mono" variant="lockup" className="h-14 text-ink" />
+          <div className="grid place-items-center gap-6 rounded-2xl border border-border p-6 sm:p-10">
+            <Logo tone="mono" className="text-ink" />
+            <Logo tone="mono" variant="lockup" className="text-ink" />
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-6 rounded-2xl border border-border p-10">
-            <LogoMark variant="tile" className="size-16" />
+          <div className="flex flex-wrap items-center justify-center gap-6 rounded-2xl border border-border p-6 sm:p-10">
+            <LogoMark variant="tile" />
             <LogoMark variant="tile" className="size-8" />
             <LogoMark variant="tile" className="size-4" />
-            <LogoMark className="h-16" />
-            <LogoMark tone="mono" className="h-16" />
+            <LogoMark optical={false} className="h-20 w-auto" />
+            <LogoMark tone="mono" optical={false} className="h-20 w-auto" />
           </div>
-          <div className="grid place-items-center rounded-2xl border border-border p-10">
-            <Logo layout="stacked" variant="lockup" className="h-32" />
+          <div className="grid place-items-center rounded-2xl border border-border p-6 sm:p-10">
+            <Logo layout="stacked" variant="lockup" optical={false} className="h-24 w-auto sm:h-36" />
           </div>
-          <div className="surface-brand grid place-items-center rounded-2xl p-10">
-            <Logo layout="stacked" variant="lockup" className="h-32" />
+          <div className="surface-brand grid place-items-center rounded-2xl p-6 sm:p-10">
+            <Logo layout="stacked" variant="lockup" optical={false} className="h-24 w-auto sm:h-36" />
+          </div>
+        </div>
+      </Block>
+
+      <Block title="Decoratie">
+        <div className="grid gap-4 md:grid-cols-3">
+          <ColumnLines className="grid h-56 place-items-center rounded-2xl border border-border">
+            <p className="text-sm text-muted-foreground">ColumnLines</p>
+          </ColumnLines>
+          <div className="relative isolate grid h-56 place-items-center rounded-2xl border border-border">
+            <GridPattern variant="grid" fade="top-right" />
+            <p className="text-sm text-muted-foreground">GridPattern grid</p>
+          </div>
+          <div className="relative isolate grid h-56 place-items-center rounded-2xl border border-border">
+            <GridPattern variant="dots" fade="top-right" />
+            <p className="text-sm text-muted-foreground">GridPattern dots</p>
           </div>
         </div>
       </Block>
 
       <Block title="Blauwe afsluiter">
-        <div className="surface-brand pattern-oo rounded-2xl p-8 md:p-12">
+        <ColumnLines
+          columnWidth={56}
+          columnCount={40}
+          radialFadeStart={0}
+          radialFadeEnd={62}
+          className="surface-brand rounded-2xl p-8 [--cl-at:100%_0%] md:p-12"
+        >
           <h2 className="max-w-[28ch]">Personeel nodig dat morgen kan beginnen?</h2>
           <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">
             Bel of app ons. Wij denken mee en sturen mensen die het werk kennen.
@@ -506,7 +530,7 @@ export default async function Stijlgids({ params }: { params: Promise<{ locale: 
               Bel ons
             </CtaButton>
           </div>
-        </div>
+        </ColumnLines>
       </Block>
     </main>
   );

@@ -44,7 +44,8 @@ export async function ContactAside({
     >
       <h3 className="font-display text-h3 font-semibold text-foreground">{title}</h3>
       <p className="mt-2 text-base text-muted-foreground">{body}</p>
-      <div className={cn("mt-4 grid gap-2", strip ? "grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2")}>
+      {/* Strook: naast elkaar zolang de labels passen, anders onder elkaar (Engels op 320 px). */}
+      <div className={cn("mt-4 gap-2", strip ? "flex flex-wrap" : "grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2")}>
         <TrackedContactLink
           kind="call"
           form={form}
@@ -53,7 +54,7 @@ export async function ContactAside({
           ariaLabel={tc("a11y.call", { phone: contact.phone })}
           beroep={analytics?.beroep}
           vacature={analytics?.vacature}
-          className="w-full"
+          className={strip ? "flex-1 px-3" : "w-full"}
         />
         {whatsapp && (
           <TrackedContactLink
@@ -65,7 +66,7 @@ export async function ContactAside({
             newTabLabel={tc("opensInNewTab")}
             beroep={analytics?.beroep}
             vacature={analytics?.vacature}
-            className="w-full"
+            className={strip ? "flex-1 px-3" : "w-full"}
           />
         )}
       </div>

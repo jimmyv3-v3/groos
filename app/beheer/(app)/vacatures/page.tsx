@@ -168,8 +168,8 @@ export default async function VacanciesPage({ searchParams }: PageProps<"/beheer
         card={(r) => (
           <div className="grid gap-3">
             <div className="flex items-start justify-between gap-3">
-              <div className="grid gap-1">
-                <h3 className="text-[1.0625rem] leading-snug">
+              <div className="grid min-w-0 gap-1">
+                <h3 className="text-[1.0625rem] leading-snug wrap-anywhere">
                   <Link href={beheerPaths.vacancy(r.number)} className={rowLinkClass(true)}>
                     {r.title}
                   </Link>

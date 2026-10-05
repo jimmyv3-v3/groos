@@ -357,7 +357,7 @@ Nieuwe componenten (S = server, C = client):
 
 1. `const ctx = await requireAdmin()`; `const counts = await getNavCounts(ctx)`.
 2. Skiplink `S.app.skipLink` naar `#inhoud`.
-3. Vanaf `lg`: `SidebarNav` links (breedte 16rem, sticky), met Overzicht,
+3. Vanaf `lg`: `SidebarNav` links (breedte 19rem, sticky), met Overzicht,
    Vacatures, Sollicitaties, Personeelsaanvragen, Berichten; badges met de
    tellers; onderin de naam van de beheerder, "Bekijk website" (`/`, nieuw
    tabblad) en een formulier met de actie `signOut`.

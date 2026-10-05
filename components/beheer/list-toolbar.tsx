@@ -27,7 +27,8 @@ export type ToolbarFilter = {
 
 /**
  * Zoeken, filters en sortering als GET-formulier (spec 08 §4.3). Vanaf lg
- * staan de filters naast het zoekveld; daaronder in een Sheet. Beide sets
+ * staan de filters naast het zoekveld en lopen ze door op een volgende regel
+ * als ze niet passen; daaronder staan ze in een Sheet. Beide sets
  * delen dezelfde staat; alleen de set in het formulier heeft namen, zodat
  * een waarde nooit dubbel meegaat. Zonder JavaScript werkt Zoeken.
  */
@@ -76,8 +77,8 @@ export function ListToolbar({
   return (
     <form ref={formRef} id={formId} method="get" action={pathname} role="search" className="mb-5 grid gap-3">
       {tab && <input type="hidden" name="tab" value={tab} />}
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-end">
-        <div className="grid flex-1 gap-2">
+      <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-end">
+        <div className="grid flex-1 gap-2 lg:min-w-64">
           <Label htmlFor={`${formId}-q`}>{searchLabel}</Label>
           <div className="relative">
             <Search className="pointer-events-none absolute top-1/2 left-3.5 size-5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
@@ -92,7 +93,7 @@ export function ListToolbar({
             />
           </div>
         </div>
-        <div className="hidden gap-3 lg:flex lg:items-end [&>div]:min-w-40">
+        <div className="hidden lg:contents [&>div]:min-w-40 [&>div]:flex-1">
           {selects.map((f) => renderSelect(f, true, `${formId}-d`))}
         </div>
         <div className="flex gap-2">
@@ -114,11 +115,11 @@ export function ListToolbar({
                 </SheetHeader>
                 <div className="grid gap-4 overflow-y-auto p-5">{selects.map((f) => renderSelect(f, false, `${formId}-m`))}</div>
                 <SheetFooter>
-                  <Link href={clearHref} className={ctaButtonVariants({ variant: "secondary", className: "flex-1" })}>
+                  <Link href={clearHref} className={ctaButtonVariants({ variant: "secondary", className: "flex-1 max-sm:px-3" })}>
                     {S.common.clearFilters}
                   </Link>
                   <SheetClose
-                    className={ctaButtonVariants({ className: "flex-1" })}
+                    className={ctaButtonVariants({ className: "flex-1 max-sm:px-3" })}
                     onClick={() => setTimeout(() => formRef.current?.requestSubmit(), 0)}
                   >
                     {S.common.apply}

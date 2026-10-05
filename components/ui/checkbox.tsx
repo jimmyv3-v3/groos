@@ -69,7 +69,8 @@ function CheckboxField({
         aria-describedby={describedByIds}
         className="mt-0.5"
       />
-      <span className="grid gap-0.5">
+      {/* min-w-0 en een kolom-flex: een lang woord of e-mailadres in het label breekt, in plaats van de pagina breder te maken. */}
+      <span className="flex min-w-0 flex-col gap-0.5">
         <span className="text-base text-foreground">{label}</span>
         {description && (
           <span id={descId} className="text-sm text-muted-foreground">

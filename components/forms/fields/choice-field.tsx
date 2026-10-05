@@ -50,7 +50,7 @@ export function ChoiceField({
         error={error}
         errorId={ids.errorId}
         orientation={layout === "row" ? "horizontal" : "vertical"}
-        className={cn(gridFromSm && "sm:[&>div]:grid-cols-2")}
+        className={cn("min-w-0", gridFromSm && "sm:[&>div]:grid-cols-2")}
       >
         {options.map((o) => (
           <RadioCard

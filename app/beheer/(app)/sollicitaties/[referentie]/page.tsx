@@ -3,10 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ListChecks } from "lucide-react";
 import { APPLICATION_STATUSES } from "@/lib/data/options";
+import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/format";
 import { ActivityFeed } from "@/components/beheer/activity-feed";
 import { AssignForm } from "@/components/beheer/assign-form";
-import { ContactActions } from "@/components/beheer/contact-actions";
+import { ContactActions, ContactLink } from "@/components/beheer/contact-actions";
 import { CvButtons } from "@/components/beheer/cv-buttons";
 import { DefinitionList } from "@/components/beheer/definition-list";
 import { DetailActionBar } from "@/components/beheer/detail-action-bar";
@@ -19,7 +20,7 @@ import { StatusForm } from "@/components/beheer/status-form";
 import { getApplication } from "../../../_data/applications";
 import { listAdminOptions, listOccupationOptions } from "../../../_data/vacancies";
 import { requireAdmin } from "../../../_lib/auth";
-import { formatDateNl, formatPhoneNl, formatRelativeNl } from "../../../_lib/format";
+import { formatDateNl, formatPhoneNl, formatRelativeNl, mailtoHref, telHref } from "../../../_lib/format";
 import { beheerPaths } from "../../../_lib/paths";
 import { APPLICATION_REFERENCE } from "../../../_lib/validation/application";
 import { S, fill } from "../../../_strings";
@@ -78,7 +79,7 @@ export default async function ApplicationDetailPage({ params }: PageProps<"/behe
             {a.kind === "registration" ? (
               <span>{S.applications.registration}</span>
             ) : a.vacancyNumber ? (
-              <Link href={beheerPaths.vacancy(a.vacancyNumber)} className="link">
+              <Link href={beheerPaths.vacancy(a.vacancyNumber)} className="link -my-2 inline-flex min-h-11 items-center">
                 {a.vacancyTitle ?? fill(S.vacancies.number, { nummer: a.vacancyNumber })}
               </Link>
             ) : null}
@@ -90,8 +91,26 @@ export default async function ApplicationDetailPage({ params }: PageProps<"/behe
           <SectionCard id="contact" title={D.contact}>
             <DefinitionList
               items={[
-                { term: D.phone, value: a.phoneE164 ? formatPhoneNl(a.phoneE164) : S.common.notFilled },
-                { term: D.email, value: a.email ?? S.common.notFilled },
+                {
+                  term: D.phone,
+                  value: a.phoneE164 ? (
+                    <ContactLink entityType="application" entityId={a.id} channel="call" href={telHref(a.phoneE164)}>
+                      {formatPhoneNl(a.phoneE164)}
+                    </ContactLink>
+                  ) : (
+                    S.common.notFilled
+                  ),
+                },
+                {
+                  term: D.email,
+                  value: a.email ? (
+                    <ContactLink entityType="application" entityId={a.id} channel="email" href={mailtoHref(a.email, mailSubject)}>
+                      {a.email}
+                    </ContactLink>
+                  ) : (
+                    S.common.notFilled
+                  ),
+                },
                 { term: D.city, value: a.city ?? S.common.notFilled },
               ]}
             />
@@ -123,7 +142,7 @@ export default async function ApplicationDetailPage({ params }: PageProps<"/behe
         </div>
         <div className="grid gap-6 lg:sticky lg:top-20">
           <SectionCard id="status" title={D.statusAndAssign}>
-            <StatusForm kind="application" id={a.id} current={a.status} options={[...APPLICATION_STATUSES]} />
+            <StatusForm kind="application" id={a.id} current={a.status} options={[...APPLICATION_STATUSES]} canEmail={Boolean(a.email)} />
             <AssignForm kind="application" id={a.id} current={a.assignedTo} admins={admins} meId={ctx.userId} />
           </SectionCard>
           <SectionCard id="andere" title={D.others}>
@@ -132,8 +151,8 @@ export default async function ApplicationDetailPage({ params }: PageProps<"/behe
             ) : (
               <ul className="divide-y divide-border">
                 {a.others.map((o) => (
-                  <li key={o.id} className="flex flex-wrap items-center justify-between gap-2 py-2">
-                    <Link href={beheerPaths.application(o.reference)} className={rowLinkClass()}>
+                  <li key={o.id} className="flex flex-wrap items-center justify-between gap-x-2 py-1">
+                    <Link href={beheerPaths.application(o.reference)} className={cn(rowLinkClass(), "inline-flex min-h-11 items-center")}>
                       {o.kind === "registration" ? S.applications.registration : (o.vacancyTitle ?? o.reference)}
                     </Link>
                     <span className="flex items-center gap-2 text-sm text-muted-foreground">

@@ -1228,8 +1228,9 @@ bij STRATO uitzetten en 48 uur wachten tot de DS-record bij SIDN weg is
 `ns1.vercel-dns.com` en `ns2.vercel-dns.com`; (4) E7 opnieuw. Deze route
 noteert de bouw-agent als afwijking in spec 00, met reden.
 
-**E9 Domein zonder "s"** (aanbeveling, niet blokkerend). [Jimmy] registreert
-`groospersoneeldiensten.nl` bij STRATO en Djulan voegt het in Vercel toe als
+**E9 Domein zonder "s"** (aanbeveling, niet blokkerend). De variant van het
+domein zonder "s" na "personeel" is al geregistreerd (DNS bij Mijndomein) en
+staat op het Vercel-project. Djulan zet die variant in Vercel om naar een
 redirect (308) naar `www.groospersoneelsdiensten.nl`. Dat vangt typefouten in
 de briefing en op visitekaartjes op.
 

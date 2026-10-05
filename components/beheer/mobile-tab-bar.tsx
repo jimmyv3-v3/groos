@@ -9,7 +9,9 @@ import { countFor, isActive, TAB_ITEMS } from "./nav-items";
 
 /**
  * Vaste tabbalk onder lg met vijf items, altijd icoon en label (spec 08
- * §4.4). Verborgen zodra de pagina een [data-actiebalk] heeft.
+ * §4.4). Verborgen zodra de pagina een [data-actiebalk] heeft. De kolommen
+ * volgen de breedte van hun label, zodat de labels op 320 px niet tegen
+ * elkaar aan lopen.
  */
 export function MobileTabBar({ counts }: { counts: NavCounts }) {
   const pathname = usePathname();
@@ -17,20 +19,20 @@ export function MobileTabBar({ counts }: { counts: NavCounts }) {
     <nav
       aria-label={S.nav.tabBarLabel}
       data-tabbalk
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background pb-[env(safe-area-inset-bottom)] lg:hidden [body:has([data-actiebalk])_&]:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] lg:hidden [body:has([data-actiebalk])_&]:hidden"
     >
-      <ul className="mx-auto grid h-16 max-w-xl grid-cols-5">
+      <ul className="mx-auto flex h-16 max-w-xl">
         {TAB_ITEMS.map((item) => {
           const active = isActive(pathname, item.href);
           const count = countFor(item, counts);
           const Icon = item.icon;
           return (
-            <li key={item.href} className="flex">
+            <li key={item.href} className="flex flex-auto">
               <Link
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "relative flex min-h-11 flex-1 flex-col items-center justify-center gap-1 text-xs transition-colors duration-150 motion-reduce:transition-none",
+                  "relative flex min-h-11 flex-1 flex-col items-center justify-center gap-1 text-xs whitespace-nowrap transition-colors duration-150 motion-reduce:transition-none",
                   active ? "font-semibold text-brand-strong" : "text-muted-foreground hover:text-foreground",
                 )}
               >
@@ -42,7 +44,7 @@ export function MobileTabBar({ counts }: { counts: NavCounts }) {
                 >
                   <Icon className="size-5" aria-hidden="true" />
                   {count > 0 && (
-                    <span className="absolute -top-1 right-0 min-w-5 rounded-full bg-primary px-1 text-center text-[0.6875rem] leading-5 font-semibold tabular-nums text-primary-foreground">
+                    <span className="absolute -top-1 right-0 min-w-5 rounded-full bg-primary px-1 text-center text-xs leading-5 font-semibold tabular-nums text-primary-foreground">
                       <span aria-hidden="true">{count}</span>
                       <span className="sr-only">{fill(S.nav.newBadge, { aantal: count })}</span>
                     </span>

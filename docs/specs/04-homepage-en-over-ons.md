@@ -131,6 +131,17 @@ Elke sectie (behalve de hero) is een `<section aria-labelledby="<kop-id>">` met 
 
 ### 4.3 Homepage per sectie
 
+#### 4.3.0 Visuele herziening van 3 oktober 2026
+
+Na de feedback van de eigenaar op de eerste bouw gelden deze regels boven de recepten hieronder; inhoud, sleutels, ankers en koppenstructuur zijn ongewijzigd.
+
+- **Eén achtergrond.** De homepage en `/over-ons` staan volledig op wit. Geen sectie heeft `bg-ice` of een andere band; alleen de footer is grijs. De blauwe afsluiter is een kaart op wit.
+- **Hero.** Kop en intro links, zoals in het recept. De twee deuren zijn twee losse witte kaarten met een rand (`rounded-2xl border border-border bg-card shadow-xs`), naast elkaar vanaf `md` met `gap-6`, onder elkaar op mobiel met `gap-3`, elk met een `IconTile` naast de deurkop vanaf `md`. Achtergrond via de prop `background` van `HomeHero`: `"none"` (standaard, wit), `"grid"` (fijn raster rechtsboven) of `"glow"` (zachte gloed in de blauwtint rechts); de eigenaar kiest. Op 390 bij 844 liggen beide hoofdknoppen boven de vaste actiebalk (onderkant van "Personeel aanvragen" op 749 px, actiebalk vanaf 771 px).
+- **Vacatures.** Een eigen sectie: kop en intro, daaronder de kaarten of de lege staat, en daaronder de link `common.cta.viewAllJobs` met een pijl rechts (`LatestVacancies` met `viewAllPosition="below"`). De link staat ook onder de lege staat.
+- **Beroepen.** Bento vanaf `lg`: twee brede kaarten (elk zes kolommen, met een uitlopend stippenraster rechtsboven) en drie smalle (elk vier kolommen). De twee perspectieven staan als rijen in de voet van elke kaart, gescheiden door haarlijnen.
+- **Werkwijze.** Naast de sectiekop staat de visual `StaffingFlow` als eigen blok; daaronder de twee sporen als kaarten met genummerde cirkels en een verbindingslijn.
+- **Waarom Groos en werkwijze op /over-ons.** Eén paneel met haarlijnen tussen de cellen in plaats van losse kaarten.
+
 #### 4.3.1 Hero met twee deuren (`HomeHero`)
 
 **Doel.** In één scherm laten zien wat Groos is en elke bezoeker de juiste deur geven. Het merkidee "trots op goed werk" komt hier niet als slogan terug, maar in rust en feiten.
@@ -161,7 +172,7 @@ De deurkoppen zijn h2, omdat elke deur een eigen deel van de pagina is met een e
     <h1 id="home-titel" className="text-hero max-w-[22ch]">…</h1>
     <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">…</p>
     <div className="mt-6 grid gap-3 md:mt-10 md:grid-cols-2 md:gap-6">
-      <div className="pattern-oo flex flex-col rounded-2xl bg-brand-tint p-5 md:p-8" aria-labelledby="deur-werk">   deur 1
+      <div className="flex flex-col rounded-2xl border border-border bg-card p-4 shadow-xs sm:p-5 md:p-8" aria-labelledby="deur-werk">   deur 1
         <h2 id="deur-werk" className="text-h3">…</h2>
         <p className="mt-2">…</p>
         <CtaButton className="mt-4 w-full sm:w-auto">…</CtaButton>
@@ -169,7 +180,7 @@ De deurkoppen zijn h2, omdat elke deur een eigen deel van de pagina is met een e
           <li><CtaButton variant="secondary" size="sm" href={paths.werkenAls(id)}>{icoon}{enkelvoud}</CtaButton></li> × 5
         </ul>
       </div>
-      <div className="pattern-oo flex flex-col rounded-2xl bg-brand-tint p-5 md:p-8" aria-labelledby="deur-personeel">   deur 2
+      <div className="flex flex-col rounded-2xl border border-border bg-card p-4 shadow-xs sm:p-5 md:p-8" aria-labelledby="deur-personeel">   deur 2
         <h2 id="deur-personeel" className="text-h3">…</h2>
         <p className="mt-2">…</p>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">

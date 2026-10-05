@@ -15,6 +15,10 @@ insert into public.admin_profiles (id, email, full_name, display_name, role, is_
   ('00000000-0000-4000-8000-0000000000a2', 'rls-recruiter@example.com', 'RLS Recruiter', 'Recruiter', 'recruiter', true),
   ('00000000-0000-4000-8000-0000000000a3', 'rls-inactief@example.com', 'RLS Inactief', 'Inactief', 'owner', false);
 
+-- De owner heeft een authenticator-app gekoppeld; de recruiter niet (B-62).
+insert into auth.mfa_factors (id, user_id, friendly_name, factor_type, status, created_at, updated_at, secret) values
+  ('00000000-0000-4000-8000-0000000000f1', '00000000-0000-4000-8000-0000000000a1', 'RLS', 'totp', 'verified', now(), now(), 'rls-smoke');
+
 -- Verwachte aantallen als postgres, voor de vergelijking hieronder.
 do $$ begin perform set_config('rls.applications', (select count(*)::text from public.applications), true); end $$;
 
@@ -85,7 +89,7 @@ reset role;
 -- ---------------------------------------------------------------------------
 set local role authenticated;
 
--- Actief profiel met alleen aal1: niets.
+-- Actief profiel met gekoppelde app en alleen aal1: niets.
 do $$ begin perform set_config('request.jwt.claims', '{"sub":"00000000-0000-4000-8000-0000000000a1","role":"authenticated","aal":"aal1"}', true); end $$;
 do $$
 begin
@@ -115,6 +119,18 @@ do $$
 begin
   if (select count(*) from public.applications) <> 0 then
     raise exception 'AC-10-08: inactief profiel ziet sollicitaties';
+  end if;
+end $$;
+
+-- Recruiter zonder gekoppelde app met aal1: sollicitaties wel, logboek niet (B-62).
+do $$ begin perform set_config('request.jwt.claims', '{"sub":"00000000-0000-4000-8000-0000000000a2","role":"authenticated","aal":"aal1"}', true); end $$;
+do $$
+begin
+  if (select count(*) from public.applications) <> current_setting('rls.applications')::bigint then
+    raise exception 'B-62: recruiter zonder factor ziet met aal1 niet alle sollicitaties';
+  end if;
+  if (select count(*) from public.audit_log) <> 0 then
+    raise exception 'B-62: recruiter zonder factor ziet audit_log';
   end if;
 end $$;
 

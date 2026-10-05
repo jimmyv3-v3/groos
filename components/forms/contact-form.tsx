@@ -101,10 +101,18 @@ export function ContactForm({ locale }: { locale: Locale }) {
       onFocus={onFirstInteraction}
       noValidate
       aria-labelledby="contactformulier-titel"
-      className="relative grid max-w-[36rem] gap-6"
+      className="relative grid max-w-[36rem] grid-cols-[minmax(0,1fr)] gap-6"
     >
       <ErrorSummary count={errorCount} text={t("common.errorSummary", { count: errorCount })} />
-      <TextField {...field("name")} label={tf("name.label")} required autoComplete="name" maxLength={120} />
+      <TextField
+        {...field("name")}
+        label={tf("name.label")}
+        required
+        autoComplete="name"
+        autoCapitalize="words"
+        autoCorrect={false}
+        maxLength={120}
+      />
       <TextField
         {...field("phone")}
         label={tf("phone.label")}

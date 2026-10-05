@@ -15,7 +15,7 @@ export const metadata: Metadata = { title: S.auth.setPassword.metaTitle };
 export default async function SetPasswordPage() {
   const state = await getSessionState();
   if (state.kind === "none") redirect(beheerPaths.login);
-  if (state.kind === "aal1" && state.hasVerifiedFactor) {
+  if (state.kind === "aal1") {
     redirect(`${beheerPaths.mfa}?volgende=${encodeURIComponent(beheerPaths.setPassword)}`);
   }
   if (state.kind === "inactive") redirect(beheerPaths.noAccess);
