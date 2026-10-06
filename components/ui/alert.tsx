@@ -44,7 +44,7 @@ function Alert({
       {...props}
     >
       {Icon && <Icon className="mt-0.5 size-5 shrink-0" aria-hidden="true" />}
-      <div className="grid gap-1">
+      <div className="grid min-w-0 grid-cols-1 gap-1">
         {title && (
           <Title id={titleId} className="font-sans text-base font-semibold tracking-normal text-current">
             {title}

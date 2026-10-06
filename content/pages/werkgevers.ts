@@ -8,7 +8,7 @@ export const werkgeversPage = {
   nl: {
     hero: {
       title: "Personeel voor praktisch werk in Den Haag en omgeving",
-      lead: "Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers en hulpkrachten in de bouw en sloop. U regelt uw aanvraag met één vast aanspreekpunt in Den Haag.",
+      lead: "Wij leveren mensen voor schoonmaak en glasbewassing, logistiek en verhuizen, en bouw, sloop en infra. U regelt uw aanvraag met één vast aanspreekpunt in Den Haag.",
     },
     supply: {
       title: "Dit regelt Groos",
@@ -42,7 +42,7 @@ export const werkgeversPage = {
       ],
     },
     beroepen: {
-      title: "Mensen voor vijf soorten",
+      title: "Mensen voor tien soorten",
       accent: "praktisch werk",
       intro: "Per beroep leest u welke taken de medewerkers doen en welke certificaten vaak gevraagd worden.",
     },
@@ -173,7 +173,7 @@ export const werkgeversPage = {
   en: {
     hero: {
       title: "Staff for practical work in and around The Hague",
-      lead: "We provide window cleaners, cleaners, logistics workers, movers and construction and demolition labourers. You arrange your request through one regular contact in The Hague.",
+      lead: "We provide people for cleaning and window cleaning, logistics and removals, and construction, demolition and groundworks. You arrange your request through one regular contact in The Hague.",
     },
     supply: {
       title: "What Groos arranges",
@@ -206,7 +206,7 @@ export const werkgeversPage = {
       ],
     },
     beroepen: {
-      title: "People for five kinds",
+      title: "People for ten kinds",
       accent: "of practical work",
       intro: "For each job you can read what the workers do and which certificates are often required.",
     },

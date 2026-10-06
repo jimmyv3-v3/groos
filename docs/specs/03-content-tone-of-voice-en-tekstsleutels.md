@@ -437,7 +437,7 @@ Elke regel heeft een controle: een script (S, met regel-id uit §6.19), de revie
 | Tijdvak | 07.00 tot 18.00 uur | 07:00 to 18:00 | 07.00-18.00 |
 | Dagen | maandag tot en met vrijdag | Monday to Friday | ma-vr, ma t/m vr |
 | Datum | 2 oktober 2026; vrijdag 2 oktober 2026 | 2 October 2026 | 02-10-2026, 2/10 |
-| Telefoon | 06 83 35 19 85 | +31 6 83 35 19 85 | 0683351985 |
+| Telefoon | 06 52 54 95 39 | +31 6 52 54 95 39 | 0652549539 |
 | Postcode | 2553 ER Den Haag | 2553 ER The Hague | 2553ER |
 | Percentage | lopende tekst: 8 procent; tabel of label: 8% | 8 percent; 8% | 8 % |
 | Leeftijd | 18 jaar | 18 years | achttien jaar |
@@ -857,8 +857,8 @@ staan onder het blok.
   "meta": {
     "titleDefault": "Uitzendbureau in Den Haag | Groos Personeelsdiensten",
     "titleTemplate": "%s | Groos Personeelsdiensten",
-    "description": "Groos is een uitzendbureau in Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen, bouw en sloop. Bekijk de vacatures of vraag personeel aan.",
-    "organizationDescription": "Groos Personeelsdiensten B.V. is een uitzendbureau in Den Haag. Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers en hulpkrachten bouw en sloop aan opdrachtgevers.",
+    "description": "Groos is een uitzendbureau in Den Haag voor glasbewassing, schoonmaak, logistiek, verhuizen, bouw, sloop en infra. Bekijk de vacatures of vraag personeel aan.",
+    "organizationDescription": "Groos Personeelsdiensten B.V. is een uitzendbureau in Den Haag. Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers, hulpkrachten bouw en sloop, grondwerkers, slopers, bouwopruimers, machinisten en stratenmakers aan opdrachtgevers.",
     "keywords": [
       "uitzendbureau Den Haag",
       "vacatures Den Haag",
@@ -867,11 +867,15 @@ staan onder het blok.
       "orderpicker vacature Den Haag",
       "verhuizer vacature Den Haag",
       "opperman vacature Den Haag",
+      "grondwerker vacature Den Haag",
+      "sloper vacature Den Haag",
+      "machinist grondverzet vacature Den Haag",
+      "stratenmaker vacature Den Haag",
       "personeel inhuren Den Haag",
       "uitzendkrachten Den Haag"
     ],
     "ogHeadline": "Werk en personeel in Den Haag, met vaste contactpersonen",
-    "ogSubline": "Wij helpen werkzoekenden en bedrijven in vijf praktische beroepen."
+    "ogSubline": "Wij helpen werkzoekenden en bedrijven in tien praktische beroepen."
   },
   "header": {
     "skipLink": "Ga direct naar de inhoud",
@@ -900,7 +904,7 @@ staan onder het blok.
     }
   },
   "footer": {
-    "description": "Groos Personeelsdiensten is een uitzendbureau uit Den Haag voor praktisch werk. Wij brengen werkzoekenden en opdrachtgevers in vijf beroepen bij elkaar.",
+    "description": "Groos Personeelsdiensten is een uitzendbureau uit Den Haag voor praktisch werk. Wij brengen werkzoekenden en opdrachtgevers in tien beroepen bij elkaar.",
     "navLabel": "Overzicht van de site",
     "columns": {
       "werkzoekenden": "Werkzoekenden",
@@ -908,6 +912,7 @@ staan onder het blok.
       "groos": "Groos",
       "contact": "Contact"
     },
+    "planningPhone": "Planning: {phone}",
     "rights": "© {year} {name}"
   },
   "notFound": {
@@ -1002,7 +1007,7 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
     "whatsapp": {
       "algemeen": "Hello Groos, I have a question.",
       "werkzoekende": "Hello Groos, I am looking for work and would like to know more.",
-      "werkzoekendeBeroep": "Hello Groos, I am looking for work as a {occupation}.",
+      "werkzoekendeBeroep": "Hello Groos, I am looking for work as {occupation}.",
       "werkgever": "Hello Groos, I am looking for staff and would like to discuss a request.",
       "werkgeverBeroep": "Hello Groos, I am looking for {occupationPlural} and would like to discuss a request.",
       "vacatureSolliciteren": "Hello Groos, I would like to apply for the job {title} (number {number}).",
@@ -1061,8 +1066,8 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
   "meta": {
     "titleDefault": "Employment agency in The Hague | Groos Personeelsdiensten",
     "titleTemplate": "%s | Groos Personeelsdiensten",
-    "description": "Groos is an employment agency in The Hague for window cleaning, cleaning, logistics, removals, construction and demolition. View our jobs or request staff.",
-    "organizationDescription": "Groos Personeelsdiensten B.V. is an employment agency in The Hague. We provide window cleaners, cleaners, logistics workers, movers and construction and demolition labourers to clients.",
+    "description": "Groos is an employment agency in The Hague for window cleaning, cleaning, logistics, removals, construction and groundworks. View our jobs or request staff.",
+    "organizationDescription": "Groos Personeelsdiensten B.V. is an employment agency in The Hague. We provide window cleaners, cleaners, logistics workers, movers, construction and demolition labourers, groundworkers, demolition workers, construction site cleaners, excavator operators and street pavers to clients.",
     "keywords": [
       "employment agency The Hague",
       "jobs in The Hague",
@@ -1071,11 +1076,15 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
       "warehouse jobs The Hague",
       "mover jobs The Hague",
       "construction labourer jobs The Hague",
+      "groundworker jobs The Hague",
+      "demolition worker jobs The Hague",
+      "excavator operator jobs The Hague",
+      "street paver jobs The Hague",
       "hire staff The Hague",
       "temporary workers The Hague"
     ],
     "ogHeadline": "Work and staff in The Hague, with dedicated contacts",
-    "ogSubline": "We help job seekers and businesses in five hands-on occupations."
+    "ogSubline": "We help job seekers and businesses in ten hands-on occupations."
   },
   "header": {
     "skipLink": "Skip to content",
@@ -1104,7 +1113,7 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
     }
   },
   "footer": {
-    "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work. We bring job seekers and clients together in five occupations.",
+    "description": "Groos Personeelsdiensten is an employment agency in The Hague for hands-on work. We bring job seekers and clients together in ten occupations.",
     "navLabel": "Site overview",
     "columns": {
       "werkzoekenden": "Job seekers",
@@ -1112,6 +1121,7 @@ namespace als wrapper (B-47). Bestanden in `messages/en/`: `common.json`,
       "groos": "Groos",
       "contact": "Contact"
     },
+    "planningPhone": "Scheduling: {phone}",
     "rights": "© {year} {name}"
   },
   "notFound": {
@@ -1493,7 +1503,7 @@ Oplevering:        <NL in de sleutels; lijst gebruikte claims; uitvoer van check
 | AC-03-10 | Met alle vlaggen in `lib/claims.ts` op `false` en `contact.openingHours` op `undefined` staat op geen enkele route uit de sitemap de tekst van `common.contact.officeHoursValue`, `common.contact.afterHours`, `common.notes.responseJobseeker` of `common.notes.responseEmployer`, en nergens "24/7" of "dag en nacht". | E-03-06, E-03-08 | R-12 |
 | AC-03-11 | Met `contact.openingHours` op `undefined` tonen de footer en `/contact` geen tekst van `common.contact.officeHoursValue`; met `{ days: "ma-vr", opens: "07:00", closes: "18:00" }` tonen ze via `common.contact.officeHoursValue` "Maandag tot en met vrijdag van 07.00 tot 18.00 uur" (en op `/en` en `/en/contact` "Monday to Friday from 07:00 to 18:00"). | E-03-04, E-03-08 | R-12 |
 | AC-03-12 | `npm run check -- --warn` noemt `lib/claims.ts` met het aantal open claims zolang er een TODO-vlag staat. | E-03-08 | R-12 |
-| AC-03-13 | Op een gepubliceerde vacature uit de seed heeft de WhatsApp-link een `href` die begint met `https://wa.me/31683351985?text=` en waarvan de gedecodeerde tekst de titel en het nummer van die vacature bevat; op `/werkgevers/personeel-aanvragen` staat de tekst van `common.whatsapp.werkgever` in de WhatsApp-link van de actiebalk; op `/en/werkgevers/personeel-aanvragen` de Engelse tekst. | E-03-13 | R-01, R-14 |
+| AC-03-13 | Op een gepubliceerde vacature uit de seed heeft de WhatsApp-link een `href` die begint met `https://wa.me/31652549539?text=` en waarvan de gedecodeerde tekst de titel en het nummer van die vacature bevat; op `/werkgevers/personeel-aanvragen` staat de tekst van `common.whatsapp.werkgever` in de WhatsApp-link van de actiebalk; op `/en/werkgevers/personeel-aanvragen` de Engelse tekst. | E-03-13 | R-01, R-14 |
 | AC-03-14 | De `<title>` van `/` is exact "Uitzendbureau in Den Haag \| Groos Personeelsdiensten"; de `<title>` van `/contact` eindigt op " \| Groos Personeelsdiensten"; `/en` heeft "Employment agency in The Hague \| Groos Personeelsdiensten". | E-03-17 | R-09 |
 | AC-03-15 | Een script over `sitemap.xml` op localhost vindt voor elke URL een meta description van 120 tot 160 tekens zonder uitroepteken en zonder streepje. | E-03-09, E-03-17 | R-09 |
 | AC-03-16 | `/deze-pagina-bestaat-niet` geeft status 404, één h1 met de tekst van `notFound.title` en links naar `/vacatures`, `/werkgevers/personeel-aanvragen`, `/contact` en `/`; onder `/en` dezelfde opbouw in het Engels. | E-03-11, E-03-14 | R-07, R-13 |

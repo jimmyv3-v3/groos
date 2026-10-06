@@ -91,7 +91,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/[
 
       <ListSection
         id="levering"
-        className="bg-ice"
         heading={c.supply.title}
         accent={c.supply.accent}
         intro={c.supply.intro}
@@ -110,7 +109,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/[
 
       <CertificateList
         id="certificaten"
-        className="bg-ice"
         heading={c.certificates.title}
         accent={c.certificates.accent}
         intro={c.certificates.intro}
@@ -132,7 +130,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/[
 
       <ServiceSteps
         id="werkwijze"
-        className="bg-ice"
         heading={t("werkgevers.steps.title")}
         accent={t("werkgevers.steps.accent")}
         intro={t("werkgevers.steps.intro")}
@@ -149,7 +146,7 @@ export default async function Page({ params }: PageProps<"/[locale]/werkgevers/[
         link={{ label: c.legal.wttaLinkLabel, href: ROUTES.wtta }}
       />
 
-      <ServiceFaq className="bg-ice" heading={c.faq.title} accent={c.faq.accent} intro={c.faq.intro} items={faq} />
+      <ServiceFaq heading={c.faq.title} accent={c.faq.accent} intro={c.faq.intro} items={faq} />
       <JsonLd data={faqLd(faq.map(({ q, a }) => ({ q, a })))} />
       <JsonLd
         data={serviceLd({

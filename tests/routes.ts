@@ -6,7 +6,7 @@ import { BEDANKT_SOORTEN, STATIC_ROUTES, paths } from "@/lib/routes";
 /** Vaste pagina's die gepubliceerd zijn. */
 export const VASTE_ROUTES: string[] = STATIC_ROUTES.filter((r) => r.published).map((r) => r.path);
 
-/** Tien beroepspagina's: vijf voor werkzoekenden en vijf voor werkgevers. */
+/** Twee pagina's per beroep: één voor werkzoekenden en één voor werkgevers. */
 export const BEROEP_ROUTES: string[] = beroepen.flatMap((b) => [paths.werkenAls(b.id), paths.werkgeverBeroep(b.id)]);
 
 export const BEDANKT_ROUTES: string[] = BEDANKT_SOORTEN.map((s) => paths.bedankt(s));

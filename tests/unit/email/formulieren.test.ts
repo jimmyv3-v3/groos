@@ -74,7 +74,7 @@ describe("sendApplicationEmails (spec 11 §4.10)", () => {
     assert.equal(sent[0].template, "application-confirmation");
     assert.equal("contactName" in props, false);
     assert.equal("contactPhoneDisplay" in props, false);
-    assert.equal(props.company.phoneDisplay, "06 83 35 19 85");
+    assert.equal(props.company.phoneDisplay, "06 52 54 95 39");
     assert.equal(JSON.stringify(props).includes("Beheerder A"), false);
     assert.equal(JSON.stringify(props).includes("06 11 11 11 11"), false);
   });

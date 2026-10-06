@@ -40,13 +40,23 @@ export function JobseekerPersonalFields({ formId, values, error, autoFocusName, 
   return (
     <>
       <div className="grid gap-6 sm:grid-cols-2">
-        <TextField {...field("firstName")} label={t("firstName.label")} required autoComplete="given-name" maxLength={80} />
+        <TextField
+          {...field("firstName")}
+          label={t("firstName.label")}
+          required
+          autoComplete="given-name"
+          autoCapitalize="words"
+          autoCorrect={false}
+          maxLength={80}
+        />
         <TextField
           {...field("lastName")}
           label={t("lastName.label")}
           hint={t("lastName.hint")}
           required
           autoComplete="family-name"
+          autoCapitalize="words"
+          autoCorrect={false}
           maxLength={120}
         />
       </div>
@@ -76,6 +86,8 @@ export function JobseekerPersonalFields({ formId, values, error, autoFocusName, 
         hint={t("city.hint")}
         required
         autoComplete="address-level2"
+        autoCapitalize="words"
+        autoCorrect={false}
         maxLength={80}
       />
       <ChoiceField

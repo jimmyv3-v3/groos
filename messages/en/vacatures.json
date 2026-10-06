@@ -11,8 +11,8 @@
     "startDateSentence": "You start from {date}.",
     "closedTitleFilled": "{title} in {city} (filled)",
     "closedTitleOther": "{title} in {city} (closed)",
-    "closedDescriptionFilled": "This job has been filled. See similar work as a {occupation} or register with Groos.",
-    "closedDescriptionOther": "This job is no longer open. See similar work as a {occupation} or register with Groos.",
+    "closedDescriptionFilled": "This job has been filled. See similar work as {occupation} or register with Groos.",
+    "closedDescriptionOther": "This job is no longer open. See similar work as {occupation} or register with Groos.",
     "ogAlt": "Job {title} in {city} at Groos Personeelsdiensten, with hours and gross hourly wage"
   },
   "og": {
@@ -21,7 +21,7 @@
   },
   "overview": {
     "title": "Jobs in The Hague and surroundings",
-    "intro": "Here you find the work we have right now for window cleaners, cleaners, logistics workers, movers and construction and demolition labourers. Every job shows the gross hourly wage, the hours and the working times straight away.",
+    "intro": "Here you find the work we have right now in cleaning and window cleaning, logistics and removals, and construction, demolition and groundworks. Every job shows the gross hourly wage, the hours and the working times straight away.",
     "resultsHeading": "Jobs found",
     "resultCount": "{count, plural, =0 {No jobs found} one {# job found} other {# jobs found}}",
     "resultCountQuery": "{count, plural, =0 {No jobs found for “{query}”} one {# job found for “{query}”} other {# jobs found for “{query}”}}",
@@ -96,7 +96,7 @@
       "title": "There are no jobs online right now",
       "body": "At the moment we have no open jobs on the site. Register with us, and we will call you as soon as there is work that suits you."
     },
-    "occupationLink": "Read about working as a {occupation}",
+    "occupationLink": "Read about working as {occupation}",
     "occupationsLabel": "Work by occupation"
   },
   "registerPrompt": {
@@ -104,8 +104,8 @@
     "body": "You do not have to wait for the right job. Register and tell us what work you are looking for, and we will call you as soon as something fits."
   },
   "beroepIntro": {
-    "heading": "Working as a {occupation}",
-    "link": "All about working as a {occupation}",
+    "heading": "Working as {occupation}",
+    "link": "All about working as {occupation}",
     "items": {
       "glazenwasser": {
         "paragraphs": [
@@ -136,6 +136,36 @@
           "As a construction and demolition labourer you support skilled workers on site. You clear up, remove waste and make sure materials are ready.",
           "On a construction or demolition site the minimum age is 18. If the client asks for a VCA safety certificate, the job says so."
         ]
+      },
+      "grondwerker": {
+        "paragraphs": [
+          "As a groundworker you dig trenches and expose cables and pipes by hand with a shovel. You work outside in a small team and usually start at 07:00.",
+          "On a construction site the minimum age is 18. Every job shows whether you need a VCA safety certificate and a category B driving licence."
+        ]
+      },
+      "sloper": {
+        "paragraphs": [
+          "As a demolition worker you strip out buildings and take down walls, floors and ceilings with a breaker and grinder. You sort the waste by type.",
+          "On a demolition site the minimum age is 18. If you see material that looks like asbestos, you stop and report it."
+        ]
+      },
+      "bouwopruimer": {
+        "paragraphs": [
+          "As a construction site cleaner you keep the site clean and safe. You clear waste, sort it by type and move materials to where they are needed.",
+          "On a construction site the minimum age is 18. You do not need a diploma, but many companies ask for a VCA safety certificate."
+        ]
+      },
+      "machinist": {
+        "paragraphs": [
+          "As an excavator operator you run an excavator, mini excavator or wheel loader on groundworks, paving or demolition. You usually start at 07:00.",
+          "You need experience or a diploma for this work, and the minimum age is 18. Every job shows which machine and which certificates it involves."
+        ]
+      },
+      "stratenmaker": {
+        "paragraphs": [
+          "As a street paver you lay clay pavers and paving slabs and set kerbs and gullies. You work outside, more and more often with a machine that takes over the heavy lifting.",
+          "On a construction site or at the roadside the minimum age is 18. Without experience you start as a paving labourer and learn the trade in the team."
+        ]
       }
     }
   },
@@ -155,7 +185,7 @@
   },
   "latest": {
     "empty": "There are no jobs online right now. Register with us, and we will call you as soon as there is work.",
-    "viewOccupation": "See all jobs as a {occupation}"
+    "viewOccupation": "See all jobs as {occupation}"
   },
   "facts": {
     "heading": "Key facts about this job",
@@ -187,16 +217,23 @@
     "qualificationNames": {
       "vca_basis": "VCA Basic safety certificate",
       "vca_vol": "VCA Full safety certificate",
+      "gpi": "GPI (generic site induction)",
       "heftruck": "Forklift certificate",
       "reachtruck": "Reach truck certificate",
       "ept": "Electric pallet truck certificate",
       "ipaf": "IPAF (aerial work platform)",
+      "machinist_diploma": "Plant operator diploma or certificate",
+      "tcvt": "TCVT registration (lifting)",
       "vog": "Certificate of conduct (VOG)",
       "rijbewijs_b": "Driving licence category B",
       "rijbewijs_be": "Driving licence category BE",
       "rijbewijs_c": "Driving licence category C",
+      "rijbewijs_t": "Driving licence category T",
       "code_95": "Code 95",
-      "ras": "RAS vocational training"
+      "ras": "RAS vocational training",
+      "werken_langs_de_weg": "Roadside safety course",
+      "zorgvuldig_graven": "Safe digging instruction (CROW 500)",
+      "asbestherkenning": "Asbestos awareness course"
     },
     "experience": {
       "none": "No experience needed",
@@ -275,11 +312,11 @@
         "body": "You can no longer apply for this job. Below you find similar work that is open now."
       },
       "closedOn": "Closed on {date}",
-      "occupationLink": "See all work as a {occupation}"
+      "occupationLink": "See all work as {occupation}"
     },
     "similar": {
       "title": "Similar jobs"
     },
-    "occupationPageLink": "More about working as a {occupation}"
+    "occupationPageLink": "More about working as {occupation}"
   }
 }

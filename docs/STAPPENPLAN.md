@@ -29,8 +29,9 @@ Stuur 's ochtends één bericht met deze vragen, zodat de antwoorden binnen zijn
 voordat je ze nodig hebt:
 
 - [ ] KvK-nummer, btw-nummer, exacte postcode van Hugo Coenraadspad 6.
-- [ ] Domein: welke naam, al geregistreerd, bij wie, en inloggegevens. Klopt
-      `info@groospersoneeldiensten.nl` (zonder "s" in personeel)?
+- [ ] Domein: `groospersoneelsdiensten.nl`, met "s" na "personeel",
+      geregistreerd bij STRATO (besluit B-02). Bestaat de mailbox
+      `info@groospersoneelsdiensten.nl` al?
 - [ ] E-mail: welke provider (Mijndomein, Google Workspace, Microsoft 365)?
 - [ ] Toelating of registratie als uitzendbureau, cao (ABU of NBBU), keurmerk.
 - [ ] Merkrichting kiezen uit context/12 (A "Signaal", B "Baksteen",

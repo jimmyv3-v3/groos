@@ -3,7 +3,7 @@ import { ClipboardCheck, MessagesSquare, Phone, ShieldCheck } from "lucide-react
 import { getTranslations } from "next-intl/server";
 import { RevealItem } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/sections/section-heading";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { CardDescription, CardTitle } from "@/components/ui/card";
 import { IconTile } from "@/components/ui/icon-tile";
 
 /** Alleen structuur; tekst in about.approach.items.<key>. */
@@ -19,20 +19,22 @@ export async function AboutApproach() {
   const t = await getTranslations("about.approach");
 
   return (
-    <section id="werkwijze" aria-labelledby="over-ons-werkwijze-titel" className="bg-ice">
+    <section id="werkwijze" aria-labelledby="over-ons-werkwijze-titel">
       <div className="container section">
         <SectionHeading headingId="over-ons-werkwijze-titel" title={t("title")} accent={t("accent")} intro={t("intro")} />
-        <ul role="list" className="reveal-group mt-10 grid gap-4 md:grid-cols-2 lg:gap-6 xl:grid-cols-4">
-          {APPROACH_ITEMS.map(({ key, icon }) => (
-            <RevealItem as="li" key={key} className="flex">
-              <Card className="w-full">
+        <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card">
+          <ul role="list" className="reveal-group -mr-px -mb-px grid md:grid-cols-2 xl:grid-cols-4">
+            {APPROACH_ITEMS.map(({ key, icon }) => (
+              <RevealItem as="li" key={key} className="flex flex-col gap-4 border-r border-b border-border p-6 md:p-7">
                 <IconTile icon={icon} />
-                <CardTitle as="h3">{t(`items.${key}.title`)}</CardTitle>
-                <CardDescription>{t(`items.${key}.body`)}</CardDescription>
-              </Card>
-            </RevealItem>
-          ))}
-        </ul>
+                <div className="grid gap-2">
+                  <CardTitle as="h3">{t(`items.${key}.title`)}</CardTitle>
+                  <CardDescription>{t(`items.${key}.body`)}</CardDescription>
+                </div>
+              </RevealItem>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

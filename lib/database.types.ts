@@ -1025,16 +1025,23 @@ export type Database = {
       qualification:
         | "vca_basis"
         | "vca_vol"
+        | "gpi"
         | "heftruck"
         | "reachtruck"
         | "ept"
         | "ipaf"
+        | "machinist_diploma"
+        | "tcvt"
         | "vog"
         | "rijbewijs_b"
         | "rijbewijs_be"
         | "rijbewijs_c"
+        | "rijbewijs_t"
         | "code_95"
         | "ras"
+        | "werken_langs_de_weg"
+        | "zorgvuldig_graven"
+        | "asbestherkenning"
       request_duration:
         | "one_day"
         | "days"
@@ -1112,7 +1119,7 @@ export const Constants = {
       experience_level: ["none", "nice_to_have", "required"],
       message_status: ["new", "answered", "archived", "spam"],
       min_age_reason: ["work_at_height", "construction_demolition", "forklift", "night_work", "hazardous_substances"],
-      qualification: ["vca_basis", "vca_vol", "heftruck", "reachtruck", "ept", "ipaf", "vog", "rijbewijs_b", "rijbewijs_be", "rijbewijs_c", "code_95", "ras"],
+      qualification: ["vca_basis", "vca_vol", "gpi", "heftruck", "reachtruck", "ept", "ipaf", "machinist_diploma", "tcvt", "vog", "rijbewijs_b", "rijbewijs_be", "rijbewijs_c", "rijbewijs_t", "code_95", "ras", "werken_langs_de_weg", "zorgvuldig_graven", "asbestherkenning"],
       request_duration: ["one_day", "days", "weeks", "months", "indefinite", "unknown"],
       shift: ["early", "day", "evening", "night", "weekend"],
       staff_request_status: ["new", "in_progress", "quote_sent", "started", "completed", "cancelled"],

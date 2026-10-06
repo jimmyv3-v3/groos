@@ -4,6 +4,7 @@ import { isClaimConfirmed } from "@/lib/claims";
 import { contact, site, socials, type AreaServed } from "@/lib/site";
 import type { ContractType, EducationLevel } from "@/lib/data/options";
 import type { VacancyDetail } from "@/lib/data/types";
+import { occupationPhrase } from "@/i18n/occupation-phrase";
 
 /**
  * SEO-helpers (spec 12 §4.2 en §4.4). Elke pagina bouwt haar metadata met
@@ -410,7 +411,7 @@ export function vacancyMetadata(input: {
   if (vacancy.state === "closed") {
     const filled = vacancy.closeReason === "filled";
     const name = locale === "en" ? vacancy.occupation.nameEn : vacancy.occupation.nameNl;
-    const occupation = name ? name.charAt(0).toLocaleLowerCase(locale) + name.slice(1) : name;
+    const occupation = name ? occupationPhrase(name, locale) : name;
     return pageMetadata({
       ...shared,
       title: t(filled ? "closedTitleFilled" : "closedTitleOther", { title, city }),

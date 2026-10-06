@@ -20,13 +20,16 @@ export type AdminContext = { supabase: SupabaseServerClient; userId: string; pro
 
 export type SessionState =
   | { kind: "none" }
-  | { kind: "aal1"; supabase: SupabaseServerClient; userId: string; hasVerifiedFactor: boolean }
+  /** Het account heeft een gekoppelde app, maar de code is deze sessie nog niet gegeven. */
+  | { kind: "aal1"; supabase: SupabaseServerClient; userId: string }
   | { kind: "inactive"; supabase: SupabaseServerClient; userId: string }
-  | { kind: "admin"; ctx: AdminContext };
+  | { kind: "admin"; ctx: AdminContext; mfaEnabled: boolean };
 
 /**
  * Eén keer per request: getClaims(), daarna het eigen profiel (leesbaar zonder
- * aal2, spec 10 §5.8) en bij aal1 mfa.listFactors().
+ * aal2, spec 10 §5.8) en bij aal1 mfa.listFactors(). Tweestapsverificatie is
+ * per account optioneel (B-62): zonder geverifieerde factor volstaat aal1,
+ * gelijk aan is_admin() in de database.
  */
 export const getSessionState = cache(async (): Promise<SessionState> => {
   if (!hasSupabaseEnv()) return { kind: "none" };
@@ -44,14 +47,16 @@ export const getSessionState = cache(async (): Promise<SessionState> => {
   if (profileError) console.error(`[beheer] profiel niet gelezen: ${profileError.code ?? ""}`);
   if (!row || !row.is_active) return { kind: "inactive", supabase, userId };
 
-  if (claims.aal !== "aal2") {
+  const mfaEnabled = claims.aal === "aal2";
+  if (!mfaEnabled) {
     const { data: factors } = await supabase.auth.mfa.listFactors();
     const hasVerifiedFactor = (factors?.totp ?? []).some((f) => f.status === "verified");
-    return { kind: "aal1", supabase, userId, hasVerifiedFactor };
+    if (hasVerifiedFactor) return { kind: "aal1", supabase, userId };
   }
 
   return {
     kind: "admin",
+    mfaEnabled,
     ctx: {
       supabase,
       userId,
@@ -75,7 +80,7 @@ export async function requireAdmin(): Promise<AdminContext> {
     case "none":
       redirect(beheerPaths.login);
     case "aal1":
-      redirect(state.hasVerifiedFactor ? beheerPaths.mfa : beheerPaths.mfaEnroll);
+      redirect(beheerPaths.mfa);
     case "inactive":
       redirect(beheerPaths.noAccess);
     case "admin":

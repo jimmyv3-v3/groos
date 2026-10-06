@@ -43,13 +43,38 @@ function trackEvent(name: string, analytics: Analytics) {
   }
 }
 
-/** Zet de focus op het eerste ongeldige veld in DOM-volgorde. */
+/** Ruimte boven een veld: de vaste kop van 4rem plus lucht (gelijk aan scroll-mt-24). */
+const REVEAL_TOP = 96;
+const REVEAL_BOTTOM = 24;
+
+/**
+ * Schuift het hele veld (label, invoer en foutmelding) in beeld, onder de vaste
+ * kop. De browser doet dit bij focus() niet betrouwbaar: het label belandt dan
+ * soms onder de kop. Meet met de visual viewport, zodat een open toetsenbord
+ * op een telefoon meetelt.
+ */
+function revealField(target: HTMLElement) {
+  const block =
+    target.closest<HTMLElement>('[data-slot="field"], [data-slot="cv-upload"]') ??
+    target.closest<HTMLElement>('fieldset[aria-invalid="true"]') ??
+    target;
+  const rect = block.getBoundingClientRect();
+  const height = window.visualViewport?.height ?? window.innerHeight;
+  const fits = rect.height <= height - REVEAL_TOP - REVEAL_BOTTOM;
+  const inView = rect.top >= REVEAL_TOP && (fits ? rect.bottom <= height - REVEAL_BOTTOM : rect.top <= height / 2);
+  if (inView) return;
+  // behavior "auto" volgt scroll-behavior uit globals.css (vloeiend, behalve bij reduced motion).
+  window.scrollBy({ top: rect.top - REVEAL_TOP, behavior: "auto" });
+}
+
+/** Zet de focus op het eerste ongeldige veld in DOM-volgorde en schuift het in beeld. */
 export function focusFirstInvalid(form: HTMLFormElement | null) {
   const target = form?.querySelector<HTMLElement>('[aria-invalid="true"]');
   if (!target) return;
   const focusable =
     target instanceof HTMLFieldSetElement ? target.querySelector<HTMLElement>("input, select, textarea") : target;
-  focusable?.focus();
+  focusable?.focus({ preventScroll: true });
+  revealField(target);
 }
 
 export function useFormBehaviour(input: {

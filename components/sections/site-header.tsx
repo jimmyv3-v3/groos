@@ -21,9 +21,10 @@ export async function SiteHeader() {
 
   return (
     <HeaderFrame>
-      <div className="container flex h-full items-center justify-between gap-6">
-        <Link href="/" aria-label={t("homeAria")} className="shrink-0 rounded-sm">
-          <Wordmark idSuffix="header" className="h-6.5 lg:h-7" />
+      <div className="container flex h-full items-center justify-between gap-4">
+        {/* Blok met flex-centrering: het logo van 143 bij 43 px staat op hele pixels. */}
+        <Link href="/" aria-label={t("homeAria")} className="flex min-h-11 shrink-0 items-center rounded-sm">
+          <Wordmark idSuffix="header" />
         </Link>
 
         <DesktopNav items={model.items} ariaLabel={t("mainMenu")} />
@@ -43,7 +44,11 @@ export async function SiteHeader() {
             <span className="hidden xl:inline">{contact.phone}</span>
           </a>
           <LanguageToggle className="hidden lg:inline-flex" />
-          <div className="ml-2 hidden lg:block">
+          {/* Tussen 1024 en 1184 px passen logo, menu, belknop, taalknop en deze knop
+              niet naast elkaar ("Personeel aanvragen" liep tot 95 px buiten beeld, met
+              horizontaal scrollen op een tablet in liggende stand). De knop komt er
+              daarom pas bij vanaf 74rem; de actie staat ook in het uitklapmenu. */}
+          <div className="ml-2 hidden min-[74rem]:block">
             <HeaderCta ctas={model.headerCtas} />
           </div>
           <MobileMenu
@@ -51,7 +56,7 @@ export async function SiteHeader() {
             ctas={[model.headerCtas.inschrijven, model.headerCtas.personeelAanvragen]}
             phone={{ ...model.actions.call, label: contact.phone }}
             whatsapp={model.actions.whatsappAlgemeen}
-            logo={<Wordmark idSuffix="mobile-menu" className="h-6.5" />}
+            logo={<Wordmark idSuffix="mobile-menu" />}
             labels={{ open: t("openMenu"), close: t("closeMenu"), title: t("mobileMenu"), home: t("homeAria") }}
           />
         </div>

@@ -8,6 +8,7 @@ import {
   todayInAmsterdam,
   upcomingStartDate,
 } from "@/components/vacatures/vacancy-helpers";
+import { occupationPhrase } from "@/i18n/occupation-phrase";
 import { parseVacancySlug } from "@/lib/data/vacancy-search-params";
 import { fixtureVacancies, fixtureVacancy } from "../../fixtures/vacancies";
 
@@ -47,6 +48,23 @@ describe("vacaturehulpfuncties (spec 06 §4.5)", () => {
   it("maakt de eerste letter klein", () => {
     assert.equal(lowerFirst("Glazenwasser", "nl"), "glazenwasser");
     assert.equal(lowerFirst("", "nl"), "");
+  });
+});
+
+describe("occupationPhrase (beroepsnaam in een zin)", () => {
+  it("geeft in het Nederlands alleen een kleine beginletter", () => {
+    assert.equal(occupationPhrase("Machinist", "nl"), "machinist");
+    assert.equal(occupationPhrase("Hulpkracht bouw en sloop", "nl"), "hulpkracht bouw en sloop");
+  });
+
+  it("zet in het Engels het juiste lidwoord ervoor", () => {
+    assert.equal(occupationPhrase("Window cleaner", "en"), "a window cleaner");
+    assert.equal(occupationPhrase("Excavator operator", "en"), "an excavator operator");
+    assert.equal(occupationPhrase("Street paver", "en"), "a street paver");
+  });
+
+  it("laat een lege naam leeg", () => {
+    assert.equal(occupationPhrase("", "en"), "");
   });
 });
 

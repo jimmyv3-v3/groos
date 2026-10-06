@@ -13,6 +13,9 @@ const ROUTESCRIPT = [
   "/werken-als/verhuizer", "/werken-als/hulpkracht-bouw-en-sloop", "/werkgevers/glazenwassers",
   "/werkgevers/schoonmakers", "/werkgevers/logistiek-medewerkers", "/werkgevers/verhuizers",
   "/werkgevers/hulpkrachten-bouw-en-sloop",
+  "/werken-als/grondwerker", "/werken-als/sloper", "/werken-als/bouwopruimer", "/werken-als/machinist",
+  "/werken-als/stratenmaker", "/werkgevers/grondwerkers", "/werkgevers/slopers", "/werkgevers/bouwopruimers",
+  "/werkgevers/machinisten", "/werkgevers/stratenmakers",
 ];
 
 /** AC-01-02 plus de vacaturepaden uit AC-01-39 zonder geldig nummer. */

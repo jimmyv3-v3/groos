@@ -65,7 +65,8 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="dialog-footer"
       className={cn(
-        "-mx-6 mt-2 -mb-6 flex flex-col-reverse gap-3 rounded-b-2xl border-t border-border bg-muted px-6 py-4 sm:flex-row sm:justify-end",
+        // Blijft onderin de dialoog staan als de inhoud langer is dan het scherm (telefoon).
+        "sticky -bottom-6 -mx-6 mt-2 -mb-6 flex flex-col-reverse gap-3 rounded-b-2xl border-t border-border bg-muted px-6 py-4 sm:flex-row sm:justify-end",
         className,
       )}
       {...props}

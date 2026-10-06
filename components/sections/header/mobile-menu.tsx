@@ -28,6 +28,11 @@ const SUB = "flex min-h-12 items-center gap-3 py-3 pl-1 text-base text-foregroun
  * Mobiel menu onder lg (spec 01 §4.5): modaal dialoogvenster op volledig scherm
  * met focusval, Escape, scrollvergrendeling en uitklapgroepen per doelgroep.
  * Gebouwd op base-ui Dialog en Accordion, met CSS-overgangen (geen framer-motion).
+ *
+ * Staand scrolt alleen de lijst en blijven de knoppen onderaan vast staan. Op
+ * een laag scherm (short:, telefoon liggend) blijft er zo te weinig lijst over;
+ * dan scrolt het hele venster, met de kopregel vast bovenaan en de twee
+ * knoppen naast elkaar.
  */
 export function MobileMenu({ items, ctas, phone, whatsapp, logo, labels }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
@@ -65,11 +70,11 @@ export function MobileMenu({ items, ctas, phone, whatsapp, logo, labels }: Mobil
       </a>
       <Dialog.Portal>
         <Dialog.Popup
-          className="fixed inset-0 z-60 flex flex-col bg-background text-foreground outline-hidden transition-[opacity,translate] duration-200 ease-brand data-[ending-style]:-translate-y-2 data-[ending-style]:opacity-0 data-[starting-style]:-translate-y-2 data-[starting-style]:opacity-0 motion-reduce:transition-none motion-reduce:duration-0 lg:hidden"
+          className="fixed inset-0 z-60 flex flex-col bg-background text-foreground outline-hidden short:overflow-y-auto short:overscroll-contain transition-[opacity,translate] duration-200 ease-brand data-[ending-style]:-translate-y-2 data-[ending-style]:opacity-0 data-[starting-style]:-translate-y-2 data-[starting-style]:opacity-0 motion-reduce:transition-none motion-reduce:duration-0 lg:hidden"
         >
           <Dialog.Title className="sr-only">{labels.title}</Dialog.Title>
-          <div className="container flex h-16 shrink-0 items-center justify-between gap-6 border-b border-border">
-            <Link href="/" aria-label={labels.home} onClick={close} className="shrink-0 rounded-sm">
+          <div className="container flex h-16 shrink-0 items-center justify-between gap-6 border-b border-border short:sticky short:top-0 short:z-10 short:bg-background">
+            <Link href="/" aria-label={labels.home} onClick={close} className="flex min-h-11 shrink-0 items-center rounded-sm">
               {logo}
             </Link>
             <Dialog.Close
@@ -81,7 +86,7 @@ export function MobileMenu({ items, ctas, phone, whatsapp, logo, labels }: Mobil
             </Dialog.Close>
           </div>
 
-          <nav aria-label={labels.title} className="container min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4">
+          <nav aria-label={labels.title} className="container min-h-0 flex-1 overflow-y-auto overscroll-contain pb-4 short:flex-none short:overflow-visible">
             <Accordion.Root defaultValue={defaultGroup} className="flex flex-col">
               {items.map((item) => {
                 const active = isActive(pathname, item.key);
@@ -144,7 +149,7 @@ export function MobileMenu({ items, ctas, phone, whatsapp, logo, labels }: Mobil
           </nav>
 
           <div className="container shrink-0 border-t border-border pt-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-            <div className="grid gap-3">
+            <div className="grid gap-3 short:min-[30rem]:grid-cols-2">
               {ctas.map((cta, i) => (
                 <CtaButton
                   key={cta.href}

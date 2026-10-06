@@ -7,14 +7,20 @@
 
 begin;
 
--- 1. Beroepen: dezelfde upsert als migratie 7, zodat de seed ook los werkt.
+-- 1. Beroepen: dezelfde upserts als de migraties beroepen en
+--    beroepen_bouw_en_infra, zodat de seed ook los werkt.
 insert into public.occupations (slug, name_nl, plural_nl, name_en, plural_en, sort_order) values
   ('glazenwasser', 'Glazenwasser', 'Glazenwassers', 'Window cleaner', 'Window cleaners', 1),
   ('schoonmaker', 'Schoonmaker', 'Schoonmakers', 'Cleaner', 'Cleaners', 2),
   ('logistiek-medewerker', 'Logistiek medewerker', 'Logistiek medewerkers', 'Logistics worker', 'Logistics workers', 3),
   ('verhuizer', 'Verhuizer', 'Verhuizers', 'Mover', 'Movers', 4),
   ('hulpkracht-bouw-en-sloop', 'Hulpkracht bouw en sloop', 'Hulpkrachten bouw en sloop',
-   'Construction and demolition labourer', 'Construction and demolition labourers', 5)
+   'Construction and demolition labourer', 'Construction and demolition labourers', 5),
+  ('grondwerker', 'Grondwerker', 'Grondwerkers', 'Groundworker', 'Groundworkers', 6),
+  ('sloper', 'Sloper', 'Slopers', 'Demolition worker', 'Demolition workers', 7),
+  ('bouwopruimer', 'Bouwopruimer', 'Bouwopruimers', 'Construction site cleaner', 'Construction site cleaners', 8),
+  ('machinist', 'Machinist', 'Machinisten', 'Excavator operator', 'Excavator operators', 9),
+  ('stratenmaker', 'Stratenmaker', 'Stratenmakers', 'Street paver', 'Street pavers', 10)
 on conflict (slug) do nothing;
 
 do $$
@@ -33,7 +39,8 @@ begin
   v_b := coalesce(v_b, v_a);
 
   -- 2. Vacatures (tabel A). Alle contract_type temp_agency, education_level none;
-  --    experience_level nice_to_have bij 1001, anders none.
+  --    experience_level nice_to_have bij 1001, 1011 en 1012, required bij de
+  --    vakfuncties 1014 en 1015, anders none.
   insert into public.vacancies (
     number, status, occupation_slug, city, contract_type, hours_min, hours_max, shifts, salary_min, salary_max,
     education_level, experience_level, required_qualifications, preferred_qualifications, training_offered,
@@ -79,7 +86,27 @@ begin
     (1010, 'closed', 'verhuizer', 'Wassenaar', 'temp_agency', 16, 24, '{day}', 14.99, 15.80,
      'none', 'none', '{}', '{}', '{}',
      false, null, now() - 80 * d, now() - 80 * d, now() - 35 * d, now() - 40 * d, 'withdrawn',
-     false, false, v_b)
+     false, false, v_b),
+    (1011, 'published', 'grondwerker', 'Den Haag', 'temp_agency', 40, 40, '{day}', 15.98, 18.95,
+     'none', 'nice_to_have', '{vca_basis,rijbewijs_b}', '{zorgvuldig_graven}', '{}',
+     true, 'construction_demolition', now() - 4 * d, now() - 4 * d, now() + 41 * d, null, null,
+     false, false, v_a),
+    (1012, 'published', 'sloper', 'Rijswijk', 'temp_agency', 40, 40, '{day}', 16.97, 21.24,
+     'none', 'nice_to_have', '{vca_basis}', '{asbestherkenning,rijbewijs_b}', '{}',
+     true, 'construction_demolition', now() - 6 * d, now() - 6 * d, now() + 39 * d, null, null,
+     false, false, v_b),
+    (1013, 'published', 'bouwopruimer', 'Den Haag', 'temp_agency', 32, 40, '{day}', 15.98, 18.95,
+     'none', 'none', '{vca_basis}', '{gpi}', '{}',
+     true, 'construction_demolition', now() - 1 * d, now() - 1 * d, now() + 44 * d, null, null,
+     false, true, v_a),
+    (1014, 'published', 'machinist', 'Delft', 'temp_agency', 40, 40, '{day}', 22.68, 23.78,
+     'none', 'required', '{vca_basis,machinist_diploma}', '{rijbewijs_t,tcvt}', '{}',
+     true, 'construction_demolition', now() - 3 * d, now() - 3 * d, now() + 42 * d, null, null,
+     true, false, v_b),
+    (1015, 'published', 'stratenmaker', 'Zoetermeer', 'temp_agency', 40, 40, '{day}', 20.02, 22.68,
+     'none', 'required', '{vca_basis,rijbewijs_b}', '{werken_langs_de_weg}', '{}',
+     true, 'construction_demolition', now() - 8 * d, now() - 8 * d, now() + 37 * d, null, null,
+     false, false, v_a)
   on conflict (number) do nothing;
 
   -- 3. Teksten (tabel B), alleen nl.
@@ -155,13 +182,53 @@ begin
      'Je helpt de chauffeur met laden, lossen en de weg vinden. Je werkt overdag, vaak aan het begin en eind van de maand.',
      array['Laden en lossen', 'Navigeren onderweg', 'Meubels inpakken'],
      array['Je bent op tijd en werkt zorgvuldig'],
-     array['Een bruto uurloon tussen € 14,99 en € 15,80', 'Een vaste contactpersoon bij Groos'])
+     array['Een bruto uurloon tussen € 14,99 en € 15,80', 'Een vaste contactpersoon bij Groos']),
+    (1011, 'Grondwerker riolering',
+     'Testvacature. Je graaft sleuven en helpt bij het vervangen van riolering in Den Haag.',
+     'Je graaft met de schop waar de graafmachine niet kan komen en legt kabels en leidingen vrij. Je werkt buiten in een kleine ploeg, van 07.00 tot 16.00 uur.',
+     array['Sleuven graven en op diepte afwerken', 'Kabels en leidingen met de schop vrijleggen',
+           'Helpen bij het leggen van rioolbuizen en kolken', 'De sleuf in lagen aanvullen en verdichten met een trilplaat'],
+     array['Je hebt VCA Basis en rijbewijs B', 'Je volgt de aanwijzingen van de machinist en de ploegleider'],
+     array['Een bruto uurloon tussen € 15,98 en € 18,95', '8 procent vakantiegeld bovenop je loon',
+           'Beschermingsmiddelen krijg je kosteloos']),
+    (1012, 'Sloper renovatie',
+     'Testvacature. Je stript woningen in Rijswijk die worden gerenoveerd.',
+     'Je haalt wanden, vloeren, plafonds en installaties uit woningen. Je werkt met sloophamer en slijptol, in een vaste ploeg van 07.00 tot 16.00 uur.',
+     array['Wanden, vloeren en plafonds verwijderen', 'Werken met sloophamer en slijptol',
+           'Sloopafval per soort scheiden en afvoeren', 'Stof beperken met water en afzuiging'],
+     array['Je hebt VCA Basis', 'Je stopt en meldt het als je asbest vermoedt'],
+     array['Een bruto uurloon tussen € 16,97 en € 21,24', '8 procent vakantiegeld bovenop je loon',
+           'Beschermingsmiddelen krijg je kosteloos']),
+    (1013, 'Bouwopruimer woningbouw',
+     'Testvacature. Je houdt een bouwplaats in Den Haag schoon en zet materiaal op de goede plek.',
+     'Je ruimt verdiepingen en looproutes op en scheidt het afval per soort. Je werkt overdag en begint om 07.00 uur.',
+     array['Verdiepingen en looproutes vrijhouden', 'Afval scheiden in hout, puin, gips, folie en metaal',
+           'Materiaal met de bouwlift naar de verdieping brengen', 'Woningen bezemschoon opleveren'],
+     array['Je hebt VCA Basis of wilt het halen'],
+     array['Een bruto uurloon tussen € 15,98 en € 18,95', '8 procent vakantiegeld bovenop je loon',
+           'Beschermingsmiddelen krijg je kosteloos']),
+    (1014, 'Machinist graafmachine',
+     'Testvacature. Je bedient een rupsgraafmachine bij grondwerk in Delft.',
+     'Je graaft sleuven en cunetten en laadt vrachtwagens. Je werkt samen met een grondwerker en begint om 07.00 uur.',
+     array['Sleuven en cunetten ontgraven', 'Vrachtwagens laden', 'Profileren en afwerken op hoogte',
+           'De machine elke dag controleren en smeren'],
+     array['Je hebt VCA Basis en een diploma of certificaat als machinist', 'Je hebt ervaring met een rupsgraafmachine'],
+     array['Een bruto uurloon tussen € 22,68 en € 23,78', '8 procent vakantiegeld bovenop je loon',
+           'Een vaste contactpersoon bij Groos']),
+    (1015, 'Stratenmaker',
+     'Testvacature. Je legt bestrating bij de herinrichting van een woonwijk in Zoetermeer.',
+     'Je legt klinkers en tegels, stelt banden en kolken en werkt het straatwerk af. Je werkt in een ploeg met een straatmachine, van 07.00 tot 16.00 uur.',
+     array['Zandbed afreien', 'Klinkers en tegels leggen, machinaal en met de hand', 'Banden en kolken stellen',
+           'Straatwerk aftrillen en invegen'],
+     array['Je hebt VCA Basis en rijbewijs B', 'Je hebt ervaring als stratenmaker'],
+     array['Een bruto uurloon tussen € 20,02 en € 22,68', '8 procent vakantiegeld bovenop je loon',
+           'Beschermingsmiddelen krijg je kosteloos'])
   ) as b(number, title, summary, intro, tasks, requirements, offer)
   join public.vacancies v on v.number = b.number
   on conflict (vacancy_id, locale) do nothing;
 
-  -- 4. Volgende vacature krijgt een nummer na 1010.
-  perform setval('public.vacancy_number_seq', greatest((select max(number) from public.vacancies), 1010));
+  -- 4. Volgende vacature krijgt een nummer na 1015.
+  perform setval('public.vacancy_number_seq', greatest((select max(number) from public.vacancies), 1015));
 
   -- 5. Overige testdata (tabel C), alle adressen op example.com.
   insert into public.applications (

@@ -5,11 +5,14 @@ import { Plus, X } from "lucide-react";
 import { S, fill } from "@/app/beheer/_strings";
 import { CtaButton } from "@/components/ui/cta-button";
 import { FieldDescription, FieldError } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 /**
  * Lijst van regels met dezelfde name (spec 08 §4.3, SA-08-3: eigen primitive).
  * Na toevoegen gaat de focus naar de nieuwe regel, na verwijderen naar de vorige.
+ * Elke regel is een tekstvak dat meegroeit, zodat een lange regel op een
+ * telefoon helemaal leesbaar blijft; een regel blijft één regel tekst (Enter
+ * voegt geen regeleinde toe en geplakte regeleinden worden spaties).
  */
 export function ListField({
   name,
@@ -45,7 +48,7 @@ export function ListField({
   const errorId = error?.length ? `${name}-fout` : undefined;
 
   const focusRow = (index: number) =>
-    requestAnimationFrame(() => listRef.current?.querySelectorAll("input")[index]?.focus());
+    requestAnimationFrame(() => listRef.current?.querySelectorAll("textarea")[index]?.focus());
 
   return (
     <fieldset id={`veld-${name}`} className="grid min-w-0 gap-2" aria-describedby={[hintId, errorId].filter(Boolean).join(" ")}>
@@ -54,23 +57,34 @@ export function ListField({
         {required && <span className="text-xs font-normal text-brand-strong">{S.common.requiredForPublish}</span>}
       </legend>
       <FieldDescription id={hintId}>{hint}</FieldDescription>
-      <ul ref={listRef} className="grid gap-2">
+      <ul ref={listRef} className="grid grid-cols-[minmax(0,1fr)] gap-2">
         {rows.map((row, i) => (
-          <li key={row.key} className="flex items-center gap-2">
-            <span aria-hidden="true" className="w-5 shrink-0 text-right text-sm tabular-nums text-muted-foreground">
+          <li key={row.key} className="flex items-start gap-2">
+            <span aria-hidden="true" className="w-5 shrink-0 pt-3 text-right text-sm tabular-nums text-muted-foreground">
               {i + 1}
             </span>
-            <Input
+            <Textarea
               id={i === 0 ? name : undefined}
               name={name}
               defaultValue={row.value}
               maxLength={200}
+              rows={2}
+              enterKeyHint="done"
               aria-label={`${label} ${i + 1}`}
               aria-invalid={errorId ? true : undefined}
+              className="h-auto min-h-12 resize-none py-2.5 leading-snug [field-sizing:content]"
+              onKeyDown={(ev) => {
+                if (ev.key === "Enter" && !ev.nativeEvent.isComposing) ev.preventDefault();
+              }}
+              onInput={(ev) => {
+                const el = ev.currentTarget;
+                if (el.value.includes("\n")) el.value = el.value.replace(/\s*\n\s*/g, " ");
+              }}
             />
             <CtaButton
               variant="ghost"
               size="icon"
+              className="shrink-0"
               ariaLabel={fill(removeLabel, { nummer: i + 1 })}
               disabled={rows.length <= 1}
               onClick={() => {

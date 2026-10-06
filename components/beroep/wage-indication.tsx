@@ -36,7 +36,7 @@ export function WageIndication({
   className?: string;
 }) {
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container grid gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-16">
         <SectionHeading title={heading} accent={accent} intro={intro} />
         <Reveal>

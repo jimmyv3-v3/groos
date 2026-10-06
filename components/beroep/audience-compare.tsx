@@ -9,8 +9,12 @@ export type AudienceColumn = { title: string; href: AppPath; linkLabel: string; 
 
 /**
  * Werkzoekende en werkgever naast elkaar (spec 05 §4.4.2). Een echte <table>
- * met zichtbare caption en scopes; de wrapper scrollt horizontaal op 390 px
- * zonder de pagina breder te maken. De huidige kolom krijgt een rustige tint.
+ * met zichtbare caption en scopes. Vanaf md staan de kolommen naast elkaar.
+ * Daaronder passen drie kolommen niet op een telefoon: de cellen staan dan per
+ * rij onder elkaar, met de kolomnaam boven elke waarde, zodat niemand opzij
+ * hoeft te scrollen. De ARIA-rollen houden de tabelstructuur voor schermlezers
+ * intact als de cellen als blok worden getoond. De huidige kolom krijgt een
+ * rustige tint.
  */
 export function AudienceCompare({
   id,
@@ -33,53 +37,70 @@ export function AudienceCompare({
 }) {
   const tint = (i: number) => (columns[i]?.current ? "bg-brand-tint" : undefined);
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
         <Reveal className="mt-10 md:mt-12">
-          <div
-            role="region"
-            aria-label={caption}
-            tabIndex={0}
-            className="max-w-full overflow-x-auto rounded-2xl border border-border bg-card"
-          >
-            <table className="w-full min-w-[36rem] border-collapse text-left text-base">
-              <caption className="border-b border-border px-5 py-4 text-left text-sm text-muted-foreground">
+          <div className="overflow-hidden rounded-2xl border border-border bg-card">
+            <table role="table" className="w-full border-collapse text-left text-base max-md:block">
+              <caption className="border-b border-border px-5 py-4 text-left text-sm text-muted-foreground max-md:block">
                 {caption}
               </caption>
-              <thead>
-                <tr className="border-b border-border">
-                  <td className="w-[26%] px-5 py-4" />
+              <thead role="rowgroup" className="max-md:sr-only">
+                <tr role="row" className="border-b border-border">
+                  <td role="cell" className="w-[26%] px-5 py-4" />
                   {columns.map((col, i) => (
-                    <th key={col.title} scope="col" className={cn("px-5 py-4 font-display text-h3", tint(i))}>
+                    <th
+                      key={col.title}
+                      role="columnheader"
+                      scope="col"
+                      className={cn("px-5 py-4 font-display text-h3", tint(i))}
+                    >
                       {col.title}
                     </th>
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody role="rowgroup" className="max-md:block">
                 {rows.map((row) => (
-                  <tr key={row.label} className="border-b border-border last:border-0">
-                    <th scope="row" className="px-5 py-4 align-top font-semibold text-foreground">
+                  <tr key={row.label} role="row" className="border-b border-border max-md:block md:last:border-0">
+                    <th
+                      role="rowheader"
+                      scope="row"
+                      className="px-5 py-4 align-top font-semibold text-foreground max-md:block max-md:pb-2 max-md:font-display max-md:text-h3"
+                    >
                       {row.label}
                     </th>
                     {row.values.map((value, i) => (
-                      <td key={i} className={cn("px-5 py-4 align-top text-muted-foreground", tint(i))}>
+                      <td
+                        key={i}
+                        role="cell"
+                        className={cn("px-5 py-4 align-top text-muted-foreground max-md:block max-md:py-3", tint(i))}
+                      >
+                        {/* Op de telefoon staat de kolomkop verborgen; de naam staat dan boven de waarde. */}
+                        <span aria-hidden="true" className="block text-sm font-medium text-brand-strong md:hidden">
+                          {columns[i]?.title}
+                        </span>
                         {value}
                       </td>
                     ))}
                   </tr>
                 ))}
               </tbody>
-              <tfoot>
-                <tr className="border-t border-border">
-                  <td className="px-5 py-3" />
+              <tfoot role="rowgroup" className="max-md:block">
+                <tr role="row" className="max-md:block md:border-t md:border-border">
+                  <td role="cell" className="px-5 py-3 max-md:hidden" />
                   {columns.map((col, i) => (
-                    <td key={col.title} className={cn("px-5 py-3", tint(i))}>
+                    <td
+                      key={col.title}
+                      role="cell"
+                      className={cn("px-5 py-3", col.current ? "max-md:hidden" : "max-md:block", tint(i))}
+                    >
                       {!col.current && (
-                        <Link href={col.href} className="link inline-flex min-h-11 items-center gap-2 font-medium">
+                        <Link href={col.href} className="link inline-block py-2.5 font-medium">
                           {col.linkLabel}
-                          <ArrowRight className="size-4" aria-hidden="true" />
+                          {" "}
+                          <ArrowRight className="inline size-4 align-[-0.125em]" aria-hidden="true" />
                         </Link>
                       )}
                     </td>

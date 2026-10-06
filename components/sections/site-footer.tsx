@@ -46,7 +46,7 @@ export async function SiteFooter() {
           {/* Merkblok */}
           <div className="flex flex-col gap-5 lg:col-span-4">
             <Link href="/" aria-label={th("homeAria")} className="self-start rounded-sm">
-              <Wordmark idSuffix="footer" showDescriptor className="h-11" />
+              <Wordmark idSuffix="footer" showDescriptor />
             </Link>
             <p className="max-w-xs text-sm text-muted-foreground">{t("description")}</p>
             {socials.length > 0 && (
@@ -103,6 +103,10 @@ export async function SiteFooter() {
               <a href={contact.phoneHref} aria-label={th("callAria", { phone: contact.phone })} className={`${CONTACT_LINK} tabular-nums`}>
                 <Phone aria-hidden />
                 {contact.phone}
+              </a>
+              <a href={contact.planningPhoneHref} className={`${CONTACT_LINK} tabular-nums`}>
+                <Phone aria-hidden />
+                {t("planningPhone", { phone: contact.planningPhone })}
               </a>
               <a
                 href={whatsappLink(tc("whatsapp.algemeen"))}

@@ -131,6 +131,11 @@ const VERWACHTE_BEROEPEN = {
   "logistiek-medewerker": ["logistiek-medewerker", "logistiek-medewerkers"],
   verhuizer: ["verhuizer", "verhuizers"],
   "hulpkracht-bouw-en-sloop": ["hulpkracht-bouw-en-sloop", "hulpkrachten-bouw-en-sloop"],
+  grondwerker: ["grondwerker", "grondwerkers"],
+  sloper: ["sloper", "slopers"],
+  bouwopruimer: ["bouwopruimer", "bouwopruimers"],
+  machinist: ["machinist", "machinisten"],
+  stratenmaker: ["stratenmaker", "stratenmakers"],
 };
 const BEROEP_SLEUTELS = ["enkelvoud", "meervoud"];
 if (!exists("content/beroepen/index.ts")) {

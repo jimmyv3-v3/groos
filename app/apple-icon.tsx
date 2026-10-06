@@ -6,7 +6,7 @@ export const contentType = "image/png";
 
 /**
  * Apple-touch-icon: volle kobalt vierkant zonder hoekstraal (iOS rondt zelf af)
- * met de witte "oo" op ongeveer 70 % van de breedte (spec 02 §4.11).
+ * met de optische versie van het witte beeldmerk op 58 procent van de hoogte (spec 02 §4.11).
  */
 export default function AppleIcon() {
   return new ImageResponse(

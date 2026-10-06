@@ -8,7 +8,7 @@ export type EmailCompany = {
   street: string;
   postalCode: string;
   city: string;
-  /** contact.phone, "06 83 35 19 85" */
+  /** contact.phone, "06 52 54 95 39" */
   phoneDisplay: string;
   /** contact.phoneHref */
   phoneHref: string;

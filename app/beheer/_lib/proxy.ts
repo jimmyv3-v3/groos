@@ -50,6 +50,7 @@ export async function beheerProxy(request: NextRequest): Promise<NextResponse> {
 
   const next = `${request.nextUrl.pathname}${request.nextUrl.search}`;
   if (!userId) return redirectTo("/beheer/inloggen", next);
-  if (aal !== "aal2") return redirectTo("/beheer/mfa", next);
+  // Of een aal1-sessie nog een code nodig heeft, hangt af van het account (B-62);
+  // requireAdmin() stuurt dan door naar /beheer/mfa.
   return withHeaders(response);
 }

@@ -5,7 +5,8 @@ import { cn } from "@/lib/utils";
 
 /**
  * Paginering met echte links (?pagina=n, B-16). Onder 640 px alleen vorige,
- * de status ("Pagina 2 van 5") en volgende.
+ * de status ("Pagina 2 van 5") en volgende; onder 360 px tonen vorige en
+ * volgende alleen hun pijl.
  */
 function Pagination({ label, className, ...props }: { label: string } & React.ComponentProps<"nav">) {
   return (
@@ -14,7 +15,7 @@ function Pagination({ label, className, ...props }: { label: string } & React.Co
 }
 
 function PaginationContent({ className, ...props }: React.ComponentProps<"ul">) {
-  return <ul data-slot="pagination-content" className={cn("flex items-center gap-1", className)} {...props} />;
+  return <ul data-slot="pagination-content" className={cn("flex w-full items-center justify-between gap-1 sm:w-auto sm:justify-start", className)} {...props} />;
 }
 
 function PaginationItem({ className, ...props }: React.ComponentProps<"li">) {
@@ -49,13 +50,13 @@ function PaginationLink({
 }
 
 const stepClasses =
-  "inline-flex h-11 items-center gap-1 rounded-lg px-3 text-sm font-medium text-foreground transition-colors hover:bg-muted [&_svg]:size-4";
+  "inline-flex h-11 min-w-11 items-center justify-center gap-1 rounded-lg px-3 text-sm font-medium text-foreground transition-colors hover:bg-muted [&_svg]:size-4";
 
 function PaginationPrevious({ href, label }: { href?: string; label: string }) {
   const inner = (
     <>
       <ChevronLeft aria-hidden="true" />
-      <span>{label}</span>
+      <span className="max-[22.5rem]:sr-only">{label}</span>
     </>
   );
   return (
@@ -76,7 +77,7 @@ function PaginationPrevious({ href, label }: { href?: string; label: string }) {
 function PaginationNext({ href, label }: { href?: string; label: string }) {
   const inner = (
     <>
-      <span>{label}</span>
+      <span className="max-[22.5rem]:sr-only">{label}</span>
       <ChevronRight aria-hidden="true" />
     </>
   );
@@ -108,7 +109,7 @@ function PaginationEllipsis({ label }: { label: string }) {
 
 function PaginationStatus({ children }: { children: React.ReactNode }) {
   return (
-    <li data-slot="pagination-status" className="px-2 text-sm tabular-nums text-muted-foreground sm:hidden">
+    <li data-slot="pagination-status" className="px-2 text-sm whitespace-nowrap tabular-nums text-muted-foreground sm:hidden">
       {children}
     </li>
   );

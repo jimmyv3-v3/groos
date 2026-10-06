@@ -82,10 +82,14 @@ test.describe("footer (AC-01-19, AC-03-09) @readonly", () => {
       await expect(footer).toContainText(t("common.address.byAppointment", { locale }));
       await expect(footer).toContainText(t("footer.description", { locale }));
       await expect(footer).toContainText(`© ${new Date().getFullYear()} Groos Personeelsdiensten B.V.`);
-      for (const href of ["tel:+31683351985", "mailto:info@groospersoneelsdiensten.nl"]) {
+      for (const href of ["tel:+31652549539", "mailto:info@groospersoneelsdiensten.nl"]) {
         await expect(footer.locator(`a[href="${href}"]`).first()).toBeAttached();
       }
-      await expect(footer.locator('a[href^="https://wa.me/31683351985"]').first()).toBeAttached();
+      await expect(footer.locator('a[href^="https://wa.me/31652549539"]').first()).toBeAttached();
+      // Het planningsnummer staat alleen in de footer, met zijn label (B-66).
+      const planning = page.locator('a[href="tel:+31683351985"]');
+      await expect(planning).toHaveCount(1);
+      await expect(footer.locator('a[href="tel:+31683351985"]')).toHaveText(t("footer.planningPhone", { locale, waarden: { phone: "06 83 35 19 85" } }));
       const prefix = locale === "en" ? "/en" : "";
       for (const doc of ["/privacyverklaring", "/cookieverklaring", "/klachtenregeling"]) {
         await expect(footer.locator(`a[href="${prefix}${doc}"]`)).toHaveCount(1);

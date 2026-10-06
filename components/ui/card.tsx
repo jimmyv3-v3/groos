@@ -11,7 +11,7 @@ const cardVariants = cva(
         muted: "border-transparent bg-muted",
         tint: "border-transparent bg-brand-tint",
         interactive:
-          "relative border-border transition-[border-color,box-shadow] duration-150 ease-brand hover:border-brand/40 hover:shadow-md has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-ring",
+          "relative border-border transition-[border-color,box-shadow,translate] duration-200 ease-brand hover:border-brand/40 hover:shadow-md motion-safe:hover:-translate-y-0.5 has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-ring",
       },
     },
     defaultVariants: { variant: "default" },
@@ -23,8 +23,10 @@ type CardProps = {
 } & React.ComponentProps<"div">;
 
 /**
- * Kaart zonder schaduw in rust. Bij een klikbare kaart (interactive) krijgt de
- * hoofdlink after:absolute after:inset-0; één link per kaart.
+ * Kaart zonder schaduw in rust, met een rand van 1 px in het border-token. Bij
+ * een klikbare kaart (interactive) krijgt de hoofdlink after:absolute
+ * after:inset-0; één link per kaart. Hover: randkleur, lichte schaduw en een
+ * halve pixelstap omhoog (niet bij reduced motion).
  */
 function Card({ className, variant, ...props }: CardProps) {
   return <div data-slot="card" className={cn(cardVariants({ variant }), className)} {...props} />;

@@ -69,12 +69,12 @@ export function MfaEnroll() {
               width={200}
               height={200}
               unoptimized
-              className="size-[200px]"
+              className="h-auto w-[200px] max-w-full"
             />
             <div className="grid w-full gap-2">
               <p className="text-sm text-muted-foreground">{S.auth.enroll.manualLabel}</p>
               <div className="flex items-center gap-2">
-                <code className="flex-1 rounded-lg bg-muted px-3 py-2 font-mono text-sm break-all">{groupedSecret}</code>
+                <code className="min-w-0 flex-1 rounded-lg bg-muted px-3 py-2.5 font-mono text-base break-words select-all">{groupedSecret}</code>
                 <CtaButton
                   variant="secondary"
                   size="icon"

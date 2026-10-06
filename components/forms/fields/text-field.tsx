@@ -15,6 +15,14 @@ type TextFieldProps = {
   type?: "text" | "email" | "tel" | "number" | "date";
   autoComplete?: string;
   inputMode?: "text" | "email" | "tel" | "numeric";
+  /**
+   * Hoofdletters van het schermtoetsenbord. "words" voor namen en plaatsen;
+   * "none" schakelt ook autocorrectie en spellingcontrole uit. E-mail en
+   * telefoon krijgen vanzelf "none".
+   */
+  autoCapitalize?: "none" | "words" | "sentences";
+  /** false: geen autocorrectie en spellingcontrole (namen, plaatsen, bedrijfsnamen). */
+  autoCorrect?: boolean;
   defaultValue?: string;
   min?: string;
   max?: string;
@@ -35,6 +43,8 @@ export function TextField({
   type = "text",
   autoComplete,
   inputMode,
+  autoCapitalize,
+  autoCorrect,
   defaultValue,
   min,
   max,
@@ -44,6 +54,10 @@ export function TextField({
   className,
 }: TextFieldProps) {
   const ids = fieldIds(formId, name);
+  // Het toetsenbord van een telefoon mag een e-mailadres, nummer of naam niet "verbeteren".
+  const literal = type === "email" || type === "tel" || inputMode === "numeric";
+  const capitalize = autoCapitalize ?? (literal ? "none" : undefined);
+  const correct = autoCorrect ?? (literal || capitalize === "none" ? false : undefined);
   return (
     <Field invalid={Boolean(error)} className={cn("content-start", className)}>
       <FieldLabel htmlFor={ids.id} label={label} required={required} />
@@ -53,6 +67,9 @@ export function TextField({
         type={type}
         autoComplete={autoComplete}
         inputMode={inputMode}
+        autoCapitalize={type === "text" || type === "email" || type === "tel" ? capitalize : undefined}
+        autoCorrect={correct === false ? "off" : undefined}
+        spellCheck={correct === false ? false : undefined}
         defaultValue={defaultValue}
         min={min}
         max={max}

@@ -52,9 +52,9 @@ test.describe("contactpagina (AC-07-25) @readonly", () => {
   test("teamblok, gegevens en het formulier", async ({ page }) => {
     await page.goto("/contact");
     const main = page.locator("main");
-    await expect(main.locator('a[href="tel:+31683351985"]').first()).toBeVisible();
-    // Eén nummer op de hele publieke site (B-60): het tweede nummer staat er niet meer.
-    await expect(main.locator('a[href="tel:+31652549539"]')).toHaveCount(0);
+    await expect(main.locator('a[href="tel:+31652549539"]').first()).toBeVisible();
+    // Eén hoofdnummer op de pagina (B-60); het planningsnummer staat alleen in de footer (B-66).
+    await expect(main.locator('a[href="tel:+31683351985"]')).toHaveCount(0);
     await expect(main.getByRole("heading", { level: 2, name: `${t("contact.people.title")} ${t("contact.people.accent")}` })).toBeVisible();
     // Eén WhatsApp-knop in het teamblok; de knop heeft geen eigen aria-label (B-54).
     const whatsapp = main.locator('a[href^="https://wa.me/"]');

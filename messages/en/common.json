@@ -15,7 +15,7 @@
   "whatsapp": {
     "algemeen": "Hello Groos, I have a question.",
     "werkzoekende": "Hello Groos, I am looking for work and would like to know more.",
-    "werkzoekendeBeroep": "Hello Groos, I am looking for work as a {occupation}.",
+    "werkzoekendeBeroep": "Hello Groos, I am looking for work as {occupation}.",
     "werkgever": "Hello Groos, I am looking for staff and would like to discuss a request.",
     "werkgeverBeroep": "Hello Groos, I am looking for {occupationPlural} and would like to discuss a request.",
     "vacatureSolliciteren": "Hello Groos, I would like to apply for the job {title} (number {number}).",

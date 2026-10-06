@@ -108,6 +108,14 @@ export function isPublicStatus(s: VacancyStatus): boolean {
 
 export const APPLICATION_FINAL: readonly ApplicationStatus[] = ["placed", "rejected", "withdrawn"];
 
+/** Statussen waarbij het beheer de kandidaat een e-mail kan sturen, en welke. */
+export type StatusMailKind = "invitation" | "rejection" | "placement";
+export const APPLICATION_STATUS_MAIL: Partial<Record<ApplicationStatus, StatusMailKind>> = {
+  invited: "invitation",
+  rejected: "rejection",
+  placed: "placement",
+};
+
 /** Statussen per tabblad. */
 export const VACANCY_TABS: Record<VacancyTab, readonly VacancyStatus[]> = {
   online: ["published"],

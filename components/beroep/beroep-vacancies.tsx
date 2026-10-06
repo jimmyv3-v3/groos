@@ -14,6 +14,7 @@ import { IconTile } from "@/components/ui/icon-tile";
 import { CtaLinks } from "@/components/service/cta-links";
 import { VacancyList } from "@/components/vacatures/vacancy-list";
 import { VacancyListSkeleton } from "@/components/vacatures/vacancy-list-skeleton";
+import { occupationPhrase } from "@/i18n/occupation-phrase";
 
 export type BeroepVacanciesProps = {
   id?: string;
@@ -36,7 +37,7 @@ export type BeroepVacanciesProps = {
 export function BeroepVacancies({ id = "vacatures", heading, accent, intro, className, ...props }: BeroepVacanciesProps) {
   const limit = props.limit ?? (props.beroepId ? 6 : 3);
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
         <div className="mt-10 md:mt-12">
@@ -109,7 +110,7 @@ async function VacancyResults({
     );
   }
 
-  const occupation = beroepId ? tb(`${beroepId}.enkelvoud`).toLocaleLowerCase(locale) : "";
+  const occupation = beroepId ? occupationPhrase(tb(`${beroepId}.enkelvoud`), locale) : "";
   const listLabel = beroepId ? tb("ui.vacancies.listLabel", { occupation }) : tb("ui.vacancies.listLabelAll");
   return (
     <>

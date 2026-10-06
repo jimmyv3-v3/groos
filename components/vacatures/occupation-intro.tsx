@@ -4,7 +4,7 @@ import type { Locale } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import type { OccupationSlug } from "@/lib/data/options";
 import { paths } from "@/lib/routes";
-import { lowerFirst } from "./vacancy-format";
+import { occupationPhrase } from "@/i18n/occupation-phrase";
 
 type Props = { occupation: OccupationSlug; locale: Locale };
 
@@ -14,7 +14,7 @@ export async function OccupationIntro({ occupation, locale }: Props) {
     getTranslations({ locale, namespace: "vacatures.beroepIntro" }),
     getTranslations({ locale, namespace: "beroepen" }),
   ]);
-  const name = lowerFirst(tb(`${occupation}.enkelvoud`), locale);
+  const name = occupationPhrase(tb(`${occupation}.enkelvoud`), locale);
   const paragraphs = t.raw(`items.${occupation}.paragraphs`) as string[];
   const headingId = `beroep-intro-${occupation}`;
 

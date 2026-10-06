@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { withConfirmedClaims, type ClaimKey } from "@/lib/claims";
 import { RevealItem } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/sections/section-heading";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { CardDescription, CardTitle } from "@/components/ui/card";
 import { IconTile } from "@/components/ui/icon-tile";
 
 /**
@@ -30,17 +30,21 @@ export async function WhyGroos() {
     <section id="waarom-groos" aria-labelledby="home-waarom-titel">
       <div className="container section">
         <SectionHeading headingId="home-waarom-titel" title={t("title")} accent={t("accent")} intro={t("intro")} />
-        <ul role="list" className="reveal-group mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-          {items.map(({ key, icon }) => (
-            <RevealItem as="li" key={key} className="flex">
-              <Card className="w-full">
+        {/* Eén paneel met haarlijnen tussen de cellen; de buitenste lijnen vallen
+            buiten het afgeronde kader. */}
+        <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card">
+          <ul role="list" className="reveal-group -mr-px -mb-px grid md:grid-cols-2 lg:grid-cols-4">
+            {items.map(({ key, icon }) => (
+              <RevealItem as="li" key={key} className="flex flex-col gap-4 border-r border-b border-border p-6 md:p-7">
                 <IconTile icon={icon} />
-                <CardTitle as="h3">{t(`items.${key}.title`)}</CardTitle>
-                <CardDescription>{t(`items.${key}.body`)}</CardDescription>
-              </Card>
-            </RevealItem>
-          ))}
-        </ul>
+                <div className="grid gap-2">
+                  <CardTitle as="h3">{t(`items.${key}.title`)}</CardTitle>
+                  <CardDescription>{t(`items.${key}.body`)}</CardDescription>
+                </div>
+              </RevealItem>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

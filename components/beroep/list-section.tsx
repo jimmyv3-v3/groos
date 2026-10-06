@@ -32,7 +32,7 @@ export function ListSection({
 }) {
   const single = groups.length === 1;
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
         <Reveal
@@ -63,10 +63,12 @@ export function ListSection({
         </Reveal>
         {note && <p className="mt-8 max-w-3xl text-base text-muted-foreground">{note}</p>}
         {link && (
-          <p className="mt-6">
-            <Link href={link.href} className="link inline-flex min-h-11 items-center gap-2 font-medium">
+          <p className="mt-4">
+            {/* Inline, zodat de pijl bij het laatste woord blijft als de link over twee regels loopt. */}
+            <Link href={link.href} className="link inline-block py-2.5 font-medium">
               {link.label}
-              <ArrowRight className="size-4" aria-hidden="true" />
+              {"\u00A0"}
+              <ArrowRight className="inline size-4 align-[-0.125em]" aria-hidden="true" />
             </Link>
           </p>
         )}

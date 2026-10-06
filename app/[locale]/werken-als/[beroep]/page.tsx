@@ -23,6 +23,7 @@ import { CareerPath } from "@/components/beroep/career-path";
 import { BeroepVacancies } from "@/components/beroep/beroep-vacancies";
 import { PerspectiveLink } from "@/components/beroep/perspective-link";
 import { toFeatureItems } from "@/components/beroep/feature-items";
+import { occupationPhrase } from "@/i18n/occupation-phrase";
 
 // Routeconfiguratie van spec 01 (§4.11.5); ISR omdat de pagina live vacatures toont.
 export const dynamicParams = false;
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: PageProps<"/[locale]/werken-a
   const t = await getTranslations({ locale, namespace: "beroepen" });
   const { meta } = getBeroepCopy(item.id, locale).copy.jobseeker;
   const path = paths.werkenAls(item.id);
-  const occupation = t(`${item.id}.enkelvoud`).toLocaleLowerCase(locale);
+  const occupation = occupationPhrase(t(`${item.id}.enkelvoud`), locale);
   const occupationPlural = t(`${item.id}.meervoud`);
   return pageMetadata({
     locale,
@@ -64,9 +65,11 @@ export default async function Page({ params }: PageProps<"/[locale]/werken-als/[
   const { content, copy } = getBeroepCopy(id, locale);
   const c = copy.jobseeker;
 
-  const occupation = tb(`${id}.enkelvoud`).toLocaleLowerCase(locale);
+  const occupation = occupationPhrase(tb(`${id}.enkelvoud`), locale);
   const range = (r: { min: number; max: number }) =>
-    t("common.format.wageRange", { min: formatEuro(r.min, locale), max: formatEuro(r.max, locale) });
+    r.min === r.max
+      ? t("common.format.wagePerHour", { amount: formatEuro(r.min, locale) })
+      : t("common.format.wageRange", { min: formatEuro(r.min, locale), max: formatEuro(r.max, locale) });
   const starterRange = range(content.wage.starter);
   const registerHref = `${ROUTES.inschrijven}?beroep=${id}`;
   const whatsappText = t("common.whatsapp.werkzoekendeBeroep", { occupation });
@@ -101,7 +104,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werken-als/[
 
       <ListSection
         id="werk"
-        className="bg-ice"
         heading={c.work.title}
         accent={c.work.accent}
         intro={c.work.intro}
@@ -120,16 +122,15 @@ export default async function Page({ params }: PageProps<"/[locale]/werken-als/[
 
       <WageIndication
         id="loon"
-        className="bg-ice"
         heading={c.wage.title}
         accent={c.wage.accent}
         intro={c.wage.intro}
         badge={tb("ui.wage.badge")}
-        rangeLabel={tb("ui.wage.rangeLabel")}
+        rangeLabel={c.wage.rangeLabel ?? tb("ui.wage.rangeLabel")}
         range={starterRange}
         experienced={
           content.wage.experienced
-            ? { label: tb("ui.wage.experiencedLabel"), range: range(content.wage.experienced) }
+            ? { label: c.wage.experiencedLabel ?? tb("ui.wage.experiencedLabel"), range: range(content.wage.experienced) }
             : undefined
         }
         source={tb("ui.wage.source", { source: c.wage.sourceLabel, date: formatDate(content.wage.checkedAt, locale) })}
@@ -148,7 +149,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werken-als/[
 
       <CertificateList
         id="certificaten"
-        className="bg-ice"
         heading={c.certificates.title}
         accent={c.certificates.accent}
         intro={c.certificates.intro}
@@ -170,7 +170,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werken-als/[
 
       <CareerPath
         id="doorgroei"
-        className="bg-ice"
         heading={c.career.title}
         accent={c.career.accent}
         intro={c.career.intro}
@@ -192,7 +191,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werken-als/[
 
       <ServiceSteps
         id="solliciteren"
-        className="bg-ice"
         heading={t("werkzoekenden.steps.title")}
         accent={t("werkzoekenden.steps.accent")}
         intro={t("werkzoekenden.steps.intro")}
@@ -203,7 +201,6 @@ export default async function Page({ params }: PageProps<"/[locale]/werken-als/[
       <JsonLd data={faqLd(faq.map(({ q, a }) => ({ q, a })))} />
 
       <PerspectiveLink
-        className="bg-ice"
         text={c.perspective.text}
         linkLabel={c.perspective.linkLabel}
         href={paths.werkgeverBeroep(id)}

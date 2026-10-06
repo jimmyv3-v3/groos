@@ -10,6 +10,11 @@ import { schoonmaker } from "@/content/beroepen/schoonmaker";
 import { logistiekMedewerker } from "@/content/beroepen/logistiek-medewerker";
 import { verhuizer } from "@/content/beroepen/verhuizer";
 import { hulpkrachtBouwEnSloop } from "@/content/beroepen/hulpkracht-bouw-en-sloop";
+import { grondwerker } from "@/content/beroepen/grondwerker";
+import { sloper } from "@/content/beroepen/sloper";
+import { bouwopruimer } from "@/content/beroepen/bouwopruimer";
+import { machinist } from "@/content/beroepen/machinist";
+import { stratenmaker } from "@/content/beroepen/stratenmaker";
 import { werkzoekendenPage } from "@/content/pages/werkzoekenden";
 import { werkgeversPage } from "@/content/pages/werkgevers";
 import { wttaPage } from "@/content/pages/wtta";
@@ -21,7 +26,18 @@ import enWerkzoekenden from "@/messages/en/werkzoekenden.json";
 import enWerkgevers from "@/messages/en/werkgevers.json";
 import enBeroepen from "@/messages/en/beroepen.json";
 
-const CONTENT = [glazenwasser, schoonmaker, logistiekMedewerker, verhuizer, hulpkrachtBouwEnSloop];
+const CONTENT = [
+  glazenwasser,
+  schoonmaker,
+  logistiekMedewerker,
+  verhuizer,
+  hulpkrachtBouwEnSloop,
+  grondwerker,
+  sloper,
+  bouwopruimer,
+  machinist,
+  stratenmaker,
+];
 const LOCALES = ["nl", "en"] as const;
 type Locale = (typeof LOCALES)[number];
 type Perspective = "jobseeker" | "employer";
@@ -349,6 +365,26 @@ const META_TITLES: Record<string, { nl: [string, string]; en: [string | null, st
   "hulpkracht-bouw-en-sloop": {
     nl: ["Werken als hulpkracht bouw en sloop in Den Haag", "Hulpkrachten bouw en sloop inhuren in Den Haag"],
     en: ["Work as a construction and demolition labourer", "Hire construction and demolition labourers"],
+  },
+  grondwerker: {
+    nl: ["Werken als grondwerker in Den Haag", "Grondwerkers inhuren in Den Haag"],
+    en: ["Work as a groundworker in The Hague", "Hire groundworkers in The Hague"],
+  },
+  sloper: {
+    nl: ["Werken als sloper in Den Haag", "Slopers inhuren in Den Haag"],
+    en: ["Work as a demolition worker in The Hague", "Hire demolition workers in The Hague"],
+  },
+  bouwopruimer: {
+    nl: ["Werken als bouwopruimer in Den Haag", "Bouwopruimers inhuren in Den Haag"],
+    en: ["Work as a construction site cleaner in The Hague", "Hire construction site cleaners in The Hague"],
+  },
+  machinist: {
+    nl: ["Werken als machinist grondverzet in Den Haag", "Machinisten grondverzet inhuren in Den Haag"],
+    en: ["Work as an excavator operator in The Hague", "Hire excavator operators in The Hague"],
+  },
+  stratenmaker: {
+    nl: ["Werken als stratenmaker in Den Haag", "Stratenmakers inhuren in Den Haag"],
+    en: ["Work as a street paver in The Hague", "Hire street pavers in The Hague"],
   },
 };
 

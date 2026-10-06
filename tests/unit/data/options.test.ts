@@ -30,13 +30,18 @@ describe("lib/data/options.ts tegen de database-enums (AC-10-28)", () => {
     expect([...constante]).toEqual([...databaseEnum]);
   });
 
-  it("de vijf beroepen staan in de volgorde van spec 00 §4.2", () => {
+  it("de tien beroepen staan in de volgorde van spec 00 §4.2", () => {
     expect([...options.OCCUPATION_SLUGS]).toEqual([
       "glazenwasser",
       "schoonmaker",
       "logistiek-medewerker",
       "verhuizer",
       "hulpkracht-bouw-en-sloop",
+      "grondwerker",
+      "sloper",
+      "bouwopruimer",
+      "machinist",
+      "stratenmaker",
     ]);
   });
 

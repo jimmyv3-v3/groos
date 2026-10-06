@@ -48,11 +48,14 @@ export function ActionBar({ ariaLabel, actions }: { ariaLabel: string; actions: 
       aria-label={ariaLabel}
       inert={hidden || undefined}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-transform duration-200 ease-brand motion-reduce:transition-none lg:hidden",
+        "fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background px-[max(1rem,env(safe-area-inset-left),env(safe-area-inset-right))] pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] transition-transform duration-200 ease-brand motion-reduce:transition-none lg:hidden",
         hidden && "translate-y-full",
       )}
     >
-      <div className="grid grid-cols-2 gap-3">
+      {/* Gelijke kolommen zolang het past. Past de primaire actie ("Personeel
+          aanvragen") niet in de helft, dan krijgt die de breedte van haar label
+          en wordt de belknop smaller, zodat het label niet wordt afgekapt. */}
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(max-content,1fr)] gap-3">
         {[left, right].map((action, i) => (
           <CtaButton
             key={i}

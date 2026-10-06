@@ -9,11 +9,11 @@ export async function AboutPeople({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: "about.people" });
 
   return (
-    <section id="contactpersonen" aria-labelledby="over-ons-mensen-titel" className="bg-ice">
+    <section id="contactpersonen" aria-labelledby="over-ons-mensen-titel">
       <div className="container section">
         <SectionHeading headingId="over-ons-mensen-titel" title={t("title")} accent={t("accent")} intro={t("intro")} />
         <Reveal>
-          <div className="mt-10 lg:max-w-4xl">
+          <div className="mt-10">
             <TeamContactCard locale={locale} />
           </div>
         </Reveal>

@@ -17,7 +17,6 @@ export default async function MfaPage({ searchParams }: PageProps<"/beheer/mfa">
   if (state.kind === "none") redirect(beheerPaths.login);
   if (state.kind === "admin") redirect(safeNext(volgende));
   if (state.kind === "inactive") redirect(beheerPaths.noAccess);
-  if (!state.hasVerifiedFactor) redirect(beheerPaths.mfaEnroll);
 
   return (
     <AuthCard

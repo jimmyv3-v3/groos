@@ -413,7 +413,7 @@ export type EmailLocale = "nl" | "en";
 export type EmailCompany = {
   legalName: string;        // contact.name, "Groos Personeelsdiensten B.V."
   street: string; postalCode: string; city: string;
-  phoneDisplay: string;     // contact.phone, "06 83 35 19 85"
+  phoneDisplay: string;     // contact.phone, "06 52 54 95 39"
   phoneHref: string;        // contact.phoneHref
   email: string;            // contact.email
   websiteUrl: string;       // emailOrigin() + localizedPath(locale, "/")

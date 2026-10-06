@@ -83,7 +83,7 @@ export function RegisterForm({ locale, occupationOptions }: RegisterFormProps) {
       onFocus={onFirstInteraction}
       noValidate
       aria-labelledby="inschrijven-titel"
-      className="relative grid max-w-[36rem] gap-6"
+      className="relative grid max-w-[36rem] grid-cols-[minmax(0,1fr)] gap-6"
     >
       <ErrorSummary count={errorCount} text={t("common.errorSummary", { count: errorCount })} />
       <JobseekerPersonalFields {...common} />

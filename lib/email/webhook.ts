@@ -1,6 +1,7 @@
 import "server-only";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import type { DeliveryFailure } from "./alerts";
 import { cleanError } from "./log";
 
 /** Resend-webhook: handtekening controleren en email_log bijwerken (spec 11 §4.11). */
@@ -60,8 +61,18 @@ export function verifyResendWebhook(input: {
   return event;
 }
 
-/** Werkt email_log bij voor bezorging, bounce en mislukking. Gooit bij een databasefout. */
-export async function applyWebhookEvent(event: ResendWebhookEvent): Promise<{ updated: number }> {
+const FAILURE_REASON = {
+  "email.bounced": "bounced",
+  "email.failed": "failed",
+  "email.suppressed": "suppressed",
+} as const;
+
+/**
+ * Werkt email_log bij voor bezorging, bounce en mislukking. Gooit bij een
+ * databasefout. failures bevat de mails die door deze gebeurtenis voor het
+ * eerst op bounced of failed kwamen; een herhaalde webhook levert er geen.
+ */
+export async function applyWebhookEvent(event: ResendWebhookEvent): Promise<{ updated: number; failures: DeliveryFailure[] }> {
   const db = createSupabaseAdminClient();
   const id = event.data.email_id;
   let query;
@@ -73,19 +84,29 @@ export async function applyWebhookEvent(event: ResendWebhookEvent): Promise<{ up
       query = db
         .from("email_log")
         .update({ status: "bounced", error: cleanError(event.data.bounce?.message ?? "bounced") })
-        .eq("provider_message_id", id);
+        .eq("provider_message_id", id)
+        .neq("status", "bounced");
       break;
     case "email.failed":
     case "email.suppressed":
-      query = db.from("email_log").update({ status: "failed", error: cleanError(event.type) }).eq("provider_message_id", id);
+      query = db
+        .from("email_log")
+        .update({ status: "failed", error: cleanError(event.type) })
+        .eq("provider_message_id", id)
+        .neq("status", "failed");
       break;
     case "email.complained":
       query = db.from("email_log").update({ error: "complained" }).eq("provider_message_id", id);
       break;
     default:
-      return { updated: 0 };
+      return { updated: 0, failures: [] };
   }
-  const { data, error } = await query.select("id");
+  const { data, error } = await query.select("id, template, entity_type, entity_id");
   if (error) throw Object.assign(new Error("email_log"), { pgCode: error.code });
-  return { updated: data?.length ?? 0 };
+  const rows = data ?? [];
+  const reason = (FAILURE_REASON as Record<string, DeliveryFailure["reason"] | undefined>)[event.type];
+  const failures = reason
+    ? rows.map((row) => ({ logId: row.id, template: row.template, entityType: row.entity_type, entityId: row.entity_id, reason }))
+    : [];
+  return { updated: rows.length, failures };
 }

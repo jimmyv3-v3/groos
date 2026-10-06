@@ -53,6 +53,12 @@ export function activityText(item: ActivityItem): string {
         naam,
         toegewezen: typeof p.toName === "string" ? p.toName : S.common.nobody,
       });
+    case "email_sent": {
+      // Met payload.mail stuurde het beheer zelf een mail; zonder opende de beheerder zijn mailprogramma.
+      const sent = { invitation: S.activity.email_invitation, rejection: S.activity.email_rejection, placement: S.activity.email_placement };
+      const text = typeof p.mail === "string" ? (sent as Record<string, string | undefined>)[p.mail] : undefined;
+      return fill(text ?? S.activity.email_sent, { naam });
+    }
     default:
       return fill(S.activity[item.kind], { naam });
   }

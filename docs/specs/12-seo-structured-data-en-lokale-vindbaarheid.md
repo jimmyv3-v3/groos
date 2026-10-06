@@ -107,7 +107,7 @@ OG-afbeeldingen).
 | `lib/seo.ts` | pure helpers en builders | herschreven (§4.2 tot en met §4.5) | alle pagina's, 01 (`Breadcrumbs`, layout), 04 tot en met 09 |
 | `lib/og.tsx` | gedeelde opmaak, fonts en kleuren voor `ImageResponse` | nieuw (§4.6) | alle OG-routes |
 | `assets/fonts/InstrumentSans-SemiBold.ttf`, `assets/fonts/Onest-Regular.ttf`, `assets/fonts/Onest-Medium.ttf`, `assets/fonts/OFL.txt` | fontbestanden (statische TTF) en licentie | bestaand, geleverd door spec 02 in bouwstap 2; deze spec leest ze alleen | `lib/og.tsx` |
-| `components/brand/logo-paths.json` | logopaden en viewBoxen | bestaand, geleverd door spec 02; deze spec leest `wordmark` | `lib/og.tsx` |
+| `components/brand/logo-paths.json` | logopaden en viewBoxen | bestaand, geleverd door spec 02; deze spec leest het logo via `logoDataUri()` uit `components/brand/logo-svg.ts` | `lib/og.tsx` |
 | `app/opengraph-image.tsx` | site-brede OG-afbeelding | herschreven | alle pagina's zonder eigen beeld |
 | `app/twitter-image.tsx` | hergebruikt de OG-afbeelding | ongewijzigd | idem |
 | `app/[locale]/vacatures/[slug]/opengraph-image.tsx` en `twitter-image.tsx` | OG per vacature | nieuw | spec 06 |
@@ -330,7 +330,7 @@ export function escapeHtml(value: string): string;   // & < > " ' naar entiteite
   "logo": "https://www.groospersoneelsdiensten.nl/brand/logo.png",
   "description": "<meta.organizationDescription>",
   "email": "info@groospersoneelsdiensten.nl",
-  "telephone": "+31683351985",
+  "telephone": "+31652549539",
   "sameAs": ["<socials[].href, alleen als er zijn>"]
 }
 ```
@@ -423,10 +423,10 @@ export const OG_COLORS = {
 export function loadOgFonts(): Promise<NonNullable<ConstructorParameters<typeof ImageResponse>[1]>["fonts"]>;
 
 /**
- * Woordmerk in kleur als SVG-data-URI, opgebouwd uit components/brand/logo-paths.json (wordmark,
- * spec 02): "gr" en "s" in OG_COLORS.ink, "oo" in OG_COLORS.accent. Vervangt loadLogoDataUri met logo.png.
+ * Logo in kleur als SVG-data-URI (beeldmerk links, woordmerk rechts, zonder beschrijver), opgebouwd
+ * uit components/brand/logo-paths.json (spec 02 §4.11, B-61). Vervangt loadLogoDataUri met logo.png.
  */
-export function wordmarkDataUri(): string;
+export function logoDataUri(): string;
 
 export type OgCardProps = {
   /** Klein label boven de kop, bijvoorbeeld "Vacature" of "Werkgevers". Geen hoofdletters. */
@@ -448,7 +448,7 @@ Opmaak van `OgCard` (inline styles, want `ImageResponse` ondersteunt geen
 Tailwind-klassen uit de app):
 
 - Achtergrond `OG_COLORS.canvas` (wit), binnenmarge 72 px. Links een verticale balk van 12 px breed over de volle hoogte in `OG_COLORS.accent` (kobalt, B-01). Geen verlopen, geen glans, geen raster (B-29).
-- Bovenaan het woordmerk in kleur als `<img>` met de SVG-data-URI van `wordmarkDataUri()` (uit `components/brand/logo-paths.json`), 48 px hoog en ongeveer 162 px breed (viewBox 123,72 bij 36,75), zonder losse naamtekst ernaast.
+- Bovenaan het logo in kleur (beeldmerk met woordmerk) als `<img>` met de SVG-data-URI van `logoDataUri()` (uit `components/brand/logo-svg.ts`), 48 px hoog en ongeveer 217 px breed (viewBox 166,18 bij 36,75), zonder losse naamtekst ernaast.
 - Daaronder, bij `label`, het label in Onest 500, 28 px, kleur `accent`, gewone hoofdletters (spec 03: geen `uppercase`).
 - De kop in Instrument Sans 600, kleur `ink`, regelafstand 1,1, hoogstens drie regels: 76 px tot 28 tekens, 64 px tot 44 tekens, anders 56 px. Langer dan 90 tekens wordt afgekapt met een beletselteken.
 - `lines` in Onest 400, 34 px, kleur `muted`. `highlight` als pil met achtergrond `accentSoft` (ijs) en tekst `accent`, Onest 500, 34 px.
@@ -563,7 +563,7 @@ Inhoud (voorbeelduitvoer met de huidige gegevens):
 
 > Groos Personeelsdiensten B.V. is een uitzendbureau in Den Haag. Wij leveren glazenwassers, schoonmakers, logistiek medewerkers, verhuizers en hulpkrachten bouw en sloop aan opdrachtgevers.
 
-Groos Personeelsdiensten B.V., Hugo Coenraadspad 6, 2553 ER Den Haag. Langskomen kan alleen op afspraak. Telefoon en WhatsApp: 06 83 35 19 85. E-mail: info@groospersoneelsdiensten.nl.
+Groos Personeelsdiensten B.V., Hugo Coenraadspad 6, 2553 ER Den Haag. Langskomen kan alleen op afspraak. Telefoon en WhatsApp: 06 52 54 95 39. E-mail: info@groospersoneelsdiensten.nl.
 
 Werkzoekenden solliciteren op een vacature of schrijven zich in via https://www.groospersoneelsdiensten.nl/inschrijven. Opdrachtgevers vragen personeel aan via https://www.groospersoneelsdiensten.nl/werkgevers/personeel-aanvragen.
 
@@ -620,7 +620,7 @@ de registers van spec 01 en 09.
 | `site`, `contact`, `socials` uit `lib/site.ts` | alle builders, NAP | 01 |
 | `STATIC_ROUTES`, `BEROEP_ROUTE_META`, `paths`, `routeMeta` uit `lib/routes.ts`; `beroepen` uit `content/beroepen/index.ts` | sitemap, llms.txt | 01 |
 | `LEGAL_DOCS`, `publishedLegalDocs()` uit `lib/legal.ts` | sitemap, llms.txt | 09 |
-| `brand.colors` uit `lib/brand.ts`, `wordmark` uit `components/brand/logo-paths.json`, fonts in `assets/fonts/` | OG | 02 |
+| `brand.colors` uit `lib/brand.ts`, `logoDataUri()` uit `components/brand/logo-svg.ts`, fonts in `assets/fonts/` | OG | 02 |
 | `public/brand/logo.png` (`site.logo`) | `logo` in `organizationLd`, `employmentAgencyLd` en `hiringOrganization` | 02 |
 | `isClaimConfirmed("workArea")` uit `lib/claims.ts` | `areaServed` in `employmentAgencyLd` en `serviceLd` (B-43) | 03 |
 | `displayCity(city, locale)`, `getVacancySeoParts(vacancy, locale)` en `todayInAmsterdam()` uit `components/vacatures/vacancy-format.ts` | plaatsnaam in de vacature-OG; de pagina geeft `city`, `hours`, `wage` en `startDate` aan `vacancyMetadata` en `[hours, wage, start]` als `facts` aan `jobPostingLd` | 06 |
@@ -834,7 +834,7 @@ Wij-vorm, hoogstens 750 tekens, geen links, geen claims die niet bevestigd zijn
 > hulpkrachten bouw en sloop aan bedrijven in Den Haag en omgeving.
 >
 > Werkzoekenden solliciteren bij ons op een vacature of schrijven zich in, ook
-> zonder cv. Bellen of een WhatsApp-bericht sturen naar 06 83 35 19 85 kan ook.
+> zonder cv. Bellen of een WhatsApp-bericht sturen naar 06 52 54 95 39 kan ook.
 >
 > Jimmy en Lorenzo zijn de vaste contactpersonen voor opdrachtgevers en
 > werkzoekenden. Langskomen kan alleen op afspraak.
@@ -921,7 +921,7 @@ Eén schrijfwijze, één bron (`contact` in `lib/site.ts`):
 |---|---|---|
 | Naam | Groos Personeelsdiensten B.V. (juridisch), Groos Personeelsdiensten (merk) | `legalName`, `name` |
 | Adres | Hugo Coenraadspad 6, 2553 ER Den Haag, met "Langskomen kan alleen op afspraak." (`common.address.byAppointment`, B-23) | `PostalAddress` met `addressRegion` "Zuid-Holland", `addressCountry` "NL" |
-| Telefoon | 06 83 35 19 85 (hoofdnummer en WhatsApp, B-21) | `+31683351985` |
+| Telefoon | 06 52 54 95 39 (hoofdnummer en WhatsApp, B-66) | `+31652549539` |
 | E-mail | info@groospersoneelsdiensten.nl (B-02) | `email` |
 | Website | https://www.groospersoneelsdiensten.nl | `url` |
 
@@ -939,7 +939,7 @@ legt de inhoud vast.
 | Primaire categorie | Uitzendbureau | aanvullende categorie alleen als er een bestaat die letterlijk uitzend- of tijdelijk werk beschrijft; geen categorie voor glazenwassen of verhuizen, want Groos levert die diensten niet aan particulieren |
 | Adres | Hugo Coenraadspad 6, 2553 ER Den Haag invoeren voor verificatie, daarna verbergen | het adres is in de BAG een woning (B-23); op de website blijft het staan |
 | Servicegebied | Den Haag, tot `workArea` bevestigd is (B-43); daarna Den Haag, Rijswijk, Delft, Westland, Zoetermeer, Leidschendam-Voorburg, Wassenaar | volgt `areaServed` in JSON-LD (§4.4): eerst alleen Den Haag, na bevestiging met Haaglanden; spec 13 G5 voert het uit |
-| Telefoon | 06 83 35 19 85 | B-21 |
+| Telefoon | 06 52 54 95 39 | B-66 |
 | Website | `https://www.groospersoneelsdiensten.nl/?utm_source=google&utm_medium=organic&utm_campaign=bedrijfsprofiel` | spec 13 G5 |
 | Openingstijden | pas na bevestiging van B-22; dan dezelfde tijden als `contact.openingHours` | geen 24/7 als openingstijd |
 | Diensten | Glazenwassers, Schoonmakers, Logistiek medewerkers, Verhuizers, Hulpkrachten bouw en sloop | meervoud uit 00 §4.2 |
@@ -1089,7 +1089,7 @@ direct na `npm run db:seed:reset` (B-46).
 | AC-12-02 | `pageMetadata({ locale: "nl", path: "/bedankt/aanvraag", title: "x", description: "y", noindex: true }).robots` is `{ index: false, follow: true }`; zonder `noindex` bevat `robots.googleBot["max-image-preview"]` de waarde `"large"`; met `languages: false` ontbreekt `alternates.languages`; met `canonical: { locale: "nl", path: "/vacatures/a-1001" }` en `locale: "en"` is `alternates.canonical` `"/vacatures/a-1001"`; `openGraph.images[0].url` is `"/opengraph-image"` tenzij `image` is meegegeven. | E-12-01, E-12-04 |
 | AC-12-03 | `employmentTypesFor("temp_agency", 32, 40)` geeft `["TEMPORARY","FULL_TIME"]`, `(…, 12, 20)` geeft `["TEMPORARY","PART_TIME"]`, `(…, 24, 40)` geeft `["TEMPORARY","FULL_TIME","PART_TIME"]` en `("recruitment", 36, 40)` geeft `["FULL_TIME"]`. | E-12-06 |
 | AC-12-04 | `jobPostingLd` met fixture 1001, `labels` uit `vacatures.detail.sections.*` en `facts` [uren, uurloon, startzin] bevat precies de velden en waarden van het voorbeeld in §5.3 (behalve de datums, die gelijk zijn aan `publishedAt` en `closesAt`); `description` begint met `<p>`, bevat drie `<ul>`'s met de koppen "Je werkdag", "Wat je meebrengt" en "Wat je van ons krijgt", het laatste `<li>` onder "Wat je meebrengt" is "Omdat je op hoogte werkt, is de minimumleeftijd 18 jaar.", de feitenalinea is "32 tot 40 uur per week. € 16,08 tot € 17,50 bruto per uur. Je kunt direct beginnen." (na de startzin staat precies één punt), en er is geen ongeëscapete tekst (een taak met `<b>` komt terug als `&lt;b&gt;`); met een gevulde `salaryNote` is die het laatste `<li>` onder "Wat je van ons krijgt", en met een gevulde `extra` staat `<p><strong>Meer over dit werk</strong></p>` ervoor; met fixture 1007 (`state: "closed"`) geeft de functie `null`. | E-12-06, E-12-07, E-12-20 |
-| AC-12-05 | `employmentAgencyLd({ locale: "nl", description })` heeft `@type` `EmploymentAgency`, `@id` `https://www.groospersoneelsdiensten.nl/#organization`, `address.streetAddress` "Hugo Coenraadspad 6", `address.postalCode` "2553 ER", `telephone` "+31683351985", en geen `geo`, `aggregateRating` of `openingHoursSpecification` zolang `contact.openingHours` leeg is; met `openingHours` gevuld staat `dayOfWeek` Monday tot en met Friday met `opens` "07:00". | E-12-05, E-12-14 |
+| AC-12-05 | `employmentAgencyLd({ locale: "nl", description })` heeft `@type` `EmploymentAgency`, `@id` `https://www.groospersoneelsdiensten.nl/#organization`, `address.streetAddress` "Hugo Coenraadspad 6", `address.postalCode` "2553 ER", `telephone` "+31652549539", en geen `geo`, `aggregateRating` of `openingHoursSpecification` zolang `contact.openingHours` leeg is; met `openingHours` gevuld staat `dayOfWeek` Monday tot en met Friday met `opens` "07:00". | E-12-05, E-12-14 |
 | AC-12-06 | `/vacatures/glazenwasser-den-haag-1001` bevat precies één script met `"@type":"JobPosting"` met `"title":"Glazenwasser"`, `"minValue":16.08`, `"maxValue":17.5`, `"unitText":"HOUR"`, `"addressLocality":"Den Haag"`, `"addressCountry":"NL"`, `"directApply":true` en `"value":"1001"`; de `<title>` is "Glazenwasser in Den Haag \| Groos Personeelsdiensten"; er is geen `hreflang` en de canonical is `https://www.groospersoneelsdiensten.nl/vacatures/glazenwasser-den-haag-1001`. | E-12-06, E-12-04 |
 | AC-12-07 | `/vacatures/schoonmaker-kantoren-rijswijk-1002` heeft `"employmentType":["TEMPORARY","PART_TIME"]`; `/vacatures/verhuizer-den-haag-1005` heeft `["TEMPORARY","FULL_TIME","PART_TIME"]`. | E-12-06 |
 | AC-12-08 | `/en/vacatures/glazenwasser-den-haag-1001` heeft de canonical van AC-12-06, geen `hreflang`, geen `JobPosting` en geen `meta name="robots"` met `noindex`; de `og:image` wijst naar `https://www.groospersoneelsdiensten.nl/en/vacatures/glazenwasser-den-haag-1001/opengraph-image`. | E-12-04, E-12-12 |
@@ -1099,7 +1099,7 @@ direct na `npm run db:seed:reset` (B-46).
 | AC-12-12 | Na `update vacancies set publish_at = now() - interval '1 minute' where number = 1008` en een cron-aanroep staat `/vacatures/medewerker-bloemenlogistiek-honselersdijk-1008` in `/sitemap.xml` en heeft de pagina een `JobPosting`. | E-12-07, E-12-08 |
 | AC-12-13 | `/sitemap.xml` bevat (zonder de wijzigingen van AC-12-11 en AC-12-12) voor de vacatures precies de zes URL's van 1001 tot en met 1006, alleen NL, elk met `<lastmod>` en zonder `xhtml:link`; alle gepubliceerde vaste routes en de tien beroepspagina's in NL en EN, elk met `xhtml:link` voor `nl`, `en` en `x-default`; `<lastmod>` van `/vacatures` is gelijk aan de nieuwste `<lastmod>` van de vacatures; geen `/bedankt/`, `/beheer`, `/api`, `/algemene-voorwaarden`, `/en/vacatures/` en geen URL met `?`. | E-12-08 |
 | AC-12-14 | `curl -s /robots.txt` geeft exact de uitvoer van §4.8 (vier regels plus de `Sitemap`-regel). | E-12-09 |
-| AC-12-15 | `/llms.txt` geeft 200 met `text/plain; charset=utf-8`, begint met `# Groos Personeelsdiensten`, bevat "Hugo Coenraadspad 6, 2553 ER Den Haag", "06 83 35 19 85", de tien beroepspagina's als absolute URL's, `/vacatures`, `/werkgevers/personeel-aanvragen` en `/en`, en bevat geen `TODO`, `/bedankt` of `/beheer`. | E-12-10, E-12-14 |
+| AC-12-15 | `/llms.txt` geeft 200 met `text/plain; charset=utf-8`, begint met `# Groos Personeelsdiensten`, bevat "Hugo Coenraadspad 6, 2553 ER Den Haag", "06 52 54 95 39", de tien beroepspagina's als absolute URL's, `/vacatures`, `/werkgevers/personeel-aanvragen` en `/en`, en bevat geen `TODO`, `/bedankt` of `/beheer`. | E-12-10, E-12-14 |
 | AC-12-16 | `/opengraph-image` en `/vacatures/glazenwasser-den-haag-1001/opengraph-image` geven 200 met `content-type: image/png` en `file` meldt "1200 x 630"; de vacatureafbeelding toont visueel "Vacature", "Glazenwasser", "Den Haag", "32 tot 40 uur per week" en "€ 16,08 tot € 17,50 bruto per uur"; de afbeelding van 1007 toont "Deze vacature is gesloten"; `/vacatures/onzin-42/opengraph-image` geeft de site-brede kaart. | E-12-11, E-12-12 |
 | AC-12-17 | `/werken-als/verhuizer/opengraph-image` en `/en/werkgevers/schoonmakers/opengraph-image` geven 200 met `image/png`; de `og:image` van `/werken-als/verhuizer` wijst naar `https://www.groospersoneelsdiensten.nl/werken-als/verhuizer/opengraph-image`. | E-12-13 |
 | AC-12-18 | Op `/` en `/contact` (NL en EN) staat één `EmploymentAgency`; op elke pagina onder `[locale]` staan één `Organization` en één `WebSite`; `/vacatures` bevat geen `ItemList`; `/werkgevers/schoonmakers` bevat een `Service` met `provider.@id` `https://www.groospersoneelsdiensten.nl/#organization`. | E-12-05, E-12-19 |
@@ -1108,7 +1108,7 @@ direct na `npm run db:seed:reset` (B-46).
 | AC-12-21 | `/vacatures?beroep=schoonmaker` en `/vacatures?q=den+haag` hebben `noindex, follow` en canonical `https://www.groospersoneelsdiensten.nl/vacatures`; `vacancyListMetadata({ locale: "nl", page: 2, isFiltered: false, t })` geeft canonical `/vacatures?pagina=2`, index en de titel "Vacatures in Den Haag en omgeving, pagina 2 \| Groos"; met `page: 1` is de canonical `/vacatures`. | E-12-04 |
 | AC-12-22 | `/bedankt/sollicitatie`, `/en/bedankt/aanvraag` en (zolang `published` onwaar is) `/algemene-voorwaarden` hebben `noindex, follow`. | E-12-04 |
 | AC-12-23 | De `<title>` van `/werkgevers/glazenwassers` bevat "glazenwasserij" en niet "inhuren"; die van `/werkgevers/verhuizers` bevat "verhuisbedrijven"; beide beschrijvingen staan in de u-vorm en die van `/werken-als/glazenwasser` in de je-vorm. | E-12-03 |
-| AC-12-24 | In de HTML van `/`, `/contact` en `/en/contact` staan in footer, zichtbare contactgegevens en JSON-LD dezelfde straat, postcode, plaats en hetzelfde nummer (`06 83 35 19 85` zichtbaar, `+31683351985` in JSON-LD en `tel:`). | E-12-14 |
+| AC-12-24 | In de HTML van `/`, `/contact` en `/en/contact` staan in footer, zichtbare contactgegevens en JSON-LD dezelfde straat, postcode, plaats en hetzelfde nummer (`06 52 54 95 39` zichtbaar, `+31652549539` in JSON-LD en `tel:`). | E-12-14 |
 | AC-12-25 | `grep -rniE "24/7\|keurmerk\|binnen [0-9]+ (uur\|werkdag)\|cao van groos" lib/seo.ts lib/og.tsx app/llms.txt app/opengraph-image.tsx` geeft niets, en de metabeschrijvingen uit §6.2 bevatten geen van die claims. | E-12-18 |
 | AC-12-26 | De Rich Results Test (tabblad "Code") op de HTML van `/vacatures/glazenwasser-den-haag-1001` toont "Vacature" en "Breadcrumbs" geldig zonder fouten; de Schema Markup Validator op `/` en `/contact` geeft nul fouten. | E-12-06, E-12-05 |
 | AC-12-27 | Op `/vacatures/glazenwasser-den-haag-1001` staan links naar `/werken-als/glazenwasser`, minstens twee andere `/vacatures/`-URL's en `/inschrijven`; op `/werken-als/schoonmaker` staan links naar `/vacatures?beroep=schoonmaker` en `/werkgevers/schoonmakers`; op `/werkgevers/schoonmakers` naar `/werkgevers/personeel-aanvragen` en `/werken-als/schoonmaker`. | E-12-17 |
@@ -1136,7 +1136,7 @@ direct na `npm run db:seed:reset` (B-46).
 | Spec 14 en `/vacatures?pagina=2` | Met zes seedvacatures en 12 per pagina is pagina 2 een 404 (spec 10 `outOfRange`). Deze spec toetst de paginering daarom met een unit-test (AC-12-21). Spec 14 §7.3 test `/vacatures?pagina=2` als pagina; dat vraagt meer seedvacatures of een kleinere paginagrootte in de test. | kruiscontrole, spec 14 | Geen wijziging hier. |
 | OG-beeld voor `/en` | De site-brede OG-afbeelding is Nederlands en wordt ook op `/en` gebruikt; een tweede site-brede route zou het pad `/opengraph-image` veranderen waar spec 13 en 14 op testen. Beroeps- en vacaturebeelden zijn wel per taal. | Djulan | `generateImageMetadata` met `nl` en `en`; dan wijzigen de URL's en de checks van spec 13 en 14. |
 | Kleurrollen OG | `OG_COLORS` koppelt de rollen aan `brand.colors` van spec 02: canvas `background`, ink `foreground`, muted `muted`, accent `accent`, accentSoft `brandTint`, onAccent `background` (§4.6). | spec 02 | Alleen de koppeling in `lib/og.tsx`. |
-| Logo in OG | Het woordmerk in kleur als SVG-data-URI uit `components/brand/logo-paths.json` (spec 02), 48 px hoog, zonder losse naamtekst; `wordmarkDataUri()` vervangt `loadLogoDataUri` met `logo.png`. `public/brand/logo.png` blijft alleen voor `site.logo` in JSON-LD. | spec 02 | Ander logoconcept: spec 02 genereert `logo-paths.json` opnieuw; `wordmarkDataUri` blijft gelijk. |
+| Logo in OG | Het logo in kleur (beeldmerk met woordmerk, B-61) als SVG-data-URI uit `components/brand/logo-svg.ts` (spec 02), 48 px hoog, zonder losse naamtekst; `logoDataUri()` vervangt `loadLogoDataUri` met `logo.png`. `public/brand/logo.png` blijft alleen voor `site.logo` in JSON-LD. | spec 02 | Een gewijzigd beeldmerk: spec 02 genereert `logo-paths.json` opnieuw; `logoDataUri` blijft gelijk. |
 | Fonts | Gesloten in de kruiscontrole (ronde 1): `loadOgFonts` leest `assets/fonts/InstrumentSans-SemiBold.ttf`, `assets/fonts/Onest-Regular.ttf` en `assets/fonts/Onest-Medium.ttf` van spec 02; spec 02 levert ook `assets/fonts/OFL.txt`. `assets/og/` en het eigen downloadscript vervallen. | gesloten (spec 02) | Andere fonts in spec 02: alleen de bestandsnamen in `loadOgFonts`. |
 | Sleutels in andere namespaces | Deze spec leest `vacatures.meta.*`, `vacatures.og.*`, `vacatures.detail.sections.*`, `vacatures.detail.minAge.*` (spec 06) en `beroepen.og.*` met `{occupation}` en `{occupationPlural}` (spec 05); de tekst staat alleen bij de eigenaar (§6.4). | spec 05, spec 06 | Andere namen: alleen `VacancyMetaKey`, de OG-routes en de aanroep van `jobPostingLd`. |
 | `lib/legal.ts` | Gesloten in de kruiscontrole (ronde 1, B-40): `published` komt voor alle vaste routes uit `STATIC_ROUTES`; voor de juridische routes leest `lib/routes.ts` die waarde uit `lib/legal.ts`. De sitemap leest alleen `STATIC_ROUTES` (plus `updatedAt` uit `LEGAL_DOCS`), `llms.txt` `publishedLegalDocs()`. | gesloten (B-40) | Geen; alleen de import in `lib/routes.ts` (spec 01). |

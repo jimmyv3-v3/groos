@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 import { brand } from "@/lib/brand";
-import paths from "@/components/brand/logo-paths.json";
+import { markDataUri, markRatio } from "@/components/brand/logo-svg";
 
 /** App-iconen 192 en 512: het beeldmerk wit op kobalt met 20 procent witruimte (maskable, spec 08 §4.12). */
 export function generateImageMetadata() {
@@ -12,12 +12,13 @@ export function generateImageMetadata() {
 
 export default async function Icon({ id }: { id: Promise<string | number> }) {
   const size = Number(await id) === 512 ? 512 : 192;
-  const inner = Math.round(size * 0.6);
-  const [, , w, h] = paths.mark.viewBox.split(" ").map(Number);
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${paths.mark.viewBox}"><path transform="${paths.mark.transform}" d="${paths.mark.oo}" fill="${brand.colors.background}"/></svg>`;
-  const src = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
-  const markWidth = w >= h ? inner : Math.round((inner * w) / h);
-  const markHeight = w >= h ? Math.round((inner * h) / w) : inner;
+  // Het kader van het beeldmerk heeft een marge; 0,66 houdt het beeldmerk zelf op ongeveer 58 procent.
+  const inner = Math.round(size * 0.66);
+  const white = brand.colors.background;
+  // 192 staat klein op een beginscherm: de optische versie. 512 is het beeldmerk één op één.
+  const src = markDataUri({ g: white, crescent: white, optical: size === 192 });
+  const markWidth = markRatio >= 1 ? inner : Math.round(inner * markRatio);
+  const markHeight = markRatio >= 1 ? Math.round(inner / markRatio) : inner;
   return new ImageResponse(
     (
       <div

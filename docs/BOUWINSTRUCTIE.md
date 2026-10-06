@@ -218,8 +218,8 @@ account, domein en DNS, Search Console, Google Bedrijfsprofiel.
 Leg deze vast in de specs; vraag ze zo nodig via Djulan aan Jimmy en Lorenzo.
 
 1. Merkrichting (context/12: A "Signaal", B "Baksteen" of C "Kobalt").
-2. Domeinnaam en e-mailadres (in de briefing staat
-   `info@groospersoneeldiensten.nl`, zonder "s" in personeel; klopt dat?).
+2. Domeinnaam en e-mailadres: besloten in B-02, `groospersoneelsdiensten.nl`
+   en `info@groospersoneelsdiensten.nl`, met "s" na "personeel".
 3. Tweetalig of alleen Nederlands; zo ja, vertaalde slugs of niet.
 4. Je-vorm of u-vorm voor werkzoekenden.
 5. Wie vacatures invoert en goedkeurt; welke gegevens per vacature verplicht zijn.

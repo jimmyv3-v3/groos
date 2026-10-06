@@ -29,8 +29,38 @@
     "jobseeker": { "summary": "You help skilled workers on the building site or with demolition work. You work outside in a team, usually from 07:00." },
     "employer": { "summary": "We provide labourers, bricklayers' mates and demolition workers for your project. We discuss in advance which certificates are needed." }
   },
+  "grondwerker": {
+    "enkelvoud": "Groundworker",
+    "meervoud": "Groundworkers",
+    "jobseeker": { "summary": "You dig trenches, expose cables and pipes by hand and work outside in a small team." },
+    "employer": { "summary": "We provide groundworkers for sewers, cables and pipes and site preparation. We discuss in advance which instructions your work requires." }
+  },
+  "sloper": {
+    "enkelvoud": "Demolition worker",
+    "meervoud": "Demolition workers",
+    "jobseeker": { "summary": "You strip out buildings, demolish with a breaker and grinder and sort the waste in a team." },
+    "employer": { "summary": "We provide demolition workers for strip-out, renovation demolition and complete demolition. We discuss experience and asbestos awareness in advance." }
+  },
+  "bouwopruimer": {
+    "enkelvoud": "Construction site cleaner",
+    "meervoud": "Construction site cleaners",
+    "jobseeker": { "summary": "You keep the construction site clean, sort waste and set out materials, usually from 07:00." },
+    "employer": { "summary": "We provide site cleaners who keep your construction site tidy, sort waste and leave it broom clean. We match the days to your schedule." }
+  },
+  "machinist": {
+    "enkelvoud": "Excavator operator",
+    "meervoud": "Excavator operators",
+    "jobseeker": { "summary": "You operate an excavator, mini excavator or wheel loader. You need experience or a diploma for this work." },
+    "employer": { "summary": "We provide operators for excavators, mini excavators and wheel loaders. We discuss the machine, any lifting work and the certificates involved in advance." }
+  },
+  "stratenmaker": {
+    "enkelvoud": "Street paver",
+    "meervoud": "Street pavers",
+    "jobseeker": { "summary": "You lay clay pavers and paving slabs, set kerbs and work outside, more and more often with a machine." },
+    "employer": { "summary": "We provide street pavers and paving labourers for new paving and repairs. We discuss in advance whether the work is done by machine or by hand." }
+  },
   "og": {
-    "werkzoekende": "Work as a {occupation} in The Hague",
+    "werkzoekende": "Work as {occupation} in The Hague",
     "werkgever": "{occupationPlural} for your business in The Hague"
   },
   "ui": {
@@ -51,7 +81,7 @@
     },
     "careerListLabel": "Career path",
     "vacancies": {
-      "listLabel": "Jobs as a {occupation}",
+      "listLabel": "Jobs as {occupation}",
       "listLabelAll": "Latest jobs",
       "count": "{count, plural, =0 {There are no open jobs right now.} one {There is # open job.} other {There are # open jobs.}}",
       "viewAllLink": "All jobs in this occupation",

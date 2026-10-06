@@ -10,6 +10,11 @@ export const OCCUPATION_SLUGS = [
   "logistiek-medewerker",
   "verhuizer",
   "hulpkracht-bouw-en-sloop",
+  "grondwerker",
+  "sloper",
+  "bouwopruimer",
+  "machinist",
+  "stratenmaker",
 ] as const; // gelijk aan spec 00 §4.2
 export type OccupationSlug = (typeof OCCUPATION_SLUGS)[number];
 
@@ -44,17 +49,24 @@ export type ExperienceLevel = (typeof EXPERIENCE_LEVELS)[number];
 export const QUALIFICATIONS = [
   "vca_basis",
   "vca_vol",
+  "gpi",
   "heftruck",
   "reachtruck",
   "ept",
   "ipaf",
+  "machinist_diploma",
+  "tcvt",
   "vog",
   "rijbewijs_b",
   "rijbewijs_be",
   "rijbewijs_c",
+  "rijbewijs_t",
   "code_95",
   "ras",
-] as const; // zonder "dav" sinds 20261003090000_kruiscontrole_1.sql (VR-13)
+  "werken_langs_de_weg",
+  "zorgvuldig_graven",
+  "asbestherkenning",
+] as const; // zonder "dav" sinds 20261003090000_kruiscontrole_1.sql (VR-13); aangevuld in 20261005120000_beroepen_bouw_en_infra.sql
 export type Qualification = (typeof QUALIFICATIONS)[number];
 
 /** Taal op het werk (enum workplace_language, kruiscontrole_1). */

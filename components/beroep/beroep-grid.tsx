@@ -8,9 +8,12 @@ import { SectionHeading } from "@/components/sections/section-heading";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { Card } from "@/components/ui/card";
 import { IconTile } from "@/components/ui/icon-tile";
+import { bentoSlot, type BentoSlot } from "./bento";
+
+const SPAN: Record<BentoSlot, string> = { wide: "lg:col-span-3", narrow: "lg:col-span-2", full: "lg:col-span-6" };
 
 /**
- * Raster met de vijf beroepen (spec 05 §4.4.2). De hele kaart is één link met
+ * Raster met de beroepen (spec 05 §4.4.2). De hele kaart is één link met
  * de h3 als toegankelijke naam; geen geneste links.
  */
 export function BeroepGrid({
@@ -29,12 +32,16 @@ export function BeroepGrid({
   className?: string;
 }) {
   return (
-    <section id={id} className={cn("section scroll-mt-24", className)}>
+    <section id={id} className={cn("section section-rule scroll-mt-24", className)}>
       <div className="container">
         <SectionHeading title={heading} accent={accent} intro={intro} />
-        <RevealGroup className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:grid-cols-3 lg:gap-5">
-          {items.map((item) => (
-            <RevealItem key={item.id} className="h-full">
+        {/* Bento vanaf lg, net als op de homepage: brede kaarten boven en onder, rijen van drie ertussen. */}
+        <RevealGroup className="mt-10 grid gap-4 sm:grid-cols-2 md:mt-12 lg:grid-cols-6 lg:gap-5">
+          {items.map((item, i) => (
+            <RevealItem
+              key={item.id}
+              className={cn("h-full", SPAN[bentoSlot(i, items.length)], items.length % 2 === 1 && "sm:max-lg:last:col-span-2")}
+            >
               <Card variant="interactive" className="group h-full">
                 <IconTile icon={item.icon} />
                 <div className="grid gap-2">

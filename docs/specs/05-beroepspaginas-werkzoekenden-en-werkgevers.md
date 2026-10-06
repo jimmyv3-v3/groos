@@ -1047,7 +1047,7 @@ Boodschap: één duidelijke volgende stap, met de belofte als microcopy naast de
 
 - `search`: "call to action banner with two buttons"; "cta section centered title description buttons"; "simple cta block left aligned"; "inline link callout aside".
 - `get_inspiration`: "solid blue rounded call to action panel inside a white section, question headline, two buttons and one line of reassurance".
-- Specifiek: geen gradiënt of gloed; het vlak is het recept van spec 02 §4.13 (`surface-brand pattern-oo`).
+- Specifiek: geen gradiënt of gloed; het vlak is het recept van spec 02 §4.13 (`ColumnLines` met `surface-brand`). Sinds 3 oktober 2026 staan alle secties op wit met een haarlijn (`section-rule`) erboven in plaats van afwisselend `bg-ice`.
 
 | Id | Naam | Preview |
 |---|---|---|

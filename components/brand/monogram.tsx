@@ -1,6 +1,6 @@
 import { LogoMark } from "./logo-mark";
 
-/** Compatibiliteitswrapper rond LogoMark (de losse "oo"), spec 02 §4.11. */
+/** Compatibiliteitswrapper rond LogoMark (het losse beeldmerk), spec 02 §4.11. */
 export function Monogram({
   className,
   title,
@@ -9,5 +9,5 @@ export function Monogram({
   idSuffix?: string;
   title?: string;
 }) {
-  return <LogoMark variant="oo" className={className} title={title} />;
+  return <LogoMark variant="mark" className={className} title={title} />;
 }

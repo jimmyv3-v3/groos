@@ -99,14 +99,29 @@ export function StaffRequestForm({ locale, occupationOptions }: StaffRequestForm
       onFocus={onFirstInteraction}
       noValidate
       aria-labelledby="aanvragen-titel"
-      className="relative grid max-w-[36rem] gap-10"
+      className="relative grid max-w-[36rem] grid-cols-[minmax(0,1fr)] gap-10"
     >
       <ErrorSummary count={errorCount} text={t("common.errorSummary", { count: errorCount })} />
 
-      <FieldSet className="gap-6">
+      <FieldSet className="min-w-0 gap-6">
         <legend className={legendClasses}>{t("staffRequest.groups.company")}</legend>
-        <TextField {...field("companyName")} label={tf("companyName.label")} required autoComplete="organization" maxLength={120} />
-        <TextField {...field("contactName")} label={tf("contactName.label")} required autoComplete="name" maxLength={120} />
+        <TextField
+          {...field("companyName")}
+          label={tf("companyName.label")}
+          required
+          autoComplete="organization"
+          autoCorrect={false}
+          maxLength={120}
+        />
+        <TextField
+          {...field("contactName")}
+          label={tf("contactName.label")}
+          required
+          autoComplete="name"
+          autoCapitalize="words"
+          autoCorrect={false}
+          maxLength={120}
+        />
         <TextField
           {...field("phone")}
           label={tf("phone.label")}
@@ -138,7 +153,7 @@ export function StaffRequestForm({ locale, occupationOptions }: StaffRequestForm
         />
       </FieldSet>
 
-      <FieldSet className="gap-6">
+      <FieldSet className="min-w-0 gap-6">
         <legend className={legendClasses}>{t("staffRequest.groups.request")}</legend>
         <CheckboxGroupField
           key={preset.join(",")}
@@ -151,7 +166,13 @@ export function StaffRequestForm({ locale, occupationOptions }: StaffRequestForm
           defaultValue={preset}
           onValuesChange={() => onFieldChange("occupations")}
         />
-        <TextField {...field("occupationOther")} label={tf("occupationOther.label")} hint={tf("occupationOther.hint")} maxLength={120} />
+        <TextField
+          {...field("occupationOther")}
+          label={tf("occupationOther.label")}
+          hint={tf("occupationOther.hint")}
+          autoComplete="off"
+          maxLength={120}
+        />
         <TextField
           {...field("headcount")}
           defaultValue={str(values, "headcount") ?? "1"}
@@ -170,6 +191,9 @@ export function StaffRequestForm({ locale, occupationOptions }: StaffRequestForm
           legend={tf("start.legend")}
           error={errorText("start")}
           required
+          // Onder elkaar op een telefoon: naast elkaar breken deze labels in drie regels.
+          layout="stack"
+          gridFromSm
           defaultValue={str(values, "start")}
           options={[
             { value: "asap", label: tf("start.asap") },
@@ -211,7 +235,15 @@ export function StaffRequestForm({ locale, occupationOptions }: StaffRequestForm
           max="60"
           className="sm:max-w-xs"
         />
-        <TextField {...field("workCity")} label={tf("workCity.label")} required autoComplete="off" maxLength={80} />
+        <TextField
+          {...field("workCity")}
+          label={tf("workCity.label")}
+          required
+          autoComplete="off"
+          autoCapitalize="words"
+          autoCorrect={false}
+          maxLength={80}
+        />
         <TextareaField
           {...field("description")}
           label={tf("description.label")}

@@ -4,7 +4,7 @@ import { contact } from "@/lib/site";
 
 /** Afzender, reply-to en verzendmodus (spec 11 §4.4). */
 
-export const EMAIL_FROM_DEFAULT = "Groos Personeelsdiensten <website@mail.groospersoneelsdiensten.nl>";
+export const EMAIL_FROM_DEFAULT = "Groos Personeelsdiensten <noreply@mail.groospersoneelsdiensten.nl>";
 export const EMAIL_REPLY_TO: string = contact.email;
 
 export type EmailMode =

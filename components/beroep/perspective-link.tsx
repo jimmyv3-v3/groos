@@ -18,11 +18,13 @@ export function PerspectiveLink({
   return (
     <div className={cn("section-tight", className)}>
       <div className="container">
-        <aside className="flex flex-col gap-3 border-l-2 border-brand pl-5 md:flex-row md:items-center md:justify-between md:gap-8">
+        <aside className="flex flex-col gap-1 border-l-2 border-brand pl-5 md:flex-row md:items-center md:justify-between md:gap-8">
           <p className="max-w-[60ch] text-base text-foreground">{text}</p>
-          <Link href={href} className="link inline-flex min-h-11 shrink-0 items-center gap-2 font-medium">
+          {/* Inline, zodat de pijl bij het laatste woord blijft als de link over twee regels loopt. */}
+          <Link href={href} className="link inline-block py-2.5 font-medium md:shrink-0">
             {linkLabel}
-            <ArrowRight className="size-4" aria-hidden="true" />
+            {"\u00A0"}
+            <ArrowRight className="inline size-4 align-[-0.125em]" aria-hidden="true" />
           </Link>
         </aside>
       </div>

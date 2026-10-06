@@ -9,13 +9,13 @@ import { S } from "../../../_strings";
 
 export const metadata: Metadata = { title: S.auth.enroll.metaTitle };
 
-/** /beheer/mfa/koppelen: alleen voor een aal1-sessie zonder geverifieerde factor (spec 08 §4.5). */
+/** /beheer/mfa/koppelen: vrijwillig, voor een beheerder zonder geverifieerde factor (spec 08 §4.5, B-62). */
 export default async function MfaEnrollPage() {
   const state = await getSessionState();
   if (state.kind === "none") redirect(beheerPaths.login);
-  if (state.kind === "admin") redirect(beheerPaths.home);
   if (state.kind === "inactive") redirect(beheerPaths.noAccess);
-  if (state.hasVerifiedFactor) redirect(beheerPaths.mfa);
+  if (state.kind === "aal1") redirect(beheerPaths.mfa);
+  if (state.mfaEnabled) redirect(beheerPaths.home);
 
   return (
     <AuthCard

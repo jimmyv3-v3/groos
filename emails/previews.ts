@@ -1,6 +1,7 @@
 import type { EmailTemplateName } from "@/lib/email/types";
-import { formatTime } from "@/lib/format";
+import { formatDate, formatTime } from "@/lib/format";
 import { contact, site } from "@/lib/site";
+import { DELIVERY_FAILURE_MAIL_LABELS } from "./delivery-failure-notification";
 import type { EmailCompany, EmailLinks, EmailLocale } from "./types";
 
 /**
@@ -200,6 +201,52 @@ export function previewProps(
         hasMessage: variant !== "callback",
         formLocale,
         beheerLink: `${ORIGIN}/beheer/berichten/00000000-0000-4000-8000-000000000001`,
+      };
+    // De variant "callback" toont de tekst voor een inschrijving zonder vacature.
+    case "application-invitation":
+      return {
+        locale,
+        company,
+        greetingName,
+        reference: "S-2026-0001",
+        vacancyTitle: variant === "callback" ? null : "Glazenwasser",
+        dateLabel: formatDate("2026-11-02", locale, { weekday: true }),
+        timeLabel: formatTime("14:30", locale),
+        links,
+      };
+    case "application-rejection":
+      return {
+        locale,
+        company,
+        greetingName,
+        reference: "S-2026-0001",
+        vacancyTitle: variant === "callback" ? null : "Glazenwasser",
+        retentionConsent: variant === "consent",
+        links,
+      };
+    case "application-placement":
+      return {
+        locale,
+        company,
+        greetingName,
+        reference: "S-2026-0001",
+        vacancyTitle: variant === "callback" ? null : "Glazenwasser",
+        links,
+      };
+    case "delivery-failure-notification":
+      return {
+        locale: "nl",
+        company,
+        mailLabel:
+          variant === "callback"
+            ? DELIVERY_FAILURE_MAIL_LABELS["contact-confirmation"]
+            : DELIVERY_FAILURE_MAIL_LABELS["application-confirmation"],
+        subjectLabel: variant === "callback" ? "het bericht van Test Kandidaat" : "S-2026-0001",
+        reason: variant === "claims" ? "suppressed" : variant === "consent" ? "failed" : "bounced",
+        beheerLink:
+          variant === "callback"
+            ? `${ORIGIN}/beheer/berichten/00000000-0000-4000-8000-000000000001`
+            : `${ORIGIN}/beheer/sollicitaties/S-2026-0001`,
       };
   }
 }

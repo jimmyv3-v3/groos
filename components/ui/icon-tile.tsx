@@ -10,7 +10,7 @@ type IconTileProps = {
 
 const SIZES = { md: "size-11 rounded-lg [&_svg]:size-5", lg: "size-14 rounded-xl [&_svg]:size-6" };
 const TONES = {
-  tint: "bg-brand-tint text-brand",
+  tint: "bg-brand-tint text-brand ring-1 ring-inset ring-brand/10",
   brand: "bg-primary text-primary-foreground",
   plain: "text-brand",
 };

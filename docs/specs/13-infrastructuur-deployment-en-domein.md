@@ -1228,8 +1228,9 @@ bij STRATO uitzetten en 48 uur wachten tot de DS-record bij SIDN weg is
 `ns1.vercel-dns.com` en `ns2.vercel-dns.com`; (4) E7 opnieuw. Deze route
 noteert de bouw-agent als afwijking in spec 00, met reden.
 
-**E9 Domein zonder "s"** (aanbeveling, niet blokkerend). [Jimmy] registreert
-`groospersoneeldiensten.nl` bij STRATO en Djulan voegt het in Vercel toe als
+**E9 Domein zonder "s"** (aanbeveling, niet blokkerend). De variant van het
+domein zonder "s" na "personeel" is al geregistreerd (DNS bij Mijndomein) en
+staat op het Vercel-project. Djulan zet die variant in Vercel om naar een
 redirect (308) naar `www.groospersoneelsdiensten.nl`. Dat vangt typefouten in
 de briefing en op visitekaartjes op.
 
@@ -1308,7 +1309,7 @@ mee. Bing Places later vanuit het Bedrijfsprofiel importeren.
 | Categorie | primair "Uitzendbureau" |
 | Adres | Hugo Coenraadspad 6, 2553 ER Den Haag invoeren voor verificatie, daarna verbergen (B-23) |
 | Servicegebied | Den Haag, tot de claim `workArea` bevestigd is (B-43); daarna ook Rijswijk, Delft, Westland, Zoetermeer, Leidschendam-Voorburg en Wassenaar |
-| Telefoon | 06 83 35 19 85 (B-21) |
+| Telefoon | 06 52 54 95 39 (B-66) |
 | Website | `https://www.groospersoneelsdiensten.nl/?utm_source=google&utm_medium=organic&utm_campaign=bedrijfsprofiel` |
 | Openingstijden | pas invullen als B-22 bevestigd is |
 | Diensten | de vijf beroepen in het meervoud uit spec 00 §4.2 |

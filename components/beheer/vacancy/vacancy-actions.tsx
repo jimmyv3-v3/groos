@@ -187,84 +187,89 @@ export function VacancyActions({
   const buttons = variant === "buttons" ? entries.filter((e) => PRIMARY.includes(e.key)).slice(0, 3) : [];
   const menuEntries = entries.filter((e) => !buttons.includes(e));
 
-  const menu = menuEntries.length > 0 && (
-    <Menu>
-      <MenuTrigger
-        aria-label={fill(A.menu, { titel: vacancy.title })}
-        className={ctaButtonVariants({ variant: variant === "menu" ? "ghost" : "secondary", size: variant === "menu" ? "icon" : "default" })}
-      >
-        <MoreHorizontal aria-hidden="true" />
-        {variant === "buttons" && S.common.actions}
-      </MenuTrigger>
-      <MenuContent>
-        {menuEntries.map((e, i) => {
-          const separator = e.kind === "run" && e.destructive && i > 0 ? <MenuSeparator key={`sep-${e.key}`} /> : null;
-          const content = (
-            <>
-              <e.icon aria-hidden="true" />
-              {e.label}
-            </>
-          );
-          if (e.kind === "link") {
-            return (
-              <MenuItem
-                key={e.key}
-                render={
-                  e.external ? (
-                    <a href={e.href} target="_blank" rel="noopener noreferrer" />
-                  ) : (
-                    <Link href={e.href} />
-                  )
-                }
-              >
-                {content}
-              </MenuItem>
+  const renderMenu = (list: Entry[]) =>
+    list.length > 0 && (
+      <Menu>
+        <MenuTrigger
+          aria-label={fill(A.menu, { titel: vacancy.title })}
+          className={ctaButtonVariants({ variant: variant === "menu" ? "ghost" : "secondary", size: variant === "menu" ? "icon" : "default" })}
+        >
+          <MoreHorizontal aria-hidden="true" />
+          {variant === "buttons" && S.common.actions}
+        </MenuTrigger>
+        <MenuContent>
+          {list.map((e, i) => {
+            const separator = e.kind === "run" && e.destructive && i > 0 ? <MenuSeparator key={`sep-${e.key}`} /> : null;
+            const content = (
+              <>
+                <e.icon aria-hidden="true" />
+                {e.label}
+              </>
             );
-          }
-          return [
-            separator,
-            <MenuItem key={e.key} onClick={e.run} className={e.destructive ? "text-destructive [&_svg]:text-destructive" : undefined}>
-              {content}
-            </MenuItem>,
-          ];
-        })}
-      </MenuContent>
-    </Menu>
-  );
+            if (e.kind === "link") {
+              return (
+                <MenuItem
+                  key={e.key}
+                  render={
+                    e.external ? (
+                      <a href={e.href} target="_blank" rel="noopener noreferrer" />
+                    ) : (
+                      <Link href={e.href} />
+                    )
+                  }
+                >
+                  {content}
+                </MenuItem>
+              );
+            }
+            return [
+              separator,
+              <MenuItem key={e.key} onClick={e.run} className={e.destructive ? "text-destructive [&_svg]:text-destructive" : undefined}>
+                {content}
+              </MenuItem>,
+            ];
+          })}
+        </MenuContent>
+      </Menu>
+    );
 
   return (
     <>
       {variant === "buttons" ? (
         <div className="flex flex-wrap gap-2">
-          {buttons.map((e) =>
-            e.kind === "link" ? (
-              e.external ? (
-                <a key={e.key} href={e.href} target="_blank" rel="noopener noreferrer" className={ctaButtonVariants({ variant: "secondary" })}>
-                  <e.icon aria-hidden="true" />
-                  {e.label}
-                </a>
+          {/* Op een telefoon staan alle acties in één menu, zodat het formulier direct onder de kop begint. */}
+          <div className="sm:hidden">{renderMenu(entries)}</div>
+          <div className="hidden sm:contents">
+            {buttons.map((e) =>
+              e.kind === "link" ? (
+                e.external ? (
+                  <a key={e.key} href={e.href} target="_blank" rel="noopener noreferrer" className={ctaButtonVariants({ variant: "secondary" })}>
+                    <e.icon aria-hidden="true" />
+                    {e.label}
+                  </a>
+                ) : (
+                  <Link key={e.key} href={e.href} className={ctaButtonVariants({ variant: "secondary" })}>
+                    <e.icon aria-hidden="true" />
+                    {e.label}
+                  </Link>
+                )
               ) : (
-                <Link key={e.key} href={e.href} className={ctaButtonVariants({ variant: "secondary" })}>
+                <button
+                  key={e.key}
+                  type="button"
+                  onClick={e.run}
+                  className={ctaButtonVariants({ variant: e.key === "publish" || e.key === "publishNow" ? "primary" : "secondary" })}
+                >
                   <e.icon aria-hidden="true" />
                   {e.label}
-                </Link>
-              )
-            ) : (
-              <button
-                key={e.key}
-                type="button"
-                onClick={e.run}
-                className={ctaButtonVariants({ variant: e.key === "publish" || e.key === "publishNow" ? "primary" : "secondary" })}
-              >
-                <e.icon aria-hidden="true" />
-                {e.label}
-              </button>
-            ),
-          )}
-          {menu}
+                </button>
+              ),
+            )}
+            {renderMenu(menuEntries)}
+          </div>
         </div>
       ) : (
-        menu
+        renderMenu(menuEntries)
       )}
       <VacancyDialogs vacancy={vacancy} open={dialog} onOpenChange={setDialog} />
     </>

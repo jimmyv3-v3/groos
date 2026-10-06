@@ -51,10 +51,13 @@ export function VacancyFilterSheet({ action, groups, hidden, activeCount, showRe
             labels={{ heading: labels.heading, apply: labels.apply }}
           />
         </div>
-        <SheetFooter>
-          <CtaButton href={clearHref} variant="secondary" className="flex-1 px-3" onClick={() => setOpen(false)}>
-            {labels.clearAll}
-          </CtaButton>
+        {/* flex-wrap: op een smalle telefoon passen de twee knoppen niet naast elkaar en komen ze onder elkaar. */}
+        <SheetFooter className="flex-wrap pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+          {activeCount > 0 && (
+            <CtaButton href={clearHref} variant="secondary" className="flex-1 px-3" onClick={() => setOpen(false)}>
+              {labels.clearAll}
+            </CtaButton>
+          )}
           <CtaButton className="flex-1 px-3 tabular-nums" onClick={() => setOpen(false)}>
             {showResultsLabel}
           </CtaButton>

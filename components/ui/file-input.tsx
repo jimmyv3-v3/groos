@@ -92,7 +92,7 @@ function FileInput({
     <div
       data-slot="file-input"
       className={cn(
-        "flex min-h-20 items-center gap-4 rounded-xl border-2 border-dashed border-border-strong bg-muted/60 p-4 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring",
+        "relative flex min-h-20 items-center gap-4 rounded-xl border-2 border-dashed border-border-strong bg-muted/60 p-4 transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-ring",
         file && "border-solid border-brand bg-brand-tint",
         invalid && "border-destructive",
         disabled && "opacity-60",
@@ -100,7 +100,14 @@ function FileInput({
       )}
     >
       <IconTile icon={file ? FileText : Upload} tone={file ? "brand" : "tint"} />
-      <label htmlFor={id} className="flex min-w-0 flex-1 cursor-pointer flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
+      {/* Zonder bestand is de hele zone het tikdoel (after: over de container). */}
+      <label
+        htmlFor={id}
+        className={cn(
+          "flex min-w-0 flex-1 cursor-pointer flex-col gap-1 sm:flex-row sm:items-center sm:gap-4",
+          !file && "after:absolute after:inset-0 after:rounded-xl",
+        )}
+      >
         <input
           ref={inputRef}
           id={id}
@@ -116,7 +123,7 @@ function FileInput({
         />
         {file ? (
           <span className="grid min-w-0 gap-0.5">
-            <span className="truncate text-base font-medium text-foreground">{file.name}</span>
+            <span className="line-clamp-2 text-base font-medium wrap-anywhere text-foreground">{file.name}</span>
             <span className="text-sm tabular-nums text-muted-foreground">
               {formatSize(file.size)} · <span className="text-brand underline underline-offset-4">{labels.change}</span>
             </span>

@@ -20,7 +20,7 @@ Deze module levert de homepage (`/` en `/en`) en de pagina `/over-ons`. De homep
 **Opdrachtgever**
 
 - S-04-05 Een planner van een verhuisbedrijf opent `/` op zijn laptop, klikt in het blok "Ik zoek personeel" op "Personeel aanvragen" en komt op `/werkgevers/personeel-aanvragen`.
-- S-04-06 Een facilitair manager op zijn telefoon tikt in hetzelfde blok op "Bel ons" en belt het hoofdnummer 06 83 35 19 85.
+- S-04-06 Een facilitair manager op zijn telefoon tikt in hetzelfde blok op "Bel ons" en belt het hoofdnummer 06 52 54 95 39.
 - S-04-07 Een opdrachtgever kiest in het vragenblok "Werkgevers" en leest dat een uitzendkracht hetzelfde loon krijgt als zijn vaste mensen.
 - S-04-08 Een opdrachtgever wil weten met wie hij te maken krijgt. Hij leest op `/over-ons` dat Jimmy en Lorenzo Groos samen leiden, ziet hun nummers en leest dat langskomen op afspraak kan.
 
@@ -131,6 +131,17 @@ Elke sectie (behalve de hero) is een `<section aria-labelledby="<kop-id>">` met 
 
 ### 4.3 Homepage per sectie
 
+#### 4.3.0 Visuele herziening van 3 oktober 2026
+
+Na de feedback van de eigenaar op de eerste bouw gelden deze regels boven de recepten hieronder; inhoud, sleutels, ankers en koppenstructuur zijn ongewijzigd.
+
+- **Eén achtergrond.** De homepage en `/over-ons` staan volledig op wit. Geen sectie heeft `bg-ice` of een andere band; alleen de footer is grijs. De blauwe afsluiter is een kaart op wit.
+- **Hero.** Kop en intro links, zoals in het recept. De twee deuren zijn twee losse witte kaarten met een rand (`rounded-2xl border border-border bg-card shadow-xs`), naast elkaar vanaf `md` met `gap-6`, onder elkaar op mobiel met `gap-3`, elk met een `IconTile` naast de deurkop vanaf `md`. Achtergrond via de prop `background` van `HomeHero`: `"none"` (standaard, wit), `"grid"` (fijn raster rechtsboven) of `"glow"` (zachte gloed in de blauwtint rechts); de eigenaar kiest. Op 390 bij 844 liggen beide hoofdknoppen boven de vaste actiebalk (onderkant van "Personeel aanvragen" op 749 px, actiebalk vanaf 771 px).
+- **Vacatures.** Een eigen sectie: kop en intro, daaronder de kaarten of de lege staat, en daaronder de link `common.cta.viewAllJobs` met een pijl rechts (`LatestVacancies` met `viewAllPosition="below"`). De link staat ook onder de lege staat.
+- **Beroepen.** Bento vanaf `lg`: twee brede kaarten (elk zes kolommen, met een uitlopend stippenraster rechtsboven) en drie smalle (elk vier kolommen). De twee perspectieven staan als rijen in de voet van elke kaart, gescheiden door haarlijnen.
+- **Werkwijze.** Naast de sectiekop staat de visual `StaffingFlow` als eigen blok; daaronder de twee sporen als kaarten met genummerde cirkels en een verbindingslijn.
+- **Waarom Groos en werkwijze op /over-ons.** Eén paneel met haarlijnen tussen de cellen in plaats van losse kaarten.
+
 #### 4.3.1 Hero met twee deuren (`HomeHero`)
 
 **Doel.** In één scherm laten zien wat Groos is en elke bezoeker de juiste deur geven. Het merkidee "trots op goed werk" komt hier niet als slogan terug, maar in rust en feiten.
@@ -161,7 +172,7 @@ De deurkoppen zijn h2, omdat elke deur een eigen deel van de pagina is met een e
     <h1 id="home-titel" className="text-hero max-w-[22ch]">…</h1>
     <p className="mt-4 max-w-[60ch] text-lead text-muted-foreground">…</p>
     <div className="mt-6 grid gap-3 md:mt-10 md:grid-cols-2 md:gap-6">
-      <div className="pattern-oo flex flex-col rounded-2xl bg-brand-tint p-5 md:p-8" aria-labelledby="deur-werk">   deur 1
+      <div className="flex flex-col rounded-2xl border border-border bg-card p-4 shadow-xs sm:p-5 md:p-8" aria-labelledby="deur-werk">   deur 1
         <h2 id="deur-werk" className="text-h3">…</h2>
         <p className="mt-2">…</p>
         <CtaButton className="mt-4 w-full sm:w-auto">…</CtaButton>
@@ -169,7 +180,7 @@ De deurkoppen zijn h2, omdat elke deur een eigen deel van de pagina is met een e
           <li><CtaButton variant="secondary" size="sm" href={paths.werkenAls(id)}>{icoon}{enkelvoud}</CtaButton></li> × 5
         </ul>
       </div>
-      <div className="pattern-oo flex flex-col rounded-2xl bg-brand-tint p-5 md:p-8" aria-labelledby="deur-personeel">   deur 2
+      <div className="flex flex-col rounded-2xl border border-border bg-card p-4 shadow-xs sm:p-5 md:p-8" aria-labelledby="deur-personeel">   deur 2
         <h2 id="deur-personeel" className="text-h3">…</h2>
         <p className="mt-2">…</p>
         <div className="mt-4 flex flex-col gap-3 sm:flex-row">
@@ -1039,7 +1050,7 @@ De pagina rendert `Organization` en `WebSite` niet nog een keer. `faqLd` krijgt 
 **Bediening**
 
 - Alle knoppen en links via `CtaButton` of `Link` met zichtbare focus (spec 02). Klikdoelen minstens 44 px op 390 px, ook de tekstlinks in de beroepenkaarten (`min-h-11`).
-- De belknoppen hebben `aria-label` "Bel ons op 06 83 35 19 85" (`header.callAria`). WhatsApp-links in `ContactPersonCard` melden een nieuw venster (spec 07, `common.opensInNewTab`).
+- De belknoppen hebben `aria-label` "Bel ons op 06 52 54 95 39" (`header.callAria`). WhatsApp-links in `ContactPersonCard` melden een nieuw venster (spec 07, `common.opensInNewTab`).
 - Het vragenblok is een `fieldset` met `legend` en twee native keuzerondjes; pijltjes wisselen de set, de focusring staat op het label via `has-[:focus-visible]`.
 - De horizontaal scrollende beroepenrij in de hero bestaat uit links; Tab brengt elke link in beeld. Er is geen verborgen inhoud.
 
@@ -1262,21 +1273,21 @@ Alle criteria gelden op localhost met `npm run build && npm run start` tegen `gr
 |---|---|---|
 | AC-04-01 | `GET /`, `/en`, `/over-ons` en `/en/over-ons` geven 200; elk heeft precies één `<h1>`. Op `/` is de h1-tekst "Uitzendbureau in Den Haag voor praktisch werk", op `/en` "Employment agency in The Hague for hands-on work". | E-04-01, E-04-10 |
 | AC-04-02 | Op 390 bij 844 px ligt de onderkant van de knop met `href` `/vacatures` in deur 1 en van de knop met `href` `/werkgevers/personeel-aanvragen` in deur 2 binnen 844 px vanaf de bovenkant van de pagina (`getBoundingClientRect().bottom + scrollY <= 844` zonder te scrollen). | E-04-01 |
-| AC-04-03 | `section[aria-labelledby="home-titel"]` bevat twee `h2`'s "Ik zoek werk" en "Ik zoek personeel", vijf links naar `/werken-als/glazenwasser`, `/werken-als/schoonmaker`, `/werken-als/logistiek-medewerker`, `/werken-als/verhuizer` en `/werken-als/hulpkracht-bouw-en-sloop` in die volgorde, een link naar `/werkgevers/personeel-aanvragen` en een link met `href="tel:+31683351985"` en `aria-label` "Bel ons op 06 83 35 19 85". | E-04-01 |
+| AC-04-03 | `section[aria-labelledby="home-titel"]` bevat twee `h2`'s "Ik zoek werk" en "Ik zoek personeel", vijf links naar `/werken-als/glazenwasser`, `/werken-als/schoonmaker`, `/werken-als/logistiek-medewerker`, `/werken-als/verhuizer` en `/werken-als/hulpkracht-bouw-en-sloop` in die volgorde, een link naar `/werkgevers/personeel-aanvragen` en een link met `href="tel:+31652549539"` en `aria-label` "Bel ons op 06 52 54 95 39". | E-04-01 |
 | AC-04-04 | Met de seed van spec 10 bevat `#vacatures` een `h2`, vier kaarten met een link naar `/vacatures/<slug>` en een link naar `/vacatures`. Na het sluiten van alle seedvacatures in `groos-dev` en `curl -X POST -H "Authorization: Bearer $CRON_SECRET" -H 'content-type: application/json' -d '{"numbers":[],"kind":"visibility"}' http://localhost:3000/api/dev/revalidate` (spec 10, B-35, B-46) toont `#vacatures` de tekst van `home.vacatures.emptyJobseeker` en een link naar `/inschrijven`, en blijft de sectie op dezelfde plek; daarna `npm run db:seed:reset`. | E-04-02, E-04-14 |
 | AC-04-05 | Na het publiceren van een nieuwe vacature in `/beheer` (spec 08) staat die vacature na het eerstvolgende verzoek als eerste kaart in `#vacatures` op `/` en `/en`, zonder `npm run build`. | E-04-14 |
 | AC-04-06 | `#beroepen` bevat vijf `h3`'s in de volgorde Glazenwasser, Schoonmaker, Logistiek medewerker, Verhuizer, Hulpkracht bouw en sloop, en tien links: de vijf `/werken-als/<slug>` met tekst "Werken als <naam in kleine letters>" en de vijf `/werkgevers/<meervoudsslug>` met tekst "Huur <meervoud in kleine letters> in". | E-04-03 |
 | AC-04-07 | `#zo-werkt-het` bevat twee `h3`'s ("Voor werkzoekenden", "Voor werkgevers") en twee `ol`'s met elk drie `li`'s; de cijfers hebben `aria-hidden="true"`. In het eerste spoor komt geen los woord "u" of "uw" voor, in het tweede geen los woord "je", "jij" of "jouw". | E-04-04 |
 | AC-04-08 | `document.querySelector("main").innerText` op `/` en `/over-ons` (beide talen) bevat geen van: "24/7", "dag en nacht", "binnen één werkdag", "binnen 24 uur", "keurmerk", "cao", "Wtta", "NEN", "SNA", "ABU", "NBBU", "Versseput", "Wilk", en geen getal gevolgd door "+" of "%". | E-04-05, E-04-09 |
-| AC-04-09 | `#contactpersonen` op `/` en `/over-ons` bevat één contactblok met een link `tel:+31683351985`, precies één link die begint met `https://wa.me/31683351985`, een `mailto:`-link en geen `img`; de namen Jimmy en Lorenzo en het nummer 06 52 54 95 39 staan nergens op de pagina (B-60). `#contactpersonen` op `/` linkt naar `/over-ons`. | E-04-06 |
+| AC-04-09 | `#contactpersonen` op `/` en `/over-ons` bevat één contactblok met een link `tel:+31652549539`, precies één link die begint met `https://wa.me/31652549539`, een `mailto:`-link en geen `img`; de namen Jimmy en Lorenzo en het nummer 06 52 54 95 39 staan nergens op de pagina (B-60). `#contactpersonen` op `/` linkt naar `/over-ons`. | E-04-06 |
 | AC-04-10 | In `#veelgestelde-vragen` zijn na het laden vijf `details` zichtbaar met de vragen voor werkzoekenden. Na een klik op het label "Werkgevers" zijn vijf andere `details` zichtbaar en de eerste vijf niet. Dit werkt ook met `javaScriptEnabled: false`. De HTML van `/` bevat alle tien vragen en antwoorden. | E-04-07 |
 | AC-04-11 | Met alleen het toetsenbord: Tab bereikt het gekozen keuzerondje "Werkzoekenden" met een zichtbare focusring, pijl rechts kiest "Werkgevers" en toont die set, Tab bereikt daarna de eerste werkgeversvraag en Enter klapt die open. | E-04-07 |
-| AC-04-12 | De JSON-LD van `/` bevat precies één `EmploymentAgency` (met `address.streetAddress` "Hugo Coenraadspad 6" en `telephone` "+31683351985"), één `FAQPage` met tien `Question`-items waarvan elke `name` letterlijk als vraag in de pagina staat, en één `Organization` en één `WebSite` (uit de layout). `/en` heeft dezelfde blokken met de Engelse vragen. | E-04-11 |
+| AC-04-12 | De JSON-LD van `/` bevat precies één `EmploymentAgency` (met `address.streetAddress` "Hugo Coenraadspad 6" en `telephone` "+31652549539"), één `FAQPage` met tien `Question`-items waarvan elke `name` letterlijk als vraag in de pagina staat, en één `Organization` en één `WebSite` (uit de layout). `/en` heeft dezelfde blokken met de Engelse vragen. | E-04-11 |
 | AC-04-13 | De `<title>` van `/` is "Uitzendbureau in Den Haag \| Groos Personeelsdiensten"; van `/over-ons` "Over ons \| Groos Personeelsdiensten"; van `/en/over-ons` "About us \| Groos Personeelsdiensten". Beide pagina's hebben een canonical naar zichzelf en `link[rel=alternate]` voor nl, en en x-default; de meta description van `/over-ons` is 139 tekens en van `/en/over-ons` 148 tekens. | E-04-11 |
 | AC-04-14 | `/over-ons` heeft een `nav[aria-label="Kruimelpad"]` met Home en Over ons, één `BreadcrumbList` met twee items en de secties `#verhaal`, `#contactpersonen`, `#werkgebied`, `#werkwijze` en `#contact` in die volgorde. | E-04-09, E-04-11 |
 | AC-04-15 | `#werkgebied` op `/over-ons` bevat een `address` met "Hugo Coenraadspad 6", "2553 ER Den Haag" en "Langskomen kan alleen op afspraak.". Met `workArea` op `false` staat "Zoetermeer" niet op de pagina; met `workArea` tijdelijk op `true` staan de negen plaatsen er wel. | E-04-09, E-04-05 |
 | AC-04-16 | Met `foundingStory` op `false` staat de tekst "TODO" nergens in de HTML van `/over-ons` en bevat `#verhaal` precies de drie alinea's van `about.story.paragraphs`; `messages/nl/about.json` en `messages/en/about.json` hebben geen sleutel `story.founding`; `npm run check -- --warn` noemt de TODO-regel van `foundingStory` in `lib/claims.ts`. | E-04-05, E-04-09 |
-| AC-04-17 | Op `/` en `/over-ons` heeft precies één element de klasse `surface-brand`; binnen dat element staan twee knoppen (`data-slot="cta-button"`) en een link `tel:+31683351985`. | E-04-08, E-04-16 |
+| AC-04-17 | Op `/` en `/over-ons` heeft precies één element de klasse `surface-brand`; binnen dat element staan twee knoppen (`data-slot="cta-button"`) en een link `tel:+31652549539`. | E-04-08, E-04-16 |
 | AC-04-18 | `npm run check -- --warn` meldt geen sleutelverschil tussen nl en en; `npm run check:copy` meldt geen fouten in `home` en `about`; de sleutelpaden van `home` en `about` in beide bestanden zijn exact die van §6.2. | E-04-10 |
 | AC-04-19 | De bestanden `components/sections/{hero,clients,segment-accordion,metrics,trust-bar,service-ticker,process,projects,proof,assurance,about,faq}.tsx`, `components/ui/marquee.tsx` en `components/motion/count-up.tsx` bestaan niet; `grep -nE "metrics\|usps\|segments\|assurances\|certification\|clients\|projectPhotos" lib/site.ts` geeft niets; `messages/nl/home.json` en `messages/en/home.json` bevatten geen sleutel `metricLabels`, `trustBar`, `ticker`, `servicesSection`, `projects`, `proof`, `assurance` of `contactForm`. | E-04-12 |
 | AC-04-20 | `grep -rln '"use client"' components/sections/home components/sections/about components/sections/cta-band.tsx` geeft niets; `grep -rn "framer-motion" app components` geeft niets. | E-04-13 |
